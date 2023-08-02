@@ -1,0 +1,102 @@
+name: owl_hris
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.1.0-143.0.dev <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+  ## SVG
+  flutter_svg: ^2.0.2
+
+  ## State Management
+  flutter_bloc: ^8.1.2
+
+  ## Comparing Dart Object
+  equatable: ^2.0.5
+
+  ## Service Locator
+  get_it: ^7.6.0
+
+  ## DateFormat
+  intl: ^0.18.1
+
+  ## Database
+  floor: ^1.4.2
+
+  ## Request Api
+  retrofit: ^4.0.1
+
+  ## Functional Programming
+  dartz: ^0.10.1
+
+  ## Hooks
+  flutter_hooks: ^0.18.3
+
+  ## Cached Image
+  cached_network_image: ^3.2.0
+
+  ## Json
+  json_serializable: ^6.7.1
+
+  ## Screen Util
+  flutter_screenutil: ^5.8.4
+
+  ## Navigation Router
+  go_router: ^10.0.0
+
+  ## Mock Testing
+  mockito: ^5.4.2
+
+  ## Internationalization
+  flutter_localizations:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  retrofit_generator: ^7.0.8
+  floor_generator: ^1.4.2
+  build_runner: ^2.4.6
+  test: ^1.24.2
+
+flutter:
+  generate: true
+  uses-material-design: true
+
+  assets:
+    - assets/font/
+    - assets/image/
+    - assets/icons/
+
+fonts:
+  - family: Inter
+    fonts:
+      - asset: assets/font/Inter-Regular.ttf
+        weight: 400
+      - asset: assets/font/Inter-Medium.ttf
+        weight: 500
+      - asset: assets/font/Inter-Light.ttf
+        weight: 300
+      - asset: assets/font/Inter-ExtraLight.ttf
+        weight: 200
+      - asset: assets/font/Inter-ExtraBold.ttf
+        weight: 800
+      - asset: assets/font/Inter-SemiBold.ttf
+        weight: 600
+      - asset: assets/font/Inter-Thin.ttf
+        weight: 100
+      - asset: assets/font/Inter-Bold.ttf
+        weight: 700
+      - asset: assets/font/Inter-Black.ttf
+        weight: 900
