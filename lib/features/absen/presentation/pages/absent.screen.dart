@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,6 +7,7 @@ import 'package:owl_hris/config/themes/colors.dart';
 import '../../../../core/utils/common.widgets.dart';
 import '../widgets/datetime.component.dart';
 
+@RoutePage()
 class AbsentScreen extends StatefulWidget {
   const AbsentScreen({super.key});
 
@@ -16,7 +18,7 @@ class AbsentScreen extends StatefulWidget {
 class _AbsentScreenState extends State<AbsentScreen> {
   @override
   Widget build(BuildContext context) {
-    _buildAppBar() {
+    buildAppBar() {
       return AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -59,7 +61,7 @@ class _AbsentScreenState extends State<AbsentScreen> {
     }
 
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: buildAppBar(),
       endDrawer: const AppNavigationDrawer(),
       body: SafeArea(
         child: Column(

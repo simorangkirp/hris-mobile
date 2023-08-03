@@ -7,15 +7,15 @@ part of 'login.services.dart';
 // **************************************************************************
 
 LoginParam _$LoginParamFromJson(Map<String, dynamic> json) => LoginParam(
-      namauser: json['namauser'] as String?,
-      password: json['password'] as String?,
-      onmobile: json['onmobile'] as String?,
+      json['namauser'] as String?,
+      json['password'] as String?,
+      json['onmobile'] as String?,
     );
 
 Map<String, dynamic> _$LoginParamToJson(LoginParam instance) =>
     <String, dynamic>{
-      'namauser': instance.namauser,
-      'password': instance.password,
+      'namauser': instance.userNm,
+      'password': instance.pwd,
       'onmobile': instance.onmobile,
     };
 
@@ -38,7 +38,7 @@ class _LoginAPIServices implements LoginAPIServices {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<LoginModel>> loginUser({LoginParam? param}) async {
+  Future<HttpResponse<LoginModel>> loginUser(LoginParam? param) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -53,7 +53,7 @@ class _LoginAPIServices implements LoginAPIServices {
     )
             .compose(
               _dio.options,
-              'auth/login',
+              'http://182.23.67.40:8083/officeapi/auth/login',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -62,7 +62,7 @@ class _LoginAPIServices implements LoginAPIServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = LoginModel.fromJson(_result.data!);
+    final value = LoginModel.fromJson(_result.data!['data']);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

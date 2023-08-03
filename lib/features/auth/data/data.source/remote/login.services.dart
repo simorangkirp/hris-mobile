@@ -8,21 +8,35 @@ part 'login.services.g.dart';
 
 @RestApi(baseUrl: baseUrl)
 abstract class LoginAPIServices {
-  factory LoginAPIServices(Dio dio) = _LoginAPIServices;
+  factory LoginAPIServices(Dio dio, {String baseUrl}) = _LoginAPIServices;
 
-  @POST('auth/login')
-  Future<HttpResponse<LoginModel>> loginUser({@Body() LoginParam? param});
+  @POST('${baseUrl}auth/login')
+  Future<HttpResponse<LoginModel>> loginUser(@Body() LoginParam? param);
 }
 
 @JsonSerializable()
 class LoginParam {
-  String? namauser;
-  String? password;
+  @JsonKey(name: 'namauser')
+  String? userNm;
+  @JsonKey(name: 'password')
+  String? pwd;
+  @JsonKey(name: 'onmobile')
   String? onmobile;
 
-  LoginParam({this.namauser, this.password, this.onmobile});
-
+  LoginParam(this.userNm, this.pwd, this.onmobile);
   factory LoginParam.fromJson(Map<String, dynamic> json) =>
       _$LoginParamFromJson(json);
   Map<String, dynamic> toJson() => _$LoginParamToJson(this);
 }
+
+// class LoginParam {
+//   String? namauser;
+//   String? password;
+//   String? onmobile;
+
+//   LoginParam({this.namauser, this.password, this.onmobile});
+
+//   factory LoginParam.fromJson(Map<String, dynamic> json) =>
+//       _$LoginParamFromJson(json);
+//   Map<String, dynamic> toJson() => _$LoginParamToJson(this);
+// }

@@ -72,7 +72,7 @@ class _AssigneeTaskState extends State<AssigneeTask> {
         ),
         width: double.maxFinite,
         height: 124,
-        child: Row(
+        child: const Row(
           children: [],
         ),
       ),

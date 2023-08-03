@@ -2,35 +2,42 @@ import 'package:owl_hris/features/auth/domain/entities/login.dart';
 
 class LoginModel extends LoginEntity {
   const LoginModel({
-    String? userid,
-    String? uid,
-    String? ipuser,
-    String? expaccess,
-    String? accesstoken,
-    String? refreshtoken,
+    required String userid,
+    required String uid,
+    required String ipuser,
+    required String expaccess,
+    required String accesstoken,
+    required String refreshtoken,
   });
 
-  factory LoginModel.fromJson(Map<String, dynamic> map) {
-    return LoginModel(
-      userid: map['userid'] ?? "",
-      uid: map['uid'] ?? "",
-      ipuser: map['ipuser'] ?? "",
-      expaccess: map['exp_access'] ?? "",
-      accesstoken: map['access_token'] ?? "",
-      refreshtoken: map['refresh_token'] ?? "",
-    );
-  }
-}
+  LoginModel.fromJson(Map<String, dynamic> map)
+      : super(
+          userid: map['userid'] ?? "",
+          uid: map['uid'] ?? "",
+          ipuser: map['ipuser'] ?? "",
+          expaccess: map['exp_access'] ?? "",
+          accesstoken: map['access_token'] ?? "",
+          refreshtoken: map['refresh_token'] ?? "",
+        );
 
-// class LoginSubmit {
-//   const LoginSubmit({
-//     String? id,
-//     String? pw,
-//   });
-//   factory LoginSubmit.fromJson(Map<String, dynamic> map) {
-//     return LoginSubmit(
-//       id: map['username'] ?? "",
-//       pw: map['password'] ?? "",
-//     );
-//   }
-// }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['userid'] = userid ?? "";
+    data['uid'] = uid ?? "";
+    data['ipuser'] = ipuser ?? "";
+    data['exp_access'] = expaccess ?? "";
+    data['access_token'] = accesstoken ?? "";
+    data['refresh_token'] = refreshtoken ?? "";
+    return data;
+  }
+  // factory LoginModel.fromJson(Map<String, dynamic> map) {
+  //   return LoginModel(
+  //     userid: map['userid'] ?? "",
+  //     uid: map['uid'] ?? "",
+  //     ipuser: map['ipuser'] ?? "",
+  //     expaccess: map['exp_access'] ?? "",
+  //     accesstoken: map['access_token'] ?? "",
+  //     refreshtoken: map['refresh_token'] ?? "",
+  //   );
+  // }
+}

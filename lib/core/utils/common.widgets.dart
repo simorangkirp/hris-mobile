@@ -1,12 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:owl_hris/config/routes/app.routes.dart';
 
 import '../../config/themes/colors.dart';
-import '../../features/absen/presentation/pages/absent.screen.dart';
-import '../../features/auth/presentation/pages/auth.screen.dart';
-import '../../features/home/presentation/pages/home.screen.dart';
-import '../../features/profile/presentation/pages/profile.screen.dart';
 
 class CustomFormTextField extends StatefulWidget {
   final Key? key;
@@ -385,9 +383,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const HomeScreen(),
-                  ));
+                  context.router.replace(const HomeRoute());
                 },
               ),
               ListTile(
@@ -414,9 +410,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const AbsentScreen(),
-                  ));
+                  context.router.replace(const AbsentRoute());
                 },
               ),
               ListTile(
@@ -523,9 +517,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const ProfileScreen(),
-              ));
+              context.router.replace(const ProfileRoute());
             },
           ),
           ListTile(
@@ -540,9 +532,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const LoginScreen(),
-              ));
+              context.router.replace(const LoginRoute());
             },
           ),
         ],

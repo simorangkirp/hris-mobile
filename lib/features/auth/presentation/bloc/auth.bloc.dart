@@ -10,6 +10,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc(this._loginUseCase) : super(const AuthLoading()) {
     on<InitAuth>(onInit);
+    on<SubmitLogin>(onLoginUser);
   }
 
   void onLoginUser(SubmitLogin event, Emitter<AuthState> emit) async {

@@ -1,51 +1,27 @@
-// private navigators
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:auto_route/auto_route.dart';
 
-import '../../core/constants/constants.dart';
+import '../../features/absen/presentation/pages/absent.screen.dart';
+import '../../features/auth/presentation/pages/auth.screen.dart';
 import '../../features/home/presentation/pages/home.screen.dart';
+import '../../features/profile/presentation/pages/profile.screen.dart';
+part 'app.routes.gr.dart';
 
-final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorHomeKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shellHome');
-final _shellNavigatorActKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shellActivity');
-final _shellNavigatorNotifKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shellNotification');
-final _shellNavigatorProfileKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shellProfile');
-
-// the one and only GoRouter instance
-final GoRouter router = GoRouter(
-  errorBuilder: Routes.errorWidget,
-  // navigatorKey: _rootNavigatorKey,
-  // initialLocation: Routes.loginNamedPage,
-  initialLocation: Routes.splashPage,
-  routes: [
-    GoRoute(
-      path: "/",
-      builder: (context, state) => const HomeScreen(),
-    )
-  ],
-);
-
-class ErrorScreen extends StatelessWidget {
-  const ErrorScreen({super.key});
-
+@AutoRouterConfig(replaceInRouteName: 'Screen,Route')
+class AppRouter extends _$AppRouter {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: const Text("Error Screen"),
-      ),
-      body: const SafeArea(
-        child: Expanded(
-          child: Center(
-            child: Text('Page Not Found'),
-          ),
+  List<AutoRoute> get routes => [
+        CustomRoute(page: LoginRoute.page, initial: true),
+        CustomRoute(
+          page: HomeRoute.page,
+          transitionsBuilder: TransitionsBuilders.noTransition,
         ),
-      ),
-    );
-  }
+        CustomRoute(
+          page: AbsentRoute.page,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: ProfileRoute.page,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+      ];
 }

@@ -1,8 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../config/routes/app.routes.dart';
-
 const String baseUrl = 'http://182.23.67.40:8083/officeapi/';
 
 class Routes {
@@ -65,6 +60,4 @@ class Routes {
 
   // static const settingsNamedPage = '/settings';
   //static profileNamedPage([String? name]) => '/${name ?? ':profile'}';
-  static Widget errorWidget(BuildContext context, GoRouterState state) =>
-      const ErrorScreen();
 }

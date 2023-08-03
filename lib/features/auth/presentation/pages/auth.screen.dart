@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:owl_hris/config/routes/app.routes.dart';
 import 'package:owl_hris/features/auth/presentation/bloc/auth.bloc.dart';
 import 'package:owl_hris/features/auth/presentation/bloc/auth.state.dart';
 
@@ -9,6 +11,7 @@ import '../../../../core/utils/common.widgets.dart';
 import '../../domain/usecases/login.usecase.dart';
 import '../bloc/auth.event.dart';
 
+@RoutePage()
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -26,7 +29,11 @@ class LoginScreen extends StatelessWidget {
       body: MultiBlocListener(
         listeners: [
           BlocListener<AuthBloc, AuthState>(
-            listener: (context, state) {},
+            listener: (context, state) {
+              if (state is ProccessDone) {
+                context.router.replace(const HomeRoute());
+              }
+            },
           ),
         ],
         child: SafeArea(

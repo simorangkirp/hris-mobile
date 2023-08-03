@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,6 +7,7 @@ import '../widgets/menus.component.dart';
 import '../widgets/profile.info.dart';
 import '../widgets/timesheet.dart';
 
+@RoutePage()
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 

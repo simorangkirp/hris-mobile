@@ -17,6 +17,19 @@ class LoginUserUseCase extends UseCase<DataState, LoginParams> {
   }
 }
 
+class CheckLocalUserCredential extends UseCase<DataState, void> {
+  // final DatabaseHelper db;
+  final UserAuthRepository _loginRepo;
+  CheckLocalUserCredential(this._loginRepo);
+
+  @override
+  Future<DataState> call(void params) async {
+    var res = await _loginRepo.verifyLocalUsersCredential();
+    // var res = await db.getUserLoginInfo();
+    return res;
+  }
+}
+
 class LoginParams extends Equatable {
   final String unm;
   final String pw;
