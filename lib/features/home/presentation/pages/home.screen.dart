@@ -6,6 +6,7 @@ import '../../../../config/themes/colors.dart';
 import '../../../../core/utils/common.widgets.dart';
 import '../widgets/active.task.dart';
 import '../widgets/announcement.component.dart';
+import '../widgets/appbar.dart';
 import '../widgets/features.component.dart';
 
 @RoutePage()
@@ -20,47 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   ScrollController sCtrl = ScrollController();
   @override
   Widget build(BuildContext context) {
-    buildAppBar() {
-      return AppBar(
-        title: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(120),
-              child: SizedBox(
-                height: 42.w,
-                width: 42.w,
-                child: Image.asset(
-                  'assets/image/serenia-0363.jpg',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            SizedBox(width: 12.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Welcome Back!',
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  'Patrick S',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-    }
-
     return Scaffold(
       appBar: buildAppBar(),
       endDrawer: const AppNavigationDrawer(),
@@ -82,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(height: 12.h),
-                        const FeaturesComponent(),
+                        faturesComponent(),
                         Divider(
                           color: appBgBlack.withOpacity(0.3),
                           height: 32.h,

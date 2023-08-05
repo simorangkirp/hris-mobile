@@ -14,8 +14,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void onLoginUser(SubmitLogin event, Emitter<AuthState> emit) async {
+    emit(const AuthLoading());
     final dataState = await _loginUseCase.call(event.model);
     if (dataState is DataSuccess) {
+      //! Add Process To Save Data Locally
+      // await
+      await Future.delayed(const Duration(seconds: 3));
       emit(ProccessDone(dataState.data!));
     }
     if (dataState is DataError) {

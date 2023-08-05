@@ -17,6 +17,17 @@ class LoginUserUseCase extends UseCase<DataState, LoginParams> {
   }
 }
 
+class SaveUserLoginInfoLocally extends UseCase<DataState, void> {
+  final UserAuthRepository _repo;
+  SaveUserLoginInfoLocally(this._repo);
+
+  @override
+  Future<DataState> call(void params) async {
+    var res = await _repo.saveUserLoginInfoToLocal();
+    return res;
+  }
+}
+
 class CheckLocalUserCredential extends UseCase<DataState, void> {
   // final DatabaseHelper db;
   final UserAuthRepository _loginRepo;

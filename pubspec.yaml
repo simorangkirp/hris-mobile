@@ -14,6 +14,9 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
+  ## Camera
+  camera: ^0.10.5+2
+
   ## SVG
   flutter_svg: ^2.0.2
 
@@ -31,6 +34,9 @@ dependencies:
 
   ## Database
   floor: ^1.4.2
+
+  ## Lottie
+  lottie: ^2.5.0
 
   ## Request Api
   retrofit: ^4.0.1
@@ -85,6 +91,7 @@ flutter:
     - assets/font/
     - assets/image/
     - assets/icons/
+    - assets/lotties/
 
 fonts:
   - family: Inter

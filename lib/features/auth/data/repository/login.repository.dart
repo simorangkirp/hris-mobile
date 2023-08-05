@@ -48,4 +48,10 @@ class LoginRepositoryImpl implements UserAuthRepository {
       return DataError(e);
     }
   }
+
+  @override
+  Future<DataState> saveUserLoginInfoToLocal() {
+    // TODO: implement saveUserLoginInfoToLocal
+    throw UnimplementedError();
+  }
 }

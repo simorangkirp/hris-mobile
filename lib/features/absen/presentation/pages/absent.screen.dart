@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:owl_hris/config/routes/app.routes.dart';
 import 'package:owl_hris/config/themes/colors.dart';
 
 import '../../../../core/utils/common.widgets.dart';
@@ -73,45 +74,50 @@ class _AbsentScreenState extends State<AbsentScreen> {
               elevation: 48,
               borderRadius: BorderRadius.circular(320),
               shadowColor: Colors.deepOrange,
-              child: Container(
-                width: 0.62.sw,
-                height: 0.62.sw,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Colors.deepOrange,
-                      Colors.deepOrange,
-                      Colors.white,
-                    ],
+              child: GestureDetector(
+                onTap: () {
+                  context.router.replace(const ClockInRoute());
+                },
+                child: Container(
+                  width: 0.62.sw,
+                  height: 0.62.sw,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.deepOrange,
+                        Colors.deepOrange,
+                        Colors.white,
+                      ],
+                    ),
                   ),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(
-                        height: 76.h,
-                        width: 58.w,
-                        child: SvgPicture.asset(
-                          'assets/icons/hand-touch.svg',
-                          fit: BoxFit.cover,
-                          colorFilter: const ColorFilter.mode(
-                              appBgWhite, BlendMode.srcIn),
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: 76.h,
+                          width: 58.w,
+                          child: SvgPicture.asset(
+                            'assets/icons/hand-touch.svg',
+                            fit: BoxFit.cover,
+                            colorFilter: const ColorFilter.mode(
+                                appBgWhite, BlendMode.srcIn),
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 8.h),
-                      Text(
-                        'Absen Masuk',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          color: appBgWhite,
-                        ),
-                      )
-                    ],
+                        SizedBox(height: 8.h),
+                        Text(
+                          'Absen Masuk',
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                            color: appBgWhite,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

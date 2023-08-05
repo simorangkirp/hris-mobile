@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 
 import '../../features/absen/presentation/pages/absent.screen.dart';
+import '../../features/absen/presentation/pages/clock.in.dart';
 import '../../features/auth/presentation/pages/auth.screen.dart';
 import '../../features/home/presentation/pages/home.screen.dart';
 import '../../features/profile/presentation/pages/profile.screen.dart';
@@ -21,6 +22,10 @@ class AppRouter extends _$AppRouter {
         ),
         CustomRoute(
           page: ProfileRoute.page,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: ClockInRoute.page,
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
       ];

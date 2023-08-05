@@ -7,4 +7,5 @@ abstract class UserAuthRepository {
   Future<DataState> loginUser(String userNm, String pwd);
   Future<DataState<String>> logoutUser();
   Future<DataState> verifyLocalUsersCredential();
+  Future<DataState> saveUserLoginInfoToLocal();
 }
