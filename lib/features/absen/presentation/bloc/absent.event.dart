@@ -8,3 +8,5 @@ class InitAbsent extends AbsentEvent {}
 //   LoginParams model;
 //   SubmitLogin(this.model);
 // }
+
+class InitCamera extends AbsentEvent{}

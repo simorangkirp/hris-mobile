@@ -7,6 +7,8 @@
 //   @override
 //   List<Object> get props => [user!, error!];
 // }
+import 'package:camera/camera.dart';
+
 class AbsentState {}
 
 class AbsentLoading extends AbsentState {
@@ -20,5 +22,12 @@ class ProccessDone extends AbsentState {
 }
 
 class AbsentError extends AbsentState {
+  String err;
+  AbsentError(this.err);
   // const AbsentError(DioException err) : super(error: err);
+}
+
+class ClockInCameraInitiallized extends AbsentState {
+  List<CameraDescription> listCamera;
+  ClockInCameraInitiallized(this.listCamera);
 }

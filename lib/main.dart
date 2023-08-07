@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:owl_hris/config/routes/app.routes.dart';
+import 'package:owl_hris/features/absen/presentation/bloc/absent.bloc.dart';
 import 'package:owl_hris/injection.container.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +17,9 @@ Future<void> main() async {
       providers: [
         BlocProvider(
           create: (context) => sl<AuthBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => sl<AbsentBloc>(),
         )
       ],
       child: const MyApp(),
