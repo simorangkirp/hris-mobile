@@ -7,22 +7,44 @@ import 'package:owl_hris/config/themes/colors.dart';
 import 'package:owl_hris/features/absen/presentation/bloc/absent.bloc.dart';
 import 'package:owl_hris/features/absen/presentation/bloc/absent.state.dart';
 
+import '../../../../injection.container.dart';
 import '../bloc/absent.event.dart';
 
 @RoutePage()
-class ClockInScreen extends StatefulWidget {
+class ClockInScreen extends StatefulWidget implements AutoRouteWrapper {
   const ClockInScreen({super.key});
 
   @override
   State<ClockInScreen> createState() => _ClockInScreenState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => sl<AbsentBloc>(),
+      child: this,
+    );
+  }
 }
 
 class _ClockInScreenState extends State<ClockInScreen> {
   late CameraController _controller;
   late List<CameraDescription> listCamera;
+  late CameraDescription desc;
 
   void dispatchGetCameras() {
     BlocProvider.of<AbsentBloc>(context).add(InitCamera());
+  }
+
+  Future<CameraDescription> getFrontFaceCamera(
+      List<CameraDescription> list) async {
+    for (int i = 0; i <= list.length; i++) {
+      var cam = list[i];
+      if (cam.lensDirection == CameraLensDirection.front) {
+        // _controller = CameraController(cam, ResolutionPreset.high);
+        desc = cam;
+      }
+    }
+    return desc;
   }
 
   Future initCamera(CameraDescription cameraDescription) async {
@@ -99,61 +121,76 @@ class _ClockInScreenState extends State<ClockInScreen> {
   widgetFrontFace() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Column(
-        children: [
-          SizedBox(height: 84.h),
-          _controller.value.isInitialized
-              ? cameraWidget()
-              : const CircularProgressIndicator(),
-          SizedBox(height: 24.h),
-          Text(
-            'Verify to clock in',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              color: appBgBlack.withOpacity(0.8),
-              fontSize: 32.sp,
-            ),
-          ),
-          SizedBox(height: 4.h),
-          Text(
-            'Make sure your face with in the circle while we scan your face',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 18.sp,
-              color: appBgBlack.withOpacity(0.5),
-            ),
-            maxLines: 2,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+      child: _controller.value.isInitialized
+          ? Column(
+              children: [
+                SizedBox(height: 84.h),
+                cameraWidget(),
+                SizedBox(height: 24.h),
+                Text(
+                  'Verify to clock in',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: appBgBlack.withOpacity(0.8),
+                    fontSize: 32.sp,
+                  ),
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                  'Make sure your face with in the circle while we scan your face',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18.sp,
+                    color: appBgBlack.withOpacity(0.5),
+                  ),
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            )
+          : const Center(child: CircularProgressIndicator()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MultiBlocListener(
-        listeners: [
-          BlocListener<AbsentBloc, AbsentState>(
-            listener: (context, state) {
-              if (state is ClockInCameraInitiallized) {
-                initCamera(state.listCamera[0]);
+      body: SafeArea(
+        child: BlocConsumer<AbsentBloc, AbsentState>(
+          builder: (context, state) {
+            if (state is ClockInCameraInitiallized) {
+              return widgetFrontFace();
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+          listener: (context, state) {
+            if (state is ClockInCameraInitiallized) {
+              if (state.listCamera!.isNotEmpty) {
+                getFrontFaceCamera(state.listCamera!);
+                initCamera(desc);
               }
-            },
-          ),
-        ],
-        child: SafeArea(
-          child: BlocBuilder<AbsentBloc, AbsentState>(
-            builder: (context, state) {
-              if (state is ClockInCameraInitiallized) {
-                return widgetFrontFace();
-              } else {
-                return const CircularProgressIndicator();
-              }
-            },
-          ),
+            }
+          },
         ),
+
+        //  BlocListener<AbsentBloc, AbsentState>(
+        //   listener: (context, state) {
+        //     if (state is ClockInCameraInitiallized) {
+        //       getFrontFaceCamera(state.listCamera);
+        //       initCamera(desc);
+        //     }
+        //   },
+        //   child: BlocBuilder<AbsentBloc, AbsentState>(
+        //     builder: (context, state) {
+        //       if (state is ClockInCameraInitiallized) {
+        //         return widgetFrontFace();
+        //       } else {
+        //         return const CircularProgressIndicator();
+        //       }
+        //     },
+        //   ),
+        // ),
       ),
     );
   }

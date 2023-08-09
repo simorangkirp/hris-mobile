@@ -17,6 +17,9 @@ dependencies:
   ## Camera
   camera: ^0.10.5+2
 
+  ## Styled Text
+  styled_text: ^7.0.0
+
   ## SVG
   flutter_svg: ^2.0.2
 

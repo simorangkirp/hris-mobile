@@ -36,8 +36,10 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       builder: (context, child) => MaterialApp.router(
         routerConfig: appRouter.config(),
+        // routerDelegate: appRouter.delegate(),
+        // routeInformationParser: appRouter.defaultRouteParser(),
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        // title: 'Flutter Demo',
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,

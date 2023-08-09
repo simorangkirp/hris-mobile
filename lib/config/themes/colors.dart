@@ -16,3 +16,7 @@ const appNotifCutIcn = Color(0xff3F22A4);
 const appImperialRed = Color(0xffCD1138);
 const appNotifAbsIcn = Color(0xff21AB46);
 
+const appIjinBg = Color(0xffFF66FF);
+const appCutiBg = Color(0xffFF6600);
+const appDKBg = Color(0xffB0B8FF);
+const appLKBg = Color(0xff3F4ED6);

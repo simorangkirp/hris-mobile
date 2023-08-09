@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 buildAppBar() {
   return AppBar(
+    automaticallyImplyLeading: false,
     title: Row(
       children: [
         ClipRRect(

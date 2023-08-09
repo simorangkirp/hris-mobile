@@ -24,13 +24,19 @@ abstract class _$AppRouter extends RootStackRouter {
     ClockInRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const ClockInScreen(),
+        child: WrappedRoute(child: const ClockInScreen()),
+      );
+    },
+    AbsentHistoryRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const AbsentHistoryScreen()),
       );
     },
     LoginRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const LoginScreen(),
+        child: WrappedRoute(child: const LoginScreen()),
       );
     },
     HomeRoute.name: (routeData) {
@@ -72,6 +78,20 @@ class ClockInRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ClockInRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [AbsentHistoryScreen]
+class AbsentHistoryRoute extends PageRouteInfo<void> {
+  const AbsentHistoryRoute({List<PageRouteInfo>? children})
+      : super(
+          AbsentHistoryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AbsentHistoryRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

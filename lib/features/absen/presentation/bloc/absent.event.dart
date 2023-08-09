@@ -9,4 +9,11 @@ class InitAbsent extends AbsentEvent {}
 //   SubmitLogin(this.model);
 // }
 
-class InitCamera extends AbsentEvent{}
+class InitCamera extends AbsentEvent {}
+
+class GetAbsentPeriod extends AbsentEvent {
+  String uid;
+  String dt;
+  String onmobile;
+  GetAbsentPeriod(this.uid, this.dt, this.onmobile);
+}

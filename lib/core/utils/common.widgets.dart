@@ -383,7 +383,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  context.router.replace(const HomeRoute());
+                  context.router.push(const HomeRoute());
                 },
               ),
               ListTile(
@@ -410,7 +410,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  context.router.replace(const AbsentRoute());
+                  context.router.push(const AbsentRoute());
                 },
               ),
               ListTile(
@@ -517,7 +517,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
             ),
             onTap: () {
               Navigator.pop(context);
-              context.router.replace(const ProfileRoute());
+              context.router.push(const ProfileRoute());
             },
           ),
           ListTile(

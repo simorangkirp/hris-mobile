@@ -102,7 +102,7 @@ class _AbsentScreenState extends State<AbsentScreen> {
                           width: 58.w,
                           child: SvgPicture.asset(
                             'assets/icons/hand-touch.svg',
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                             colorFilter: const ColorFilter.mode(
                                 appBgWhite, BlendMode.srcIn),
                           ),
@@ -122,7 +122,7 @@ class _AbsentScreenState extends State<AbsentScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 62.h),
+            SizedBox(height: 72.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: IntrinsicHeight(
@@ -163,20 +163,25 @@ class _AbsentScreenState extends State<AbsentScreen> {
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: appBgBlack.withOpacity(0.2),
+                        GestureDetector(
+                          onTap: () {
+                            context.router.push(const AbsentHistoryRoute());
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: appBgBlack.withOpacity(0.2),
+                              ),
                             ),
-                          ),
-                          padding: EdgeInsets.all(16.w),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              'assets/icons/file-search.svg',
-                              colorFilter: const ColorFilter.mode(
-                                Colors.green,
-                                BlendMode.srcIn,
+                            padding: EdgeInsets.all(16.w),
+                            child: Center(
+                              child: SvgPicture.asset(
+                                'assets/icons/file-search.svg',
+                                colorFilter: const ColorFilter.mode(
+                                  Colors.green,
+                                  BlendMode.srcIn,
+                                ),
                               ),
                             ),
                           ),

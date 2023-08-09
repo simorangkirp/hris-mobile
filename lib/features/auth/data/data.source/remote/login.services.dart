@@ -29,14 +29,8 @@ class LoginParam {
   Map<String, dynamic> toJson() => _$LoginParamToJson(this);
 }
 
-// class LoginParam {
-//   String? namauser;
-//   String? password;
-//   String? onmobile;
-
-//   LoginParam({this.namauser, this.password, this.onmobile});
-
-//   factory LoginParam.fromJson(Map<String, dynamic> json) =>
-//       _$LoginParamFromJson(json);
-//   Map<String, dynamic> toJson() => _$LoginParamToJson(this);
-// }
+//! file .g.dart
+//  replace
+//  final value = LoginModel.fromJson(_result.data!);
+//  to 
+//  final value = LoginModel.fromJson(_result.data!['data']);

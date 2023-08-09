@@ -18,4 +18,7 @@ class ConstIconPath {
   static const receipt = 'assets/icons/receipt.svg';
   static const timeOff = 'assets/icons/time-off.svg';
   static const event = 'assets/icons/calendar-heart.svg';
+  static const search = 'assets/icons/search.svg';
+  static const calendar = 'assets/icons/calendar.svg';
+  static const calendarDays = 'assets/icons/calendar-days.svg';
 }

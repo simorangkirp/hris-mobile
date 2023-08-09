@@ -9,11 +9,12 @@ import 'package:owl_hris/features/auth/presentation/bloc/auth.state.dart';
 
 import '../../../../config/themes/colors.dart';
 import '../../../../core/utils/common.widgets.dart';
+import '../../../../injection.container.dart';
 import '../../domain/usecases/login.usecase.dart';
 import '../bloc/auth.event.dart';
 
 @RoutePage()
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
   const LoginScreen({super.key});
 
   @override
@@ -183,33 +184,48 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: MultiBlocListener(
-        listeners: [
-          BlocListener<AuthBloc, AuthState>(
-            listener: (context, state) async {
-              if (state is ProccessDone) {
-                await Future.delayed(const Duration(milliseconds: 180));
-                redirectScreen();
-              }
-            },
-          ),
-        ],
-        child: SafeArea(
-          child: BlocBuilder<AuthBloc, AuthState>(
-            builder: (context, state) {
-              if (state is AuthLoading) {
-                return loadingAuth();
-              } else if (state is ProccessDone) {
-                return authSuccess();
-              } else if (state is AuthError) {
-                return authError();
-              } else {
-                return loginCard();
-              }
-            },
-          ),
+      body: SafeArea(
+        child: BlocConsumer<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state is AuthLoading) {
+              return loadingAuth();
+            } else if (state is ProccessDone) {
+              return authSuccess();
+            } else if (state is AuthError) {
+              return authError();
+            } else {
+              return loginCard();
+            }
+          },
+          listener: (context, state) {
+            if (state is ProccessDone) {
+              Future.delayed(const Duration(milliseconds: 250));
+              redirectScreen();
+            }
+          },
         ),
+        //  BlocBuilder<AuthBloc, AuthState>(
+        //   builder: (context, state) {
+        //     if (state is AuthLoading) {
+        //       return loadingAuth();
+        //     } else if (state is ProccessDone) {
+        //       return authSuccess();
+        //     } else if (state is AuthError) {
+        //       return authError();
+        //     } else {
+        //       return loginCard();
+        //     }
+        //   },
+        // ),
       ),
+    );
+  }
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => sl<AuthBloc>(),
+      child: this,
     );
   }
 }

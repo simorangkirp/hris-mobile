@@ -5,6 +5,7 @@ import 'package:owl_hris/features/absen/presentation/bloc/absent.event.dart';
 import 'package:owl_hris/features/auth/data/data.source/remote/login.services.dart';
 import 'package:owl_hris/features/auth/data/repository/login.repository.dart';
 
+import 'features/absen/data/data.source/remote/absent.services.dart';
 import 'features/absen/data/repository/absent.repo.impl.dart';
 import 'features/absen/domain/repository/absent.repository.dart';
 import 'features/absen/domain/usecases/absent.usecases.dart';
@@ -21,10 +22,11 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<Dio>(Dio());
   // Dependencies
   sl.registerSingleton(LoginAPIServices(sl()));
+  sl.registerSingleton(AbsentAPIServices(sl()));
   sl.registerSingleton(UserAuthDb());
   sl.registerSingleton<UserAuthRepository>(
       LoginRepositoryImpl(sl(), '', '', sl()));
-  sl.registerSingleton<AbsentRepository>(AbsentReposImplement());
+  sl.registerSingleton<AbsentRepository>(AbsentReposImplement(sl()));
   // Usecase
   sl.registerSingleton<LoginUserUseCase>(LoginUserUseCase(sl()));
   sl.registerSingleton<GetUserCurrentPeriodAbsentList>(
