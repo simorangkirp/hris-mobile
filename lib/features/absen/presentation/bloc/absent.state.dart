@@ -31,7 +31,7 @@ class AbsentLoading extends AbsentState {
 
 class AbsentInitiallized extends AbsentState {}
 
-class ProccessDone extends AbsentState {
+class AbsentProccessDone extends AbsentState {
   // const ProccessDone(LoginEntity usr) : super(user: usr);
 }
 

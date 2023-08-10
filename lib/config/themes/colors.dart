@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const appBgWhite = Color(0xffFFFFFF);
 const appBgBlack = Color(0xff2C323F);
+const appBgTransparent = Color.fromARGB(0, 0, 0, 0);
 const appWarning = Color(0xffD11B23);
 const appValidateField = Color(0xffFCEFEE);
 const appFieldUnselect = Color(0xffE4E9F2);
@@ -15,7 +16,7 @@ const appIconMenuTitle = Color(0xff333333);
 const appNotifCutIcn = Color(0xff3F22A4);
 const appImperialRed = Color(0xffCD1138);
 const appNotifAbsIcn = Color(0xff21AB46);
-
+const appDivider = Color(0xff828282);
 const appIjinBg = Color(0xffFF66FF);
 const appCutiBg = Color(0xffFF6600);
 const appDKBg = Color(0xffB0B8FF);
