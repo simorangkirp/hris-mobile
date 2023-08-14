@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:owl_hris/features/absen/presentation/bloc/absent.event.dart';
-import 'package:owl_hris/features/absen/presentation/bloc/absent.state.dart';
+import 'package:intl/intl.dart';
+import 'package:owl_hris/features/absen/absen.dart';
 
 import '../../../../config/themes/colors.dart';
-import '../../../../core/constants/constants.dart';
+import '../../../../core/core.dart';
 import '../../../../injection.container.dart';
-import '../bloc/absent.bloc.dart';
 import '../widgets/absent.item.dart';
 
 @RoutePage()
@@ -35,11 +34,39 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
   }
 
   ScrollController ctrl = ScrollController();
+  String dt = "";
+  bool startAnimation = false;
 
   @override
   void initState() {
     super.initState();
     dispatchGetAbsentListPeriod();
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   setState(() {
+    //     startAnimation = true;
+    //   });
+    // });
+  }
+
+  void changeDate(DateTime v) {
+    setState(() {
+      dt = DateFormat('MMM yyyy').format(v).toString();
+    });
+  }
+
+  void displayMonthPicker(BuildContext ctx) {
+    showDialog(
+      context: ctx,
+      builder: (ctx) {
+        return CommonMonthPicker(
+          onConfirm: (v) {
+            context.router.pop();
+            // log(v.toString());
+            changeDate(v);
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -56,7 +83,15 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
         ),
       ),
       body: BlocListener<AbsentBloc, AbsentState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is AbsentPeriodLoaded) {
+            Future.delayed(const Duration(milliseconds: 350), () {
+              setState(() {
+                startAnimation = true;
+              });
+            });
+          }
+        },
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -77,28 +112,33 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
                         Material(
                           elevation: 4,
                           borderRadius: BorderRadius.circular(4),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(
-                                color: appButtonBlue.withOpacity(0.3),
+                          child: GestureDetector(
+                            onTap: () {
+                              displayMonthPicker(context);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(
+                                  color: appButtonBlue.withOpacity(0.3),
+                                ),
+                                color: appButtonBlue,
                               ),
-                              color: appButtonBlue,
-                            ),
-                            padding: EdgeInsets.all(6.w),
-                            width: 32.w,
-                            height: 32.w,
-                            child: SvgPicture.asset(
-                              ConstIconPath.calendarDays,
-                              fit: BoxFit.contain,
-                              colorFilter: const ColorFilter.mode(
-                                  appBgWhite, BlendMode.srcIn),
+                              padding: EdgeInsets.all(6.w),
+                              width: 32.w,
+                              height: 32.w,
+                              child: SvgPicture.asset(
+                                ConstIconPath.calendarDays,
+                                fit: BoxFit.contain,
+                                colorFilter: const ColorFilter.mode(
+                                    appBgWhite, BlendMode.srcIn),
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(width: 8.w),
                         Text(
-                          'Januari, 2023',
+                          dt,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w400,
@@ -107,19 +147,6 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
                       ],
                     ),
                     SizedBox(height: 12.h),
-                    //! Today widget
-                    // Text(
-                    //   'Hari ini',
-                    //   style: TextStyle(
-                    //     fontSize: 14.sp,
-                    //     fontWeight: FontWeight.w600,
-                    //   ),
-                    // ),
-                    // Divider(
-                    //   color: appBgBlack.withOpacity(0.5),
-                    //   thickness: 2,
-                    // ),
-                    // SizedBox(height: 8.h),
                     //! Daftar Absent Widget
                     Text(
                       'Daftar Absensi',
@@ -143,19 +170,7 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
                                   itemCount: state.listAbsent!.length,
                                   itemBuilder: (context, index) {
                                     var item = state.listAbsent![index];
-                                    return Column(
-                                      children: [
-                                        Material(
-                                          elevation: 4,
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          child: AbsentItemCard(
-                                            item: item,
-                                          ),
-                                        ),
-                                        SizedBox(height: 12.h),
-                                      ],
-                                    );
+                                    return items(item, index);
                                   },
                                 )
                               : const SizedBox();
@@ -171,6 +186,26 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget items(AbsentEntity items, int index) {
+    return AnimatedContainer(
+      curve: Curves.easeInOut,
+      duration: Duration(milliseconds: 300 + (index * 100)),
+      transform: Matrix4.translationValues(startAnimation ? 0 : 1.sw, 0, 0),
+      child: Column(
+        children: [
+          Material(
+            elevation: 4,
+            borderRadius: BorderRadius.circular(4),
+            child: AbsentItemCard(
+              item: items,
+            ),
+          ),
+          SizedBox(height: 12.h),
+        ],
       ),
     );
   }

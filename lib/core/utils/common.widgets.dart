@@ -567,6 +567,7 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
   bool showConfirm = false;
   String title = "";
   late int? selectedMonth;
+  ScrollController ctrl = ScrollController();
 
   onSelectedMonth(MonthModel mod) {
     if (!yearPick) {
@@ -634,9 +635,9 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 0.18.sh,
+    return Dialog(
+      insetPadding: EdgeInsets.symmetric(
+        vertical: 0.20.sh,
         horizontal: 0.05.sw,
       ),
       child: Container(
@@ -648,8 +649,8 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(
-              height: 12,
+            SizedBox(
+              height: 8.h,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8, left: 32, right: 32),
@@ -692,7 +693,7 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
                             color: appDivider,
                           ),
                         ),
-                        const SizedBox(width: 32),
+                        SizedBox(width: 24.w),
                         GestureDetector(
                           onTap: () {
                             date = DateTime(date.year + 1);
@@ -710,8 +711,8 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 24,
+            SizedBox(
+              height: 4.h,
             ),
             Visibility(
               visible: widget.title != null,
@@ -737,56 +738,62 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
             //     color: VccWhite,
             //   ),
             // ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 8.h,
             ),
             Expanded(
-              child: GridView.builder(
-                // controller: _scrollController,
-                // dragStartBehavior: widget.dragStartBehavior,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 52,
-                  mainAxisExtent: 52,
-                ),
-                itemBuilder: (context, index) {
-                  var item = list[index];
-                  return GestureDetector(
-                    onTap: () => onSelectedMonth(item),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: item.isSelected == true
-                                ? appBtnBlue
-                                : appBgTransparent),
-                        color: appBgWhite,
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      width: 48,
-                      height: 12,
-                      child: Center(
-                        child: Semantics(
-                          // selected: isSelected,
-                          button: true,
-                          child: Text(
-                            item.name!,
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
+              child: NotificationListener<OverscrollIndicatorNotification>(
+                onNotification: (OverscrollIndicatorNotification overScrl) {
+                  overScrl.disallowIndicator();
+                  return false;
+                },
+                child: GridView.builder(
+                  controller: ctrl,
+                  // dragStartBehavior: widget.dragStartBehavior,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 8.w,
+                    mainAxisSpacing: 24.h,
+                    mainAxisExtent: 42.h,
+                  ),
+                  itemBuilder: (context, index) {
+                    var item = list[index];
+                    return GestureDetector(
+                      onTap: () => onSelectedMonth(item),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: item.isSelected == true
+                                  ? appBtnBlue
+                                  : appBgTransparent),
+                          color: appBgWhite,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        width: 48.w,
+                        height: 12.h,
+                        child: Center(
+                          child: Semantics(
+                            // selected: isSelected,
+                            button: true,
+                            child: Text(
+                              item.name!,
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-                itemCount: list.length,
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                    );
+                  },
+                  itemCount: list.length,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                ),
               ),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 8.h,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 32),
@@ -799,13 +806,16 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
                       onTap: () {
                         context.router.pop();
                       },
-                      child: const Text(
+                      child: Text(
                         "Cancel",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, color: appBtnBlue),
+                          fontWeight: FontWeight.w500,
+                          color: appBtnBlue,
+                          fontSize: 14.sp,
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 24),
+                    SizedBox(width: 24.w),
                     GestureDetector(
                       onTap: () {
                         for (var e in list) {
@@ -818,18 +828,21 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
                               DateTime(int.parse(title), selectedMonth!, 1));
                         }
                       },
-                      child: const Text(
+                      child: Text(
                         "Confirm",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, color: appBtnBlue),
+                          fontWeight: FontWeight.w500,
+                          color: appBtnBlue,
+                          fontSize: 14.sp,
+                          ),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: 16,
+            SizedBox(
+              height: 16.h,
             ),
           ],
         ),

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:owl_hris/config/routes/app.routes.dart';
-import 'package:owl_hris/features/absen/presentation/bloc/absent.bloc.dart';
+import 'package:owl_hris/features/features.dart';
 import 'package:owl_hris/injection.container.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'features/auth/presentation/bloc/auth.bloc.dart';
 // import 'features/home/presentation/pages/home.screen.dart';
 
 Future<void> main() async {
@@ -20,6 +19,9 @@ Future<void> main() async {
         ),
         BlocProvider(
           create: (context) => sl<AbsentBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => sl<HomeBloc>(),
         )
       ],
       child: const MyApp(),
