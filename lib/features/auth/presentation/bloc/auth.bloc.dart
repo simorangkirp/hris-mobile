@@ -1,9 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:owl_hris/core/resources/data.state.dart';
-import 'package:owl_hris/features/auth/presentation/bloc/auth.event.dart';
-import 'package:owl_hris/features/auth/presentation/bloc/auth.state.dart';
 
-import '../../domain/usecases/login.usecase.dart';
+import '../../../../lib.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUserUseCase _loginUseCase;
@@ -17,12 +14,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(const AuthLoading());
     final dataState = await _loginUseCase.call(event.model);
     if (dataState is DataSuccess) {
+      var data = LoginModel.fromJson(dataState.data);
       //! Add Process To Save Data Locally
       // await Future.delayed(const Duration(seconds: 3));
-      emit(ProccessDone(dataState.data!));
+      emit(ProccessDone(data));
     }
     if (dataState is DataError) {
-      emit(AuthError(dataState.error!));
+      var err = ErrMsg.fromJson(dataState.error!.response!.data);
+      emit(AuthError(err));
     }
   }
 

@@ -21,3 +21,8 @@ const appIjinBg = Color(0xffFF66FF);
 const appCutiBg = Color(0xffFF6600);
 const appDKBg = Color(0xffB0B8FF);
 const appLKBg = Color(0xff3F4ED6);
+
+//* SnackBar Color
+const appSnackbarBgError = Color(0xffff5252);
+const appSnackbarBgWarning = Color(0xff2196F3);
+const appSnackbarBgSuccess = Color(0xff00E676);

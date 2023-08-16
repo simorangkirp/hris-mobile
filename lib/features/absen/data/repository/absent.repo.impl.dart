@@ -22,7 +22,7 @@ class AbsentReposImplement implements AbsentRepository {
   Future<DataState> getCurrentPeriodAbsent(id, date, mobile) async {
     var params = ListAbsentParams(id, date, '1');
     var header =
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiJTWlFLTi1OM0c3Qy1YOVJEQyIsInJvbGVpZCI6IjEiLCJpYXQiOjE2OTE2NjMyMjgsImV4cCI6MTY5MTc0OTYyOCwib25tb2JpbGUiOiIxIn0.Ss-KWntnPvyiylHbAx59TRZpIR5t6W0CofM6lYHknwI';
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiJYQ1JERi1BQVNERi0zNEVSMSIsInJvbGVpZCI6IjEiLCJpYXQiOjE2OTIxNjc0ODQsImV4cCI6MTY5MjI1Mzg4NCwib25tb2JpbGUiOiIxIn0.oFkkAnHqTN5HzdUUJazzwoezE5ZLVYZJterBxYUhrIM';
     try {
       final httpResp = await _absentAPIServices.listAbsent(params, header);
 

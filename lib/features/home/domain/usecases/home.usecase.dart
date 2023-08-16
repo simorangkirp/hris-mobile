@@ -2,13 +2,13 @@ import 'package:equatable/equatable.dart';
 import '../../domain/domain.dart';
 import '../../../../core/core.dart';
 
-class HomeUseCasesImpl extends HomeUseCases<DataState, GetProfileParams> {
+class GetProfileInfoUseCase extends UseCase<DataState, GetProfileParams> {
   final HomeRepository _repos;
-  HomeUseCasesImpl(this._repos);
+  GetProfileInfoUseCase(this._repos);
 
   @override
-  Future<DataState> getProfile(GetProfileParams param) async {
-    var res = await _repos.getProfileInfo(param.uid);
+  Future<DataState> call(GetProfileParams params) async {
+    var res = await _repos.getProfileInfo(params.uid);
     return res;
   }
 }

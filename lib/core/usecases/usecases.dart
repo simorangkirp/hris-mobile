@@ -9,12 +9,3 @@ class NoParams extends Equatable {
   @override
   List<Object> get props => [];
 }
-
-abstract class HomeUseCases<Type, Params> {
-  Future<Type> getProfile(Params param);
-}
-
-class HomeNoParams extends Equatable {
-  @override
-  List<Object> get props => [];
-}

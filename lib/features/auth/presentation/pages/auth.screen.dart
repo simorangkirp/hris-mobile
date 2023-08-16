@@ -19,10 +19,13 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController user = TextEditingController();
+    TextEditingController pw = TextEditingController();
+
     void dispatchLogin() {
-      BlocProvider.of<AuthBloc>(context).add(SubmitLogin(const LoginParams(
-        unm: 'patrick.owl',
-        pw: '12345678',
+      BlocProvider.of<AuthBloc>(context).add(SubmitLogin(LoginParams(
+        unm: user.text,
+        pw: pw.text,
       )));
     }
 
@@ -79,14 +82,19 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
                       ],
                     ),
                     SizedBox(height: 24.h),
-                    const CustomFormTextField(
+                    CustomFormTextField(
                       hint: 'username',
+                      maxLine: 1,
+                      maxLength: 24,
+                      controller: user,
                     ),
                     SizedBox(height: 12.h),
-                    const CustomFormTextField(
+                    CustomFormTextField(
                       hint: 'password',
                       obscureText: true,
                       maxLine: 1,
+                      maxLength: 12,
+                      controller: pw,
                     ),
                     SizedBox(height: 12.h),
                     Text(
@@ -99,7 +107,17 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
                     SizedBox(height: 48.h),
                     GestureDetector(
                       onTap: () {
-                        dispatchLogin();
+                        if (user.text.isEmpty || pw.text.isEmpty) {
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(failSnackBar(
+                              message: user.text.isEmpty
+                                  ? 'Username should not be empty'
+                                  : 'Password should not be empty',
+                            ));
+                        } else {
+                          dispatchLogin();
+                        }
                       },
                       child: Material(
                         elevation: 4,
@@ -192,15 +210,22 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
             } else if (state is ProccessDone) {
               return authSuccess();
             } else if (state is AuthError) {
-              return authError();
+              return loginCard();
             } else {
               return loginCard();
             }
           },
           listener: (context, state) {
             if (state is ProccessDone) {
-              Future.delayed(const Duration(milliseconds: 250));
-              redirectScreen();
+              Future.delayed(const Duration(seconds: 3))
+                  .then((_) => redirectScreen());
+            }
+            if (state is AuthError) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(failSnackBar(
+                  message: state.error!.messages!.error,
+                ));
             }
           },
         ),

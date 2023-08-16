@@ -1,5 +1,7 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
-import 'package:owl_hris/features/auth/data/models/login.model.dart';
+// import 'package:owl_hris/features/auth/data/models/login.model.dart';
 import 'package:retrofit/retrofit.dart';
 import '../../../../../core/constants/constants.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -11,7 +13,7 @@ abstract class LoginAPIServices {
   factory LoginAPIServices(Dio dio, {String baseUrl}) = _LoginAPIServices;
 
   @POST('${baseUrl}auth/login')
-  Future<HttpResponse<LoginModel>> loginUser(@Body() LoginParam? param);
+  Future<HttpResponse<dynamic>> loginUser(@Body() LoginParam? param);
 }
 
 @JsonSerializable()

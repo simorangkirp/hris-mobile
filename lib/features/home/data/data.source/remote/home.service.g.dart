@@ -29,7 +29,7 @@ class _HomeApiServices implements HomeApiServices {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': authHeader};
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -47,7 +47,7 @@ class _HomeApiServices implements HomeApiServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data;
+    final value = _result.data['data'];
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

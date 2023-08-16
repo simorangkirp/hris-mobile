@@ -38,15 +38,16 @@ class _LoginAPIServices implements LoginAPIServices {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<LoginModel>> loginUser(LoginParam? param) async {
+  Future<HttpResponse<dynamic>> loginUser(LoginParam? param) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(param?.toJson() ?? <String, dynamic>{});
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<LoginModel>>(Options(
+    final _result =
+        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+      followRedirects: false,
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -62,7 +63,8 @@ class _LoginAPIServices implements LoginAPIServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = LoginModel.fromJson(_result.data!);
+    // log(_result.data);
+    final value = _result.data['data'];
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

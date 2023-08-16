@@ -22,7 +22,7 @@ class HomeReposImpl implements HomeRepository {
   Future<DataState> getProfileInfo(String uid) async {
     var id = uid;
     var header =
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiJTWlFLTi1OM0c3Qy1YOVJEQyIsInJvbGVpZCI6IjEiLCJpYXQiOjE2OTE1NjY1ODUsImV4cCI6MTY5MTY1Mjk4NSwib25tb2JpbGUiOiIxIn0.MC1HCSTCu2UgWoMW12yuR0nV6iNpJgVE4QepkvPZeV0';
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiJTWlFLTi1OM0c3Qy1YOVJEQyIsInJvbGVpZCI6IjEiLCJpYXQiOjE2OTE5ODcxNzQsImV4cCI6MTY5MjA3MzU3NCwib25tb2JpbGUiOiIxIn0.6-xvm_Z1AnKhetcjQSdzxNRyo1vGfJ874bith1P6xw0';
 
     try {
       final httpResp = await _homeAPIServices.profileInfo(id, header);

@@ -17,19 +17,25 @@ class LoginRepositoryImpl implements UserAuthRepository {
     var params = LoginParam(userNm, pwd, '1');
     try {
       final httpResp = await _loginAPIServices.loginUser(params);
-
       if (httpResp.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResp.data);
       } else {
-        return DataError(DioException(
-          error: httpResp.response.statusMessage,
-          response: httpResp.response,
-          type: DioExceptionType.badResponse,
-          requestOptions: httpResp.response.requestOptions,
-        ));
+        return DataError(
+          DioException(
+            error: httpResp.response.statusMessage,
+            response: httpResp.response,
+            type: DioExceptionType.badResponse,
+            requestOptions: httpResp.response.requestOptions,
+          ),
+        );
       }
     } on DioException catch (e) {
-      return DataError(e);
+      return DataError(DioException(
+        error: e.response!.statusMessage,
+        response: e.response,
+        type: DioExceptionType.badResponse,
+        requestOptions: e.response!.requestOptions,
+      ));
     }
   }
 

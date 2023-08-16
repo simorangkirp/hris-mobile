@@ -834,7 +834,7 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
                           fontWeight: FontWeight.w500,
                           color: appBtnBlue,
                           fontSize: 14.sp,
-                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -933,4 +933,16 @@ class _CommonYearDatePickerState extends State<CommonYearDatePicker> {
       ),
     );
   }
+}
+
+failSnackBar({String? message}) {
+  return SnackBar(
+    duration: const Duration(seconds: 5),
+    behavior: SnackBarBehavior.fixed,
+    content: SelectableText(
+      message ?? 'Failed, with no message!',
+      style: const TextStyle(color: appBgWhite, fontSize: 16),
+    ),
+    backgroundColor: appSnackbarBgError,
+  );
 }

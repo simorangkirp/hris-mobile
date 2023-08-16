@@ -25,7 +25,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetUserCurrentPeriodAbsentList>(
       GetUserCurrentPeriodAbsentList(sl()));
   sl.registerSingleton<GetListCameraClockIn>(GetListCameraClockIn(sl()));
-  sl.registerSingleton<HomeUseCasesImpl>(HomeUseCasesImpl(sl<HomeRepository>()));
+  sl.registerSingleton<GetProfileInfoUseCase>(GetProfileInfoUseCase(sl<HomeRepository>()));
 
   // BLoCs
   sl.registerFactory<AuthBloc>(() => AuthBloc(sl())..add(InitAuth()));
