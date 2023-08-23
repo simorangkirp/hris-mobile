@@ -24,6 +24,17 @@ class GetProfileScreenJobInfo extends UseCase<DataState, GetProfileParams> {
   }
 }
 
+class GetProfileScreenActPeriod extends UseCase<DataState, GetActPeriodParams>{
+  final ProfileRepository _repos;
+  GetProfileScreenActPeriod(this._repos);
+  
+  @override
+  Future<DataState> call(GetActPeriodParams params) async {
+    var res = await _repos.getActPeriod(params.period, params.lokasi);
+    return res;
+  }
+}
+
 class GetProfileScreenAbsentInfo extends UseCase<DataState, GetAbsentParams> {
   final ProfileRepository _repos;
   GetProfileScreenAbsentInfo(this._repos);
@@ -107,5 +118,13 @@ class GetAbsentParams extends Equatable {
   const GetAbsentParams(this.uid, this.period, this.onmobile);
 
   @override
-  List<Object?> get props => [uid];
+  List<Object?> get props => [uid, period, onmobile];
+}
+class GetActPeriodParams extends Equatable {
+  final String period;
+  final String lokasi;
+  const GetActPeriodParams(this.period, this.lokasi);
+
+  @override
+  List<Object?> get props => [period, lokasi];
 }

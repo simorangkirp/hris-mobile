@@ -1,27 +1,39 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-
-import '../../../../core/core.dart';
 import '../../../../lib.dart';
-import '../../../auth/auth.dart';
-import '../../../home/data/model/model.dart';
-import '../../domain/domain.dart';
-import '../presentation.dart';
 
 class ProfileScreenBloc extends Bloc<ProfileEvent, ProfileScreenState> {
   final GetProfileScreenProfileInfo usecase;
   final GetProfileScreenAbsentInfo absentUsecase;
-  ProfileScreenBloc(this.usecase, this.absentUsecase)
+  final GetProfileScreenActPeriod actPeriodUsecase;
+  ProfileScreenBloc(this.usecase, this.absentUsecase, this.actPeriodUsecase)
       : super(ProfileScreenLoading()) {
     on<InitProfileScreen>(init);
     on<GetProfileInfoProfileScreen>(getProfile);
     on<GetAbsentInfo>(getAbsentData);
+    on<ProfileScrnGetActPeriod>(getActPeriod);
   }
 
   void init(InitProfileScreen event, Emitter<ProfileScreenState> emit) async {
     emit(ProfileScreenInitiallized());
+  }
+
+  void getActPeriod(
+      ProfileScrnGetActPeriod event, Emitter<ProfileScreenState> emit) async {
+    final dataState = await actPeriodUsecase.call(GetActPeriodParams(event.date, event.lokasiTugas));
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        var begin = dataState.data['data'] as Map<String, dynamic>;
+        log('$begin');
+        var data = ActivePeriodModel.fromJson(begin);
+        log('Active Period: $data');
+        emit(ProfileScrnActPeriodLoaded(data));
+      }
+    }
+    if (dataState is DataError) {
+      emit(const ProfileScrErrMsg('Error'));
+    }
   }
 
   void getProfile(GetProfileInfoProfileScreen event,
@@ -57,7 +69,9 @@ class ProfileScreenBloc extends Bloc<ProfileEvent, ProfileScreenState> {
     if (res != null) {
       uid = res.uid!;
     }
-    var now = DateFormat('MMM yyyy').format(DateTime.now()).toString();
+
+    //! Get Period from State of Get Active Period
+    var now = event.period;
 
     final dataState = await absentUsecase.call(GetAbsentParams(uid, now, '1'));
     if (dataState is DataSuccess) {

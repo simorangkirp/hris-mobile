@@ -27,3 +27,43 @@ class JobModels extends JobEntity {
   //   return data;
   // }
 }
+
+class ActivePeriodModel extends ActivePeriodEntity {
+  const ActivePeriodModel({
+    required String kodeorg,
+    required String periode,
+    required String tanggalmulai,
+    required String tanggalsampai,
+    required String sudahproses,
+    required String jenisgaji,
+  });
+
+  ActivePeriodModel.fromJson(Map<String, dynamic> map)
+      : super(
+          kodeorg: map['kodeorg'] ?? "",
+          periode: map['periode'] ?? "",
+          tanggalmulai: map['tanggalmulai'] ?? "",
+          tanggalsampai: map['tanggalsampai'] ?? "",
+          sudahproses: map['sudahproses'] ?? "",
+          jenisgaji: map['jenisgaji'] ?? "",
+        );
+  // {
+  //   kodeorg = json['kodeorg'];
+  //   periode = json['periode'];
+  //   tanggalmulai = json['tanggalmulai'];
+  //   tanggalsampai = json['tanggalsampai'];
+  //   sudahproses = json['sudahproses'];
+  //   jenisgaji = json['jenisgaji'];
+  // }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['kodeorg'] = kodeorg;
+    data['periode'] = periode;
+    data['tanggalmulai'] = tanggalmulai;
+    data['tanggalsampai'] = tanggalsampai;
+    data['sudahproses'] = sudahproses;
+    data['jenisgaji'] = jenisgaji;
+    return data;
+  }
+}

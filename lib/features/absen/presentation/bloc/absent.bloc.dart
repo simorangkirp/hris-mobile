@@ -1,23 +1,22 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:owl_hris/core/resources/data.state.dart';
-import 'package:owl_hris/core/usecases/usecases.dart';
-import 'package:owl_hris/features/absen/presentation/bloc/absent.event.dart';
-import 'package:owl_hris/features/absen/presentation/bloc/absent.state.dart';
+import 'dart:developer';
 
-import '../../data/models/absent.list.model.dart';
-import '../../domain/usecases/absent.usecases.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../lib.dart';
 
 class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
+  final GetProfileScreenActPeriod actPeriod;
   final GetUserCurrentPeriodAbsentList getCurrPeriodAbsnt;
   final GetListCameraClockIn getCameraList;
 
   AbsentBloc(
     this.getCurrPeriodAbsnt,
     this.getCameraList,
+    this.actPeriod,
   ) : super(AbsentLoading()) {
     on<InitAbsent>(onInit);
     on<InitCamera>(initClockInCamera);
     on<GetAbsentPeriod>(getAbsentListPeriod);
+    on<AbsentScrnActPeriod>(getActPeriod);
     // on<SubmitLogin>(onLoginUser);
   }
 
@@ -38,8 +37,9 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
   void getAbsentListPeriod(
       GetAbsentPeriod event, Emitter<AbsentState> emit) async {
     emit(AbsentLoading());
-    final dataState = await getCurrPeriodAbsnt.call(ListAbsentParam(
-        uid: event.uid, period: event.dt, onmobile: event.onmobile));
+
+    final dataState = await getCurrPeriodAbsnt
+        .call(ListAbsentParam(uid: '', period: event.dt, onmobile: '1'));
     if (dataState is DataSuccess) {
       List<AbsentListModel> list = [];
       var listAbsent = dataState.data['data'];
@@ -55,4 +55,22 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
       }
     }
   }
+
+  void getActPeriod(
+      AbsentScrnActPeriod event, Emitter<AbsentState> emit) async {
+    //      final dataState = await actPeriod.call(GetActPeriodParams(event.date, event.lokasiTugas));
+    // if (dataState is DataSuccess) {
+    //   if (dataState.data != null) {
+    //     var begin = dataState.data['data'] as Map<String, dynamic>;
+    //     log('$begin');
+    //     var data = ActivePeriodModel.fromJson(begin);
+    //     log('Absent Active Period: $data');
+    //     emit(AbsentScrnActPeriodLoaded(data));
+    //   }
+    // }
+    // if (dataState is DataError) {
+    //   emit(const AbsentError('Error'));
+    // }
+
+      }
 }

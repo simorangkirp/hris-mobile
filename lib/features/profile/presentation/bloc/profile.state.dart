@@ -6,29 +6,40 @@ import '../../../../lib.dart';
 abstract class ProfileScreenState extends Equatable {
   final DioException? error;
   final EntityProfile? profile;
+  final ActivePeriodEntity? period;
   final String? errMsg;
   final List<AbsentEntity>? listAbsent;
-  const ProfileScreenState({this.error, this.profile, this.errMsg, this.listAbsent});
+  const ProfileScreenState({
+    this.error,
+    this.profile,
+    this.errMsg,
+    this.listAbsent,
+    this.period,
+  });
   @override
   List<Object> get props => [error!, profile!, errMsg!];
 }
 
-class ProfileScreenInitiallized extends ProfileScreenState{}
+class ProfileScreenInitiallized extends ProfileScreenState {}
 
-class ProfileScreenLoading extends ProfileScreenState{}
+class ProfileScreenLoading extends ProfileScreenState {}
 
 class ProfileScreenDataStateErr extends ProfileScreenState {
   const ProfileScreenDataStateErr(DioException err) : super(error: err);
 }
 
-class ProfileInfoLoaded extends ProfileScreenState{
+class ProfileInfoLoaded extends ProfileScreenState {
   const ProfileInfoLoaded(EntityProfile res) : super(profile: res);
 }
 
-class AbsentDataLoaded extends ProfileScreenState{
+class AbsentDataLoaded extends ProfileScreenState {
   const AbsentDataLoaded(List<AbsentEntity> list) : super(listAbsent: list);
 }
 
-class ProfileScrErrMsg extends ProfileScreenState{
+class ProfileScrErrMsg extends ProfileScreenState {
   const ProfileScrErrMsg(String msg) : super(errMsg: msg);
+}
+
+class ProfileScrnActPeriodLoaded extends ProfileScreenState {
+  const ProfileScrnActPeriodLoaded(ActivePeriodEntity data):super(period: data);
 }

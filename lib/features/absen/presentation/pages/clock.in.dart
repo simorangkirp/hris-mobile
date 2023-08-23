@@ -37,7 +37,7 @@ class _ClockInScreenState extends State<ClockInScreen> {
 
   Future<CameraDescription> getFrontFaceCamera(
       List<CameraDescription> list) async {
-    for (int i = 0; i <= list.length; i++) {
+    for (int i = 0; i < list.length; i++) {
       var cam = list[i];
       if (cam.lensDirection == CameraLensDirection.front) {
         // _controller = CameraController(cam, ResolutionPreset.high);

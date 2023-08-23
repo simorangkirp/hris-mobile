@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:owl_hris/lib.dart';
 
 @RoutePage()
@@ -20,7 +21,7 @@ class ProfileScreen extends StatefulWidget implements AutoRouteWrapper {
   }
 }
 
-buildProfileScreen(BuildContext ctx, EntityProfile? data) {
+buildProfileScreen(BuildContext ctx, EntityProfile? data, int? aCtr) {
   return Scaffold(
     appBar: AppBar(
       automaticallyImplyLeading: false,
@@ -41,7 +42,7 @@ buildProfileScreen(BuildContext ctx, EntityProfile? data) {
           SizedBox(height: 72.h),
           buildProfileInfo(data),
           SizedBox(height: 12.h),
-          buildTimeSheet(),
+          buildTimeSheet(aCtr),
           SizedBox(height: 12.h),
           buildListMenu(),
         ],
@@ -71,13 +72,29 @@ buildProfileSkeleton() {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   EntityProfile? model;
+  late int absCtr;
+  String? now;
+  String? currPeriod;
   void dispatchGetProfileInfo() {
     BlocProvider.of<ProfileScreenBloc>(context)
         .add(GetProfileInfoProfileScreen());
   }
 
+  void dispatchGetAbsentInfo() {
+    BlocProvider.of<ProfileScreenBloc>(context)
+        .add(GetAbsentInfo(currPeriod ?? '-'));
+  }
+
+  void dispatchGetActPeriod() {
+    BlocProvider.of<ProfileScreenBloc>(context).add(ProfileScrnGetActPeriod(
+      model?.lokasitugas ?? "-",
+      now ?? "-",
+    ));
+  }
+
   @override
   void initState() {
+    absCtr = 0;
     dispatchGetProfileInfo();
     super.initState();
   }
@@ -88,14 +105,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
       listener: (context, state) {
         if (state is ProfileInfoLoaded) {
           model = state.profile;
+          now = DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
+          dispatchGetActPeriod();
+        }
+        if (state is ProfileScrnActPeriodLoaded) {
+          currPeriod = state.period?.periode ?? '-';
+          dispatchGetAbsentInfo();
+        }
+        if (state is AbsentDataLoaded) {
+          if (state.listAbsent!.isNotEmpty) {
+            for (var e in state.listAbsent!) {
+              if (e.data?.absenIdIn != null || e.data?.absenIdOut != null) {
+                absCtr = absCtr + 1;
+                // log("${e.tanggal} $absCtr");
+              }
+            }
+          }
         }
       },
       child: BlocBuilder<ProfileScreenBloc, ProfileScreenState>(
         builder: (context, state) {
-          if (state is ProfileScreenLoading) {
-            return buildProfileSkeleton();
+          if (state is AbsentDataLoaded) {
+            return buildProfileScreen(context, model, absCtr);
           } else {
-            return buildProfileScreen(context, model);
+            return buildProfileSkeleton();
           }
         },
       ),

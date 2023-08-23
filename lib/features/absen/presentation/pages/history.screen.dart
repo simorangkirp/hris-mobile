@@ -30,11 +30,12 @@ class AbsentHistoryScreen extends StatefulWidget implements AutoRouteWrapper {
 class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
   void dispatchGetAbsentListPeriod() {
     BlocProvider.of<AbsentBloc>(context)
-        .add(GetAbsentPeriod('SZQKN-N3G7C-X9RDC', '2023-07', '1'));
+        .add(GetAbsentPeriod(sltdDt));
   }
 
   ScrollController ctrl = ScrollController();
   String dt = "Select dates";
+  String sltdDt = '';
   bool startAnimation = false;
 
   @override

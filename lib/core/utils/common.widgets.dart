@@ -339,137 +339,30 @@ class AppNavigationDrawer extends StatefulWidget {
 }
 
 class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
+  ScrollController ctrl = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Expanded(
-        child: Container(
-          color: appBgWhite,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              // DrawerHeader(
-              //   child: Text('HRIS Mobile'),
-              // ),
-              SizedBox(height: 56.h),
-              Theme(
-                data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                child: ExpansionTile(
-                  collapsedBackgroundColor: appBgWhite,
-                  leading: SizedBox(
-                    height: 16.w,
-                    width: 16.w,
-                    child: SvgPicture.asset(
-                      'assets/icons/home.svg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  trailing: SizedBox(
-                    width: 10.w,
-                    height: 8.w,
-                    child: SvgPicture.asset(
-                      'assets/icons/chevron-down.svg',
-                      fit: BoxFit.scaleDown,
-                    ),
-                  ),
-                  title: Text(
-                    'Home',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  children: [
-                    ListTile(
-                      tileColor: appBgWhite,
-                      leading: const SizedBox(),
-                      title: Text(
-                        'Dashboard',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.pop(context);
-                        context.router.push(const HomeRoute());
-                      },
-                    ),
-                    ListTile(
-                      tileColor: appBgWhite,
-                      leading: const SizedBox(),
-                      title: Text(
-                        'Claim',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      onTap: () {},
-                    ),
-                    ListTile(
-                      tileColor: appBgWhite,
-                      leading: const SizedBox(),
-                      title: Text(
-                        'Absensi',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.pop(context);
-                        context.router.push(const AbsentRoute());
-                      },
-                    ),
-                    ListTile(
-                      tileColor: appBgWhite,
-                      leading: const SizedBox(),
-                      title: Text(
-                        'Cuti',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      onTap: () {},
-                    ),
-                    ListTile(
-                      tileColor: appBgWhite,
-                      leading: const SizedBox(),
-                      title: Text(
-                        'PJD',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      onTap: () {},
-                    ),
-                    ListTile(
-                      tileColor: appBgWhite,
-                      leading: const SizedBox(),
-                      title: Text(
-                        'Kalender',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      onTap: () {},
-                    ),
-                  ],
-                ),
-              ),
-        
-              ListTile(
-                tileColor: appBgWhite,
+      child: Container(
+        color: appBgWhite,
+        child: ListView(
+          controller: ctrl,
+          padding: EdgeInsets.zero,
+          children: [
+            // DrawerHeader(
+            //   child: Text('HRIS Mobile'),
+            // ),
+            SizedBox(height: 56.h),
+            Theme(
+              data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+              child: ExpansionTile(
+                collapsedBackgroundColor: appBgWhite,
                 leading: SizedBox(
                   height: 16.w,
                   width: 16.w,
                   child: SvgPicture.asset(
-                    'assets/icons/briefcase.svg',
-                    fit: BoxFit.fill,
+                    'assets/icons/home.svg',
+                    fit: BoxFit.cover,
                   ),
                 ),
                 trailing: SizedBox(
@@ -481,72 +374,179 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                   ),
                 ),
                 title: Text(
-                  'Activity',
+                  'Home',
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                onTap: () {},
+                children: [
+                  ListTile(
+                    tileColor: appBgWhite,
+                    leading: const SizedBox(),
+                    title: Text(
+                      'Dashboard',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      context.router.push(const HomeRoute());
+                    },
+                  ),
+                  ListTile(
+                    tileColor: appBgWhite,
+                    leading: const SizedBox(),
+                    title: Text(
+                      'Claim',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    tileColor: appBgWhite,
+                    leading: const SizedBox(),
+                    title: Text(
+                      'Absensi',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      context.router.push(const AbsentRoute());
+                    },
+                  ),
+                  ListTile(
+                    tileColor: appBgWhite,
+                    leading: const SizedBox(),
+                    title: Text(
+                      'Cuti',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    tileColor: appBgWhite,
+                    leading: const SizedBox(),
+                    title: Text(
+                      'PJD',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    tileColor: appBgWhite,
+                    leading: const SizedBox(),
+                    title: Text(
+                      'Kalender',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    onTap: () {},
+                  ),
+                ],
               ),
-              ListTile(
-                tileColor: appBgWhite,
-                leading: SizedBox(
-                  height: 16.w,
-                  width: 16.w,
-                  child: SvgPicture.asset(
-                    'assets/icons/notification.svg',
-                    fit: BoxFit.fill,
-                  ),
+            ),
+      
+            ListTile(
+              tileColor: appBgWhite,
+              leading: SizedBox(
+                height: 16.w,
+                width: 16.w,
+                child: SvgPicture.asset(
+                  'assets/icons/briefcase.svg',
+                  fit: BoxFit.fill,
                 ),
-                title: Text(
-                  'Notification',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                onTap: () {},
               ),
-              ListTile(
-                tileColor: appBgWhite,
-                leading: SizedBox(
-                  height: 16.w,
-                  width: 16.w,
-                  child: SvgPicture.asset(
-                    'assets/icons/profile.svg',
-                    fit: BoxFit.fill,
-                  ),
+              trailing: SizedBox(
+                width: 10.w,
+                height: 8.w,
+                child: SvgPicture.asset(
+                  'assets/icons/chevron-down.svg',
+                  fit: BoxFit.scaleDown,
                 ),
-                title: Text(
-                  'Profile',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  context.router.push(const ProfileRoute());
-                },
               ),
-              ListTile(
-                tileColor: appBgWhite,
-                leading: Icon(Icons.logout, size: 18.w, color: Colors.black),
-                title: Text(
-                  'Logout',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
+              title: Text(
+                'Activity',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
                 ),
-                onTap: () {
-                  Navigator.pop(context);
-                  context.router.replace(const LoginRoute());
-                },
               ),
-            ],
-          ),
+              onTap: () {},
+            ),
+            ListTile(
+              tileColor: appBgWhite,
+              leading: SizedBox(
+                height: 16.w,
+                width: 16.w,
+                child: SvgPicture.asset(
+                  'assets/icons/notification.svg',
+                  fit: BoxFit.fill,
+                ),
+              ),
+              title: Text(
+                'Notification',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              tileColor: appBgWhite,
+              leading: SizedBox(
+                height: 16.w,
+                width: 16.w,
+                child: SvgPicture.asset(
+                  'assets/icons/profile.svg',
+                  fit: BoxFit.fill,
+                ),
+              ),
+              title: Text(
+                'Profile',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                context.router.push(const ProfileRoute());
+              },
+            ),
+            ListTile(
+              tileColor: appBgWhite,
+              leading: Icon(Icons.logout, size: 18.w, color: Colors.black),
+              title: Text(
+                'Logout',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                context.router.replace(const LoginRoute());
+              },
+            ),
+          ],
         ),
       ),
     );

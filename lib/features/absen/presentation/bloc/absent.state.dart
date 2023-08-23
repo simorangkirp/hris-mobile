@@ -11,15 +11,21 @@ import 'package:camera/camera.dart';
 import 'package:equatable/equatable.dart';
 import 'package:dio/dio.dart';
 
-import '../../domain/entities/absent.dart';
+import '../../../../lib.dart';
 
 abstract class AbsentState extends Equatable {
   final DioException? error;
   final List<AbsentEntity>? listAbsent;
   final List<CameraDescription>? listCamera;
+  final ActivePeriodEntity? period;
   final String? errMsg;
-  const AbsentState(
-      {this.error, this.listAbsent, this.listCamera, this.errMsg});
+  const AbsentState({
+    this.error,
+    this.listAbsent,
+    this.listCamera,
+    this.errMsg,
+    this.period,
+  });
 
   @override
   List<Object> get props => [error!, listAbsent!, listCamera!, errMsg!];
@@ -51,4 +57,8 @@ class ClockInCameraInitiallized extends AbsentState {
 
 class AbsentPeriodLoaded extends AbsentState {
   const AbsentPeriodLoaded(List<AbsentEntity> list) : super(listAbsent: list);
+}
+
+class AbsentScrnActPeriodLoaded extends AbsentState {
+  const AbsentScrnActPeriodLoaded(ActivePeriodEntity data) : super(period: data);
 }

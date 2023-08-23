@@ -16,6 +16,10 @@ abstract class ProfileAPIServices {
   @POST('${baseUrl}API/SDM/attendance/list')
   Future<HttpResponse<dynamic>> listAbsentProfileScreen(@Body() ProfileAbsentParams? param,
       @Header("Authorization") String authHeader);
+
+  @POST('${baseUrl}API/SDM/periodpayroll/active')
+  Future<HttpResponse<dynamic>> profileScrnActPeriod(@Body() ProfileScrnActPeriodParams? param,
+      @Header("Authorization") String authHeader);
 }
 
 @JsonSerializable()
@@ -31,4 +35,16 @@ class ProfileAbsentParams {
   factory ProfileAbsentParams.fromJson(Map<String, dynamic> json) =>
       _$ProfileAbsentParamsFromJson(json);
   Map<String, dynamic> toJson() => _$ProfileAbsentParamsToJson(this);
+}
+@JsonSerializable()
+class ProfileScrnActPeriodParams {
+  @JsonKey(name: 'lokasitugas')
+  String? lokasi;
+  @JsonKey(name: 'tanggal')
+  String? periode;
+
+  ProfileScrnActPeriodParams(this.lokasi, this.periode);
+  factory ProfileScrnActPeriodParams.fromJson(Map<String, dynamic> json) =>
+      _$ProfileScrnActPeriodParamsFromJson(json);
+  Map<String, dynamic> toJson() => _$ProfileScrnActPeriodParamsToJson(this);
 }

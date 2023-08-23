@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/lib.dart';
 
-import '../../../../config/themes/colors.dart';
-
-Widget buildTimeSheet() {
+Widget buildTimeSheet(int? ctr) {
   return Container(
     decoration: BoxDecoration(
       border: Border.all(
@@ -55,7 +52,7 @@ Widget buildTimeSheet() {
               ),
               Text(
                 // ctr.toString(),
-                '0',
+                (ctr ?? 0).toString(),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   color: appBgBlack,

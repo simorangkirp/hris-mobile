@@ -435,3 +435,31 @@ class PayrollDetails {
     return data;
   }
 }
+
+class ActivePeriodEntity extends Equatable{
+  final String? kodeorg;
+  final String? periode;
+  final String? tanggalmulai;
+  final String? tanggalsampai;
+  final String? sudahproses;
+  final String? jenisgaji;
+
+  const ActivePeriodEntity(
+      {this.kodeorg,
+      this.periode,
+      this.tanggalmulai,
+      this.tanggalsampai,
+      this.sudahproses,
+      this.jenisgaji});
+  
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+    kodeorg,
+    periode,
+    tanggalmulai,
+    tanggalsampai,
+    sudahproses,
+    jenisgaji,
+  ];
+}

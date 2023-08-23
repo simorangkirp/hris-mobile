@@ -3,6 +3,7 @@ import '../../../../lib.dart';
 abstract class ProfileRepository {
   Future<DataState> getProfileInfo(String uid);
   Future<DataState> getAbsentInfo(String uid, String period, String onmobile);
+  Future<DataState> getActPeriod(String lokasi, String period);
   Future<DataState> getPersonalInfo();
   Future<DataState> getJobHistory(String uid);
   Future<DataState> getEmergencyContact(String uid);
