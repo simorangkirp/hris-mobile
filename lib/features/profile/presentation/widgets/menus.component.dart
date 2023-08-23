@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:owl_hris/lib.dart';
 
 import '../../../../config/themes/colors.dart';
 
@@ -148,6 +149,135 @@ Widget buildListMenu() {
               height: 8.w,
             ),
           ],
+        ),
+      ),
+    ],
+  );
+}
+
+Widget buildListMenuSkel() {
+  return Column(
+    children: [
+      CommonShimmer(
+        isLoading: true,
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: appIconMenuTitle.withOpacity(0.1),
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(2),
+            color: appBgBlack.withOpacity(0.5),
+          ),
+          width: double.maxFinite,
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              Container(
+                height: 32.w,
+                width: 32.w,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: appBgBlack.withOpacity(0.5),
+                ),
+              ),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Container(
+                  height: 14.h,
+                  color: appBgBlack.withOpacity(0.5),
+                ),
+              ),
+              SizedBox(width: 12.w),
+              SvgPicture.asset(
+                'assets/icons/chevron-right.svg',
+                fit: BoxFit.contain,
+                height: 8.w,
+              ),
+            ],
+          ),
+        ),
+      ),
+      SizedBox(height: 12.h),
+      CommonShimmer(
+        isLoading: true,
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: appIconMenuTitle.withOpacity(0.1),
+              width: 1,
+            ),
+            color: appBgBlack.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(2),
+          ),
+          width: double.maxFinite,
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              Container(
+                width: 32.w,
+                height: 32.w,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: appBgBlack.withOpacity(0.5),
+                ),
+              ),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Container(
+                  height: 14.h,
+                  color: appBgBlack.withOpacity(0.5),
+                ),
+              ),
+              SizedBox(width: 12.w),
+              SvgPicture.asset(
+                'assets/icons/chevron-right.svg',
+                fit: BoxFit.contain,
+                height: 8.w,
+              ),
+            ],
+          ),
+        ),
+      ),
+      SizedBox(height: 12.h),
+      CommonShimmer(
+        isLoading: true,
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: appIconMenuTitle.withOpacity(0.1),
+              width: 1,
+            ),
+            color: appBgBlack.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(2),
+          ),
+          width: double.maxFinite,
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              Container(
+                width: 32.w,
+                height: 32.w,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: appBgBlack.withOpacity(0.5),
+                ),
+              ),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Container(
+                  height: 14.h,
+                  color: appBgBlack.withOpacity(0.5),
+                ),
+              ),
+              SizedBox(width: 12.w),
+              SvgPicture.asset(
+                'assets/icons/chevron-right.svg',
+                fit: BoxFit.contain,
+                height: 8.w,
+              ),
+            ],
+          ),
         ),
       ),
     ],

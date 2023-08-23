@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dartz/dartz.dart';
+// import 'package:dartz/dartz.dart';
 import 'package:owl_hris/features/auth/data/models/login.model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,64 +9,40 @@ class UserAuthDb {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map loginMap = login.toJson();
     String jsonBody = json.encode(loginMap);
-
     await prefs.setString('LoginInfo', jsonBody);
   }
 
-  Future<Either<String, LoginModel?>> getUserLoginInfo() async {
+
+  Future<LoginModel?> getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    LoginModel? mod;
+    LoginModel? log;
     try {
-      String? jsonBody = prefs.getString('Login');
+      String? jsonBody = prefs.getString('LoginInfo');
       if (jsonBody != null) {
         final map = json.decode(jsonBody) as Map<String, dynamic>;
-        mod = LoginModel.fromJson(map);
+        log = LoginModel.fromJson(map);
       }
     } catch (e) {
-      throw Left(e);
+      throw Exception('Session is Expired');
     }
 
-    return Right(mod);
+    return log;
   }
 
-  // Future saveUserInfo(UserModel user) async {
+  // Future<Either<String, LoginModel?>> getUserLoginInfo() async {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   Map userMap = user.toJson();
-  //   String jsonBody = json.encode(userMap);
-
-  //   await prefs.setString('UserInfo', jsonBody);
-  // }
-
-  // Future<Login?> getUser() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   Login? log;
+  //   LoginModel? mod;
   //   try {
   //     String? jsonBody = prefs.getString('Login');
   //     if (jsonBody != null) {
   //       final map = json.decode(jsonBody) as Map<String, dynamic>;
-  //       log = Login.fromJson(map);
+  //       mod = LoginModel.fromJson(map);
   //     }
   //   } catch (e) {
-  //     throw InvalidSessionExpression('Session is Expired');
+  //     throw Left(e);
   //   }
 
-  //   return log;
-  // }
-
-  // Future<UserModel?> getUserInfo() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   UserModel? log;
-  //   try {
-  //     String? jsonBody = prefs.getString('UserInfo');
-  //     if (jsonBody != null) {
-  //       final map = json.decode(jsonBody) as Map<String, dynamic>;
-  //       log = UserModel.fromJson(map);
-  //     }
-  //   } catch (e) {
-  //     throw InvalidSessionExpression('Session is Expired');
-  //   }
-
-  //   return log;
+  //   return Right(mod);
   // }
 
   Future dbClear() async {

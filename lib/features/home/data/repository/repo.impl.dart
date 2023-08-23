@@ -1,7 +1,7 @@
-import 'package:owl_hris/core/resources/data.state.dart';
+import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import '../../home.dart';
+import '../../../../lib.dart';
 
 class HomeReposImpl implements HomeRepository {
   final HomeApiServices _homeAPIServices;
@@ -20,14 +20,20 @@ class HomeReposImpl implements HomeRepository {
 
   @override
   Future<DataState> getProfileInfo(String uid) async {
+    UserAuthDb auth = UserAuthDb();
     var id = uid;
-    var header =
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiJTWlFLTi1OM0c3Qy1YOVJEQyIsInJvbGVpZCI6IjEiLCJpYXQiOjE2OTE5ODcxNzQsImV4cCI6MTY5MjA3MzU3NCwib25tb2JpbGUiOiIxIn0.6-xvm_Z1AnKhetcjQSdzxNRyo1vGfJ874bith1P6xw0';
+    LoginModel? mods;
+    final res = await auth.getUser();
+    if (res != null) {
+      mods = res;
+    }
+    var header = 'Bearer ${mods?.accesstoken}';
 
     try {
       final httpResp = await _homeAPIServices.profileInfo(id, header);
 
       if (httpResp.response.statusCode == HttpStatus.ok) {
+        log('Response Home Data : ${httpResp.data}');
         return DataSuccess(httpResp.data);
       } else {
         return DataError(DioException(

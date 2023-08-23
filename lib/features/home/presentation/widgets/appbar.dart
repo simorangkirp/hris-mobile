@@ -1,7 +1,16 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-buildAppBar() {
+import '../../../../lib.dart';
+
+buildAppBar(EntityProfile? mod) {
+  Uint8List? byteImg;
+  if(mod?.photo != null){
+  byteImg = const Base64Decoder().convert(mod!.photo!);
+  }
   return AppBar(
     automaticallyImplyLeading: false,
     title: Row(
@@ -11,10 +20,10 @@ buildAppBar() {
           child: SizedBox(
             height: 42.w,
             width: 42.w,
-            child: Image.asset(
-              'assets/image/serenia-0363.jpg',
+            child: byteImg!= null ? Image.memory(
+              byteImg,
               fit: BoxFit.cover,
-            ),
+            ): Container(color: appBgBlack,),
           ),
         ),
         SizedBox(width: 12.w),
@@ -30,7 +39,7 @@ buildAppBar() {
               ),
             ),
             Text(
-              'Patrick S',
+              mod?.namakaryawan ?? "",
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w500,

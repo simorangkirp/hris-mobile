@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:owl_hris/lib.dart';
 
 import '../../../../config/themes/colors.dart';
 
@@ -45,7 +46,7 @@ class _HomePengumumanWidgetState extends State<HomePengumumanWidget> {
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         const ContentSliderWidget(),
       ],
     );

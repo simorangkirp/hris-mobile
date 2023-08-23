@@ -22,7 +22,10 @@ Future<void> main() async {
         ),
         BlocProvider(
           create: (context) => sl<HomeBloc>(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => sl<ProfileScreenBloc>(),
+        ),
       ],
       child: const MyApp(),
     ),

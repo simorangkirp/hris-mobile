@@ -1,10 +1,8 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
-import 'package:owl_hris/core/resources/data.state.dart';
 
-import '../../domain/repository/absent.repository.dart';
-import '../data.source/remote/absent.services.dart';
+import '../../../../lib.dart';
 
 class AbsentReposImplement implements AbsentRepository {
   // final String userNm, pwd;
@@ -21,8 +19,13 @@ class AbsentReposImplement implements AbsentRepository {
   @override
   Future<DataState> getCurrentPeriodAbsent(id, date, mobile) async {
     var params = ListAbsentParams(id, date, '1');
-    var header =
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiJYQ1JERi1BQVNERi0zNEVSMSIsInJvbGVpZCI6IjEiLCJpYXQiOjE2OTIxNjc0ODQsImV4cCI6MTY5MjI1Mzg4NCwib25tb2JpbGUiOiIxIn0.oFkkAnHqTN5HzdUUJazzwoezE5ZLVYZJterBxYUhrIM';
+    UserAuthDb auth = UserAuthDb();
+    LoginModel? mods;
+    final res = await auth.getUser();
+    if (res != null) {
+      mods = res;
+    }
+    var header = 'Bearer ${mods?.accesstoken}';
     try {
       final httpResp = await _absentAPIServices.listAbsent(params, header);
 

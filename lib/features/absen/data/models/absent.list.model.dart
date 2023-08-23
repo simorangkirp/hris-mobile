@@ -8,9 +8,9 @@ class AbsentListModel extends AbsentEntity {
 
   AbsentListModel.fromJson(Map<String, dynamic> map)
       : super(
-            tanggal: map['tanggal'] ?? "",
-            data:
-                map['data'] != null ? AbsentData.fromJson(map['data']) : null);
+          tanggal: map['tanggal'] ?? "",
+          data: map['data'] != null ? AbsentData.fromJson(map['data']) : null,
+        );
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};

@@ -47,7 +47,6 @@ class _LoginAPIServices implements LoginAPIServices {
     _data.addAll(param?.toJson() ?? <String, dynamic>{});
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
-      followRedirects: false,
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -63,7 +62,6 @@ class _LoginAPIServices implements LoginAPIServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    // log(_result.data);
     final value = _result.data['data'];
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;

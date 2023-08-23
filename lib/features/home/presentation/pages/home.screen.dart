@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../lib.dart';
+import '../widgets/home.skeleton.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget implements AutoRouteWrapper {
@@ -22,6 +23,7 @@ class HomeScreen extends StatefulWidget implements AutoRouteWrapper {
 
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController sCtrl = ScrollController();
+  EntityProfile? model;
 
   void dispatchGetProfileList() {
     BlocProvider.of<HomeBloc>(context).add(GetProfileInfo());
@@ -33,9 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
     dispatchGetProfileList();
   }
 
-  buildHome() {
+  buildHome(EntityProfile? mods) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(mods),
       endDrawer: const AppNavigationDrawer(),
       body: SafeArea(
         child: Column(
@@ -82,11 +84,18 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return BlocListener<HomeBloc, HomeState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (state is ProfileDataLoaded) {
+          model = state.profile;
+        }
       },
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          return buildHome();
+          // return const HomeScreenSkeleton();
+          if (state is HomeLoading) {
+            return const HomeScreenSkeleton();
+          } else {
+            return buildHome(model);
+          }
         },
       ),
     );

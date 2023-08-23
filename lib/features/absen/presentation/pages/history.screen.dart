@@ -34,7 +34,7 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
   }
 
   ScrollController ctrl = ScrollController();
-  String dt = "";
+  String dt = "Select dates";
   bool startAnimation = false;
 
   @override
@@ -104,7 +104,7 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
                 child: ListView(
                   controller: ctrl,
                   children: [
-                    SizedBox(height: 18.h),
+                    SizedBox(height: 8.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -140,21 +140,23 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
                         Text(
                           dt,
                           style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w700,
+                            color: appBgBlack.withOpacity(0.6),
                           ),
                         ),
                       ],
                     ),
                     SizedBox(height: 12.h),
                     //! Daftar Absent Widget
-                    Text(
-                      'Daftar Absensi',
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    // Text(
+                    //   'Daftar Absensi',
+                    //   style: TextStyle(
+                    //     fontSize: 14.sp,
+                    //     fontWeight: FontWeight.w600,
+                    //   ),
+                    // ),
+                    // SizedBox(height: 4.h),
                     Divider(
                       color: appBgBlack.withOpacity(0.5),
                       thickness: 2,

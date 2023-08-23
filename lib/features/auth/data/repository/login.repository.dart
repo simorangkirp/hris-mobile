@@ -48,7 +48,7 @@ class LoginRepositoryImpl implements UserAuthRepository {
   @override
   Future<DataState> verifyLocalUsersCredential() async {
     try {
-      final resp = await db.getUserLoginInfo();
+      final resp = await db.getUser();
       return DataSuccess(resp);
     } on DioException catch (e) {
       return DataError(e);

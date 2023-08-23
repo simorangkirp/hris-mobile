@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../lib.dart';
@@ -15,8 +17,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final dataState = await _loginUseCase.call(event.model);
     if (dataState is DataSuccess) {
       var data = LoginModel.fromJson(dataState.data);
+      log('Data Auth: $data');
       //! Add Process To Save Data Locally
       // await Future.delayed(const Duration(seconds: 3));
+      log('Saving User Credential');
+      sl<UserAuthDb>().saveUserLoginInfo(data);
+      log('Saving Successfully');
       emit(ProccessDone(data));
     }
     if (dataState is DataError) {

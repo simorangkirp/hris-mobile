@@ -15,6 +15,12 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AbsentHistoryRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const AbsentHistoryScreen()),
+      );
+    },
     AbsentRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -27,10 +33,10 @@ abstract class _$AppRouter extends RootStackRouter {
         child: WrappedRoute(child: const ClockInScreen()),
       );
     },
-    AbsentHistoryRoute.name: (routeData) {
+    HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: const AbsentHistoryScreen()),
+        child: WrappedRoute(child: const HomeScreen()),
       );
     },
     LoginRoute.name: (routeData) {
@@ -39,19 +45,27 @@ abstract class _$AppRouter extends RootStackRouter {
         child: WrappedRoute(child: const LoginScreen()),
       );
     },
-    HomeRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const HomeScreen()),
-      );
-    },
     ProfileRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const ProfileScreen(),
+        child: WrappedRoute(child: const ProfileScreen()),
       );
     },
   };
+}
+
+/// generated route for
+/// [AbsentHistoryScreen]
+class AbsentHistoryRoute extends PageRouteInfo<void> {
+  const AbsentHistoryRoute({List<PageRouteInfo>? children})
+      : super(
+          AbsentHistoryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AbsentHistoryRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -83,15 +97,15 @@ class ClockInRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [AbsentHistoryScreen]
-class AbsentHistoryRoute extends PageRouteInfo<void> {
-  const AbsentHistoryRoute({List<PageRouteInfo>? children})
+/// [HomeScreen]
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute({List<PageRouteInfo>? children})
       : super(
-          AbsentHistoryRoute.name,
+          HomeRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'AbsentHistoryRoute';
+  static const String name = 'HomeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -106,20 +120,6 @@ class LoginRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'LoginRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [HomeScreen]
-class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute({List<PageRouteInfo>? children})
-      : super(
-          HomeRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'HomeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
