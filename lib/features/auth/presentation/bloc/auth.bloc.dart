@@ -6,10 +6,16 @@ import '../../../../lib.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUserUseCase _loginUseCase;
+  final AuthGetProfileDataDetails _profileDetailUseCase;
+  final AuthGetActPeriodUseCase _actPeriodUseCase;
 
-  AuthBloc(this._loginUseCase) : super(const AuthLoading()) {
+  AuthBloc(
+      this._loginUseCase, this._profileDetailUseCase, this._actPeriodUseCase)
+      : super(const AuthLoading()) {
     on<InitAuth>(onInit);
     on<SubmitLogin>(onLoginUser);
+    on<AuthGetProfileDetail>(onGetProfileDataDetail);
+    on<AuthGetActPeriod>(onGetActPeriodData);
   }
 
   void onLoginUser(SubmitLogin event, Emitter<AuthState> emit) async {
@@ -33,5 +39,57 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void onInit(InitAuth event, Emitter<AuthState> emit) async {
     emit(AuthInitiallized());
+  }
+
+  onGetProfileDataDetail(
+      AuthGetProfileDetail event, Emitter<AuthState> emit) async {
+    emit(const AuthLoading());
+    var uid = '';
+    UserAuthDb auth = UserAuthDb();
+    final res = await auth.getUser();
+    if (res != null) {
+      uid = res.uid!;
+    }
+    final dataState = await _profileDetailUseCase.call(GetProfileParams(uid));
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        var begin = dataState.data['data'] as Map<String, dynamic>;
+        log('$begin');
+        var data = ProfileModel.fromJson(begin);
+        log('Profile Data: $data');
+        log('========================');
+        log('Saving Profile Data Details');
+        sl<UserAuthDb>().saveProfileDetailInfo(data);
+        log('saving done');
+        log('========================');
+        emit(AuthDetailProfileLoaded(data));
+      }
+    }
+    if (dataState is DataError) {
+      emit(const AuthStrMsg('Error'));
+    }
+  }
+
+  onGetActPeriodData(AuthGetActPeriod event, Emitter<AuthState> emit) async {
+    emit(const AuthLoading());
+    final dataState = await _actPeriodUseCase.call(GetActPeriodParams(event.dt, event.lokasiTugas));
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        var begin = dataState.data['data'] as Map<String, dynamic>;
+        log('$begin');
+        var data = ActivePeriodModel.fromJson(begin);
+        log('Active Period: $data');
+        log('Profile Data: $data');
+        log('========================');
+        log('Saving Active Period');
+        sl<UserAuthDb>().saveActPeriodInfo(data);
+        log('saving done');
+        log('========================');
+        emit(AuthActPeriodLoaded(data));
+      }
+    }
+    if (dataState is DataError) {
+      emit(const AuthStrMsg('Error'));
+    }
   }
 }

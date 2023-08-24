@@ -58,19 +58,19 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
 
   void getActPeriod(
       AbsentScrnActPeriod event, Emitter<AbsentState> emit) async {
-    //      final dataState = await actPeriod.call(GetActPeriodParams(event.date, event.lokasiTugas));
-    // if (dataState is DataSuccess) {
-    //   if (dataState.data != null) {
-    //     var begin = dataState.data['data'] as Map<String, dynamic>;
-    //     log('$begin');
-    //     var data = ActivePeriodModel.fromJson(begin);
-    //     log('Absent Active Period: $data');
-    //     emit(AbsentScrnActPeriodLoaded(data));
-    //   }
-    // }
-    // if (dataState is DataError) {
-    //   emit(const AbsentError('Error'));
-    // }
+         final dataState = await actPeriod.call(GetActPeriodParams(event.dt, event.lokasiTugas));
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        var begin = dataState.data['data'] as Map<String, dynamic>;
+        log('$begin');
+        var data = ActivePeriodModel.fromJson(begin);
+        log('Absent Active Period: $data');
+        emit(AbsentScrnActPeriodLoaded(data));
+      }
+    }
+    if (dataState is DataError) {
+      emit(const AbsentError('Error'));
+    }
 
       }
 }

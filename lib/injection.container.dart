@@ -39,10 +39,12 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetProfileScreenPayrollInfo>(GetProfileScreenPayrollInfo(sl()));
   sl.registerSingleton<GetProfileScreenAddressInfo>(GetProfileScreenAddressInfo(sl()));
   sl.registerSingleton<GetProfileScreenActPeriod>(GetProfileScreenActPeriod(sl()));
+  sl.registerSingleton<AuthGetProfileDataDetails>(AuthGetProfileDataDetails(sl()));
+  sl.registerSingleton<AuthGetActPeriodUseCase>(AuthGetActPeriodUseCase(sl()));
 
   
   // BLoCs
-  sl.registerFactory<AuthBloc>(() => AuthBloc(sl())..add(InitAuth()));
+  sl.registerFactory<AuthBloc>(() => AuthBloc(sl(),sl(),sl())..add(InitAuth()));
   sl.registerFactory<AbsentBloc>(
       () => AbsentBloc(sl(), sl(), sl())..add(InitAbsent()));
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl())..add(InitHome()));

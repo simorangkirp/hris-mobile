@@ -19,6 +19,20 @@ Map<String, dynamic> _$LoginParamToJson(LoginParam instance) =>
       'onmobile': instance.onmobile,
     };
 
+AuthScrnActPeriodParams _$AuthScrnActPeriodParamsFromJson(
+        Map<String, dynamic> json) =>
+    AuthScrnActPeriodParams(
+      json['lokasitugas'] as String?,
+      json['tanggal'] as String?,
+    );
+
+Map<String, dynamic> _$AuthScrnActPeriodParamsToJson(
+        AuthScrnActPeriodParams instance) =>
+    <String, dynamic>{
+      'lokasitugas': instance.loc,
+      'tanggal': instance.dt,
+    };
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -63,6 +77,72 @@ class _LoginAPIServices implements LoginAPIServices {
               baseUrl,
             ))));
     final value = _result.data['data'];
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<dynamic>> profileInfo(
+    String uid,
+    String authHeader,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': authHeader};
+    _headers.removeWhere((k, v) => v == null);
+    final Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'http://182.23.67.40:8083/officeapi/API/user/profile/${uid}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<dynamic>> profileScrnActPeriod(
+    AuthScrnActPeriodParams? param,
+    String authHeader,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{r'Authorization': authHeader};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(param?.toJson() ?? <String, dynamic>{});
+    final _result =
+        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'http://182.23.67.40:8083/officeapi/API/SDM/periodpayroll/active',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data;
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

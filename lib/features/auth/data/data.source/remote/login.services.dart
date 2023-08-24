@@ -12,6 +12,15 @@ abstract class LoginAPIServices {
 
   @POST('${baseUrl}auth/login')
   Future<HttpResponse<dynamic>> loginUser(@Body() LoginParam? param);
+
+  @POST('${baseUrl}API/user/profile/{uid}')
+  Future<HttpResponse<dynamic>> profileInfo(
+      @Path("uid") String uid, @Header("Authorization") String authHeader);
+
+  @POST('${baseUrl}API/SDM/periodpayroll/active')
+  Future<HttpResponse<dynamic>> profileScrnActPeriod(
+      @Body() AuthScrnActPeriodParams? param,
+      @Header("Authorization") String authHeader);
 }
 
 @JsonSerializable()
@@ -27,6 +36,19 @@ class LoginParam {
   factory LoginParam.fromJson(Map<String, dynamic> json) =>
       _$LoginParamFromJson(json);
   Map<String, dynamic> toJson() => _$LoginParamToJson(this);
+}
+
+@JsonSerializable()
+class AuthScrnActPeriodParams {
+  @JsonKey(name: 'lokasitugas')
+  String? loc;
+  @JsonKey(name: 'tanggal')
+  String? dt;
+
+  AuthScrnActPeriodParams(this.loc, this.dt);
+  factory AuthScrnActPeriodParams.fromJson(Map<String, dynamic> json) =>
+      _$AuthScrnActPeriodParamsFromJson(json);
+  Map<String, dynamic> toJson() => _$AuthScrnActPeriodParamsToJson(this);
 }
 
 //! file .g.dart

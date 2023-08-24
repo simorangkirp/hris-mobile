@@ -134,5 +134,4 @@ class ProfileRepoImpl implements ProfileRepository{
       return DataError(e);
     }
   }
-  
 }

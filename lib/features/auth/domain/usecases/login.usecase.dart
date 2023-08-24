@@ -1,9 +1,8 @@
 // import 'package:dartz/dartz.dart';
 // import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
-import 'package:owl_hris/core/resources/data.state.dart';
-import 'package:owl_hris/core/usecases/usecases.dart';
-import 'package:owl_hris/features/auth/domain/repository/login.repository.dart';
+
+import '../../../../lib.dart';
 
 // import '../../../../core/error/failures.dart';
 
@@ -24,6 +23,26 @@ class SaveUserLoginInfoLocally extends UseCase<DataState, void> {
   @override
   Future<DataState> call(void params) async {
     var res = await _repo.saveUserLoginInfoToLocal();
+    return res;
+  }
+}
+
+class AuthGetProfileDataDetails extends UseCase<DataState, GetProfileParams> {
+  final UserAuthRepository _repo;
+  AuthGetProfileDataDetails(this._repo);
+  @override
+  Future<DataState> call(GetProfileParams params) async {
+    var res = await _repo.getProfileDetails(params.uid);
+    return res;
+  }
+}
+
+class AuthGetActPeriodUseCase extends UseCase<DataState, GetActPeriodParams> {
+  final UserAuthRepository _repo;
+  AuthGetActPeriodUseCase(this._repo);
+  @override
+  Future<DataState> call(GetActPeriodParams params) async {
+    var res = await _repo.getAuthActPeriod(params.period, params.lokasi);
     return res;
   }
 }

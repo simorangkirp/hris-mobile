@@ -1,11 +1,9 @@
+import 'dart:developer';
 import 'dart:io';
 
-import 'package:owl_hris/core/resources/data.state.dart';
-import 'package:owl_hris/features/auth/data/data.source/remote/login.services.dart';
-import 'package:owl_hris/features/auth/domain/repository/login.repository.dart';
 import 'package:dio/dio.dart';
 
-import '../data.source/local/local.auth.services.dart';
+import '../../../../lib.dart';
 
 class LoginRepositoryImpl implements UserAuthRepository {
   final String userNm, pwd;
@@ -59,5 +57,75 @@ class LoginRepositoryImpl implements UserAuthRepository {
   Future<DataState> saveUserLoginInfoToLocal() {
     // TODO: implement saveUserLoginInfoToLocal
     throw UnimplementedError();
+  }
+
+  @override
+  Future<DataState> getProfileDetails(String uid) async {
+    UserAuthDb auth = UserAuthDb();
+    var id = uid;
+    LoginModel? mods;
+    final res = await auth.getUser();
+    if (res != null) {
+      mods = res;
+    }
+    var header = 'Bearer ${mods?.accesstoken}';
+
+    try {
+      final httpResp = await _loginAPIServices.profileInfo(id, header);
+
+      if (httpResp.response.statusCode == HttpStatus.ok) {
+        log('Response Profile Data : ${httpResp.data}');
+        return DataSuccess(httpResp.data);
+      } else {
+        return DataError(DioException(
+          error: httpResp.response.statusMessage,
+          response: httpResp.response,
+          type: DioExceptionType.badResponse,
+          requestOptions: httpResp.response.requestOptions,
+        ));
+      }
+    } on DioException catch (e) {
+      return DataError(e);
+    }
+  }
+
+  @override
+  Future<DataState> saveActPeriodToLocal() {
+    // TODO: implement saveActPeriodToLocal
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<DataState> saveProfileDetailsToLocal() {
+    // TODO: implement saveProfileDetailsToLocal
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<DataState> getAuthActPeriod(String dt, String loc) async {
+    var params = AuthScrnActPeriodParams(dt, loc);
+    UserAuthDb auth = UserAuthDb();
+    LoginModel? mods;
+    final res = await auth.getUser();
+    if (res != null) {
+      mods = res;
+    }
+    var header = 'Bearer ${mods?.accesstoken}';
+    try {
+      final httpResp = await _loginAPIServices.profileScrnActPeriod(params, header);
+
+      if (httpResp.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResp.data);
+      } else {
+        return DataError(DioException(
+          error: httpResp.response.statusMessage,
+          response: httpResp.response,
+          type: DioExceptionType.badResponse,
+          requestOptions: httpResp.response.requestOptions,
+        ));
+      }
+    } on DioException catch (e) {
+      return DataError(e);
+    }
   }
 }

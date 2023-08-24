@@ -10,3 +10,11 @@ class SubmitLogin extends AuthEvent {
   LoginParams model;
   SubmitLogin(this.model);
 }
+
+class AuthGetProfileDetail extends AuthEvent {}
+
+class AuthGetActPeriod extends AuthEvent {
+  String dt;
+  String lokasiTugas;
+  AuthGetActPeriod(this.dt, this.lokasiTugas);
+}
