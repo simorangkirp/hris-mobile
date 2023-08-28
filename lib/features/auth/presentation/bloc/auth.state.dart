@@ -24,6 +24,8 @@ class AuthLoading extends AuthState {
   const AuthLoading();
 }
 
+class UserAuthGranted extends AuthState{}
+
 class AuthInitiallized extends AuthState {}
 
 class ProccessDone extends AuthState {

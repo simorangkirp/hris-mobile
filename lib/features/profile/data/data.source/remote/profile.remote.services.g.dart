@@ -62,7 +62,7 @@ class _ProfileAPIServices implements ProfileAPIServices {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': authHeader};
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',

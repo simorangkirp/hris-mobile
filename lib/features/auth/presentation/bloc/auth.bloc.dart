@@ -29,7 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       log('Saving User Credential');
       sl<UserAuthDb>().saveUserLoginInfo(data);
       log('Saving Successfully');
-      emit(ProccessDone(data));
+      emit(UserAuthGranted());
     }
     if (dataState is DataError) {
       var err = ErrMsg.fromJson(dataState.error!.response!.data);

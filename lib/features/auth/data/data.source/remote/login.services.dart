@@ -40,12 +40,12 @@ class LoginParam {
 
 @JsonSerializable()
 class AuthScrnActPeriodParams {
-  @JsonKey(name: 'lokasitugas')
-  String? loc;
   @JsonKey(name: 'tanggal')
   String? dt;
+  @JsonKey(name: 'lokasitugas')
+  String? loc;
 
-  AuthScrnActPeriodParams(this.loc, this.dt);
+  AuthScrnActPeriodParams(this.dt, this.loc);
   factory AuthScrnActPeriodParams.fromJson(Map<String, dynamic> json) =>
       _$AuthScrnActPeriodParamsFromJson(json);
   Map<String, dynamic> toJson() => _$AuthScrnActPeriodParamsToJson(this);

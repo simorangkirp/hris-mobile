@@ -22,15 +22,15 @@ Map<String, dynamic> _$LoginParamToJson(LoginParam instance) =>
 AuthScrnActPeriodParams _$AuthScrnActPeriodParamsFromJson(
         Map<String, dynamic> json) =>
     AuthScrnActPeriodParams(
-      json['lokasitugas'] as String?,
       json['tanggal'] as String?,
+      json['lokasitugas'] as String?,
     );
 
 Map<String, dynamic> _$AuthScrnActPeriodParamsToJson(
         AuthScrnActPeriodParams instance) =>
     <String, dynamic>{
-      'lokasitugas': instance.loc,
       'tanggal': instance.dt,
+      'lokasitugas': instance.loc,
     };
 
 // **************************************************************************

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:owl_hris/config/routes/app.routes.dart';
 import 'package:owl_hris/features/auth/presentation/bloc/auth.bloc.dart';
@@ -21,12 +22,24 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) {
     TextEditingController user = TextEditingController();
     TextEditingController pw = TextEditingController();
+    String dt = '';
+    String loc = '';
 
     void dispatchLogin() {
       BlocProvider.of<AuthBloc>(context).add(SubmitLogin(LoginParams(
         unm: user.text,
         pw: pw.text,
       )));
+    }
+
+    //! Dispatch after successfully login
+    void dispatchProfileDetail() {
+      BlocProvider.of<AuthBloc>(context).add(AuthGetProfileDetail());
+    }
+
+    //! Dispatch after get profile details
+    void dispatchActPeriod() {
+      BlocProvider.of<AuthBloc>(context).add(AuthGetActPeriod(dt, loc));
     }
 
     Widget loginCard() {
@@ -186,10 +199,10 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
           child: Lottie.asset('assets/lotties/animation_loading.json'));
     }
 
-    Widget authError() {
-      return Center(
-          child: Lottie.asset('assets/lotties/animation_failed.json'));
-    }
+    // Widget authError() {
+    //   return Center(
+    //       child: Lottie.asset('assets/lotties/animation_failed.json'));
+    // }
 
     Widget authSuccess() {
       return Center(
@@ -217,7 +230,21 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
           },
           listener: (context, state) {
             if (state is ProccessDone) {
-              Future.delayed(const Duration(seconds: 3))
+              // Future.delayed(const Duration(seconds: 3))
+              //     .then((_) => redirectScreen());
+            }
+            if (state is UserAuthGranted) {
+              dispatchProfileDetail();
+            }
+            if (state is AuthDetailProfileLoaded) {
+              if (state.profileModel?.lokasitugas != null) {
+                loc = state.profileModel!.lokasitugas!;
+              }
+              dt = DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
+              dispatchActPeriod();
+            }
+            if(state is AuthActPeriodLoaded){
+               Future.delayed(const Duration(seconds: 2))
                   .then((_) => redirectScreen());
             }
             if (state is AuthError) {
@@ -225,6 +252,13 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
                 ..hideCurrentSnackBar()
                 ..showSnackBar(failSnackBar(
                   message: state.error!.messages!.error,
+                ));
+            }
+            if (state is AuthStrMsg) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(failSnackBar(
+                  message: state.msg,
                 ));
             }
           },

@@ -21,4 +21,7 @@ class ConstIconPath {
   static const search = 'assets/icons/search.svg';
   static const calendar = 'assets/icons/calendar.svg';
   static const calendarDays = 'assets/icons/calendar-days.svg';
+  static const pinLock = 'assets/icons/lock.svg';
+  static const passLock = 'assets/icons/pin.svg';
+  static const textIcon = 'assets/icons/text.svg';
 }

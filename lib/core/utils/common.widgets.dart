@@ -473,14 +473,14 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                   fit: BoxFit.fill,
                 ),
               ),
-              trailing: SizedBox(
-                width: 10.w,
-                height: 8.w,
-                child: SvgPicture.asset(
-                  'assets/icons/chevron-down.svg',
-                  fit: BoxFit.scaleDown,
-                ),
-              ),
+              // trailing: SizedBox(
+              //   width: 10.w,
+              //   height: 8.w,
+              //   child: SvgPicture.asset(
+              //     'assets/icons/chevron-down.svg',
+              //     fit: BoxFit.scaleDown,
+              //   ),
+              // ),
               title: Text(
                 'Activity',
                 style: TextStyle(

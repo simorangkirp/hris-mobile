@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owl_hris/lib.dart';
 
-import '../../../../config/themes/colors.dart';
-
-Widget buildListMenu() {
+Widget buildListMenu(BuildContext ctx) {
   return Column(
     children: [
       Container(
@@ -56,51 +54,56 @@ Widget buildListMenu() {
         ),
       ),
       SizedBox(height: 12.h),
-      Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: appIconMenuTitle.withOpacity(0.1),
-            width: 1,
+      GestureDetector(
+        onTap: () {
+          ctx.router.push(const SettingRoute());
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: appIconMenuTitle.withOpacity(0.1),
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(2),
           ),
-          borderRadius: BorderRadius.circular(2),
-        ),
-        width: double.maxFinite,
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: appNotifAbsIcn.withOpacity(0.2),
+          width: double.maxFinite,
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: appNotifAbsIcn.withOpacity(0.2),
+                ),
+                padding: EdgeInsets.all(8.w),
+                child: SvgPicture.asset(
+                  'assets/icons/setting-cogs.svg',
+                  fit: BoxFit.contain,
+                  height: 12.w,
+                  colorFilter: const ColorFilter.mode(
+                    appNotifAbsIcn,
+                    BlendMode.srcIn,
+                  ),
+                ),
               ),
-              padding: EdgeInsets.all(8.w),
-              child: SvgPicture.asset(
-                'assets/icons/setting-cogs.svg',
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Text(
+                  "Settings",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: appBgBlack,
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ),
+              SvgPicture.asset(
+                'assets/icons/chevron-right.svg',
                 fit: BoxFit.contain,
-                height: 12.w,
-                colorFilter: const ColorFilter.mode(
-                  appNotifAbsIcn,
-                  BlendMode.srcIn,
-                ),
+                height: 8.w,
               ),
-            ),
-            SizedBox(width: 12.w),
-            Expanded(
-              child: Text(
-                "Settings",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: appBgBlack,
-                  fontSize: 14.sp,
-                ),
-              ),
-            ),
-            SvgPicture.asset(
-              'assets/icons/chevron-right.svg',
-              fit: BoxFit.contain,
-              height: 8.w,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       SizedBox(height: 12.h),

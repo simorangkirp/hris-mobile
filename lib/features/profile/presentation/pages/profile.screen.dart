@@ -44,7 +44,7 @@ buildProfileScreen(BuildContext ctx, EntityProfile? data, int? aCtr) {
           SizedBox(height: 12.h),
           buildTimeSheet(aCtr),
           SizedBox(height: 12.h),
-          buildListMenu(),
+          buildListMenu(ctx),
         ],
       ),
     ),
