@@ -5,6 +5,12 @@ import '../../../../lib.dart';
 
 abstract class ProfileScreenState extends Equatable {
   final DioException? error;
+  final EmerContactEntity? emerCtcEntity;
+  final JobEntity? jobEntity;
+  final AddressEntity? address;
+  final EducationEntity? eduEntity;
+  final FamilyEntity? familyEntity;
+  final PayrollEntity? payroll;
   final EntityProfile? profile;
   final ActivePeriodEntity? period;
   final String? errMsg;
@@ -15,6 +21,12 @@ abstract class ProfileScreenState extends Equatable {
     this.errMsg,
     this.listAbsent,
     this.period,
+    this.jobEntity,
+    this.emerCtcEntity,
+    this.familyEntity,
+    this.eduEntity,
+    this.payroll,
+    this.address,
   });
   @override
   List<Object> get props => [error!, profile!, errMsg!];
@@ -41,5 +53,34 @@ class ProfileScrErrMsg extends ProfileScreenState {
 }
 
 class ProfileScrnActPeriodLoaded extends ProfileScreenState {
-  const ProfileScrnActPeriodLoaded(ActivePeriodEntity data):super(period: data);
+  const ProfileScrnActPeriodLoaded(ActivePeriodEntity data)
+      : super(period: data);
+}
+
+class ProfileScrnPersonalDataLoaded extends ProfileScreenState {}
+
+class ProfileScrnGetJobHistoryLoaded extends ProfileScreenState {
+  const ProfileScrnGetJobHistoryLoaded(JobEntity data) : super(jobEntity: data);
+}
+
+class ProfileScrnGetEmerCtcLoaded extends ProfileScreenState {
+  const ProfileScrnGetEmerCtcLoaded(EmerContactEntity data)
+      : super(emerCtcEntity: data);
+}
+
+class ProfileScrnGetFamilyLoaded extends ProfileScreenState {
+  const ProfileScrnGetFamilyLoaded(FamilyEntity data)
+      : super(familyEntity: data);
+}
+
+class ProfileScrnGetEduLoaded extends ProfileScreenState {
+  const ProfileScrnGetEduLoaded(EducationEntity data) : super(eduEntity: data);
+}
+
+class ProfileScrnGetPayrollLoaded extends ProfileScreenState {
+  const ProfileScrnGetPayrollLoaded(PayrollEntity data) : super(payroll: data);
+}
+
+class ProfileScrnGetAddressLoaded extends ProfileScreenState {
+  const ProfileScrnGetAddressLoaded(AddressEntity data) : super(address: data);
 }

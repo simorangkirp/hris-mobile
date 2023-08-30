@@ -30,23 +30,35 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetListCameraClockIn>(GetListCameraClockIn(sl()));
   sl.registerSingleton<GetProfileInfoUseCase>(
       GetProfileInfoUseCase(sl<HomeRepository>()));
-  sl.registerSingleton<GetProfileScreenProfileInfo>(GetProfileScreenProfileInfo(sl()));
+  sl.registerSingleton<GetProfileScreenProfileInfo>(
+      GetProfileScreenProfileInfo(sl()));
   sl.registerSingleton<GetProfileScreenJobInfo>(GetProfileScreenJobInfo(sl()));
-  sl.registerSingleton<GetProfileScreenAbsentInfo>(GetProfileScreenAbsentInfo(sl()));
-  sl.registerSingleton<GetProfileScreenEmerContactInfo>(GetProfileScreenEmerContactInfo(sl()));
-  sl.registerSingleton<GetProfileScreenFamilyInfo>(GetProfileScreenFamilyInfo(sl()));
-  sl.registerSingleton<GetProfileScreenEducationInfo>(GetProfileScreenEducationInfo(sl()));
-  sl.registerSingleton<GetProfileScreenPayrollInfo>(GetProfileScreenPayrollInfo(sl()));
-  sl.registerSingleton<GetProfileScreenAddressInfo>(GetProfileScreenAddressInfo(sl()));
-  sl.registerSingleton<GetProfileScreenActPeriod>(GetProfileScreenActPeriod(sl()));
-  sl.registerSingleton<AuthGetProfileDataDetails>(AuthGetProfileDataDetails(sl()));
+  sl.registerSingleton<GetProfileScreenAbsentInfo>(
+      GetProfileScreenAbsentInfo(sl()));
+  sl.registerSingleton<GetProfileScreenEmerContactInfo>(
+      GetProfileScreenEmerContactInfo(sl()));
+  sl.registerSingleton<GetProfileScreenFamilyInfo>(
+      GetProfileScreenFamilyInfo(sl()));
+  sl.registerSingleton<GetProfileScreenEducationInfo>(
+      GetProfileScreenEducationInfo(sl()));
+  sl.registerSingleton<GetProfileScreenPayrollInfo>(
+      GetProfileScreenPayrollInfo(sl()));
+  sl.registerSingleton<GetProfileScreenAddressInfo>(
+      GetProfileScreenAddressInfo(sl()));
+  sl.registerSingleton<GetProfileScreenActPeriod>(
+      GetProfileScreenActPeriod(sl()));
+  sl.registerSingleton<AuthGetProfileDataDetails>(
+      AuthGetProfileDataDetails(sl()));
   sl.registerSingleton<AuthGetActPeriodUseCase>(AuthGetActPeriodUseCase(sl()));
+  sl.registerSingleton<GetPersonalData>(GetPersonalData(sl()));
 
-  
   // BLoCs
-  sl.registerFactory<AuthBloc>(() => AuthBloc(sl(),sl(),sl())..add(InitAuth()));
+  sl.registerFactory<AuthBloc>(
+      () => AuthBloc(sl(), sl(), sl())..add(InitAuth()));
   sl.registerFactory<AbsentBloc>(
       () => AbsentBloc(sl(), sl(), sl())..add(InitAbsent()));
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl())..add(InitHome()));
-  sl.registerFactory<ProfileScreenBloc>(() => ProfileScreenBloc(sl(),sl(),sl())..add(InitProfileScreen()));
+  sl.registerFactory<ProfileScreenBloc>(() =>
+      ProfileScreenBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl())
+        ..add(InitProfileScreen()));
 }

@@ -11,8 +11,22 @@ class GetAbsentInfo extends ProfileEvent {
   GetAbsentInfo(this.period);
 }
 
-class ProfileScrnGetActPeriod extends ProfileEvent{
+class ProfileScrnGetActPeriod extends ProfileEvent {
   String lokasiTugas;
   String date;
   ProfileScrnGetActPeriod(this.lokasiTugas, this.date);
 }
+
+class ProfileScrnGetPersonalData extends ProfileEvent {}
+
+class ProfileScrnGetJobHistory extends ProfileEvent {}
+
+class ProfileScrnGetEmerCtc extends ProfileEvent {}
+
+class ProfileScrnGetFamily extends ProfileEvent {}
+
+class ProfileScrnGetEdu extends ProfileEvent {}
+
+class ProfileScrnGetPayroll extends ProfileEvent {}
+
+class ProfileScrnGetAddress extends ProfileEvent {}

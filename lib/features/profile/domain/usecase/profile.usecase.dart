@@ -13,13 +13,24 @@ class GetProfileScreenProfileInfo extends UseCase<DataState, GetProfileParams> {
   }
 }
 
-class GetProfileScreenJobInfo extends UseCase<DataState, GetProfileParams> {
+class GetPersonalData extends UseCase<DataState, void> {
+  final ProfileRepository _repos;
+  GetPersonalData(this._repos);
+
+  @override
+  Future<DataState> call(void params) async {
+    var res = await _repos.getPersonalData();
+    return res;
+  }
+}
+
+class GetProfileScreenJobInfo extends UseCase<DataState, NoParams> {
   final ProfileRepository _repos;
   GetProfileScreenJobInfo(this._repos);
 
   @override
-  Future<DataState> call(GetProfileParams params) async {
-    var res = await _repos.getJobHistory(params.uid);
+  Future<DataState> call(NoParams params) async {
+    var res = await _repos.getJobHistory();
     return res;
   }
 }
@@ -47,58 +58,58 @@ class GetProfileScreenAbsentInfo extends UseCase<DataState, GetAbsentParams> {
 }
 
 class GetProfileScreenEmerContactInfo
-    extends UseCase<DataState, GetProfileParams> {
+    extends UseCase<DataState, NoParams> {
   final ProfileRepository _repos;
   GetProfileScreenEmerContactInfo(this._repos);
 
   @override
-  Future<DataState> call(GetProfileParams params) async {
-    var res = await _repos.getEmergencyContact(params.uid);
+  Future<DataState> call(NoParams params) async {
+    var res = await _repos.getEmergencyContact();
     return res;
   }
 }
 
-class GetProfileScreenFamilyInfo extends UseCase<DataState, GetProfileParams> {
+class GetProfileScreenFamilyInfo extends UseCase<DataState, NoParams> {
   final ProfileRepository _repos;
   GetProfileScreenFamilyInfo(this._repos);
 
   @override
-  Future<DataState> call(GetProfileParams params) async {
-    var res = await _repos.getFamilyInfo(params.uid);
+  Future<DataState> call(void params) async {
+    var res = await _repos.getFamilyInfo();
     return res;
   }
 }
 
 class GetProfileScreenEducationInfo
-    extends UseCase<DataState, GetProfileParams> {
+    extends UseCase<DataState, NoParams> {
   final ProfileRepository _repos;
   GetProfileScreenEducationInfo(this._repos);
 
   @override
-  Future<DataState> call(GetProfileParams params) async {
-    var res = await _repos.getEducationInfo(params.uid);
+  Future<DataState> call(void params) async {
+    var res = await _repos.getEducationInfo();
     return res;
   }
 }
 
-class GetProfileScreenPayrollInfo extends UseCase<DataState, GetProfileParams> {
+class GetProfileScreenPayrollInfo extends UseCase<DataState, NoParams> {
   final ProfileRepository _repos;
   GetProfileScreenPayrollInfo(this._repos);
 
   @override
-  Future<DataState> call(GetProfileParams params) async {
-    var res = await _repos.getPayrollInfo(params.uid);
+  Future<DataState> call(void params) async {
+    var res = await _repos.getPayrollInfo();
     return res;
   }
 }
 
-class GetProfileScreenAddressInfo extends UseCase<DataState, GetProfileParams> {
+class GetProfileScreenAddressInfo extends UseCase<DataState, NoParams> {
   final ProfileRepository _repos;
   GetProfileScreenAddressInfo(this._repos);
 
   @override
-  Future<DataState> call(GetProfileParams params) async {
-    var res = await _repos.getAddressInfo(params.uid);
+  Future<DataState> call(void params) async {
+    var res = await _repos.getAddressInfo();
     return res;
   }
 }

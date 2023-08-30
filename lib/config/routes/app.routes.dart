@@ -3,7 +3,7 @@ import 'package:owl_hris/lib.dart';
 
 import '../../features/settings/presentation/pages/notifications.page.dart';
 import '../../features/settings/presentation/pages/password.page.dart';
-import '../../features/settings/presentation/pages/personal.info.dart';
+import '../../features/profile/presentation/pages/personal.info.dart';
 import '../../features/settings/presentation/pages/pin.page.dart';
 import '../../features/settings/presentation/pages/setting.page.dart';
 part 'app.routes.gr.dart';

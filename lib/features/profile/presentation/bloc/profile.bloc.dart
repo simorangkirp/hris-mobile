@@ -7,12 +7,33 @@ class ProfileScreenBloc extends Bloc<ProfileEvent, ProfileScreenState> {
   final GetProfileScreenProfileInfo usecase;
   final GetProfileScreenAbsentInfo absentUsecase;
   final GetProfileScreenActPeriod actPeriodUsecase;
-  ProfileScreenBloc(this.usecase, this.absentUsecase, this.actPeriodUsecase)
-      : super(ProfileScreenLoading()) {
+  final GetProfileScreenJobInfo jobInfoUsecase;
+  final GetProfileScreenEmerContactInfo emerCtcUsecase;
+  final GetProfileScreenFamilyInfo familyUsecase;
+  final GetProfileScreenEducationInfo eduUsecase;
+  final GetProfileScreenPayrollInfo payrollUsecase;
+  final GetProfileScreenAddressInfo addressUsecase;
+  ProfileScreenBloc(
+    this.usecase,
+    this.absentUsecase,
+    this.actPeriodUsecase,
+    this.jobInfoUsecase,
+    this.emerCtcUsecase,
+    this.familyUsecase,
+    this.eduUsecase,
+    this.payrollUsecase,
+    this.addressUsecase,
+  ) : super(ProfileScreenLoading()) {
     on<InitProfileScreen>(init);
     on<GetProfileInfoProfileScreen>(getProfile);
     on<GetAbsentInfo>(getAbsentData);
     on<ProfileScrnGetActPeriod>(getActPeriod);
+    on<ProfileScrnGetJobHistory>(getJobHistory);
+    on<ProfileScrnGetEmerCtc>(getEmerCtc);
+    on<ProfileScrnGetFamily>(getFamily);
+    on<ProfileScrnGetEdu>(getEducation);
+    on<ProfileScrnGetPayroll>(getPayroll);
+    on<ProfileScrnGetAddress>(getAddress);
   }
 
   void init(InitProfileScreen event, Emitter<ProfileScreenState> emit) async {
@@ -21,7 +42,8 @@ class ProfileScreenBloc extends Bloc<ProfileEvent, ProfileScreenState> {
 
   void getActPeriod(
       ProfileScrnGetActPeriod event, Emitter<ProfileScreenState> emit) async {
-    final dataState = await actPeriodUsecase.call(GetActPeriodParams(event.date, event.lokasiTugas));
+    final dataState = await actPeriodUsecase
+        .call(GetActPeriodParams(event.date, event.lokasiTugas));
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
         var begin = dataState.data['data'] as Map<String, dynamic>;
@@ -91,5 +113,95 @@ class ProfileScreenBloc extends Bloc<ProfileEvent, ProfileScreenState> {
     // if (dataState is DataError) {
     //   emit(const ProfileScrErrMsg('Error'));
     // }
+  }
+
+  void getJobHistory(
+      ProfileScrnGetJobHistory event, Emitter<ProfileScreenState> emit) async {
+    final dataState = await jobInfoUsecase.call(NoParams());
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        var begin = dataState.data['data'] as Map<String, dynamic>;
+        var data = JobModels.fromJson(begin);
+        emit(ProfileScrnGetJobHistoryLoaded(data));
+      }
+    }
+    if (dataState is DataError) {
+      emit(const ProfileScrErrMsg('Error'));
+    }
+  }
+
+  void getEmerCtc(
+      ProfileScrnGetEmerCtc event, Emitter<ProfileScreenState> emit) async {
+    final dataState = await emerCtcUsecase.call(NoParams());
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        var begin = dataState.data['data'] as Map<String, dynamic>;
+        var data = EmergencyContactModel.fromJson(begin);
+        emit(ProfileScrnGetEmerCtcLoaded(data));
+      }
+    }
+    if (dataState is DataError) {
+      emit(const ProfileScrErrMsg('Error'));
+    }
+  }
+
+  void getFamily(
+      ProfileScrnGetFamily event, Emitter<ProfileScreenState> emit) async {
+    final dataState = await emerCtcUsecase.call(NoParams());
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        var begin = dataState.data['data'] as Map<String, dynamic>;
+        var data = FamilyModel.fromJson(begin);
+        emit(ProfileScrnGetFamilyLoaded(data));
+      }
+    }
+    if (dataState is DataError) {
+      emit(const ProfileScrErrMsg('Error'));
+    }
+  }
+
+  void getEducation(
+      ProfileScrnGetEdu event, Emitter<ProfileScreenState> emit) async {
+    final dataState = await emerCtcUsecase.call(NoParams());
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        var begin = dataState.data['data'] as Map<String, dynamic>;
+        var data = EducationModel.fromJson(begin);
+        emit(ProfileScrnGetEduLoaded(data));
+      }
+    }
+    if (dataState is DataError) {
+      emit(const ProfileScrErrMsg('Error'));
+    }
+  }
+
+  void getPayroll(
+      ProfileScrnGetPayroll event, Emitter<ProfileScreenState> emit) async {
+    final dataState = await emerCtcUsecase.call(NoParams());
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        var begin = dataState.data['data'] as Map<String, dynamic>;
+        var data = PayrollModel.fromJson(begin);
+        emit(ProfileScrnGetPayrollLoaded(data));
+      }
+    }
+    if (dataState is DataError) {
+      emit(const ProfileScrErrMsg('Error'));
+    }
+  }
+
+  void getAddress(
+      ProfileScrnGetAddress event, Emitter<ProfileScreenState> emit) async {
+    final dataState = await emerCtcUsecase.call(NoParams());
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        var begin = dataState.data['data'] as Map<String, dynamic>;
+        var data = AddressModel.fromJson(begin);
+        emit(ProfileScrnGetAddressLoaded(data));
+      }
+    }
+    if (dataState is DataError) {
+      emit(const ProfileScrErrMsg('Error'));
+    }
   }
 }

@@ -13,12 +13,38 @@ abstract class ProfileAPIServices {
   Future<HttpResponse<dynamic>> profileInfo(
       @Path("uid") String uid, @Header("Authorization") String authHeader);
 
+  @POST('${baseUrl}API/user/address/{uid}')
+  Future<HttpResponse<dynamic>> addressInfo(
+      @Path("uid") String uid, @Header("Authorization") String authHeader);
+
+  @POST('${baseUrl}API/user/edu/{uid}')
+  Future<HttpResponse<dynamic>> educationInfo(
+      @Path("uid") String uid, @Header("Authorization") String authHeader);
+
+  @POST('${baseUrl}API/user/family/{uid}')
+  Future<HttpResponse<dynamic>> familyInfo(
+      @Path("uid") String uid, @Header("Authorization") String authHeader);
+
+  @POST('${baseUrl}API/user/job/{uid}')
+  Future<HttpResponse<dynamic>> jobInfo(
+      @Path("uid") String uid, @Header("Authorization") String authHeader);
+
+  @POST('${baseUrl}API/user/emcontact/{uid}')
+  Future<HttpResponse<dynamic>> emCtcInfo(
+      @Path("uid") String uid, @Header("Authorization") String authHeader);
+
+  @POST('${baseUrl}API/user/infopayroll/{uid}')
+  Future<HttpResponse<dynamic>> payrollInfo(
+      @Path("uid") String uid, @Header("Authorization") String authHeader);
+
   @POST('${baseUrl}API/SDM/attendance/list')
-  Future<HttpResponse<dynamic>> listAbsentProfileScreen(@Body() ProfileAbsentParams? param,
+  Future<HttpResponse<dynamic>> listAbsentProfileScreen(
+      @Body() ProfileAbsentParams? param,
       @Header("Authorization") String authHeader);
 
   @POST('${baseUrl}API/SDM/periodpayroll/active')
-  Future<HttpResponse<dynamic>> profileScrnActPeriod(@Body() ProfileScrnActPeriodParams? param,
+  Future<HttpResponse<dynamic>> profileScrnActPeriod(
+      @Body() ProfileScrnActPeriodParams? param,
       @Header("Authorization") String authHeader);
 }
 
@@ -36,6 +62,7 @@ class ProfileAbsentParams {
       _$ProfileAbsentParamsFromJson(json);
   Map<String, dynamic> toJson() => _$ProfileAbsentParamsToJson(this);
 }
+
 @JsonSerializable()
 class ProfileScrnActPeriodParams {
   @JsonKey(name: 'lokasitugas')

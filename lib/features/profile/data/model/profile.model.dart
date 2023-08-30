@@ -9,14 +9,16 @@ class JobModels extends JobEntity {
     required List<DataDetails> dataDetails,
   });
 
-  // JobModels.fromJson(Map<String, dynamic> map)
-  //     : super(
-  //         karyawanid: map['karyawanid'] ?? "",
-  //         nik: map['nik'] ?? "",
-  //         namakaryawan: map['namakaryawan'] ?? "",
-  //         nickname: map['nickname'] ?? "",
-  //         dataDetails: map['data_details'] != null ? DataDetails.fromJson(map['data']) : null,
-  //       );
+  JobModels.fromJson(Map<String, dynamic> map)
+      : super(
+          karyawanid: map['karyawanid'] ?? "",
+          nik: map['nik'] ?? "",
+          namakaryawan: map['namakaryawan'] ?? "",
+          nickname: map['nickname'] ?? "",
+          dataDetails: map['data_details'] != null
+              ? map['data_details'] as List<DataDetails>
+              : null,
+        );
 
   // Map<String, dynamic> toJson() {
   //   final Map<String, dynamic> data = {};
@@ -26,6 +28,110 @@ class JobModels extends JobEntity {
   //   }
   //   return data;
   // }
+}
+
+class EmergencyContactModel extends EmerContactEntity {
+  const EmergencyContactModel({
+    required String karyawanid,
+    required String nik,
+    required String namakaryawan,
+    required String nickname,
+    required List<EmerContactDetails> dataDetails,
+  });
+
+  EmergencyContactModel.fromJson(Map<String, dynamic> map)
+      : super(
+          karyawanid: map['karyawanid'] ?? "",
+          nik: map['nik'] ?? "",
+          namakaryawan: map['namakaryawan'] ?? "",
+          nickname: map['nickname'] ?? "",
+          dataDetails: map['data_details'] != null
+              ? map['data_details'] as List<EmerContactDetails>
+              : null,
+        );
+}
+
+class FamilyModel extends FamilyEntity {
+  const FamilyModel({
+    required String karyawanid,
+    required String nik,
+    required String namakaryawan,
+    required String nickname,
+    required List<FamilyDetails> dataDetails,
+  });
+
+  FamilyModel.fromJson(Map<String, dynamic> map)
+      : super(
+          karyawanid: map['karyawanid'] ?? "",
+          nik: map['nik'] ?? "",
+          namakaryawan: map['namakaryawan'] ?? "",
+          nickname: map['nickname'] ?? "",
+          dataDetails: map['data_details'] != null
+              ? map['data_details'] as List<FamilyDetails>
+              : null,
+        );
+}
+
+class EducationModel extends EducationEntity {
+  const EducationModel({
+    required String karyawanid,
+    required String nik,
+    required String namakaryawan,
+    required String nickname,
+    required List<EducationDetails> dataDetails,
+  });
+  EducationModel.fromJson(Map<String, dynamic> map)
+      : super(
+          karyawanid: map['karyawanid'] ?? "",
+          nik: map['nik'] ?? "",
+          namakaryawan: map['namakaryawan'] ?? "",
+          nickname: map['nickname'] ?? "",
+          dataDetails: map['data_details'] != null
+              ? map['data_details'] as List<EducationDetails>
+              : null,
+        );
+}
+
+class PayrollModel extends PayrollEntity {
+  const PayrollModel({
+    required String karyawanid,
+    required String nik,
+    required String namakaryawan,
+    required String nickname,
+    required List<PayrollDetails> dataDetails,
+  });
+
+  PayrollModel.fromJson(Map<String, dynamic> map)
+      : super(
+          karyawanid: map['karyawanid'] ?? "",
+          nik: map['nik'] ?? "",
+          namakaryawan: map['namakaryawan'] ?? "",
+          nickname: map['nickname'] ?? "",
+          dataDetails: map['data_details'] != null
+              ? map['data_details'] as List<PayrollDetails>
+              : null,
+        );
+}
+
+class AddressModel extends AddressEntity {
+  const AddressModel({
+    required String karyawanid,
+    required String nik,
+    required String namakaryawan,
+    required String nickname,
+    required List<AddressDetails> dataDetails,
+  });
+
+  AddressModel.fromJson(Map<String, dynamic> map)
+      : super(
+          karyawanid: map['karyawanid'] ?? "",
+          nik: map['nik'] ?? "",
+          namakaryawan: map['namakaryawan'] ?? "",
+          nickname: map['nickname'] ?? "",
+          dataDetails: map['data_details'] != null
+              ? map['data_details'] as List<AddressDetails>
+              : null,
+        );
 }
 
 class ActivePeriodModel extends ActivePeriodEntity {

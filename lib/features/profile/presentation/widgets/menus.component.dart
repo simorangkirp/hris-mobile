@@ -6,51 +6,56 @@ import 'package:owl_hris/lib.dart';
 Widget buildListMenu(BuildContext ctx) {
   return Column(
     children: [
-      Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: appIconMenuTitle.withOpacity(0.1),
-            width: 1,
+      GestureDetector(
+        onTap: () {
+          ctx.router.push(const MyPersonalInfoRoute());
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: appIconMenuTitle.withOpacity(0.1),
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(2),
           ),
-          borderRadius: BorderRadius.circular(2),
-        ),
-        width: double.maxFinite,
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: appImperialRed.withOpacity(0.2),
+          width: double.maxFinite,
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: appImperialRed.withOpacity(0.2),
+                ),
+                padding: EdgeInsets.all(8.w),
+                child: SvgPicture.asset(
+                  'assets/icons/profile.svg',
+                  fit: BoxFit.contain,
+                  height: 12.w,
+                  colorFilter: const ColorFilter.mode(
+                    appImperialRed,
+                    BlendMode.srcIn,
+                  ),
+                ),
               ),
-              padding: EdgeInsets.all(8.w),
-              child: SvgPicture.asset(
-                'assets/icons/profile.svg',
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Text(
+                  "My Personal Info",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: appBgBlack,
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ),
+              SvgPicture.asset(
+                'assets/icons/chevron-right.svg',
                 fit: BoxFit.contain,
-                height: 12.w,
-                colorFilter: const ColorFilter.mode(
-                  appImperialRed,
-                  BlendMode.srcIn,
-                ),
+                height: 8.w,
               ),
-            ),
-            SizedBox(width: 12.w),
-            Expanded(
-              child: Text(
-                "My Personal Info",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: appBgBlack,
-                  fontSize: 14.sp,
-                ),
-              ),
-            ),
-            SvgPicture.asset(
-              'assets/icons/chevron-right.svg',
-              fit: BoxFit.contain,
-              height: 8.w,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       SizedBox(height: 12.h),
