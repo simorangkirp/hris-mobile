@@ -45,6 +45,30 @@ abstract class _$AppRouter extends RootStackRouter {
         child: WrappedRoute(child: const LoginScreen()),
       );
     },
+    MyPersonalInfoRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MyPersonalInfoScreen(),
+      );
+    },
+    NotificationRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const NotificationScreen(),
+      );
+    },
+    PINRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PINScreen(),
+      );
+    },
+    PasswordRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PasswordScreen(),
+      );
+    },
     ProfileRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -126,6 +150,62 @@ class LoginRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'LoginRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MyPersonalInfoScreen]
+class MyPersonalInfoRoute extends PageRouteInfo<void> {
+  const MyPersonalInfoRoute({List<PageRouteInfo>? children})
+      : super(
+          MyPersonalInfoRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MyPersonalInfoRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [NotificationScreen]
+class NotificationRoute extends PageRouteInfo<void> {
+  const NotificationRoute({List<PageRouteInfo>? children})
+      : super(
+          NotificationRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NotificationRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PINScreen]
+class PINRoute extends PageRouteInfo<void> {
+  const PINRoute({List<PageRouteInfo>? children})
+      : super(
+          PINRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PINRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PasswordScreen]
+class PasswordRoute extends PageRouteInfo<void> {
+  const PasswordRoute({List<PageRouteInfo>? children})
+      : super(
+          PasswordRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PasswordRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

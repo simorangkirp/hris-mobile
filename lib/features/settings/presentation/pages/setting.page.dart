@@ -13,6 +13,9 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  bool expandLang = false;
+  bool isDarkmode = false;
+  String ddVal = 'id';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,30 +32,35 @@ class _SettingScreenState extends State<SettingScreen> {
               Material(
                 elevation: 4,
                 borderRadius: BorderRadius.circular(16),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: appBgBlack.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SvgPicture.asset(ConstIconPath.passLock),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        flex: 6,
-                        child: Text(
-                          'Password',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
+                child: GestureDetector(
+                  onTap: () {
+                    context.router.push(const PasswordRoute());
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: appBgBlack.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SvgPicture.asset(ConstIconPath.passLock),
+                        ),
+                        SizedBox(width: 12.w),
+                        Expanded(
+                          flex: 6,
+                          child: Text(
+                            'Password',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -60,123 +68,188 @@ class _SettingScreenState extends State<SettingScreen> {
               Material(
                 elevation: 4,
                 borderRadius: BorderRadius.circular(16),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: appBgBlack.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SvgPicture.asset(ConstIconPath.pinLock),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        flex: 6,
-                        child: Text(
-                          'PIN',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
+                child: GestureDetector(
+                  onTap: () {
+                    context.router.push(const PINRoute());
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: appBgBlack.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SvgPicture.asset(ConstIconPath.pinLock),
+                        ),
+                        SizedBox(width: 12.w),
+                        Expanded(
+                          flex: 6,
+                          child: Text(
+                            'PIN',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
+                ),
+              ),
+              SizedBox(height: 12.h),
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        expandLang = !expandLang;
+                      });
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: SvgPicture.asset(ConstIconPath.textIcon),
+                          ),
+                          SizedBox(width: 12.w),
+                          Expanded(
+                            flex: 6,
+                            child: Text(
+                              'Language',
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ExpandableWidget(
+                    expand: expandLang,
+                    child: SizedBox(
+                      width: double.maxFinite,
+                      // color: appBgBlack.withOpacity(0.2),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Select language',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                          const Spacer(),
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: ddVal,
+                              items: const [
+                                DropdownMenuItem<String>(
+                                  value: 'en',
+                                  child: Text(
+                                    'English',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'id',
+                                  child: Text(
+                                    'Indonesia',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  ddVal = value ?? "";
+                                });
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 12.h),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      child: Icon(Icons.dark_mode_rounded),
+                    ),
+                    SizedBox(width: 12.w),
+                    Expanded(
+                      flex: 6,
+                      child: Text(
+                        'Dark mode',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 12.w),
+                    Switch(
+                      value: isDarkmode,
+                      onChanged: (value) {
+                        setState(() {
+                          isDarkmode = !isDarkmode;
+                        });
+                      },
+                    )
+                  ],
                 ),
               ),
               SizedBox(height: 12.h),
               Material(
                 elevation: 4,
                 borderRadius: BorderRadius.circular(16),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: appBgBlack.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SvgPicture.asset(ConstIconPath.textIcon),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        flex: 6,
-                        child: Text(
-                          'Language',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
+                child: GestureDetector(
+                  onTap: () {
+                    context.router.push(const NotificationRoute());
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: appBgBlack.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SvgPicture.asset(ConstIconPath.notification),
+                        ),
+                        SizedBox(width: 12.w),
+                        Expanded(
+                          flex: 6,
+                          child: Text(
+                            'Notifications',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 12.h),
-              Material(
-                elevation: 4,
-                borderRadius: BorderRadius.circular(16),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: appBgBlack.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Icon(Icons.wifi),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        flex: 6,
-                        child: Text(
-                          'Dark mode',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 12.h),
-              Material(
-                elevation: 4,
-                borderRadius: BorderRadius.circular(16),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: appBgBlack.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SvgPicture.asset(ConstIconPath.notification),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        flex: 6,
-                        child: Text(
-                          'Notifications',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

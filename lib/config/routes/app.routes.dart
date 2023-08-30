@@ -1,6 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:owl_hris/lib.dart';
 
+import '../../features/settings/presentation/pages/notifications.page.dart';
+import '../../features/settings/presentation/pages/password.page.dart';
+import '../../features/settings/presentation/pages/personal.info.dart';
+import '../../features/settings/presentation/pages/pin.page.dart';
 import '../../features/settings/presentation/pages/setting.page.dart';
 part 'app.routes.gr.dart';
 
@@ -32,6 +36,22 @@ class AppRouter extends _$AppRouter {
         CustomRoute(
           page: SettingRoute.page,
           transitionsBuilder: TransitionsBuilders.noTransition,
-        )
+        ),
+        CustomRoute(
+          page: PINRoute.page,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: NotificationRoute.page,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: PasswordRoute.page,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: MyPersonalInfoRoute.page,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
       ];
 }
