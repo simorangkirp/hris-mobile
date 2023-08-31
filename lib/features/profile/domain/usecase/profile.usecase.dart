@@ -74,7 +74,7 @@ class GetProfileScreenFamilyInfo extends UseCase<DataState, NoParams> {
   GetProfileScreenFamilyInfo(this._repos);
 
   @override
-  Future<DataState> call(void params) async {
+  Future<DataState> call(NoParams params) async {
     var res = await _repos.getFamilyInfo();
     return res;
   }
@@ -86,7 +86,7 @@ class GetProfileScreenEducationInfo
   GetProfileScreenEducationInfo(this._repos);
 
   @override
-  Future<DataState> call(void params) async {
+  Future<DataState> call(NoParams params) async {
     var res = await _repos.getEducationInfo();
     return res;
   }
@@ -97,7 +97,7 @@ class GetProfileScreenPayrollInfo extends UseCase<DataState, NoParams> {
   GetProfileScreenPayrollInfo(this._repos);
 
   @override
-  Future<DataState> call(void params) async {
+  Future<DataState> call(NoParams params) async {
     var res = await _repos.getPayrollInfo();
     return res;
   }
@@ -108,7 +108,7 @@ class GetProfileScreenAddressInfo extends UseCase<DataState, NoParams> {
   GetProfileScreenAddressInfo(this._repos);
 
   @override
-  Future<DataState> call(void params) async {
+  Future<DataState> call(NoParams params) async {
     var res = await _repos.getAddressInfo();
     return res;
   }

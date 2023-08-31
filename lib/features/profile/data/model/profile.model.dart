@@ -15,9 +15,7 @@ class JobModels extends JobEntity {
           nik: map['nik'] ?? "",
           namakaryawan: map['namakaryawan'] ?? "",
           nickname: map['nickname'] ?? "",
-          dataDetails: map['data_details'] != null
-              ? map['data_details'] as List<DataDetails>
-              : null,
+          dataDetails: List<DataDetails>.from(map["data_details"].map((x) => DataDetails.fromJson(x))),
         );
 
   // Map<String, dynamic> toJson() {
@@ -45,9 +43,7 @@ class EmergencyContactModel extends EmerContactEntity {
           nik: map['nik'] ?? "",
           namakaryawan: map['namakaryawan'] ?? "",
           nickname: map['nickname'] ?? "",
-          dataDetails: map['data_details'] != null
-              ? map['data_details'] as List<EmerContactDetails>
-              : null,
+          dataDetails: List<EmerContactDetails>.from(map["data_details"].map((x) => EmerContactDetails.fromJson(x))),
         );
 }
 
@@ -66,9 +62,7 @@ class FamilyModel extends FamilyEntity {
           nik: map['nik'] ?? "",
           namakaryawan: map['namakaryawan'] ?? "",
           nickname: map['nickname'] ?? "",
-          dataDetails: map['data_details'] != null
-              ? map['data_details'] as List<FamilyDetails>
-              : null,
+          dataDetails: List<FamilyDetails>.from(map["data_details"].map((x) => FamilyDetails.fromJson(x))),
         );
 }
 
@@ -86,9 +80,7 @@ class EducationModel extends EducationEntity {
           nik: map['nik'] ?? "",
           namakaryawan: map['namakaryawan'] ?? "",
           nickname: map['nickname'] ?? "",
-          dataDetails: map['data_details'] != null
-              ? map['data_details'] as List<EducationDetails>
-              : null,
+          dataDetails: List<EducationDetails>.from(map["data_details"].map((x) => EducationDetails.fromJson(x))),
         );
 }
 
@@ -107,9 +99,7 @@ class PayrollModel extends PayrollEntity {
           nik: map['nik'] ?? "",
           namakaryawan: map['namakaryawan'] ?? "",
           nickname: map['nickname'] ?? "",
-          dataDetails: map['data_details'] != null
-              ? map['data_details'] as List<PayrollDetails>
-              : null,
+          dataDetails: List<PayrollDetails>.from(map["data_details"].map((x) => PayrollDetails.fromJson(x))),
         );
 }
 
@@ -128,9 +118,7 @@ class AddressModel extends AddressEntity {
           nik: map['nik'] ?? "",
           namakaryawan: map['namakaryawan'] ?? "",
           nickname: map['nickname'] ?? "",
-          dataDetails: map['data_details'] != null
-              ? map['data_details'] as List<AddressDetails>
-              : null,
+          dataDetails: List<AddressDetails>.from(map["data_details"].map((x) => AddressDetails.fromJson(x))),
         );
 }
 

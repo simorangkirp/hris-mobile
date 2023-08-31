@@ -147,7 +147,7 @@ class ProfileScreenBloc extends Bloc<ProfileEvent, ProfileScreenState> {
 
   void getFamily(
       ProfileScrnGetFamily event, Emitter<ProfileScreenState> emit) async {
-    final dataState = await emerCtcUsecase.call(NoParams());
+    final dataState = await familyUsecase.call(NoParams());
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
         var begin = dataState.data['data'] as Map<String, dynamic>;
@@ -162,7 +162,7 @@ class ProfileScreenBloc extends Bloc<ProfileEvent, ProfileScreenState> {
 
   void getEducation(
       ProfileScrnGetEdu event, Emitter<ProfileScreenState> emit) async {
-    final dataState = await emerCtcUsecase.call(NoParams());
+    final dataState = await eduUsecase.call(NoParams());
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
         var begin = dataState.data['data'] as Map<String, dynamic>;
@@ -177,7 +177,7 @@ class ProfileScreenBloc extends Bloc<ProfileEvent, ProfileScreenState> {
 
   void getPayroll(
       ProfileScrnGetPayroll event, Emitter<ProfileScreenState> emit) async {
-    final dataState = await emerCtcUsecase.call(NoParams());
+    final dataState = await payrollUsecase.call(NoParams());
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
         var begin = dataState.data['data'] as Map<String, dynamic>;
@@ -192,7 +192,7 @@ class ProfileScreenBloc extends Bloc<ProfileEvent, ProfileScreenState> {
 
   void getAddress(
       ProfileScrnGetAddress event, Emitter<ProfileScreenState> emit) async {
-    final dataState = await emerCtcUsecase.call(NoParams());
+    final dataState = await addressUsecase.call(NoParams());
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
         var begin = dataState.data['data'] as Map<String, dynamic>;

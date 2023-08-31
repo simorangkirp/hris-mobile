@@ -3,3 +3,8 @@ export 'profile.info.dart';
 export 'timesheet.dart';
 export 'detail.info.widget.dart';
 export 'job.history.widget.dart';
+export 'address.widget.dart';
+export 'education.widget.dart';
+export 'family.widget.dart';
+export 'payroll.widget.dart';
+export 'emcontact.widget.dart';

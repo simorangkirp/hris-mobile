@@ -1,7 +1,7 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/lib.dart';
 
-Widget jobHistory(JobEntity? model) {
+Widget emCtcInfo(EmerContactEntity? model) {
   ScrollController ctrl = ScrollController();
   return SingleChildScrollView(
     controller: ctrl,
@@ -11,7 +11,7 @@ Widget jobHistory(JobEntity? model) {
         children: [
           SizedBox(height: 4.h),
           Text(
-            'Job history',
+            'Emergency Contact',
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 18.sp,
@@ -28,7 +28,7 @@ Widget jobHistory(JobEntity? model) {
                         var item = model.dataDetails![index];
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 12.h),
-                          child: buildJobItem(item),
+                          child: buildEmCtcItem(item),
                         );
                       },
                     )
@@ -40,7 +40,7 @@ Widget jobHistory(JobEntity? model) {
   );
 }
 
-buildJobItem(DataDetails data) {
+buildEmCtcItem(EmerContactDetails data) {
   return Column(
     children: [
       IntrinsicHeight(
@@ -52,7 +52,7 @@ buildJobItem(DataDetails data) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Nama Perusahaan',
+                    'Nama',
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 12.sp,
@@ -60,7 +60,7 @@ buildJobItem(DataDetails data) {
                     ),
                   ),
                   Text(
-                    data.namaperusahaan ?? "-",
+                    data.nama ?? "-",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14.sp,
@@ -76,7 +76,7 @@ buildJobItem(DataDetails data) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Bidang Usaha',
+                    'Hubungan keluarga',
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 12.sp,
@@ -84,7 +84,7 @@ buildJobItem(DataDetails data) {
                     ),
                   ),
                   Text(
-                    data.bidangusaha ?? "-",
+                    data.hubungankeluarga ?? "-",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14.sp,
@@ -106,7 +106,7 @@ buildJobItem(DataDetails data) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Bulan masuk',
+                    'Telp',
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 12.sp,
@@ -114,7 +114,7 @@ buildJobItem(DataDetails data) {
                     ),
                   ),
                   Text(
-                    data.bulanmasuk ?? "-",
+                    data.telp ?? "-",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14.sp,
@@ -130,7 +130,7 @@ buildJobItem(DataDetails data) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Bulan keluar',
+                    'Email',
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 12.sp,
@@ -138,115 +138,7 @@ buildJobItem(DataDetails data) {
                     ),
                   ),
                   Text(
-                    data.bulankeluar ?? "-",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.sp,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      SizedBox(height: 12.h),
-      IntrinsicHeight(
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Jabatan',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12.sp,
-                      color: appBgBlack.withOpacity(0.7),
-                    ),
-                  ),
-                  Text(
-                    data.jabatan ?? "-",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.sp,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(width: 2.w),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Bagian',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12.sp,
-                      color: appBgBlack.withOpacity(0.7),
-                    ),
-                  ),
-                  Text(
-                    data.bulankeluar ?? "-",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.sp,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      SizedBox(height: 12.h),
-      IntrinsicHeight(
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Masa kerja',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12.sp,
-                      color: appBgBlack.withOpacity(0.7),
-                    ),
-                  ),
-                  Text(
-                    data.masakerja ?? "-",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.sp,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(width: 2.w),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Alamat',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12.sp,
-                      color: appBgBlack.withOpacity(0.7),
-                    ),
-                  ),
-                  Text(
-                    data.alamatperusahaan ?? "-",
+                    data.email ?? "-",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14.sp,
