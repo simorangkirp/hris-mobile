@@ -501,7 +501,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 ),
               ),
               title: Text(
-                'Notification',
+                'Inbox & Approval',
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,

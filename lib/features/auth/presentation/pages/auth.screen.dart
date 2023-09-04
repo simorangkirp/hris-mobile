@@ -220,7 +220,7 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
           builder: (context, state) {
             if (state is AuthLoading) {
               return loadingAuth();
-            } else if (state is ProccessDone) {
+            } else if (state is AuthActPeriodLoaded) {
               return authSuccess();
             } else if (state is AuthError) {
               return loginCard();

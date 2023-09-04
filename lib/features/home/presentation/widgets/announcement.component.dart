@@ -64,13 +64,13 @@ class _ContentSliderWidgetState extends State<ContentSliderWidget> {
   int pageNo = 0;
 
   late final Timer carasouelTimer;
-  // List<String> pht = [
-  //   'assets/images/devs/news1.png',
-  //   'assets/images/devs/news2.png',
-  //   'assets/images/devs/news3.jpg',
-  //   'assets/images/devs/news4.jpg',
-  //   'assets/images/devs/news5.jpg',
-  // ];
+  List<String> pht = [
+    'assets/image/devs/news1.png',
+    'assets/image/devs/news2.png',
+    'assets/image/devs/news3.jpg',
+    'assets/image/devs/news4.jpg',
+    'assets/image/devs/news5.jpg',
+  ];
 
   Timer getTimer() {
     return Timer.periodic(const Duration(seconds: 5), (timer) {
@@ -104,7 +104,7 @@ class _ContentSliderWidgetState extends State<ContentSliderWidget> {
     return Column(
       children: [
         SizedBox(
-          height: 108.h,
+          height: 132.h,
           child: PageView.builder(
             onPageChanged: (value) {
               pageNo = value;
@@ -112,7 +112,7 @@ class _ContentSliderWidgetState extends State<ContentSliderWidget> {
             },
             padEnds: false,
             controller: pageCtrl,
-            itemCount: 5,
+            itemCount: pht.length,
             itemBuilder: (_, index) {
               return AnimatedBuilder(
                 animation: pageCtrl,
@@ -124,16 +124,16 @@ class _ContentSliderWidgetState extends State<ContentSliderWidget> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Container(
-                      height: 92.h,
+                      height: 132.h,
                       width: 224.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: appBgBlack,
                       ),
-                      // child: Image.asset(
-                      //   pht[index],
-                      //   fit: BoxFit.cover,
-                      // ),
+                      child: Image.asset(
+                        pht[index],
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

@@ -30,18 +30,19 @@ class AbsentHistoryScreen extends StatefulWidget implements AutoRouteWrapper {
 class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
   void dispatchGetAbsentListPeriod() {
     BlocProvider.of<AbsentBloc>(context)
-        .add(GetAbsentPeriod(sltdDt));
+        .add(GetAbsentPeriod(dtParam));
   }
 
   ScrollController ctrl = ScrollController();
-  String dt = "Select dates";
+  String dt = "current period";
   String sltdDt = '';
+  String dtParam = '';
   bool startAnimation = false;
 
   @override
   void initState() {
     super.initState();
-    dispatchGetAbsentListPeriod();
+    // dispatchGetAbsentListPeriod();
     // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
     //   setState(() {
     //     startAnimation = true;
@@ -51,8 +52,10 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
 
   void changeDate(DateTime v) {
     setState(() {
-      dt = DateFormat('MMM yyyy').format(v).toString();
+      sltdDt = DateFormat('MMM yyyy').format(v).toString();
+      dtParam = DateFormat('yyyy-MM').format(v).toString();
     });
+    dispatchGetAbsentListPeriod();
   }
 
   void displayMonthPicker(BuildContext ctx) {
@@ -76,7 +79,7 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Daftar Absensi',
+          'Absent list',
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.w400,
@@ -96,19 +99,19 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: Expanded(
-              child: NotificationListener<OverscrollIndicatorNotification>(
-                onNotification: (OverscrollIndicatorNotification overScrl) {
-                  overScrl.disallowIndicator();
-                  return false;
-                },
-                child: ListView(
-                  controller: ctrl,
-                  children: [
-                    SizedBox(height: 8.h),
-                    Row(
+            child: NotificationListener<OverscrollIndicatorNotification>(
+              onNotification: (OverscrollIndicatorNotification overScrl) {
+                overScrl.disallowIndicator();
+                return false;
+              },
+              child: ListView(
+                controller: ctrl,
+                children: [
+                  SizedBox(height: 8.h),
+                  IntrinsicHeight(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Material(
                           elevation: 4,
@@ -138,53 +141,67 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
                           ),
                         ),
                         SizedBox(width: 8.w),
-                        Text(
-                          dt,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w700,
-                            color: appBgBlack.withOpacity(0.6),
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              dt,
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w700,
+                                color: appBgBlack,
+                              ),
+                            ),
+                            Text(
+                              sltdDt,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w700,
+                                color: appBgBlack.withOpacity(0.6),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    SizedBox(height: 12.h),
-                    //! Daftar Absent Widget
-                    // Text(
-                    //   'Daftar Absensi',
-                    //   style: TextStyle(
-                    //     fontSize: 14.sp,
-                    //     fontWeight: FontWeight.w600,
-                    //   ),
-                    // ),
-                    // SizedBox(height: 4.h),
-                    Divider(
-                      color: appBgBlack.withOpacity(0.5),
-                      thickness: 2,
-                    ),
-                    SizedBox(height: 8.h),
-                    BlocBuilder<AbsentBloc, AbsentState>(
-                      builder: (context, state) {
-                        if (state is AbsentPeriodLoaded) {
-                          return state.listAbsent != null
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  controller: ctrl,
-                                  itemCount: state.listAbsent!.length,
-                                  itemBuilder: (context, index) {
-                                    var item = state.listAbsent![index];
-                                    return items(item, index);
-                                  },
-                                )
-                              : const SizedBox();
-                        } else {
-                          return const SizedBox();
-                        }
-                      },
-                    ),
-                    SizedBox(height: 24.h),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 4.h),
+                  //! Daftar Absent Widget
+                  // Text(
+                  //   'Daftar Absensi',
+                  //   style: TextStyle(
+                  //     fontSize: 14.sp,
+                  //     fontWeight: FontWeight.w600,
+                  //   ),
+                  // ),
+                  // SizedBox(height: 4.h),
+                  Divider(
+                    color: appBgBlack.withOpacity(0.5),
+                    thickness: 2,
+                  ),
+                  SizedBox(height: 8.h),
+                  BlocBuilder<AbsentBloc, AbsentState>(
+                    builder: (context, state) {
+                      if (state is AbsentPeriodLoaded) {
+                        return state.listAbsent != null
+                            ? ListView.builder(
+                                shrinkWrap: true,
+                                controller: ctrl,
+                                itemCount: state.listAbsent!.length,
+                                itemBuilder: (context, index) {
+                                  var item = state.listAbsent![index];
+                                  return items(item, index);
+                                },
+                              )
+                            : const SizedBox();
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
+                  ),
+                  SizedBox(height: 24.h),
+                ],
               ),
             ),
           ),

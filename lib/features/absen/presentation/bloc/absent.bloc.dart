@@ -37,9 +37,11 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
   void getAbsentListPeriod(
       GetAbsentPeriod event, Emitter<AbsentState> emit) async {
     emit(AbsentLoading());
+    UserAuthDb auth = UserAuthDb();
+    final res = await auth.getUser();
 
     final dataState = await getCurrPeriodAbsnt
-        .call(ListAbsentParam(uid: '', period: event.dt, onmobile: '1'));
+        .call(ListAbsentParam(uid: res?.uid ?? '', period: event.dt, onmobile: '1'));
     if (dataState is DataSuccess) {
       List<AbsentListModel> list = [];
       var listAbsent = dataState.data['data'];

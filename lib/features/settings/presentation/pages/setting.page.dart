@@ -241,7 +241,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Expanded(
                           flex: 6,
                           child: Text(
-                            'Notifications',
+                            'Notifications settings',
                             style: TextStyle(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w500,

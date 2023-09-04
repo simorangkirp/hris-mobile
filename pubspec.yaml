@@ -99,6 +99,7 @@ flutter:
   assets:
     - assets/font/
     - assets/image/
+    - assets/image/devs/
     - assets/icons/
     - assets/lotties/
 
