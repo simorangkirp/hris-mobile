@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owl_hris/config/themes/colors.dart';
 import 'package:owl_hris/features/absen/presentation/bloc/absent.bloc.dart';
 import 'package:owl_hris/features/absen/presentation/bloc/absent.state.dart';
@@ -80,34 +81,76 @@ class _ClockInScreenState extends State<ClockInScreen> {
         return LayoutBuilder(
           builder: (context, constraints) {
             return Stack(
-              alignment: const Alignment(0, 0),
               children: [
-                Center(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(360),
-                    child: Container(
-                      height: 204.h,
-                      width: 204.h,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: appBgBlack,
-                      ),
-                      child: LayoutBuilder(
-                        builder: (context, constraints) {
-                          return CameraPreview(_controller);
-                        },
-                      ),
-                    ),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return SizedBox(
+                        height: double.maxFinite,
+                        width: double.maxFinite,
+                        child: CameraPreview(_controller),
+                      );
+                    },
                   ),
                 ),
-                Center(
-                  child: SizedBox(
-                    height: 220.h,
-                    width: 220.h,
-                    child: const CircularProgressIndicator(
-                      color: appNotifAbsIcn,
-                      strokeWidth: 12,
-                    ),
+                SizedBox(
+                  width: double.maxFinite,
+                  height: double.maxFinite,
+                  child: Stack(
+                    children: [
+                      SizedBox(
+                        width: double.maxFinite,
+                        height: double.maxFinite,
+                        child: SvgPicture.asset(
+                          'assets/image/face-recog-bg.svg',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 96.h),
+                          SizedBox(
+                            height: 224.h,
+                            width: 224.h,
+                            child: const CircularProgressIndicator(
+                              color: appNotifAbsIcn,
+                              strokeWidth: 12,
+                            ),
+                          ),
+                          SizedBox(height: 12.h),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24.w),
+                            child: Text(
+                              'Verify to clock in',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: appBgBlack.withOpacity(0.8),
+                                fontSize: 32.sp,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 4.h),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24.w),
+                            child: Text(
+                              'Make sure your face with in the circle while we scan your face',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18.sp,
+                                color: appBgBlack.withOpacity(0.5),
+                              ),
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -119,42 +162,15 @@ class _ClockInScreenState extends State<ClockInScreen> {
   }
 
   widgetFrontFace() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: _controller.value.isInitialized
-          ? Column(
-              children: [
-                SizedBox(height: 84.h),
-                cameraWidget(),
-                SizedBox(height: 24.h),
-                Text(
-                  'Verify to clock in',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    color: appBgBlack.withOpacity(0.8),
-                    fontSize: 32.sp,
-                  ),
-                ),
-                SizedBox(height: 4.h),
-                Text(
-                  'Make sure your face with in the circle while we scan your face',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18.sp,
-                    color: appBgBlack.withOpacity(0.5),
-                  ),
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            )
-          : const Center(child: CircularProgressIndicator()),
-    );
+    return _controller.value.isInitialized
+        ? cameraWidget()
+        : const Center(child: CircularProgressIndicator());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: BlocConsumer<AbsentBloc, AbsentState>(
           builder: (context, state) {
