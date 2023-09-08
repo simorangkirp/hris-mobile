@@ -60,3 +60,23 @@ class Messages {
     return data;
   }
 }
+
+class MLUser {
+  static const String nameKey = "user_name";
+  static const String arrayKey = "user_array";
+
+  String? name;
+  List? array;
+
+  MLUser({this.name, this.array});
+
+  factory MLUser.fromJson(Map<dynamic, dynamic> json) => MLUser(
+        name: json[nameKey],
+        array: json[arrayKey],
+      );
+
+  Map<String, dynamic> toJson() => {
+        nameKey: name,
+        arrayKey: array,
+      };
+}
