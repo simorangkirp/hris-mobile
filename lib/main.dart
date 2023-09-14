@@ -26,6 +26,12 @@ Future<void> main() async {
         BlocProvider(
           create: (context) => sl<ProfileScreenBloc>(),
         ),
+        BlocProvider(
+          create: (context) => sl<InboxScrnBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => sl<ApprovalScrnBloc>(),
+        ),
       ],
       child: const MyApp(),
     ),

@@ -17,6 +17,9 @@ dependencies:
   ## Shimmer
   shimmer: ^2.0.0
 
+  ## Timeline Tile
+  timeline_tile: ^2.0.0
+
   ## Camera
   camera: ^0.10.5+2
 

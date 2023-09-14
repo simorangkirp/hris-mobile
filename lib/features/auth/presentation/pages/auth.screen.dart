@@ -210,7 +210,7 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
     }
 
     void redirectScreen() {
-      context.router.replace(const HomeRoute());
+      context.router.popAndPush(const HomeRoute());
     }
 
     return Scaffold(

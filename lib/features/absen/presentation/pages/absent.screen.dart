@@ -76,7 +76,7 @@ class _AbsentScreenState extends State<AbsentScreen> {
               shadowColor: Colors.deepOrange,
               child: GestureDetector(
                 onTap: () {
-                  context.router.replace(const ClockInRoute());
+                  context.router.push(const ClockInRoute());
                 },
                 child: Container(
                   width: 0.62.sw,

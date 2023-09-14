@@ -15,6 +15,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton(ProfileInfoDb());
   sl.registerSingleton(HomeApiServices(sl()));
   sl.registerSingleton(ProfileAPIServices(sl()));
+  sl.registerSingleton(NotifAPIServices(sl()));
+  sl.registerSingleton(ApprovalApiServices(sl()));
 
   // Repository
   sl.registerSingleton<UserAuthRepository>(
@@ -22,9 +24,14 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<AbsentRepository>(AbsentReposImplement(sl()));
   sl.registerSingleton<HomeRepository>(HomeReposImpl(sl()));
   sl.registerSingleton<ProfileRepository>(ProfileRepoImpl(sl()));
+  sl.registerSingleton<NotificationRepository>(NotifRepoImpl(sl()));
+  sl.registerSingleton<ApprovalRepository>(ApprovalRepoImpl(sl()));
 
   // Usecase
   sl.registerSingleton<LoginUserUseCase>(LoginUserUseCase(sl()));
+  sl.registerSingleton<NotifScreenGetDataList>(NotifScreenGetDataList(sl()));
+  sl.registerSingleton<NotifScreenGetApprovalList>(
+      NotifScreenGetApprovalList(sl()));
   sl.registerSingleton<GetUserCurrentPeriodAbsentList>(
       GetUserCurrentPeriodAbsentList(sl()));
   sl.registerSingleton<GetListCameraClockIn>(GetListCameraClockIn(sl()));
@@ -51,6 +58,11 @@ Future<void> initializeDependencies() async {
       AuthGetProfileDataDetails(sl()));
   sl.registerSingleton<AuthGetActPeriodUseCase>(AuthGetActPeriodUseCase(sl()));
   sl.registerSingleton<GetPersonalData>(GetPersonalData(sl()));
+  sl.registerSingleton<GetApprovalListDataUsecase>(
+      GetApprovalListDataUsecase(sl()));
+  sl.registerSingleton<GetApprovalDataDetail>(GetApprovalDataDetail(sl()));
+  sl.registerSingleton<SubmitApprovalDataResponse>(
+      SubmitApprovalDataResponse(sl()));
 
   // BLoCs
   sl.registerFactory<AuthBloc>(
@@ -61,4 +73,8 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<ProfileScreenBloc>(() =>
       ProfileScreenBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl())
         ..add(InitProfileScreen()));
+  sl.registerFactory<InboxScrnBloc>(
+      () => InboxScrnBloc(sl(), sl())..add(InitInboxScreen()));
+  sl.registerFactory<ApprovalScrnBloc>(
+      () => ApprovalScrnBloc(sl(), sl(), sl())..add(ApprovalScrnInit()));
 }

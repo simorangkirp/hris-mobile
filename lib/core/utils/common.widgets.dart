@@ -354,7 +354,8 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
             // ),
             SizedBox(height: 56.h),
             Theme(
-              data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+              data:
+                  Theme.of(context).copyWith(dividerColor: Colors.transparent),
               child: ExpansionTile(
                 collapsedBackgroundColor: appBgWhite,
                 leading: SizedBox(
@@ -462,7 +463,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 ],
               ),
             ),
-      
+
             ListTile(
               tileColor: appBgWhite,
               leading: SizedBox(
@@ -507,7 +508,10 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                context.router.push(const InboxRoute());
+              },
             ),
             ListTile(
               tileColor: appBgWhite,
@@ -543,7 +547,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                context.router.replace(const LoginRoute());
+                context.router.popAndPush(const LoginRoute());
               },
             ),
           ],
@@ -956,7 +960,6 @@ failSnackBar({String? message}) {
   );
 }
 
-
 class CommonShimmer extends StatelessWidget {
   final Widget? child;
   final bool? isLoading;
@@ -982,7 +985,6 @@ class CommonShimmer extends StatelessWidget {
     );
   }
 }
-
 
 class ExpandableWidget extends StatefulWidget {
   final Widget child;

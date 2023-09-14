@@ -1,3 +1,7 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:owl_hris/core/core.dart';
+import 'package:owl_hris/features/absen/absen.dart';
+
 const String baseUrl = 'http://182.23.67.40:8083/officeapi/';
 
 class ConstIconPath {
@@ -24,4 +28,30 @@ class ConstIconPath {
   static const pinLock = 'assets/icons/lock.svg';
   static const passLock = 'assets/icons/pin.svg';
   static const textIcon = 'assets/icons/text.svg';
+  static const checkIcon = 'assets/icons/check-icon.svg';
+  static const declineIcon = 'assets/icons/decline-icon.svg';
+  static const exclamIcon = 'assets/icons/exclam-icon.svg';
+  static const questionIcon = 'assets/icons/question-icon.svg';
+}
+
+class ConstantLottie {
+  static const submitLoading = 'assets/lotties/submit_loading.json';
+  static const submitSuccess = 'assets/lotties/submit_success.json';
+}
+
+class ConstantMode {
+  static const add = 'ADD';
+  static const edit = 'EDIT';
+  static const view = 'VIEW';
+}
+
+class ConstStatusApproval {
+  static KeyVal appWaiting = KeyVal('Waiting', '0');
+  static KeyVal appApproved = KeyVal('Approved', '1');
+  static KeyVal appDecline = KeyVal('Declined', '2');
+  static KeyVal appCorrection = KeyVal('Correction', '3');
+}
+
+class Constant {
+  static var appPadding = EdgeInsets.symmetric(horizontal: 24.w);
 }
