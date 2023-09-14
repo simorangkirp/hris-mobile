@@ -29,8 +29,7 @@ class AbsentHistoryScreen extends StatefulWidget implements AutoRouteWrapper {
 
 class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
   void dispatchGetAbsentListPeriod() {
-    BlocProvider.of<AbsentBloc>(context)
-        .add(GetAbsentPeriod(dtParam));
+    BlocProvider.of<AbsentBloc>(context).add(GetAbsentPeriod(dtParam));
   }
 
   ScrollController ctrl = ScrollController();
@@ -142,13 +141,14 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
                         ),
                         SizedBox(width: 8.w),
                         Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
                               dt,
                               style: TextStyle(
-                                fontSize: 12.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w700,
                                 color: appBgBlack,
                               ),
