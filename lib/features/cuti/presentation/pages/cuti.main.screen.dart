@@ -2,8 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:owl_hris/config/config.dart';
-import 'package:owl_hris/core/constants/constants.dart';
+
+import '../../../../core/core.dart';
 
 @RoutePage()
 class PaidLeaveMainScreen extends StatefulWidget {
@@ -14,6 +16,34 @@ class PaidLeaveMainScreen extends StatefulWidget {
 }
 
 class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
+  ScrollController ctrl = ScrollController();
+  String dt = "Current period";
+  String sltdDt = '';
+  String dtParam = '';
+  bool startAnimation = false;
+  void changeDate(DateTime v) {
+    setState(() {
+      sltdDt = DateFormat('MMM yyyy').format(v).toString();
+      dtParam = DateFormat('yyyy-MM').format(v).toString();
+    });
+    // dispatchGetAbsentListPeriod();
+  }
+
+  void displayMonthPicker(BuildContext ctx) {
+    showDialog(
+      context: ctx,
+      builder: (ctx) {
+        return CommonMonthPicker(
+          onConfirm: (v) {
+            context.router.pop();
+            // log(v.toString());
+            changeDate(v);
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,15 +191,141 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 16.h),
-            Text(
-              'Recent',
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500,
+            SizedBox(height: 24.h),
+            // Text(
+            //   'Recent',
+            //   style: TextStyle(
+            //     fontSize: 16.sp,
+            //     fontWeight: FontWeight.w500,
+            //   ),
+            // ),
+            IntrinsicHeight(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Material(
+                    elevation: 4,
+                    borderRadius: BorderRadius.circular(12),
+                    child: GestureDetector(
+                      onTap: () {
+                        displayMonthPicker(context);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: appNotifCutIcn.withOpacity(0.8),
+                        ),
+                        height: 38.h,
+                        width: 38.h,
+                        child: SvgPicture.asset(
+                          ConstIconPath.calendarDays,
+                          fit: BoxFit.scaleDown,
+                          colorFilter: const ColorFilter.mode(
+                              appBgWhite, BlendMode.srcIn),
+                        ),
+                      ),
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(4),
+                      //     border: Border.all(
+                      //       color: appButtonBlue.withOpacity(0.3),
+                      //     ),
+                      //     color: appButtonBlue,
+                      //   ),
+                      //   padding: EdgeInsets.all(6.w),
+                      //   width: 32.w,
+                      //   height: 32.w,
+                      //   child: SvgPicture.asset(
+                      //     ConstIconPath.calendarDays,
+                      //     fit: BoxFit.contain,
+                      //     colorFilter: const ColorFilter.mode(
+                      //         appBgWhite, BlendMode.srcIn),
+                      //   ),
+                      // ),
+                    ),
+                  ),
+                  SizedBox(width: 8.w),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        dt,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: appBgBlack,
+                        ),
+                      ),
+                      Text(
+                        sltdDt,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: appBgBlack.withOpacity(0.6),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-
+            SizedBox(height: 12.h),
+            Material(
+              elevation: 8,
+              borderRadius: BorderRadius.circular(4),
+              shadowColor: appCutiBg,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: appBgWhite,
+                ),
+                padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "-",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14.sp,
+                            ),
+                          ),
+                          Text(
+                            "-",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12.sp,
+                              color: appBgBlack.withOpacity(0.7),
+                            ),
+                          ),
+                          Text(
+                            "-",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SvgPicture.asset(
+                      height: 18.h,
+                      ConstIconPath.questionIcon,
+                      colorFilter:
+                          const ColorFilter.mode(appCutiBg, BlendMode.srcIn),
+                      fit: BoxFit.fill,
+                    ),
+                    SizedBox(width: 12.w),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
