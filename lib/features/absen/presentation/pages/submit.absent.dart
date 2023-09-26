@@ -323,22 +323,33 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
                       child: Material(
                         elevation: 4,
                         borderRadius: BorderRadius.circular(12),
-                        child: Container(
-                          height: 36.h,
-                          width: 36.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: appBgWhite,
-                            border: Border.all(
-                              color: appBtnBlue.withOpacity(0.6),
-                              width: 2,
+                        child: InkWell(
+                          onTap: () async {
+                            final isAuth = await LocalAuthAPI.authenticate();
+                            if (isAuth) {
+                              setState(() {
+                                isCheck = !isCheck;
+                              });
+                            }
+                          },
+                          child: Container(
+                            height: 36.h,
+                            width: 36.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: appBgWhite,
+                              border: Border.all(
+                                color: appBtnBlue.withOpacity(0.6),
+                                width: 2,
+                              ),
                             ),
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              ConstIconPath.faceIdIcon,
-                              colorFilter: ColorFilter.mode(
-                                  appBgBlack.withOpacity(0.7), BlendMode.srcIn),
+                            child: Center(
+                              child: SvgPicture.asset(
+                                ConstIconPath.faceIdIcon,
+                                colorFilter: ColorFilter.mode(
+                                    appBgBlack.withOpacity(0.7),
+                                    BlendMode.srcIn),
+                              ),
                             ),
                           ),
                         ),
@@ -527,6 +538,7 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
             );
           }
           return Scaffold(
+            appBar: AppBar(),
             body: SafeArea(child: buildFormAbsent()),
           );
         },

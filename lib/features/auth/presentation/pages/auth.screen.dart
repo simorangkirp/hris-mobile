@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,9 +17,22 @@ import '../../domain/usecases/login.usecase.dart';
 import '../bloc/auth.event.dart';
 
 @RoutePage()
-class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
+class LoginScreen extends StatefulWidget implements AutoRouteWrapper {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+  
+ @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => sl<AuthBloc>(),
+      child: this,
+    );
+  }
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     TextEditingController user = TextEditingController();
@@ -40,6 +55,14 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
     //! Dispatch after get profile details
     void dispatchActPeriod() {
       BlocProvider.of<AuthBloc>(context).add(AuthGetActPeriod(dt, loc));
+    }
+
+    void refreshData() {
+      setState(() {});
+    }
+
+    FutureOr onGoBack() {
+      refreshData();
     }
 
     Widget loginCard() {
@@ -210,7 +233,7 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
     }
 
     void redirectScreen() {
-      context.router.popAndPush(const HomeRoute());
+      context.router.popAndPush(const HomeRoute()).then((value) => onGoBack());
     }
 
     return Scaffold(
@@ -229,10 +252,10 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
             }
           },
           listener: (context, state) {
-            if (state is ProccessDone) {
-              // Future.delayed(const Duration(seconds: 3))
-              //     .then((_) => redirectScreen());
-            }
+            // if (state is ProccessDone) {
+            //   // Future.delayed(const Duration(seconds: 3))
+            //   //     .then((_) => redirectScreen());
+            // }
             if (state is UserAuthGranted) {
               dispatchProfileDetail();
             }
@@ -243,8 +266,8 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
               dt = DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
               dispatchActPeriod();
             }
-            if(state is AuthActPeriodLoaded){
-               Future.delayed(const Duration(seconds: 2))
+            if (state is AuthActPeriodLoaded) {
+              Future.delayed(const Duration(seconds: 2))
                   .then((_) => redirectScreen());
             }
             if (state is AuthError) {
@@ -280,11 +303,5 @@ class LoginScreen extends StatelessWidget implements AutoRouteWrapper {
     );
   }
 
-  @override
-  Widget wrappedRoute(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<AuthBloc>(),
-      child: this,
-    );
-  }
+ 
 }

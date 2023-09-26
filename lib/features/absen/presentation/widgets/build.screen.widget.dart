@@ -170,98 +170,95 @@ Widget buildScreen(
                       ],
                     ),
                     Divider(color: appBgBlack.withOpacity(0.3), thickness: 2),
-                    SizedBox(
-                      height: 32.h,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 16.h,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: appSnackbarBgSuccess,
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.login,
-                                      color: appBgWhite,
-                                      size: 8.h,
-                                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: appSnackbarBgSuccess,
+                                ),
+                                padding: EdgeInsets.all(4.h),
+                                child: Center(
+                                  child: Icon(
+                                    Icons.login,
+                                    color: appBgWhite,
+                                    size: 8.h,
                                   ),
                                 ),
-                                SizedBox(width: 16.w),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      absenData?.hrIn ?? '-',
-                                      style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                              ),
+                              SizedBox(width: 16.w),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    absenData?.hrIn ?? '-',
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                    Text(
-                                      'clock in',
-                                      style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: appBgBlack.withOpacity(0.6),
-                                      ),
+                                  ),
+                                  Text(
+                                    'clock in',
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: appBgBlack.withOpacity(0.6),
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          VerticalDivider(
-                              color: appBgBlack.withOpacity(0.3), thickness: 2),
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 16.h,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: appSnackbarBgError,
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.logout,
-                                      color: appBgWhite,
-                                      size: 8.h,
-                                    ),
+                        ),
+                        VerticalDivider(
+                            color: appBgBlack.withOpacity(0.3), thickness: 2),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: appSnackbarBgError,
+                                ),
+                                padding: EdgeInsets.all(4.h),
+                                child: Center(
+                                  child: Icon(
+                                    Icons.logout,
+                                    color: appBgWhite,
+                                    size: 8.h,
                                   ),
                                 ),
-                                SizedBox(width: 16.w),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      absenData?.hrOut ?? '-',
-                                      style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                              ),
+                              SizedBox(width: 16.w),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    absenData?.hrOut ?? '-',
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                    Text(
-                                      'clock out',
-                                      style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: appBgBlack.withOpacity(0.6),
-                                      ),
+                                  ),
+                                  Text(
+                                    'clock out',
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: appBgBlack.withOpacity(0.6),
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     )
                   ],
                 ),

@@ -5,6 +5,7 @@ import 'package:owl_hris/features/features.dart';
 import 'package:owl_hris/injection.container.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:owl_hris/lib.dart';
 
 // import 'features/home/presentation/pages/home.screen.dart';
 
@@ -46,6 +47,15 @@ class MyApp extends StatelessWidget {
     final appRouter = AppRouter();
     return ScreenUtilInit(
       builder: (context, child) => MaterialApp.router(
+        builder: (context, child) {
+          final mediaQueryData = MediaQuery.of(context);
+          final scale = mediaQueryData.textScaler
+              .clamp(minScaleFactor: 1.0, maxScaleFactor: 1.0);
+          return MediaQuery(
+              data: MediaQuery.of(context)
+                  .copyWith(textScaler: scale, boldText: false),
+              child: child!);
+        },
         routerConfig: appRouter.config(),
         // routerDelegate: appRouter.delegate(),
         // routeInformationParser: appRouter.defaultRouteParser(),
@@ -61,7 +71,7 @@ class MyApp extends StatelessWidget {
           Locale('id'),
         ],
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: appBgWhite),
           useMaterial3: true,
         ),
         // home: HomeScreen(),

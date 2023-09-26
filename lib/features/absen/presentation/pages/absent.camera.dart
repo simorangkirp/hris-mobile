@@ -103,6 +103,7 @@ class _AbsentCameraScreenState extends State<AbsentCameraScreen> {
   void initState() {
     super.initState();
     // dispatchGetCameras();
+    startCamera();
   }
 
   Future<void> startCamera() async {

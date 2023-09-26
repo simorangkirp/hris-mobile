@@ -66,8 +66,8 @@ faturesComponent() {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
           childAspectRatio: 4 / 5,
-          mainAxisSpacing: 12.w,
-          crossAxisSpacing: 12.h,
+          mainAxisSpacing: 8.w,
+          crossAxisSpacing: 8.h,
         ),
         itemBuilder: (context, index) {
           var item = collection[index];

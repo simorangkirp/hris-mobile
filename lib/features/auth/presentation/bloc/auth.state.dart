@@ -19,7 +19,14 @@ abstract class AuthState extends Equatable {
     this.profileModel,
   });
   @override
-  List<Object> get props => [user!, error!];
+  List<Object> get props => [
+        user!,
+        error!,
+        profileModel!,
+        actPeriodModel!,
+        msg!,
+        token!,
+      ];
 }
 
 class AuthLoading extends AuthState {
