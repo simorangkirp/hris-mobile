@@ -16,7 +16,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Change password'),
+        title: const Text('Change password'),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w),

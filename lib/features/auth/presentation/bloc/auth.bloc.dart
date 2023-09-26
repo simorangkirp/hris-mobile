@@ -8,14 +8,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUserUseCase _loginUseCase;
   final AuthGetProfileDataDetails _profileDetailUseCase;
   final AuthGetActPeriodUseCase _actPeriodUseCase;
+  final AuthCheckTokenExp _tokenUsecase;
 
   AuthBloc(
-      this._loginUseCase, this._profileDetailUseCase, this._actPeriodUseCase)
-      : super(const AuthLoading()) {
+    this._loginUseCase,
+    this._profileDetailUseCase,
+    this._actPeriodUseCase,
+    this._tokenUsecase,
+  ) : super(const AuthLoading()) {
     on<InitAuth>(onInit);
     on<SubmitLogin>(onLoginUser);
     on<AuthGetProfileDetail>(onGetProfileDataDetail);
     on<AuthGetActPeriod>(onGetActPeriodData);
+    on<AuthCheckToken>(checkToken);
   }
 
   void onLoginUser(SubmitLogin event, Emitter<AuthState> emit) async {
@@ -41,7 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthInitiallized());
   }
 
-  onGetProfileDataDetail(
+  void onGetProfileDataDetail(
       AuthGetProfileDetail event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
     var uid = '';
@@ -70,9 +75,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  onGetActPeriodData(AuthGetActPeriod event, Emitter<AuthState> emit) async {
+  void onGetActPeriodData(
+      AuthGetActPeriod event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
-    final dataState = await _actPeriodUseCase.call(GetActPeriodParams(event.dt, event.lokasiTugas));
+    final dataState = await _actPeriodUseCase
+        .call(GetActPeriodParams(event.dt, event.lokasiTugas));
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
         var begin = dataState.data['data'] as Map<String, dynamic>;
@@ -91,5 +98,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (dataState is DataError) {
       emit(const AuthStrMsg('Error'));
     }
+  }
+
+  void checkToken(AuthCheckToken event, Emitter<AuthState> emit) async {
+    final state = await _tokenUsecase(NoParams());
+    emit(AuthTokenChecked(state));
   }
 }

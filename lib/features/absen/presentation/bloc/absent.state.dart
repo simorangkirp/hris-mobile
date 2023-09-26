@@ -18,17 +18,28 @@ abstract class AbsentState extends Equatable {
   final List<AbsentEntity>? listAbsent;
   final List<CameraDescription>? listCamera;
   final ActivePeriodEntity? period;
-  final String? errMsg;
+  final UserAssignLocationModel? assignLoc;
+  final ProfileModel? profileModel;
+  final String? errMsg, msg;
   const AbsentState({
     this.error,
     this.listAbsent,
     this.listCamera,
     this.errMsg,
+    this.msg,
     this.period,
+    this.assignLoc,
+    this.profileModel,
   });
 
   @override
-  List<Object> get props => [error!, listAbsent!, listCamera!, errMsg!];
+  List<Object> get props => [
+        error!,
+        listAbsent!,
+        listCamera!,
+        errMsg!,
+        assignLoc!,
+      ];
 }
 
 class AbsentLoading extends AbsentState {
@@ -50,6 +61,18 @@ class AbsentError extends AbsentState {
   // const AbsentError(DioException err) : super(error: err);
 }
 
+class AbsentActPeriodError extends AbsentState {
+  const AbsentActPeriodError(String err) : super(errMsg: err);
+}
+
+class AbsentSubmitAbsentError extends AbsentState {
+  const AbsentSubmitAbsentError(String err) : super(errMsg: err);
+}
+
+class AbsentUserAssignLocError extends AbsentState {
+  const AbsentUserAssignLocError(String err) : super(errMsg: err);
+}
+
 class ClockInCameraInitiallized extends AbsentState {
   const ClockInCameraInitiallized(List<CameraDescription> listCamera)
       : super(listCamera: listCamera);
@@ -60,5 +83,19 @@ class AbsentPeriodLoaded extends AbsentState {
 }
 
 class AbsentScrnActPeriodLoaded extends AbsentState {
-  const AbsentScrnActPeriodLoaded(ActivePeriodEntity data) : super(period: data);
+  const AbsentScrnActPeriodLoaded(ActivePeriodEntity data)
+      : super(period: data);
+}
+
+class UserAssignLocLoaded extends AbsentState {
+  const UserAssignLocLoaded(UserAssignLocationModel data)
+      : super(assignLoc: data);
+}
+
+class UserAbsentSubmitted extends AbsentState {
+  const UserAbsentSubmitted(String data) : super(msg: data);
+}
+
+class AbsentUserInfoLoaded extends AbsentState {
+  const AbsentUserInfoLoaded(ProfileModel data) : super(profileModel: data);
 }

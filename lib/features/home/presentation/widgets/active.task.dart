@@ -32,12 +32,15 @@ class _HomeTaskWidgetState extends State<HomeTaskWidget> {
             ),
             GestureDetector(
               // onTap: () => widget.showSnBar(context),
-              child: Text(
-                'See all',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: appButtonBlue,
+              child: Visibility(
+                visible: false,
+                child: Text(
+                  'See all',
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w500,
+                    color: appButtonBlue,
+                  ),
                 ),
               ),
             ),
@@ -63,17 +66,23 @@ class _AssigneeTaskState extends State<AssigneeTask> {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(8),
-      elevation: 6,
+      elevation: 2,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: appBgBlack,
+          color: appBgWhite,
           // border: Border.all(color: appDivider),
         ),
         width: double.maxFinite,
-        height: 124,
-        child: const Row(
-          children: [],
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+        child: Text(
+          "This feature isn't available to everyone yet.",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 12.sp,
+            color: appBgBlack.withOpacity(0.6),
+          ),
         ),
       ),
     );

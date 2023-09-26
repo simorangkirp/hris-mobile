@@ -9,7 +9,6 @@ import 'package:owl_hris/features/absen/absen.dart';
 import '../../../../config/themes/colors.dart';
 import '../../../../core/core.dart';
 import '../../../../injection.container.dart';
-import '../widgets/absent.item.dart';
 
 @RoutePage()
 class AbsentHistoryScreen extends StatefulWidget implements AutoRouteWrapper {
@@ -87,6 +86,11 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
       ),
       body: BlocListener<AbsentBloc, AbsentState>(
         listener: (context, state) {
+          if (state is AbsentLoading) {
+            setState(() {
+              startAnimation = false;
+            });
+          }
           if (state is AbsentPeriodLoaded) {
             Future.delayed(const Duration(milliseconds: 350), () {
               setState(() {

@@ -1,3 +1,5 @@
+import '../../absen.dart';
+
 abstract class AbsentEvent {
   const AbsentEvent();
 }
@@ -16,8 +18,13 @@ class GetAbsentPeriod extends AbsentEvent {
   GetAbsentPeriod(this.dt);
 }
 
-class AbsentScrnActPeriod extends AbsentEvent {
-  String dt;
-  String lokasiTugas;
-  AbsentScrnActPeriod(this.dt, this.lokasiTugas);
+class GetUserAssignLocation extends AbsentEvent {}
+
+class SubmitUserAbsent extends AbsentEvent {
+  SubmitUserAbsentParams params;
+  SubmitUserAbsent(this.params);
 }
+
+class AbsentGetUserInfo extends AbsentEvent {}
+
+class AbsentScrnActPeriod extends AbsentEvent {}

@@ -16,6 +16,16 @@ class LoginUserUseCase extends UseCase<DataState, LoginParams> {
   }
 }
 
+class AuthCheckTokenExp extends UseCase<bool, void> {
+  final UserAuthRepository _loginRepo;
+  AuthCheckTokenExp(this._loginRepo);
+  @override
+  Future<bool> call(void params) async {
+    var res = await _loginRepo.checkTokenExpire();
+    return res;
+  }
+}
+
 class SaveUserLoginInfoLocally extends UseCase<DataState, void> {
   final UserAuthRepository _repo;
   SaveUserLoginInfoLocally(this._repo);

@@ -1,12 +1,12 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:owl_hris/config/routes/app.routes.dart';
-import 'package:owl_hris/config/themes/colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
-import '../../../../core/utils/common.widgets.dart';
-import '../widgets/datetime.component.dart';
+import '../../../../config/routes/app.routes.dart';
+import '../../../features.dart';
 
 @RoutePage()
 class AbsentScreen extends StatefulWidget {
@@ -17,191 +17,96 @@ class AbsentScreen extends StatefulWidget {
 }
 
 class _AbsentScreenState extends State<AbsentScreen> {
+  String period = '';
+  EntityProfile appmod = const EntityProfile();
+  UserAssignLocationModel? assignLoc;
+  AbsentData? data;
+  void dispatchGetUserAssignLoc() {
+    BlocProvider.of<AbsentBloc>(context).add(GetUserAssignLocation());
+  }
+
+  void dispatchGetUserInfo() {
+    BlocProvider.of<AbsentBloc>(context).add(AbsentGetUserInfo());
+  }
+
+  void dispatchGetCurrentPeriod() {
+    BlocProvider.of<AbsentBloc>(context).add(AbsentScrnActPeriod());
+  }
+
+  void dispatchGetTodayAbsent() {
+    BlocProvider.of<AbsentBloc>(context).add(GetAbsentPeriod(
+      period,
+    ));
+  }
+
+  FutureOr onGoBack() {
+    refreshData();
+  }
+
+  void refreshData() {
+    dispatchGetCurrentPeriod();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    dispatchGetCurrentPeriod();
+  }
+
   @override
   Widget build(BuildContext context) {
-    buildAppBar() {
-      return AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(120),
-              child: SizedBox(
-                height: 42.w,
-                width: 42.w,
-                child: Image.asset(
-                  'assets/image/serenia-0363.jpg',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            SizedBox(width: 12.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Welcome Back!',
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  'Patrick S',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-    }
-
-    return Scaffold(
-      appBar: buildAppBar(),
-      endDrawer: const AppNavigationDrawer(),
-      body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(height: 24.h),
-            const ClockWidget(),
-            SizedBox(height: 32.h),
-            Material(
-              elevation: 48,
-              borderRadius: BorderRadius.circular(320),
-              shadowColor: Colors.deepOrange,
-              child: GestureDetector(
-                onTap: () {
-                  context.router.push(const ClockInRoute());
-                },
-                child: Container(
-                  width: 0.62.sw,
-                  height: 0.62.sw,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.deepOrange,
-                        Colors.deepOrange,
-                        Colors.white,
-                      ],
-                    ),
-                  ),
+    return BlocListener<AbsentBloc, AbsentState>(
+      listener: (context, state) {
+        if (state is AbsentScrnActPeriodLoaded) {
+          period = state.period?.periode ?? "";
+          dispatchGetUserAssignLoc();
+        }
+        if (state is UserAssignLocLoaded) {
+          assignLoc = state.assignLoc;
+          dispatchGetUserInfo();
+        }
+        if (state is AbsentUserInfoLoaded) {
+          if (state.profileModel != null) {
+            appmod = state.profileModel!;
+          }
+          dispatchGetTodayAbsent();
+        }
+        if (state is AbsentPeriodLoaded) {
+          if (state.listAbsent != null) {
+            for (var e in state.listAbsent!) {
+              if (e.tanggal ==
+                  DateFormat('yyyy-MM-dd').format(DateTime.now())) {
+                data = e.data;
+              }
+            }
+          }
+        }
+      },
+      child: BlocBuilder<AbsentBloc, AbsentState>(
+        builder: (context, state) {
+          if (state is AbsentPeriodLoaded) {
+            return buildScreen(
+              context,
+              appmod,
+              assignLoc,
+              data,
+              (val) => context.router
+                  .push(SubmitAbsentRoute(
+                    inout: val,
+                    period: period,
+                  ))
+                  .then((value) => onGoBack()),
+            );
+          } else {
+            return const Scaffold(
+              body: SafeArea(
                   child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          height: 76.h,
-                          width: 58.w,
-                          child: SvgPicture.asset(
-                            'assets/icons/hand-touch.svg',
-                            fit: BoxFit.contain,
-                            colorFilter: const ColorFilter.mode(
-                                appBgWhite, BlendMode.srcIn),
-                          ),
-                        ),
-                        SizedBox(height: 8.h),
-                        Text(
-                          'Absen Masuk',
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
-                            color: appBgWhite,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 72.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: IntrinsicHeight(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: appBgBlack.withOpacity(0.2),
-                            ),
-                          ),
-                          padding: EdgeInsets.all(16.w),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              'assets/icons/alert.svg',
-                              colorFilter: const ColorFilter.mode(
-                                Colors.red,
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 8.h),
-                        Text(
-                          'Ijin tidak hadir',
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            context.router.push(const AbsentHistoryRoute());
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: appBgBlack.withOpacity(0.2),
-                              ),
-                            ),
-                            padding: EdgeInsets.all(16.w),
-                            child: Center(
-                              child: SvgPicture.asset(
-                                'assets/icons/file-search.svg',
-                                colorFilter: const ColorFilter.mode(
-                                  Colors.green,
-                                  BlendMode.srcIn,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 8.h),
-                        Text(
-                          'Lihat history',
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+                child: CircularProgressIndicator(),
+              )),
+            );
+          }
+        },
       ),
     );
   }

@@ -9,9 +9,11 @@ abstract class AuthState extends Equatable {
   final ErrMsg? error;
   final ActivePeriodEntity? actPeriodModel;
   final String? msg;
+  final bool? token;
   const AuthState({
     this.user,
     this.error,
+    this.token,
     this.actPeriodModel,
     this.msg,
     this.profileModel,
@@ -24,7 +26,7 @@ class AuthLoading extends AuthState {
   const AuthLoading();
 }
 
-class UserAuthGranted extends AuthState{}
+class UserAuthGranted extends AuthState {}
 
 class AuthInitiallized extends AuthState {}
 
@@ -41,7 +43,11 @@ class AuthStrMsg extends AuthState {
 }
 
 class AuthDetailProfileLoaded extends AuthState {
-  const AuthDetailProfileLoaded(EntityProfile data): super(profileModel: data);
+  const AuthDetailProfileLoaded(EntityProfile data) : super(profileModel: data);
+}
+
+class AuthTokenChecked extends AuthState {
+  const AuthTokenChecked(bool data) : super(token: data);
 }
 
 class AuthActPeriodLoaded extends AuthState {

@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/core/core.dart';
-import 'package:owl_hris/features/absen/absen.dart';
 
 const String baseUrl = 'http://182.23.67.40:8083/officeapi/';
 
@@ -32,6 +32,10 @@ class ConstIconPath {
   static const declineIcon = 'assets/icons/decline-icon.svg';
   static const exclamIcon = 'assets/icons/exclam-icon.svg';
   static const questionIcon = 'assets/icons/question-icon.svg';
+  static const faceIdIcon = 'assets/icons/face-id-icon.svg';
+  static const fingerPrintIcon = 'assets/icons/finger-print-icon.svg';
+  static const pinIcon = 'assets/icons/pin-icon.svg';
+  static const cameraIcon = 'assets/icons/camera-icon.svg';
 }
 
 class ConstantLottie {
@@ -54,4 +58,7 @@ class ConstStatusApproval {
 
 class Constant {
   static var appPadding = EdgeInsets.symmetric(horizontal: 24.w);
+  static var containerPadding =
+      EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h);
+  static const owlBird = 'assets/image/owl-bird.svg';
 }

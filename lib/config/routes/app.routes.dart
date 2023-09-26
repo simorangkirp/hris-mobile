@@ -1,17 +1,22 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:owl_hris/lib.dart';
 
-import '../../features/settings/presentation/pages/notifications.page.dart';
-import '../../features/settings/presentation/pages/password.page.dart';
-import '../../features/settings/presentation/pages/pin.page.dart';
-import '../../features/settings/presentation/pages/setting.page.dart';
 part 'app.routes.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
-        CustomRoute(page: LoginRoute.page, initial: true),
+        CustomRoute(
+          page: SplashRoute.page,
+          path: '/',
+          initial: true,
+        ),
+        CustomRoute(
+          page: LoginRoute.page,
+          path: '/login',
+        ),
         CustomRoute(
           page: HomeRoute.page,
           transitionsBuilder: TransitionsBuilders.noTransition,
@@ -86,7 +91,17 @@ class AppRouter extends _$AppRouter {
         ),
         CustomRoute(
           page: SubmitAbsentRoute.page,
-          path: '/absent-submissions',
+          path: '/absent-submissions/:params:period:inout',
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: PaidLeaveMainRoute.page,
+          path: '/paid-leave',
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: AbsentCameraRoute.page,
+          path: '/absent-camera/:params:period:inout',
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
       ];

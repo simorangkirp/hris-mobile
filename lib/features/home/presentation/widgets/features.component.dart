@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owl_hris/lib.dart';
@@ -71,7 +72,7 @@ faturesComponent() {
         itemBuilder: (context, index) {
           var item = collection[index];
           return SizedBox(
-            height: 72.h,
+            height: 78.h,
             width: 32.w,
             // padding:
             //     EdgeInsets.symmetric(horizontal: 4.w, vertical: 8.h),
@@ -82,15 +83,15 @@ faturesComponent() {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color: appButtonBlue.withOpacity(0.3),
+                    color: appNotifCutIcn.withOpacity(0.8),
                   ),
-                  height: 32.h,
-                  width: 32.h,
+                  height: 38.h,
+                  width: 38.h,
                   child: SvgPicture.asset(
                     item.iconPath!,
                     fit: BoxFit.scaleDown,
                     colorFilter:
-                        const ColorFilter.mode(appBgBlack, BlendMode.srcIn),
+                        const ColorFilter.mode(appBgWhite, BlendMode.srcIn),
                   ),
                 ),
                 SizedBox(height: 4.h),

@@ -15,6 +15,24 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AbsentCameraRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<AbsentCameraRouteArgs>(
+          orElse: () => AbsentCameraRouteArgs(
+                photoParam: pathParams.optString('params'),
+                period: pathParams.optString('period'),
+                inout: pathParams.optString('inout'),
+              ));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: AbsentCameraScreen(
+          photoParam: args.photoParam,
+          period: args.period,
+          inout: args.inout,
+          key: args.key,
+        ),
+      );
+    },
     AbsentHistoryRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -119,6 +137,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const PINScreen(),
       );
     },
+    PaidLeaveMainRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PaidLeaveMainScreen(),
+      );
+    },
     PasswordRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -137,10 +161,28 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const SettingScreen(),
       );
     },
-    SubmitAbsentRoute.name: (routeData) {
+    SplashRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SubmitAbsentScreen(),
+        child: const SplashScreen(),
+      );
+    },
+    SubmitAbsentRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<SubmitAbsentRouteArgs>(
+          orElse: () => SubmitAbsentRouteArgs(
+                photoParam: pathParams.optString('params'),
+                period: pathParams.optString('period'),
+                inout: pathParams.optString('inout'),
+              ));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: SubmitAbsentScreen(
+          photoParam: args.photoParam,
+          period: args.period,
+          inout: args.inout,
+          key: args.key,
+        ),
       );
     },
     VerifyPINRoute.name: (routeData) {
@@ -150,6 +192,59 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [AbsentCameraScreen]
+class AbsentCameraRoute extends PageRouteInfo<AbsentCameraRouteArgs> {
+  AbsentCameraRoute({
+    String? photoParam,
+    String? period,
+    String? inout,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          AbsentCameraRoute.name,
+          args: AbsentCameraRouteArgs(
+            photoParam: photoParam,
+            period: period,
+            inout: inout,
+            key: key,
+          ),
+          rawPathParams: {
+            'params': photoParam,
+            'period': period,
+            'inout': inout,
+          },
+          initialChildren: children,
+        );
+
+  static const String name = 'AbsentCameraRoute';
+
+  static const PageInfo<AbsentCameraRouteArgs> page =
+      PageInfo<AbsentCameraRouteArgs>(name);
+}
+
+class AbsentCameraRouteArgs {
+  const AbsentCameraRouteArgs({
+    this.photoParam,
+    this.period,
+    this.inout,
+    this.key,
+  });
+
+  final String? photoParam;
+
+  final String? period;
+
+  final String? inout;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'AbsentCameraRouteArgs{photoParam: $photoParam, period: $period, inout: $inout, key: $key}';
+  }
 }
 
 /// generated route for
@@ -419,6 +514,20 @@ class PINRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PaidLeaveMainScreen]
+class PaidLeaveMainRoute extends PageRouteInfo<void> {
+  const PaidLeaveMainRoute({List<PageRouteInfo>? children})
+      : super(
+          PaidLeaveMainRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PaidLeaveMainRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [PasswordScreen]
 class PasswordRoute extends PageRouteInfo<void> {
   const PasswordRoute({List<PageRouteInfo>? children})
@@ -461,17 +570,70 @@ class SettingRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [SubmitAbsentScreen]
-class SubmitAbsentRoute extends PageRouteInfo<void> {
-  const SubmitAbsentRoute({List<PageRouteInfo>? children})
+/// [SplashScreen]
+class SplashRoute extends PageRouteInfo<void> {
+  const SplashRoute({List<PageRouteInfo>? children})
       : super(
+          SplashRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SplashRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SubmitAbsentScreen]
+class SubmitAbsentRoute extends PageRouteInfo<SubmitAbsentRouteArgs> {
+  SubmitAbsentRoute({
+    String? photoParam,
+    String? period,
+    String? inout,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           SubmitAbsentRoute.name,
+          args: SubmitAbsentRouteArgs(
+            photoParam: photoParam,
+            period: period,
+            inout: inout,
+            key: key,
+          ),
+          rawPathParams: {
+            'params': photoParam,
+            'period': period,
+            'inout': inout,
+          },
           initialChildren: children,
         );
 
   static const String name = 'SubmitAbsentRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SubmitAbsentRouteArgs> page =
+      PageInfo<SubmitAbsentRouteArgs>(name);
+}
+
+class SubmitAbsentRouteArgs {
+  const SubmitAbsentRouteArgs({
+    this.photoParam,
+    this.period,
+    this.inout,
+    this.key,
+  });
+
+  final String? photoParam;
+
+  final String? period;
+
+  final String? inout;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SubmitAbsentRouteArgs{photoParam: $photoParam, period: $period, inout: $inout, key: $key}';
+  }
 }
 
 /// generated route for

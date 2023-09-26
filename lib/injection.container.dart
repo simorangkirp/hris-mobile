@@ -29,6 +29,7 @@ Future<void> initializeDependencies() async {
 
   // Usecase
   sl.registerSingleton<LoginUserUseCase>(LoginUserUseCase(sl()));
+  sl.registerSingleton<AuthCheckTokenExp>(AuthCheckTokenExp(sl()));
   sl.registerSingleton<NotifScreenGetDataList>(NotifScreenGetDataList(sl()));
   sl.registerSingleton<NotifScreenGetApprovalList>(
       NotifScreenGetApprovalList(sl()));
@@ -63,12 +64,19 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetApprovalDataDetail>(GetApprovalDataDetail(sl()));
   sl.registerSingleton<SubmitApprovalDataResponse>(
       SubmitApprovalDataResponse(sl()));
+  sl.registerSingleton<SubmitUserAbsentUseCase>(SubmitUserAbsentUseCase(sl()));
+  sl.registerSingleton<AbsentUsecaseGetUserInfo>(
+      AbsentUsecaseGetUserInfo(sl()));
+  sl.registerSingleton<AbsentUsecaseGetActPeriod>(
+      AbsentUsecaseGetActPeriod(sl()));
+  sl.registerSingleton<GetUserAssignLocationUseCase>(
+      GetUserAssignLocationUseCase(sl()));
 
   // BLoCs
   sl.registerFactory<AuthBloc>(
-      () => AuthBloc(sl(), sl(), sl())..add(InitAuth()));
+      () => AuthBloc(sl(), sl(), sl(), sl())..add(InitAuth()));
   sl.registerFactory<AbsentBloc>(
-      () => AbsentBloc(sl(), sl(), sl())..add(InitAbsent()));
+      () => AbsentBloc(sl(), sl(), sl(), sl(), sl(), sl())..add(InitAbsent()));
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl())..add(InitHome()));
   sl.registerFactory<ProfileScreenBloc>(() =>
       ProfileScreenBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl())

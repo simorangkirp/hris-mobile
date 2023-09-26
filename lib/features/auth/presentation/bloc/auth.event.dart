@@ -13,6 +13,8 @@ class SubmitLogin extends AuthEvent {
 
 class AuthGetProfileDetail extends AuthEvent {}
 
+class AuthCheckToken extends AuthEvent {}
+
 class AuthGetActPeriod extends AuthEvent {
   String dt;
   String lokasiTugas;

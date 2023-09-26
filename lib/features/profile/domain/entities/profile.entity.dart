@@ -453,7 +453,6 @@ class ActivePeriodEntity extends Equatable{
       this.jenisgaji});
   
   @override
-  // TODO: implement props
   List<Object?> get props => [
     kodeorg,
     periode,

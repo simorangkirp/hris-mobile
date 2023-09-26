@@ -1,14 +1,15 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:intl/intl.dart';
-import 'package:owl_hris/config/routes/app.routes.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../config/themes/colors.dart';
-import 'utils.dart';
+import '../../lib.dart';
 
 class CustomFormTextField extends StatefulWidget {
   final Key? key;
@@ -413,7 +414,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     tileColor: appBgWhite,
                     leading: const SizedBox(),
                     title: Text(
-                      'Absensi',
+                      'Absent',
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
@@ -428,13 +429,16 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     tileColor: appBgWhite,
                     leading: const SizedBox(),
                     title: Text(
-                      'Cuti',
+                      'Paid leave',
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pop(context);
+                      context.router.push(const PaidLeaveMainRoute());
+                    },
                   ),
                   ListTile(
                     tileColor: appBgWhite,
@@ -452,7 +456,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     tileColor: appBgWhite,
                     leading: const SizedBox(),
                     title: Text(
-                      'Kalender',
+                      'Calendar',
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
@@ -1055,4 +1059,54 @@ class _ExpandableWidgetState extends State<ExpandableWidget>
         sizeFactor: animation,
         child: widget.child);
   }
+}
+
+buildCommAppBar(EntityProfile? mod) {
+  Uint8List? byteImg;
+  if (mod?.photo != null) {
+    byteImg = const Base64Decoder().convert(mod!.photo!);
+  }
+  return AppBar(
+    automaticallyImplyLeading: false,
+    title: Row(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(120),
+          child: SizedBox(
+            height: 42.w,
+            width: 42.w,
+            child: byteImg != null
+                ? Image.memory(
+                    byteImg,
+                    fit: BoxFit.cover,
+                  )
+                : Container(
+                    color: appBgBlack,
+                  ),
+          ),
+        ),
+        SizedBox(width: 12.w),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Welcome Back!',
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            Text(
+              mod?.namakaryawan ?? "",
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
 }

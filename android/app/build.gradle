@@ -49,6 +49,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        archivesBaseName = "OWL_ESS-v$versionCode($versionName)"
     }
 
     buildTypes {

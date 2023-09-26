@@ -18,6 +18,47 @@ class GetUserCurrentPeriodAbsentList
   }
 }
 
+class GetUserAssignLocationUseCase extends UseCase<DataState, NoParams> {
+  final AbsentRepository repos;
+  GetUserAssignLocationUseCase(this.repos);
+  @override
+  Future<DataState> call(NoParams params) async {
+    var res = await repos.getUserAssignLoc();
+    return res;
+  }
+}
+
+class AbsentUsecaseGetActPeriod extends UseCase<DataState, NoParams> {
+  final AbsentRepository repos;
+  AbsentUsecaseGetActPeriod(this.repos);
+  @override
+  Future<DataState> call(NoParams params) async {
+    var res = await repos.getUserActPeriod();
+    return res;
+  }
+}
+
+class AbsentUsecaseGetUserInfo extends UseCase<DataState, NoParams> {
+  final AbsentRepository repos;
+  AbsentUsecaseGetUserInfo(this.repos);
+  @override
+  Future<DataState> call(NoParams params) async {
+    var res = await repos.getUserInfo();
+    return res;
+  }
+}
+
+class SubmitUserAbsentUseCase
+    extends UseCase<DataState, SubmitUserAbsentParams> {
+  final AbsentRepository repos;
+  SubmitUserAbsentUseCase(this.repos);
+  @override
+  Future<DataState> call(SubmitUserAbsentParams params) async {
+    var res = await repos.submitUserAbsent(params);
+    return res;
+  }
+}
+
 //? Get List of Camera
 class GetListCameraClockIn extends UseCase<List<CameraDescription>, NoParams> {
   final AbsentRepository repos;
@@ -40,4 +81,43 @@ class ListAbsentParam extends Equatable {
 
   @override
   List<Object> get props => [uid, period, onmobile];
+}
+
+class SubmitUserAbsentParams extends Equatable {
+  final String date;
+  final String period;
+  final String absent;
+  final String inoutmode;
+  final String hr;
+  final String coordinate;
+  final String photo;
+  final String desc;
+  final String source;
+  final String coorphoto;
+  const SubmitUserAbsentParams(
+    this.date,
+    this.period,
+    this.absent,
+    this.inoutmode,
+    this.hr,
+    this.coordinate,
+    this.photo,
+    this.desc,
+    this.source,
+    this.coorphoto,
+  );
+
+  @override
+  List<Object?> get props => [
+        date,
+        period,
+        absent,
+        inoutmode,
+        hr,
+        coordinate,
+        photo,
+        desc,
+        source,
+        coorphoto,
+      ];
 }

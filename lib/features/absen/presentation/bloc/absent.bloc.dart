@@ -4,19 +4,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../lib.dart';
 
 class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
-  final GetProfileScreenActPeriod actPeriod;
+  final AbsentUsecaseGetActPeriod actPeriod;
   final GetUserCurrentPeriodAbsentList getCurrPeriodAbsnt;
   final GetListCameraClockIn getCameraList;
+  final GetUserAssignLocationUseCase userAssignLocUsecase;
+  final SubmitUserAbsentUseCase submitUserAbsent;
+  final AbsentUsecaseGetUserInfo getUserInfoUsecase;
 
   AbsentBloc(
     this.getCurrPeriodAbsnt,
     this.getCameraList,
     this.actPeriod,
+    this.submitUserAbsent,
+    this.userAssignLocUsecase,
+    this.getUserInfoUsecase,
   ) : super(AbsentLoading()) {
     on<InitAbsent>(onInit);
     on<InitCamera>(initClockInCamera);
     on<GetAbsentPeriod>(getAbsentListPeriod);
     on<AbsentScrnActPeriod>(getActPeriod);
+    on<SubmitUserAbsent>(submitAbsent);
+    on<GetUserAssignLocation>(getUserAssignLoc);
+    on<AbsentGetUserInfo>(getUserInfo);
     // on<SubmitLogin>(onLoginUser);
   }
 
@@ -40,8 +49,8 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
     UserAuthDb auth = UserAuthDb();
     final res = await auth.getUser();
 
-    final dataState = await getCurrPeriodAbsnt
-        .call(ListAbsentParam(uid: res?.uid ?? '', period: event.dt, onmobile: '1'));
+    final dataState = await getCurrPeriodAbsnt.call(
+        ListAbsentParam(uid: res?.uid ?? '', period: event.dt, onmobile: '1'));
     if (dataState is DataSuccess) {
       List<AbsentListModel> list = [];
       var listAbsent = dataState.data['data'];
@@ -60,19 +69,87 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
 
   void getActPeriod(
       AbsentScrnActPeriod event, Emitter<AbsentState> emit) async {
-         final dataState = await actPeriod.call(GetActPeriodParams(event.dt, event.lokasiTugas));
+    // String errMsg = '';
+    emit(AbsentLoading());
+    final dataState = await actPeriod.call(NoParams());
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
-        var begin = dataState.data['data'] as Map<String, dynamic>;
-        log('$begin');
-        var data = ActivePeriodModel.fromJson(begin);
-        log('Absent Active Period: $data');
-        emit(AbsentScrnActPeriodLoaded(data));
+        emit(AbsentScrnActPeriodLoaded(dataState.data));
+      }
+    }
+  }
+
+  void submitAbsent(SubmitUserAbsent event, Emitter<AbsentState> emit) async {
+    emit(AbsentLoading());
+    String msg = '';
+    final dataState = await submitUserAbsent.call(SubmitUserAbsentParams(
+      event.params.date,
+      event.params.period,
+      event.params.absent,
+      event.params.inoutmode,
+      event.params.hr,
+      event.params.coordinate,
+      event.params.photo,
+      event.params.desc,
+      event.params.source,
+      event.params.coorphoto,
+    ));
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        log(dataState.data.toString());
+        msg = dataState.data['messages'];
+        log(msg);
+        emit(UserAbsentSubmitted(msg));
       }
     }
     if (dataState is DataError) {
-      emit(const AbsentError('Error'));
-    }
-
+      if (dataState.error != null) {
+        if (dataState.error!.response != null) {
+          if (dataState.error!.response!.data != null) {
+            msg = dataState.error!.response!.data['messages']['error'];
+            log(msg);
+          }
+        }
+      } else {
+        msg = "The request returned an invalid status code of 400.";
       }
+      emit(AbsentSubmitAbsentError(msg));
+    }
+  }
+
+  void getUserAssignLoc(
+      GetUserAssignLocation event, Emitter<AbsentState> emit) async {
+    emit(AbsentLoading());
+    String errMsg = '';
+    final dataState = await userAssignLocUsecase.call(NoParams());
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        var begin = dataState.data['data'] as Map<String, dynamic>;
+        var data = UserAssignLocationModel.fromMap(begin);
+        emit(UserAssignLocLoaded(data));
+      }
+    }
+    if (dataState is DataError) {
+      if (dataState.error != null) {
+        if (dataState.error!.response != null) {
+          if (dataState.error!.response!.data != null) {
+            errMsg = dataState.error!.response!.data['messages'];
+          }
+        }
+      } else {
+        errMsg = "The request returned an invalid status code of 400.";
+      }
+      emit(AbsentUserAssignLocError(errMsg));
+    }
+  }
+
+  void getUserInfo(AbsentGetUserInfo event, Emitter<AbsentState> emit) async {
+    emit(AbsentLoading());
+    final dataState = await getUserInfoUsecase.call(NoParams());
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        emit(AbsentUserInfoLoaded(dataState.data));
+      }
+    }
+  }
 }

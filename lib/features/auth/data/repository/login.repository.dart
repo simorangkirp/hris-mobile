@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../lib.dart';
 
@@ -112,7 +113,8 @@ class LoginRepositoryImpl implements UserAuthRepository {
     }
     var header = 'Bearer ${mods?.accesstoken}';
     try {
-      final httpResp = await _loginAPIServices.profileScrnActPeriod(params, header);
+      final httpResp =
+          await _loginAPIServices.profileScrnActPeriod(params, header);
 
       if (httpResp.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResp.data);
@@ -126,6 +128,30 @@ class LoginRepositoryImpl implements UserAuthRepository {
       }
     } on DioException catch (e) {
       return DataError(e);
+    }
+  }
+
+  @override
+  Future<bool> checkTokenExpire() async {
+    final user = await db.getUser();
+    if (user != null) {
+      DateTime now = DateTime.now();
+      if (user.expaccess != null) {
+        DateTime date =
+            DateFormat("yyyy-MM-dd hh:mm:ss").parse(user.expaccess!);
+        // convertStringToDateFormat(_login.expToken!, "dd-MMM-yyyy HH:mm:ss");
+        if ((date.difference(now).inSeconds - 10).isNegative) {
+          // await refreshToken(db);
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      // throw UnauthorisedException('Session is Expired');
+      return false;
     }
   }
 }
