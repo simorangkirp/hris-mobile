@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 import '../../../../core/core.dart';
 import '../../cuti.dart';
 
@@ -11,9 +13,9 @@ class GetPersonalInfoPaidLeave extends UseCase<DataState, void> {
   }
 }
 
-class PaidLeaveGetPlafond extends UseCase<DataState, void> {
+class PaidLeaveGetPlafondUseCase extends UseCase<DataState, NoParams> {
   final PaidLeaveRepository repos;
-  PaidLeaveGetPlafond(this.repos);
+  PaidLeaveGetPlafondUseCase(this.repos);
   @override
   Future<DataState> call(params) async {
     var res = await repos.getPaidLeavePlafond();
@@ -21,39 +23,39 @@ class PaidLeaveGetPlafond extends UseCase<DataState, void> {
   }
 }
 
-class PaidLeaveGetListData extends UseCase<DataState, void> {
+class PaidLeaveGetListDataUseCase extends UseCase<DataState, String> {
   final PaidLeaveRepository repos;
-  PaidLeaveGetListData(this.repos);
+  PaidLeaveGetListDataUseCase(this.repos);
   @override
   Future<DataState> call(params) async {
-    var res = await repos.getPaidLeaveList();
+    var res = await repos.getPaidLeaveList(params);
     return res;
   }
 }
 
-class PaidLeaveGetDataDetail extends UseCase<DataState, void> {
+class PaidLeaveGetDataDetailUseCase extends UseCase<DataState, String> {
   final PaidLeaveRepository repos;
-  PaidLeaveGetDataDetail(this.repos);
+  PaidLeaveGetDataDetailUseCase(this.repos);
   @override
   Future<DataState> call(params) async {
-    var res = await repos.getPaidLeaveDetail();
+    var res = await repos.getPaidLeaveDetail(params);
     return res;
   }
 }
 
-class PaidLeaveSubmitData extends UseCase<DataState, void> {
+class PaidLeaveSubmitDataUseCase extends UseCase<DataState, PaidLeaveSubmitParams> {
   final PaidLeaveRepository repos;
-  PaidLeaveSubmitData(this.repos);
+  PaidLeaveSubmitDataUseCase(this.repos);
   @override
   Future<DataState> call(params) async {
-    var res = await repos.submitPaidLeave();
+    var res = await repos.submitPaidLeave(params);
     return res;
   }
 }
 
-class PaidLeaveGetCategory extends UseCase<DataState, void> {
+class PaidLeaveGetCategoryUseCase extends UseCase<DataState, void> {
   final PaidLeaveRepository repos;
-  PaidLeaveGetCategory(this.repos);
+  PaidLeaveGetCategoryUseCase(this.repos);
   @override
   Future<DataState> call(params) async {
     var res = await repos.getPaidLeaveCat();
@@ -61,12 +63,48 @@ class PaidLeaveGetCategory extends UseCase<DataState, void> {
   }
 }
 
-class PaidLeaveGetCategoryDetail extends UseCase<DataState, void> {
+class PaidLeaveGetCategoryDetailUseCase extends UseCase<DataState, String> {
   final PaidLeaveRepository repos;
-  PaidLeaveGetCategoryDetail(this.repos);
+  PaidLeaveGetCategoryDetailUseCase(this.repos);
   @override
   Future<DataState> call(params) async {
-    var res = await repos.getPaidLeaveCatDetail();
+    var res = await repos.getPaidLeaveCatDetail(params);
     return res;
   }
+}
+
+class PaidLeaveSubmitParams extends Equatable {
+  final String date;
+  final String desc;
+  final String dtFr;
+  final String dtTo;
+  final String idType;
+  final String totalDay;
+  final String returnDay;
+  final String fileupload;
+  final String typefile;
+  const PaidLeaveSubmitParams(
+    this.date,
+    this.desc,
+    this.dtFr,
+    this.dtTo,
+    this.idType,
+    this.totalDay,
+    this.returnDay,
+    this.fileupload,
+    this.typefile,
+  );
+
+  @override
+  List<Object?> get props => [
+        date,
+        desc,
+        dtFr,
+        dtTo,
+        idType,
+        totalDay,
+        returnDay,
+        fileupload,
+        typefile,
+      ];
 }

@@ -16,6 +16,11 @@ abstract class PaidLeaveAPIService {
   @POST('${baseUrl}API/SDM/leave/categorydetail')
   Future<HttpResponse<dynamic>> categoryDetail(
       @Body() CatDetailBody? param, @Header("Authorization") String authHeader);
+  
+  @POST('${baseUrl}API/SDM/leave/detail')
+  Future<HttpResponse<dynamic>> paidleaveDetail(
+      @Body() PaidLeaveDetailBody? param,
+      @Header("Authorization") String authHeader);
 
   @POST('${baseUrl}API/SDM/leave/plafond')
   Future<HttpResponse<dynamic>> paidleaveplafond(

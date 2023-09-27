@@ -17,6 +17,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton(ProfileAPIServices(sl()));
   sl.registerSingleton(NotifAPIServices(sl()));
   sl.registerSingleton(ApprovalApiServices(sl()));
+  sl.registerSingleton(PaidLeaveAPIService(sl()));
 
   // Repository
   sl.registerSingleton<UserAuthRepository>(
@@ -26,6 +27,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<ProfileRepository>(ProfileRepoImpl(sl()));
   sl.registerSingleton<NotificationRepository>(NotifRepoImpl(sl()));
   sl.registerSingleton<ApprovalRepository>(ApprovalRepoImpl(sl()));
+  sl.registerSingleton<PaidLeaveRepository>(PaidLeaveImplement(sl()));
 
   // Usecase
   sl.registerSingleton<LoginUserUseCase>(LoginUserUseCase(sl()));
@@ -71,6 +73,20 @@ Future<void> initializeDependencies() async {
       AbsentUsecaseGetActPeriod(sl()));
   sl.registerSingleton<GetUserAssignLocationUseCase>(
       GetUserAssignLocationUseCase(sl()));
+  sl.registerSingleton<GetPersonalInfoPaidLeave>(
+      GetPersonalInfoPaidLeave(sl()));
+  sl.registerSingleton<PaidLeaveGetPlafondUseCase>(
+      PaidLeaveGetPlafondUseCase(sl()));
+  sl.registerSingleton<PaidLeaveGetListDataUseCase>(
+      PaidLeaveGetListDataUseCase(sl()));
+  sl.registerSingleton<PaidLeaveGetDataDetailUseCase>(
+      PaidLeaveGetDataDetailUseCase(sl()));
+  sl.registerSingleton<PaidLeaveSubmitDataUseCase>(
+      PaidLeaveSubmitDataUseCase(sl()));
+  sl.registerSingleton<PaidLeaveGetCategoryUseCase>(
+      PaidLeaveGetCategoryUseCase(sl()));
+  sl.registerSingleton<PaidLeaveGetCategoryDetailUseCase>(
+      PaidLeaveGetCategoryDetailUseCase(sl()));
 
   // BLoCs
   sl.registerFactory<AuthBloc>(
