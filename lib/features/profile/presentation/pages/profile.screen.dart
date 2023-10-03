@@ -107,7 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener(
+        BlocListener<ProfileScreenBloc, ProfileScreenState>(
           listener: (context, state) {
             if (state is ProfileInfoLoaded) {
               model = state.profile;

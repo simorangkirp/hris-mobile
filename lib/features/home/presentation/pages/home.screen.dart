@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(height: 12.h),
-                          faturesComponent(),
+                          faturesComponent(context),
                           Divider(
                             color: appBgBlack.withOpacity(0.3),
                             height: 32.h,

@@ -249,7 +249,7 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 12.h),
+                    SizedBox(height: 16.h),
                     Expanded(
                       child: BlocBuilder<PaidLeaveBloc, PaidLeaveState>(
                         builder: (context, state) {

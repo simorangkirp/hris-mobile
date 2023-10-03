@@ -28,7 +28,8 @@ Widget buildListItems(
                     var to = DateTime.parse(data.tglsampai ?? "");
                     var comb = combineDates(fr, to);
                     return Padding(
-                      padding: EdgeInsets.only(bottom: 12.h),
+                      padding:
+                          EdgeInsets.only(bottom: 12.h, left: 4.w, right: 4.w),
                       child: Material(
                         elevation: 8,
                         borderRadius: BorderRadius.circular(4),

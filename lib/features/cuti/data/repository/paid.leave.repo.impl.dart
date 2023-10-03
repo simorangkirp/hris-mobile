@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import '../../../../lib.dart';
 import 'package:dio/dio.dart';
 
@@ -156,7 +158,7 @@ class PaidLeaveImplement implements PaidLeaveRepository {
   }
 
   @override
-  Future<DataState> getUserInfo() async{
+  Future<DataState> getUserInfo() async {
     UserAuthDb auth = UserAuthDb();
     ProfileModel? mods;
     final res = await auth.getProfileDetail();
@@ -175,18 +177,21 @@ class PaidLeaveImplement implements PaidLeaveRepository {
       mods = res;
     }
     var header = 'Bearer ${mods?.accesstoken}';
+    var splitStr = data.dataCtrl?.text.split(',');
+
     var params = PaidLeaveSubmitBody(
-        mods?.uid ?? "",
-        data.date,
-        data.desc,
-        data.dtFr,
-        data.dtTo,
-        data.idType,
-        data.totalDay,
-        data.returnDay,
-        data.fileupload,
-        data.typefile,
-        '1');
+      mods?.uid ?? "",
+      DateFormat('yyyy-MM-dd').format(DateTime.now()),
+      data.smbDsc ?? "",
+      splitStr?[4] ?? "",
+      splitStr?[3] ?? "",
+      data.smbCatDet ?? "",
+      splitStr?[1] ?? "",
+      splitStr?[5] ?? "",
+      data.smbFlUpl ?? "",
+      'base64',
+      '1',
+    );
     try {
       final httpResp =
           await _paidLeaveAPIService.paidleavesubmit(params, header);

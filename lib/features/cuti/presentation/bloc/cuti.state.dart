@@ -32,6 +32,12 @@ class PaidLeaveLoading extends PaidLeaveState {}
 
 class PaidLeaveSearchLoading extends PaidLeaveState {}
 
+class PaidLeaveSubmitFormLoading extends PaidLeaveState {}
+
+class PaidLeaveSubmitFormSuccess extends PaidLeaveState {
+  const PaidLeaveSubmitFormSuccess(String data) : super(msg: data);
+}
+
 class PaidLeaveInitiallized extends PaidLeaveState {}
 
 class PaidLeavePlafondLoaded extends PaidLeaveState {

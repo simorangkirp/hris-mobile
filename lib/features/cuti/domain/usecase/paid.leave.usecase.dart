@@ -44,7 +44,7 @@ class PaidLeaveGetDataDetailUseCase extends UseCase<DataState, String> {
 }
 
 class PaidLeaveSubmitDataUseCase
-    extends UseCase<DataState, PaidLeaveSubmitParams> {
+    extends UseCase<DataState, PaidLeaveSubmitModel> {
   final PaidLeaveRepository repos;
   PaidLeaveSubmitDataUseCase(this.repos);
   @override

@@ -65,9 +65,6 @@ class _PaidLeaveCameraScreenState extends State<PaidLeaveCameraScreen> {
       Uint8List headedData = Uint8List.view(byte.buffer);
       photo = base64Encode(headedData);
     }
-
-    if (imgData != null) {}
-
     if (photo != null) {
       return true;
     } else {

@@ -1442,7 +1442,7 @@ class _PortalFormDropdownState extends State<PortalFormDropdown> {
                                         ? appValidateField
                                         : appBgWhite),
                         padding: EdgeInsets.symmetric(
-                            vertical: 10.w, horizontal: 12.h),
+                            vertical: 12.h, horizontal: 10.w),
                         child: Row(
                           children: [
                             widget.prefix != null
@@ -1740,7 +1740,7 @@ class _PortalFormDropdownKeyValState extends State<PortalFormDropdownKeyVal> {
                                         ? appValidateField
                                         : appBgWhite),
                         padding: EdgeInsets.symmetric(
-                            vertical: 10.w, horizontal: 12.h),
+                            vertical: 12.h, horizontal: 10.w),
                         child: Row(
                           children: [
                             widget.prefix != null

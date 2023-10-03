@@ -7,6 +7,13 @@ String convertUint8ListToString(Uint8List uint8list) {
   return String.fromCharCodes(uint8list);
 }
 
+class TextCo {
+  static TextEditingController init([dynamic text]) {
+    return TextEditingController(
+        text: (text != null && text != 'null') ? text.toString() : '');
+  }
+}
+
 String diffDays(DateTimeRange? rg) {
   DateTime? stDt = rg?.start;
   DateTime? enDt = rg?.end;
@@ -15,6 +22,9 @@ String diffDays(DateTimeRange? rg) {
   String comb = '';
   String fStr = '';
   String rtrnStr = '';
+  String dtTo = '';
+  String dtFr = '';
+  String dtRet = '';
   if (stDt == null || enDt == null) return fStr;
   int nbDays = enDt.difference(stDt).inDays + 1;
   List<int> days = List.generate(nbDays, (index) {
@@ -33,10 +43,11 @@ String diffDays(DateTimeRange? rg) {
   }
 
   rtrnStr = DateFormat('dd MMMM yyyy').format(rtrn);
+  dtRet = DateFormat('yyyy-MM-dd').format(rtrn);
 
   comb = combineDates(stDt, enDt);
-  // mod.tgldari = DateFormat('yyyy-MM-dd').format(startDt);
-  // mod.tglsampai = DateFormat('yyyy-MM-dd').format(endDt);
+  dtFr = DateFormat('yyyy-MM-dd').format(stDt);
+  dtTo = DateFormat('yyyy-MM-dd').format(enDt);
   // mod.tglmulaikerja = DateFormat('yyyy-MM-dd').format(act!);
   // if (act != null) {
   //   mod.tglmulaikerja = DateFormat('yyyy-MM-dd').format(act!);
@@ -51,7 +62,7 @@ String diffDays(DateTimeRange? rg) {
   //     "${days.reduce((a, b) => a + b)}";
   // });
   // mod.jumlahhari = totalDays;
-  fStr = "$comb,$tot,$rtrnStr";
+  fStr = "$comb,$tot,$rtrnStr,$dtTo,$dtFr,$dtRet";
   return fStr;
 }
 

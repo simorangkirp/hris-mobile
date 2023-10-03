@@ -123,25 +123,26 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
 
   void submitData(
       PaidLeaveSubmitData event, Emitter<PaidLeaveState> emit) async {
+    emit(PaidLeaveSubmitFormLoading());
     String errMsg = '';
     final dataState = await submitUsecase.call(event.data);
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
-        // var begin = dataState.data['data'] as Map<String, dynamic>;
+        errMsg = dataState.data['messages'];
         // var data = PaidLeaveDataDetail.fromMap(begin);
-        // emit(PaidLeaveDetailLoaded(data));
+        emit(PaidLeaveSubmitFormSuccess(errMsg));
       }
     }
     if (dataState is DataError) {
-      if (dataState.error != null) {
-        if (dataState.error!.response != null) {
-          if (dataState.error!.response!.data != null) {
-            errMsg = dataState.error!.response!.data['messages'];
-          }
-        }
-      } else {
-        errMsg = "The request returned an invalid status code of 400.";
-      }
+      // if (dataState.error != null) {
+      //   if (dataState.error!.response != null) {
+      //     if (dataState.error!.response!.data != null) {
+      //       errMsg = dataState.error!.response!.data['messages'];
+      //     }
+      //   }
+      // } else {
+      errMsg = "The request returned an invalid status code of 400.";
+      // }
       emit(PaidLeaveErrCall(errMsg));
     }
   }

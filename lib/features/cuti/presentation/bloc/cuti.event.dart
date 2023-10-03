@@ -19,7 +19,7 @@ class PaidLeaveGetDataDetail extends PaidLeaveEvent {
 }
 
 class PaidLeaveSubmitData extends PaidLeaveEvent {
-  PaidLeaveSubmitParams data;
+  PaidLeaveSubmitModel data;
   PaidLeaveSubmitData(this.data);
 }
 

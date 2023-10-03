@@ -1,11 +1,12 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:owl_hris/config/config.dart';
 import 'package:owl_hris/core/core.dart';
 
@@ -26,13 +27,8 @@ class PaidLeaveFormScreen extends StatefulWidget {
 class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
   List<String> listCat = [];
   List<KeyVal> listCatDetail = [];
-  String sltDt = 'Choose date';
-  String? slctCat;
-  KeyVal? slctCatDt;
-  String? total;
-  String? retDt;
+  PaidLeaveSubmitModel submitmodel = PaidLeaveSubmitModel.init();
   ScrollController ctrl = ScrollController();
-  Uint8List? imagePhoto;
 
   void dispatchGetCategory() {
     BlocProvider.of<PaidLeaveBloc>(context).add(PaidLeaveGetCategory());
@@ -40,20 +36,46 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
 
   void dispatchGetCatDetail() {
     BlocProvider.of<PaidLeaveBloc>(context)
-        .add(PaidLeaveGetCatDetail(slctCat ?? ""));
+        .add(PaidLeaveGetCatDetail(submitmodel.slctCat ?? ""));
   }
+
+  void dispatchSubmitForm() {
+    BlocProvider.of<PaidLeaveBloc>(context)
+        .add(PaidLeaveSubmitData(submitmodel));
+  }
+
+  FutureOr onGoBack() {
+    refreshData();
+  }
+
+  void refreshData() {
+    dispatchGetCategory();
+    if (widget.param != null) {
+      submitmodel.imagePhoto =
+          const Base64Decoder().convert(widget.param!.split(',').last);
+    }
+    setState(() {});
+  }
+
+  final GlobalKey<FormState> paidLeaveFormKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
     dispatchGetCategory();
+    if (widget.param != null) {
+      const Base64Decoder().convert(widget.param!.split(',').last);
+    }
   }
 
   Future getImage() async {
     final img = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (img == null) return;
     final imgTmp = File(img.path);
-    imagePhoto = imgTmp.readAsBytesSync();
+    submitmodel.imagePhoto = imgTmp.readAsBytesSync();
+    if (submitmodel.imagePhoto != null) {
+      submitmodel.smbFlUpl = base64Encode(submitmodel.imagePhoto!);
+    }
     // if (imagePhoto != null) {
     //   convImgStr = convertUint8ListToString(imagePhoto!);
     // }
@@ -157,159 +179,222 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
             },
             child: SingleChildScrollView(
               controller: ctrl,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 18.h),
-                  Text('Kategori'),
-                  SizedBox(height: 4.h),
-                  PortalFormDropdown(
-                    slctCat,
-                    listCat,
-                    onChange: (v) {
-                      setState(() {
-                        slctCat = v;
-                      });
-                      dispatchGetCatDetail();
-                    },
-                  ),
-                  SizedBox(height: 8.h),
-                  Text('Detail'),
-                  SizedBox(height: 4.h),
-                  PortalFormDropdownKeyVal(
-                    slctCatDt,
-                    listCatDetail,
-                    onChange: (v) {
-                      setState(() {
-                        slctCatDt = v;
-                      });
-                    },
-                  ),
-                  SizedBox(height: 8.h),
-                  Text('Tanggal Cuti'),
-                  SizedBox(height: 4.h),
-                  InkWell(
-                    onTap: () => pickDateRange(context).then((value) {
-                      var splitStr = diffDays(value).split(',');
-                      setState(() {
-                        sltDt = splitStr[0];
-                        total = splitStr[1];
-                        retDt = splitStr[2];
-                      });
-                    }),
-                    child: Container(
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: appLightGrey),
+              child: Form(
+                key: paidLeaveFormKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 18.h),
+                    Text(
+                      'Kategori',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
                       ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.w, horizontal: 12.h),
+                    ),
+                    SizedBox(height: 4.h),
+                    PortalFormDropdown(
+                      submitmodel.slctCat ?? "",
+                      listCat,
+                      onChange: (v) {
+                        setState(() {
+                          submitmodel.slctCat = v;
+                        });
+                        dispatchGetCatDetail();
+                      },
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return 'Kategori tidak boleh kosong!';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      'Detail',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                    SizedBox(height: 4.h),
+                    PortalFormDropdownKeyVal(
+                      submitmodel.slctCatDt,
+                      listCatDetail,
+                      onChange: (v) {
+                        setState(() {
+                          submitmodel.slctCatDt = v;
+                          submitmodel.smbCatDet = v.value;
+                        });
+                      },
+                      validator: (val) {
+                        if (val == null || val.value.isEmpty) {
+                          return 'Kategori detail tidak boleh kosong!';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      'Tanggal Cuti',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                    SizedBox(height: 4.h),
+                    CommonDateRangePicker(
+                      readOnly: true,
+                      hint: 'Choose date',
+                      dtRgCtrl: submitmodel.dtRgCtrl,
+                      retCtrl: submitmodel.retCtrl,
+                      totCtrl: submitmodel.totCtrl,
+                      dataCtrl: submitmodel.dataCtrl,
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return 'Tanggal tidak boleh kosong';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    Visibility(
+                        visible: submitmodel.totCtrl!.text != '0',
+                        child: SizedBox(height: 6.h)),
+                    Visibility(
+                      visible: submitmodel.totCtrl!.text != '0',
                       child: Text(
-                        sltDt,
+                        'Tgl Kembali',
                         style: TextStyle(
+                          fontWeight: FontWeight.w400,
                           fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                  ),
-                  Visibility(
-                      visible: total != null, child: SizedBox(height: 2.h)),
-                  Visibility(
-                    visible: total != null,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "${total ?? ''} hari",
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    Visibility(
+                        visible: submitmodel.totCtrl!.text != '0',
+                        child: SizedBox(height: 4.h)),
+                    Visibility(
+                      visible: submitmodel.totCtrl!.text != '0',
+                      child: CustomFormTextField(
+                        readOnly: true,
+                        controller: submitmodel.retCtrl,
+                        fillColor: appBgWhite,
+                        validator: (val) {
+                          if (val == null || val.isEmpty) {
+                            return 'Tanggal tidak boleh kosong';
+                          } else {
+                            return null;
+                          }
+                        },
                       ),
                     ),
-                  ),
-                  Visibility(
-                      visible: total != '0' && retDt != null,
-                      child: SizedBox(height: 6.h)),
-                  Visibility(
-                      visible: total != '0' && retDt != null,
-                      child: Text('Tgl Kembali')),
-                  Visibility(
-                      visible: total != '0' && retDt != null,
-                      child: SizedBox(height: 4.h)),
-                  Visibility(
-                    visible: total != '0' && retDt != null,
-                    child: Container(
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: appLightGrey),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.w, horizontal: 12.h),
-                      child: Text(
-                        retDt ?? '',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      'Unggah File',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 8.h),
-                  Text('Unggah File'),
-                  SizedBox(height: 4.h),
-                  InkWell(
-                    onTap: () => buildBtmDialog(),
-                    child: Container(
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: appLightGrey),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.w, horizontal: 12.h),
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.file_upload_outlined,
-                            size: 28.h,
-                            color: appBtnBlue,
-                          ),
-                          SizedBox(height: 2.h),
-                          Text(
-                            'Choose a file',
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
-                              color: appDivider.withOpacity(0.8),
+                    SizedBox(height: 4.h),
+                    submitmodel.imagePhoto == null
+                        ? InkWell(
+                            onTap: () => buildBtmDialog(),
+                            child: Container(
+                              width: double.maxFinite,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: appLightGrey),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10.w, horizontal: 12.h),
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    Icons.file_upload_outlined,
+                                    size: 28.h,
+                                    color: appBtnBlue,
+                                  ),
+                                  SizedBox(height: 2.h),
+                                  Text(
+                                    'Choose a file',
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: appDivider.withOpacity(0.8),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        : InkWell(
+                            onTap: () => buildBtmDialog(),
+                            child: Container(
+                              width: double.maxFinite,
+                              height: 0.3.sh,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: appLightGrey),
+                                image: DecorationImage(
+                                  image: MemoryImage(submitmodel.imagePhoto!),
+                                ),
+                              ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8.h),
-                  Text('Alasan'),
-                  SizedBox(height: 4.h),
-                  CustomFormTextField(
-                    fillColor: appBgWhite,
-                    hint: 'Write a comment...',
-                  ),
-                  SizedBox(height: 24.h),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      'Submit',
+                    SizedBox(height: 8.h),
+                    Text(
+                      'Alasan',
                       style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color: appBtnBlue,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 4.h),
+                    CustomFormTextField(
+                      onChanged: (val) {
+                        setState(() {
+                          submitmodel.smbDsc = val;
+                        });
+                      },
+                      fillColor: appBgWhite,
+                      hint: 'Write a comment...',
+                    ),
+                    SizedBox(height: 24.h),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        onTap: () {
+                          if (paidLeaveFormKey.currentState!.validate()) {
+                            if (submitmodel.imagePhoto == null &&
+                                submitmodel.slctCat == "SAKIT" &&
+                                submitmodel.slctCatDt?.value == "CUTI07") {
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(failSnackBar(
+                                  message: 'Foto harus di isi',
+                                ));
+                            } else {
+                              dispatchSubmitForm();
+                            }
+                          }
+                        },
+                        child: Text(
+                          'Submit',
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            color: appBtnBlue,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 32.h),
+                  ],
+                ),
               ),
             ),
           ),
@@ -327,8 +412,22 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
             setState(() {});
           }
         }
+        if (state is PaidLeaveErrCall) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(failSnackBar(
+              message: state.errMsg,
+            ));
+          dispatchGetCategory();
+        }
+        if (state is PaidLeaveSubmitFormSuccess) {
+          Future.delayed(const Duration(seconds: 3)).then((value) {
+            context.router.navigate(const PaidLeaveMainRoute());
+          });
+        }
         if (state is PaidLeaveCatDetailLoaded) {
           if (state.catDetail != null) {
+            listCatDetail.clear();
             for (var el in state.catDetail!) {
               listCatDetail.add(KeyVal(el.jenisijin ?? "-", el.idjenis ?? "-"));
             }
@@ -338,7 +437,57 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
       },
       child: BlocBuilder<PaidLeaveBloc, PaidLeaveState>(
         builder: (context, state) {
-          return buildScreen();
+          if (state is PaidLeaveSubmitFormLoading) {
+            return Scaffold(
+              body: SafeArea(
+                child: Padding(
+                  padding: Constant.appPadding,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 0.12.sh),
+                      Lottie.asset(ConstantLottie.submitLoading),
+                      SizedBox(height: 12.h),
+                      Text(
+                        'Please wait while we processing your request...',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 22.sp,
+                          color: appBgBlack.withOpacity(0.8),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            );
+          } else if (state is PaidLeaveSubmitFormSuccess) {
+            return Scaffold(
+              body: SafeArea(
+                child: Padding(
+                  padding: Constant.appPadding,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 0.1.sh),
+                      Lottie.asset(ConstantLottie.submitSuccess),
+                      SizedBox(height: 12.h),
+                      Text(
+                        state.msg ?? "",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 22.sp,
+                          color: appBgBlack.withOpacity(0.8),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          } else {
+            return buildScreen();
+          }
         },
       ),
     );

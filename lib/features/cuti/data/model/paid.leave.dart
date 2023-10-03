@@ -1,3 +1,8 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../lib.dart';
+
 class PaidLeaveCatDetail {
   String? idjenis;
   String? jenisijin;
@@ -153,6 +158,51 @@ class PaidLeaveCategory {
   Map<String, dynamic> toMap() => {
         "kelompokizin": kelompokizin,
       };
+}
+
+class PaidLeaveSubmitModel {
+  String? slctCat;
+  KeyVal? slctCatDt;
+  TextEditingController? dtRgCtrl;
+  TextEditingController? totCtrl;
+  TextEditingController? retCtrl;
+  TextEditingController? descCtrl;
+  TextEditingController? dataCtrl;
+  Uint8List? imagePhoto;
+  String? smbCatDet;
+  String? smbType;
+  String? smbFlUpl;
+  String? smbFlType;
+  String? smbOnMbl;
+  String? smbUid;
+  String? smbDsc;
+  PaidLeaveSubmitModel(
+    this.slctCat,
+    this.slctCatDt,
+    this.descCtrl,
+    this.dtRgCtrl,
+    this.totCtrl,
+    this.retCtrl,
+    this.dataCtrl,
+    this.imagePhoto, {
+    this.smbCatDet,
+    this.smbFlType,
+    this.smbFlUpl,
+    this.smbOnMbl,
+    this.smbType,
+    this.smbUid,
+    this.smbDsc,
+  });
+
+  PaidLeaveSubmitModel.init() {
+    slctCat = '';
+    slctCatDt = KeyVal('', '');
+    dtRgCtrl = TextCo.init();
+    totCtrl = TextCo.init();
+    retCtrl = TextCo.init();
+    descCtrl = TextCo.init();
+    dataCtrl = TextCo.init();
+  }
 }
 
 class PaidLeaveDataDetail {
