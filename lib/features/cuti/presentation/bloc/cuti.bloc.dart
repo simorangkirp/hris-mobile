@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../lib.dart';
 
@@ -42,9 +40,16 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
     final dataState = await plafondUsecase.call(NoParams());
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
-        var begin = dataState.data['data'] as Map<String, dynamic>;
-        var data = PaidLeavePlafond.fromMap(begin);
-        emit(PaidLeavePlafondLoaded(data));
+        if (dataState.data['data'] is List) {
+          if ((dataState.data['data'] as List).isEmpty) {
+            errMsg = dataState.data['messages'];
+            emit(PaidLeaveErrCall(errMsg));
+          }
+        } else {
+          var begin = dataState.data['data'] as Map<String, dynamic>;
+          var data = PaidLeavePlafond.fromMap(begin);
+          emit(PaidLeavePlafondLoaded(data));
+        }
       }
     }
     if (dataState is DataError) {
@@ -63,24 +68,30 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
 
   void getListData(
       PaidLeaveGetListData event, Emitter<PaidLeaveState> emit) async {
-    emit(PaidLeaveLoading());
-    UserAuthDb auth = UserAuthDb();
-    final res = await auth.getUser();
-
-    final dataState = await plafondUsecase.call();
+    emit(PaidLeaveSearchLoading());
+    String errMsg = '';
+    final dataState = await listDataUsecase.call(event.period);
     if (dataState is DataSuccess) {
-      List<AbsentListModel> list = [];
+      List<PaidLeaveListData> list = [];
       var listAbsent = dataState.data['data'];
       if (dataState.data['data'] is List) {
         for (var i in (listAbsent as List)) {
-          list.add(AbsentListModel.fromJson(i));
+          list.add(PaidLeaveListData.fromMap(i));
         }
       }
-      if (list.isNotEmpty) {
-        emit(AbsentPeriodLoaded(list));
+      emit(PaidLeaveListDataLoaded(list));
+    }
+    if (dataState is DataError) {
+      if (dataState.error != null) {
+        if (dataState.error!.response != null) {
+          if (dataState.error!.response!.data != null) {
+            errMsg = dataState.error!.response!.data['messages'];
+          }
+        }
       } else {
-        emit(DataStateError(dataState.error!));
+        errMsg = "The request returned an invalid status code of 400.";
       }
+      emit(PaidLeaveErrCall(errMsg));
     }
   }
 
@@ -88,7 +99,7 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
       PaidLeaveGetDataDetail event, Emitter<PaidLeaveState> emit) async {
     emit(PaidLeaveLoading());
     String errMsg = '';
-    final dataState = await plafondUsecase.call(NoParams());
+    final dataState = await dataDetailUsecase.call(event.noTxn);
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
         var begin = dataState.data['data'] as Map<String, dynamic>;
@@ -113,12 +124,12 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
   void submitData(
       PaidLeaveSubmitData event, Emitter<PaidLeaveState> emit) async {
     String errMsg = '';
-    final dataState = await plafondUsecase.call(NoParams());
+    final dataState = await submitUsecase.call(event.data);
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
-        var begin = dataState.data['data'] as Map<String, dynamic>;
-        var data = PaidLeaveDataDetail.fromMap(begin);
-        emit(PaidLeaveDetailLoaded(data));
+        // var begin = dataState.data['data'] as Map<String, dynamic>;
+        // var data = PaidLeaveDataDetail.fromMap(begin);
+        // emit(PaidLeaveDetailLoaded(data));
       }
     }
     if (dataState is DataError) {
@@ -139,12 +150,17 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
       PaidLeaveGetCategory event, Emitter<PaidLeaveState> emit) async {
     emit(PaidLeaveLoading());
     String errMsg = '';
-    final dataState = await plafondUsecase.call(NoParams());
+    final dataState = await categoryUsecase.call(NoParams());
     if (dataState is DataSuccess) {
+      List<PaidLeaveCategory> list = [];
       if (dataState.data != null) {
-        var begin = dataState.data['data'] as Map<String, dynamic>;
-        var data = PaidLeaveDataDetail.fromMap(begin);
-        emit(PaidLeaveDetailLoaded(data));
+        var listCat = dataState.data['data'];
+        if (dataState.data['data'] is List) {
+          for (var i in (listCat as List)) {
+            list.add(PaidLeaveCategory.fromMap(i));
+          }
+        }
+        emit(PaidLeaveCatLoaded(list));
       }
     }
     if (dataState is DataError) {
@@ -165,12 +181,19 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
       PaidLeaveGetCatDetail event, Emitter<PaidLeaveState> emit) async {
     emit(PaidLeaveLoading());
     String errMsg = '';
-    final dataState = await plafondUsecase.call(NoParams());
+    final dataState = await catDetailUsecase.call(event.id);
     if (dataState is DataSuccess) {
+      List<PaidLeaveCatDetail> list = [];
       if (dataState.data != null) {
-        var begin = dataState.data['data'] as Map<String, dynamic>;
-        var data = PaidLeaveCatDetail.fromMap(begin);
-        emit(PaidLeaveCatDetailLoaded(data));
+        if (dataState.data != null) {
+          var listCat = dataState.data['data'];
+          if (dataState.data['data'] is List) {
+            for (var i in (listCat as List)) {
+              list.add(PaidLeaveCatDetail.fromMap(i));
+            }
+          }
+        }
+        emit(PaidLeaveCatDetailLoaded(list));
       }
     }
     if (dataState is DataError) {
@@ -187,5 +210,14 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
     }
   }
 
-  void getUserData(PaidLeaveGetUserData event, Emitter<PaidLeaveState> emit) {}
+  void getUserData(
+      PaidLeaveGetUserData event, Emitter<PaidLeaveState> emit) async {
+    emit(PaidLeaveLoading());
+    final dataState = await userUsecase.call(NoParams());
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        emit(PaidLeaveProfileLoaded(dataState.data));
+      }
+    }
+  }
 }

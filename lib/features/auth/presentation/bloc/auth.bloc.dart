@@ -21,6 +21,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthGetProfileDetail>(onGetProfileDataDetail);
     on<AuthGetActPeriod>(onGetActPeriodData);
     on<AuthCheckToken>(checkToken);
+    on<OnLogOut>(onLogOut);
+    on<DisplayLogoutDialog>(onDisplayDialog);
   }
 
   void onLoginUser(SubmitLogin event, Emitter<AuthState> emit) async {
@@ -103,5 +105,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void checkToken(AuthCheckToken event, Emitter<AuthState> emit) async {
     final state = await _tokenUsecase(NoParams());
     emit(AuthTokenChecked(state));
+  }
+
+  void onLogOut(OnLogOut event, Emitter<AuthState> emit) async {
+    sl<UserAuthDb>().dbClear();
+    emit(OnLogOutSuccess());
+  }
+
+  void onDisplayDialog(DisplayLogoutDialog event, Emitter<AuthState> emit) {
+    emit(ShowLogoutDialog());
   }
 }

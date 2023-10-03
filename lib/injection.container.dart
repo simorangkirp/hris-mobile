@@ -101,4 +101,7 @@ Future<void> initializeDependencies() async {
       () => InboxScrnBloc(sl(), sl())..add(InitInboxScreen()));
   sl.registerFactory<ApprovalScrnBloc>(
       () => ApprovalScrnBloc(sl(), sl(), sl())..add(ApprovalScrnInit()));
+  sl.registerFactory<PaidLeaveBloc>(() =>
+      PaidLeaveBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl())
+        ..add(PaidLeaveInit()));
 }

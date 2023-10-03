@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../config/routes/app.routes.dart';
-import '../../../features.dart';
+import '../../../../lib.dart';
 
 @RoutePage()
 class AbsentScreen extends StatefulWidget {
@@ -39,6 +38,10 @@ class _AbsentScreenState extends State<AbsentScreen> {
     ));
   }
 
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
   FutureOr onGoBack() {
     refreshData();
   }
@@ -56,33 +59,50 @@ class _AbsentScreenState extends State<AbsentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AbsentBloc, AbsentState>(
-      listener: (context, state) {
-        if (state is AbsentScrnActPeriodLoaded) {
-          period = state.period?.periode ?? "";
-          dispatchGetUserAssignLoc();
-        }
-        if (state is UserAssignLocLoaded) {
-          assignLoc = state.assignLoc;
-          dispatchGetUserInfo();
-        }
-        if (state is AbsentUserInfoLoaded) {
-          if (state.profileModel != null) {
-            appmod = state.profileModel!;
-          }
-          dispatchGetTodayAbsent();
-        }
-        if (state is AbsentPeriodLoaded) {
-          if (state.listAbsent != null) {
-            for (var e in state.listAbsent!) {
-              if (e.tanggal ==
-                  DateFormat('yyyy-MM-dd').format(DateTime.now())) {
-                data = e.data;
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AbsentBloc, AbsentState>(
+          listener: (context, state) {
+            if (state is AbsentScrnActPeriodLoaded) {
+              period = state.period?.periode ?? "";
+              dispatchGetUserAssignLoc();
+            }
+            if (state is UserAssignLocLoaded) {
+              assignLoc = state.assignLoc;
+              dispatchGetUserInfo();
+            }
+            if (state is AbsentUserInfoLoaded) {
+              if (state.profileModel != null) {
+                appmod = state.profileModel!;
+              }
+              dispatchGetTodayAbsent();
+            }
+            if (state is AbsentPeriodLoaded) {
+              if (state.listAbsent != null) {
+                for (var e in state.listAbsent!) {
+                  if (e.tanggal ==
+                      DateFormat('yyyy-MM-dd').format(DateTime.now())) {
+                    data = e.data;
+                  }
+                }
               }
             }
-          }
-        }
-      },
+          },
+        ),
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is ShowLogoutDialog) {
+              onLogOutDialog(
+                context,
+                () => dispatchLogout(),
+              );
+            }
+            if (state is OnLogOutSuccess) {
+              context.router.replaceAll([const LoginRoute()]);
+            }
+          },
+        ),
+      ],
       child: BlocBuilder<AbsentBloc, AbsentState>(
         builder: (context, state) {
           if (state is AbsentPeriodLoaded) {
@@ -97,6 +117,7 @@ class _AbsentScreenState extends State<AbsentScreen> {
                     period: period,
                   ))
                   .then((value) => onGoBack()),
+              () => onLogOutDialog(context, () => dispatchLogout()),
             );
           } else {
             return const Scaffold(

@@ -20,3 +20,7 @@ class AuthGetActPeriod extends AuthEvent {
   String lokasiTugas;
   AuthGetActPeriod(this.dt, this.lokasiTugas);
 }
+
+class OnLogOut extends AuthEvent {}
+
+class DisplayLogoutDialog extends AuthEvent {}

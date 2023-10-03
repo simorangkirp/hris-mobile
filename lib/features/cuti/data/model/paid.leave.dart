@@ -142,6 +142,19 @@ class PaidLeaveListData {
       };
 }
 
+class PaidLeaveCategory {
+  String? kelompokizin;
+  PaidLeaveCategory({
+    this.kelompokizin,
+  });
+  PaidLeaveCategory.fromMap(Map<String, dynamic> json) {
+    kelompokizin = json["kelompokizin"];
+  }
+  Map<String, dynamic> toMap() => {
+        "kelompokizin": kelompokizin,
+      };
+}
+
 class PaidLeaveDataDetail {
   String? notransaksi;
   String? karyawanid;

@@ -36,6 +36,7 @@ class ConstIconPath {
   static const fingerPrintIcon = 'assets/icons/finger-print-icon.svg';
   static const pinIcon = 'assets/icons/pin-icon.svg';
   static const cameraIcon = 'assets/icons/camera-icon.svg';
+  static const fileCross = 'assets/icons/file-cross.svg';
 }
 
 class ConstantLottie {

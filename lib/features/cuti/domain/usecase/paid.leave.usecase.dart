@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../core/core.dart';
 import '../../cuti.dart';
 
-class GetPersonalInfoPaidLeave extends UseCase<DataState, void> {
+class GetPersonalInfoPaidLeave extends UseCase<DataState, NoParams> {
   final PaidLeaveRepository repos;
   GetPersonalInfoPaidLeave(this.repos);
   @override
@@ -43,7 +43,8 @@ class PaidLeaveGetDataDetailUseCase extends UseCase<DataState, String> {
   }
 }
 
-class PaidLeaveSubmitDataUseCase extends UseCase<DataState, PaidLeaveSubmitParams> {
+class PaidLeaveSubmitDataUseCase
+    extends UseCase<DataState, PaidLeaveSubmitParams> {
   final PaidLeaveRepository repos;
   PaidLeaveSubmitDataUseCase(this.repos);
   @override
@@ -53,7 +54,7 @@ class PaidLeaveSubmitDataUseCase extends UseCase<DataState, PaidLeaveSubmitParam
   }
 }
 
-class PaidLeaveGetCategoryUseCase extends UseCase<DataState, void> {
+class PaidLeaveGetCategoryUseCase extends UseCase<DataState, NoParams> {
   final PaidLeaveRepository repos;
   PaidLeaveGetCategoryUseCase(this.repos);
   @override

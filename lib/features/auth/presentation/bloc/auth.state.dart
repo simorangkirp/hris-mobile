@@ -19,14 +19,7 @@ abstract class AuthState extends Equatable {
     this.profileModel,
   });
   @override
-  List<Object> get props => [
-        user!,
-        error!,
-        profileModel!,
-        actPeriodModel!,
-        msg!,
-        token!,
-      ];
+  List<Object> get props => [];
 }
 
 class AuthLoading extends AuthState {
@@ -61,3 +54,7 @@ class AuthActPeriodLoaded extends AuthState {
   const AuthActPeriodLoaded(ActivePeriodEntity data)
       : super(actPeriodModel: data);
 }
+
+class OnLogOutSuccess extends AuthState {}
+
+class ShowLogoutDialog extends AuthState {}

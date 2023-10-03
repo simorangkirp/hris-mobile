@@ -21,55 +21,6 @@ class ProfileScreen extends StatefulWidget implements AutoRouteWrapper {
   }
 }
 
-buildProfileScreen(BuildContext ctx, EntityProfile? data, int? aCtr) {
-  return Scaffold(
-    appBar: AppBar(
-      automaticallyImplyLeading: false,
-      // centerTitle: true,
-      // title: Text(
-      //   'Profile',
-      //   style: TextStyle(
-      //     fontSize: 16.sp,
-      //     fontWeight: FontWeight.w400,
-      //   ),
-      // ),
-    ),
-    endDrawer: const AppNavigationDrawer(),
-    body: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Column(
-        children: [
-          SizedBox(height: 72.h),
-          buildProfileInfo(data),
-          SizedBox(height: 12.h),
-          buildTimeSheet(aCtr),
-          SizedBox(height: 12.h),
-          buildListMenu(ctx),
-        ],
-      ),
-    ),
-  );
-}
-
-buildProfileSkeleton() {
-  return Scaffold(
-    body: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 72.h),
-          buildProfileInfoSkel(),
-          SizedBox(height: 18.h),
-          buildTimeSheetSkel(),
-          SizedBox(height: 18.h),
-          buildListMenuSkel(),
-        ],
-      ),
-    ),
-  );
-}
-
 class _ProfileScreenState extends State<ProfileScreen> {
   EntityProfile? model;
   late int absCtr;
@@ -92,6 +43,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ));
   }
 
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
   @override
   void initState() {
     absCtr = 0;
@@ -99,30 +54,90 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
   }
 
+  buildProfileScreen(BuildContext ctx, EntityProfile? data, int? aCtr) {
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        // centerTitle: true,
+        // title: Text(
+        //   'Profile',
+        //   style: TextStyle(
+        //     fontSize: 16.sp,
+        //     fontWeight: FontWeight.w400,
+        //   ),
+        // ),
+      ),
+      endDrawer: const AppNavigationDrawer(),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24.w),
+        child: Column(
+          children: [
+            SizedBox(height: 72.h),
+            buildProfileInfo(data),
+            SizedBox(height: 12.h),
+            buildTimeSheet(aCtr),
+            SizedBox(height: 12.h),
+            buildListMenu(ctx),
+          ],
+        ),
+      ),
+    );
+  }
+
+  buildProfileSkeleton() {
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24.w),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 72.h),
+            buildProfileInfoSkel(),
+            SizedBox(height: 18.h),
+            buildTimeSheetSkel(),
+            SizedBox(height: 18.h),
+            buildListMenuSkel(),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProfileScreenBloc, ProfileScreenState>(
-      listener: (context, state) {
-        if (state is ProfileInfoLoaded) {
-          model = state.profile;
-          now = DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
-          dispatchGetActPeriod();
-        }
-        if (state is ProfileScrnActPeriodLoaded) {
-          currPeriod = state.period?.periode ?? '-';
-          dispatchGetAbsentInfo();
-        }
-        if (state is AbsentDataLoaded) {
-          if (state.listAbsent!.isNotEmpty) {
-            for (var e in state.listAbsent!) {
-              if (e.data?.absenIdIn != null || e.data?.absenIdOut != null) {
-                absCtr = absCtr + 1;
-                // log("${e.tanggal} $absCtr");
+    return MultiBlocListener(
+      listeners: [
+        BlocListener(
+          listener: (context, state) {
+            if (state is ProfileInfoLoaded) {
+              model = state.profile;
+              now = DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
+              dispatchGetActPeriod();
+            }
+            if (state is ProfileScrnActPeriodLoaded) {
+              currPeriod = state.period?.periode ?? '-';
+              dispatchGetAbsentInfo();
+            }
+            if (state is AbsentDataLoaded) {
+              if (state.listAbsent!.isNotEmpty) {
+                for (var e in state.listAbsent!) {
+                  if (e.data?.absenIdIn != null || e.data?.absenIdOut != null) {
+                    absCtr = absCtr + 1;
+                    // log("${e.tanggal} $absCtr");
+                  }
+                }
               }
             }
-          }
-        }
-      },
+          },
+        ),
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is OnLogOutSuccess) {
+              context.router.replaceAll([const LoginRoute()]);
+            }
+          },
+        ),
+      ],
       child: BlocBuilder<ProfileScreenBloc, ProfileScreenState>(
         builder: (context, state) {
           if (state is AbsentDataLoaded) {

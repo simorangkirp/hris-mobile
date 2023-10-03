@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const appBgWhite = Color(0xffFFFFFF);
 const appBgBlack = Color(0xff2C323F);
 const appBgTransparent = Color.fromARGB(0, 0, 0, 0);
+const appRichBlack = Color(0xff0E131F);
 const appWarning = Color(0xffD11B23);
 const appValidateField = Color(0xffFCEFEE);
 const appFieldUnselect = Color(0xffE4E9F2);
@@ -26,3 +27,8 @@ const appLKBg = Color(0xff3F4ED6);
 const appSnackbarBgError = Color(0xffff5252);
 const appSnackbarBgWarning = Color(0xff2196F3);
 const appSnackbarBgSuccess = Color(0xff00E676);
+
+//* Text Color
+const appTextGrey = Color(0xff8D9797);
+const appTextBlue = Color(0xff3422FF);
+const appFillField = Color(0xffF3F6F9);

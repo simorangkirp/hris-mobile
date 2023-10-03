@@ -137,6 +137,38 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const PINScreen(),
       );
     },
+    PaidLeaveCameraRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PaidLeaveCameraScreen(),
+      );
+    },
+    PaidLeaveDetailRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<PaidLeaveDetailRouteArgs>(
+          orElse: () =>
+              PaidLeaveDetailRouteArgs(id: pathParams.optString('id')));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: PaidLeaveDetailScreen(
+          id: args.id,
+          key: args.key,
+        ),
+      );
+    },
+    PaidLeaveFormRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<PaidLeaveFormRouteArgs>(
+          orElse: () =>
+              PaidLeaveFormRouteArgs(param: pathParams.optString('params')));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: PaidLeaveFormScreen(
+          param: args.param,
+          key: args.key,
+        ),
+      );
+    },
     PaidLeaveMainRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -511,6 +543,98 @@ class PINRoute extends PageRouteInfo<void> {
   static const String name = 'PINRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PaidLeaveCameraScreen]
+class PaidLeaveCameraRoute extends PageRouteInfo<void> {
+  const PaidLeaveCameraRoute({List<PageRouteInfo>? children})
+      : super(
+          PaidLeaveCameraRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PaidLeaveCameraRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PaidLeaveDetailScreen]
+class PaidLeaveDetailRoute extends PageRouteInfo<PaidLeaveDetailRouteArgs> {
+  PaidLeaveDetailRoute({
+    String? id,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          PaidLeaveDetailRoute.name,
+          args: PaidLeaveDetailRouteArgs(
+            id: id,
+            key: key,
+          ),
+          rawPathParams: {'id': id},
+          initialChildren: children,
+        );
+
+  static const String name = 'PaidLeaveDetailRoute';
+
+  static const PageInfo<PaidLeaveDetailRouteArgs> page =
+      PageInfo<PaidLeaveDetailRouteArgs>(name);
+}
+
+class PaidLeaveDetailRouteArgs {
+  const PaidLeaveDetailRouteArgs({
+    this.id,
+    this.key,
+  });
+
+  final String? id;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'PaidLeaveDetailRouteArgs{id: $id, key: $key}';
+  }
+}
+
+/// generated route for
+/// [PaidLeaveFormScreen]
+class PaidLeaveFormRoute extends PageRouteInfo<PaidLeaveFormRouteArgs> {
+  PaidLeaveFormRoute({
+    String? param,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          PaidLeaveFormRoute.name,
+          args: PaidLeaveFormRouteArgs(
+            param: param,
+            key: key,
+          ),
+          rawPathParams: {'params': param},
+          initialChildren: children,
+        );
+
+  static const String name = 'PaidLeaveFormRoute';
+
+  static const PageInfo<PaidLeaveFormRouteArgs> page =
+      PageInfo<PaidLeaveFormRouteArgs>(name);
+}
+
+class PaidLeaveFormRouteArgs {
+  const PaidLeaveFormRouteArgs({
+    this.param,
+    this.key,
+  });
+
+  final String? param;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'PaidLeaveFormRouteArgs{param: $param, key: $key}';
+  }
 }
 
 /// generated route for

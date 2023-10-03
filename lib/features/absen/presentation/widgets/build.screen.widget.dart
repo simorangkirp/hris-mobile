@@ -14,6 +14,7 @@ Widget buildScreen(
   UserAssignLocationModel? userLoc,
   AbsentData? absenData,
   Function(String mode) onTap,
+  Function() logout,
 ) {
   bool isClockIn = false;
   bool isClockOut = false;

@@ -19,26 +19,32 @@ class AppRouter extends _$AppRouter {
         ),
         CustomRoute(
           page: HomeRoute.page,
+          path: '/dashboard',
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
         CustomRoute(
           page: AbsentRoute.page,
+          path: '/absent',
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
         CustomRoute(
           page: ProfileRoute.page,
+          path: '/profile',
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
         CustomRoute(
           page: ClockInRoute.page,
+          path: '/absent-form',
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
         CustomRoute(
           page: AbsentHistoryRoute.page,
+          path: '/absent-history',
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
         CustomRoute(
           page: SettingRoute.page,
+          path: '/settings',
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
         CustomRoute(
@@ -65,6 +71,7 @@ class AppRouter extends _$AppRouter {
         ),
         CustomRoute(
           page: NotificationRoute.page,
+          path: '/notification',
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
         CustomRoute(
@@ -102,6 +109,21 @@ class AppRouter extends _$AppRouter {
         CustomRoute(
           page: AbsentCameraRoute.page,
           path: '/absent-camera/:params:period:inout',
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: PaidLeaveDetailRoute.page,
+          path: '/paidleave-detail/:id',
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: PaidLeaveFormRoute.page,
+          path: '/paidleave-form/:params',
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: PaidLeaveCameraRoute.page,
+          path: '/paidleave-camera',
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
       ];

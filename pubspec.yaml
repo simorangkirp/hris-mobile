@@ -17,6 +17,12 @@ dependencies:
   ## Shimmer
   shimmer: ^2.0.0
 
+  ## Image picker
+  image_picker: ^0.8.7
+
+  ## Portal
+  flutter_portal: ^1.1.3
+
   ## Geolocator
   geolocator: ^10.0.1
 

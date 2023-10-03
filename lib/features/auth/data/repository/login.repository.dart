@@ -134,7 +134,7 @@ class LoginRepositoryImpl implements UserAuthRepository {
   @override
   Future<bool> checkTokenExpire() async {
     final user = await db.getUser();
-    if (user != null) {
+    if (user != null && user.expaccess != null && user.expaccess != "") {
       DateTime now = DateTime.now();
       if (user.expaccess != null) {
         DateTime date =

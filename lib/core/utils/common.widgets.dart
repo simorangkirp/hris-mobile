@@ -3,6 +3,8 @@ import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heroicons/heroicons.dart';
@@ -77,7 +79,7 @@ class CustomFormTextField extends StatefulWidget {
 
 class _CustomFormTextFieldState extends State<CustomFormTextField> {
   FocusNode focusNode = FocusNode();
-  Color fillColor = appLightGrey;
+  Color fillColor = appBgWhite;
   bool valid = false;
 
   @override
@@ -129,10 +131,11 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
       // cursorColor: widget.cursorColor ?? VccFillLoginField,
       style: TextStyle(
         color: appBgBlack,
-        fontSize: 16.sp,
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w500,
       ),
       decoration: InputDecoration(
-        errorStyle: const TextStyle(fontSize: 12, color: appWarning),
+        errorStyle: TextStyle(fontSize: 12.sp, color: appWarning),
         errorText: widget.errorMessage,
         counterText: '',
         prefixIcon: widget.prefix,
@@ -143,15 +146,16 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
         floatingLabelStyle: TextStyle(
           color: appBgBlack,
           fontWeight: FontWeight.w600,
-          fontSize: 16.sp,
+          fontSize: 12.sp,
         ),
         labelStyle: TextStyle(
-          fontSize: 16.sp,
+          fontSize: 12.sp,
+          fontWeight: FontWeight.w500,
           color: appBgBlack,
         ),
         hintText: widget.hint,
         hintStyle: TextStyle(
-          fontSize: 16.sp,
+          fontSize: 12.sp,
         ),
         filled: true,
         fillColor: valid
@@ -174,15 +178,12 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
         disabledBorder: widget.disabledBorder ??
             OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(
-                    color: widget.fillColor != null
-                        ? appDisabledTextField
-                        : appDisabledTextField)),
+                borderSide: const BorderSide(color: appDisabledTextField)),
         focusedBorder: widget.focusedBorder ??
             OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(
-                    color: widget.fillColor ?? appButtonBlue, width: 1)),
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: appButtonBlue, width: 1),
+            ),
         errorBorder: widget.errorBorder ??
             OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -333,7 +334,9 @@ class _MyAppBarState extends State<MyAppBar> {
 }
 
 class AppNavigationDrawer extends StatefulWidget {
-  const AppNavigationDrawer({super.key});
+  const AppNavigationDrawer({
+    super.key,
+  });
 
   @override
   State<AppNavigationDrawer> createState() => _AppNavigationDrawerState();
@@ -341,6 +344,11 @@ class AppNavigationDrawer extends StatefulWidget {
 
 class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
   ScrollController ctrl = ScrollController();
+
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(DisplayLogoutDialog());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -551,7 +559,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                context.router.popAndPush(const LoginRoute());
+                dispatchLogout();
               },
             ),
           ],
@@ -1109,4 +1117,684 @@ buildCommAppBar(EntityProfile? mod) {
       ],
     ),
   );
+}
+
+onLogOutDialog(BuildContext context, Function() logoutFunc) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return Dialog(
+        insetPadding: EdgeInsets.symmetric(
+          horizontal: (0.1.sw),
+          vertical: (0.41.sh),
+        ),
+        backgroundColor: appBgWhite,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(8.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Sign out!',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.sp,
+                  color: appBgBlack.withOpacity(0.4),
+                ),
+              ),
+              Text(
+                'Are you sure want to proceed?',
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                ),
+              ),
+              SizedBox(height: 8.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(),
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          context.router.pop();
+                        },
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12.sp,
+                            color: appWarning,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 12.w),
+                      InkWell(
+                        onTap: () {
+                          context.router.pop();
+                          logoutFunc();
+                        },
+                        child: Text(
+                          'Confirm',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12.sp,
+                            color: appBtnBlue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+class PortalFormDropdown extends StatefulWidget {
+  final String? selectedItem;
+  final String? Function(String?)? validator;
+  final List<String> items;
+  // final bool? visible;
+  // final Function(bool)? onVisibilityChange;
+  final String? hintText;
+  final Function(String) onChange;
+  final Alignment? optAnchor, mainAnchor;
+  final double? triggerWidth, portalWidth, borderRadius;
+  final bool? enabled;
+  final Color? fillColour, borderColor;
+  final EdgeInsetsGeometry? mainPadding, optPadding;
+  final Icon? prefix;
+  const PortalFormDropdown(this.selectedItem, this.items,
+      {
+      // this.visible,
+      // this.onVisibilityChange,
+      required this.onChange,
+      this.fillColour,
+      this.borderColor,
+      this.enabled,
+      this.mainAnchor,
+      this.optAnchor,
+      this.borderRadius,
+      // this.updateable,
+      this.validator,
+      this.hintText,
+      this.portalWidth,
+      this.triggerWidth,
+      this.mainPadding,
+      this.optPadding,
+      this.prefix,
+      Key? key})
+      : super(key: key);
+
+  @override
+  State<PortalFormDropdown> createState() => _PortalFormDropdownState();
+}
+
+class _PortalFormDropdownState extends State<PortalFormDropdown> {
+  bool visible = false;
+  bool onHovered = false;
+  String? label;
+  List<String> searchList = [];
+  // Color fillColor = VccFillLoginField;
+
+  @override
+  void didUpdateWidget(PortalFormDropdown oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // if (widget.updateable == true) {
+    // debugPrint("update");
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          searchList.clear();
+          searchList.addAll(widget.items);
+          label = null;
+          for (var item in widget.items) {
+            if (widget.selectedItem != null && item == widget.selectedItem!) {
+              label = item;
+            }
+          }
+        }));
+    // }
+  }
+
+  @override
+  void initState() {
+    label = null;
+    for (var item in widget.items) {
+      if (widget.selectedItem != null && item == widget.selectedItem!) {
+        label = item;
+      }
+    }
+    searchList.clear();
+    searchList.addAll(widget.items);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ScrollController controller = ScrollController();
+    return FormField<String?>(
+      initialValue: widget.selectedItem,
+      key: widget.key,
+      enabled: (widget.enabled ?? true),
+      builder: (state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: widget.triggerWidth ?? 1.sw,
+              child: LayoutBuilder(
+                builder: (ctx, ctns) => PortalTarget(
+                  visible: visible,
+                  portalFollower: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      setState(() {
+                        visible = !visible;
+                      });
+                    },
+                  ),
+                  child: PortalTarget(
+                    visible: visible,
+                    anchor: Aligned(
+                      follower: widget.optAnchor ?? Alignment.topCenter,
+                      target: widget.mainAnchor ?? Alignment.bottomCenter,
+                    ),
+                    portalFollower: Container(
+                        margin: const EdgeInsets.only(top: 8),
+                        width: widget.portalWidth ?? ctns.maxWidth,
+                        height: searchList.length > 5 ? (1.sh / 3) : null,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: appDivider,
+                              spreadRadius: 0.1,
+                              blurRadius: 12,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                          color: appBgWhite,
+                        ),
+                        child: SingleChildScrollView(
+                          padding:
+                              widget.mainPadding ?? const EdgeInsets.all(10),
+                          controller: controller,
+                          // scrollDirection: Axis.vertical,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: searchList.isNotEmpty
+                                ? searchList.map((e) {
+                                    return Theme(
+                                      data: ThemeData(
+                                        hoverColor: appFillField,
+                                      ),
+                                      child: ListTile(
+                                        dense: true,
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                horizontal: 8),
+                                        hoverColor: Colors.transparent,
+                                        horizontalTitleGap: 8,
+                                        minLeadingWidth: 10,
+                                        leading: Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 4),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                visible = !visible;
+                                                state.didChange(e);
+                                                widget.onChange(e);
+                                              });
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: (widget.selectedItem !=
+                                                              null &&
+                                                          widget.selectedItem! ==
+                                                              e)
+                                                      ? appTextBlue
+                                                      : appTextGrey,
+                                                ),
+                                                shape: BoxShape.circle,
+                                              ),
+                                              padding: const EdgeInsets.all(4),
+                                              child: Icon(
+                                                Icons.circle,
+                                                size: 10.sp,
+                                                color: (widget.selectedItem !=
+                                                            null &&
+                                                        widget.selectedItem! ==
+                                                            e)
+                                                    ? appTextBlue
+                                                    : appTextGrey,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          setState(() {
+                                            visible = !visible;
+                                            state.didChange(e);
+                                            widget.onChange(e);
+                                          });
+                                        },
+                                        title: Text(
+                                          e,
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            color: appBgBlack,
+                                            overflow: TextOverflow.clip,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList()
+                                : [],
+                          ),
+                        )),
+                    child: GestureDetector(
+                      // focusColor: appFillField,
+                      onTap: () {
+                        if (widget.enabled != false) {
+                          setState(() {
+                            visible = !visible;
+                          });
+                        }
+                        // widget.onVisibilityChange(!widget.visible);
+                      },
+                      // onHover: (value) {
+                      //   setState(() {
+                      //     onHovered = value;
+                      //   });
+                      // },
+                      child: Container(
+                        width: widget.triggerWidth ?? ctns.maxWidth,
+                        // height: 45,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: (widget.borderColor != null)
+                                  ? widget.borderColor!
+                                  : (widget.enabled == false)
+                                      ? appDisabledTextField
+                                      : (state.hasError)
+                                          ? appWarning
+                                          : appLightGrey,
+                            ),
+                            borderRadius:
+                                BorderRadius.circular(widget.borderRadius ?? 8),
+                            color: (widget.enabled == false)
+                                ? appDisabledTextField
+                                : onHovered
+                                    ? appFillField
+                                    : (state.hasError)
+                                        ? appValidateField
+                                        : appBgWhite),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.w, horizontal: 12.h),
+                        child: Row(
+                          children: [
+                            widget.prefix != null
+                                ? widget.prefix!
+                                : const SizedBox(),
+                            widget.prefix != null
+                                ? const SizedBox(width: 12)
+                                : const SizedBox(),
+                            Expanded(
+                              child: Text(
+                                label ?? (widget.hintText ?? ""),
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: widget.selectedItem != null
+                                      ? appRichBlack
+                                      : Theme.of(context).hintColor,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                            HeroIcon(
+                              HeroIcons.chevronDown,
+                              size: 18.sp,
+                              color: appTextGrey,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Visibility(
+              visible: state.hasError,
+              child: Padding(
+                padding: EdgeInsets.only(top: 8.w, left: 12.h),
+                child: Text(
+                  state.errorText ?? '',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.error,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ),
+            )
+          ],
+        );
+      },
+      validator: widget.validator,
+    );
+  }
+}
+
+class PortalFormDropdownKeyVal extends StatefulWidget {
+  final KeyVal? selectedItem;
+  final String? Function(KeyVal?)? validator;
+  final List<KeyVal> items;
+  // final bool? visible;
+  // final Function(bool)? onVisibilityChange;
+  final Icon? prefix;
+  final String? hintText;
+  final Function(KeyVal) onChange;
+  final Alignment? optAnchor, mainAnchor;
+  final double? triggerWidth, portalWidth, borderRadius;
+  final bool? enabled;
+  final Color? fillColour, borderColor;
+  final EdgeInsetsGeometry? mainPadding, optPadding;
+  const PortalFormDropdownKeyVal(this.selectedItem, this.items,
+      {
+      // this.visible,
+      // this.onVisibilityChange,
+      required this.onChange,
+      this.prefix,
+      this.fillColour,
+      this.borderColor,
+      this.enabled,
+      this.mainAnchor,
+      this.optAnchor,
+      this.borderRadius,
+      // this.updateable,
+      this.validator,
+      this.hintText,
+      this.portalWidth,
+      this.triggerWidth,
+      this.mainPadding,
+      this.optPadding,
+      Key? key})
+      : super(key: key);
+
+  @override
+  State<PortalFormDropdownKeyVal> createState() =>
+      _PortalFormDropdownKeyValState();
+}
+
+class _PortalFormDropdownKeyValState extends State<PortalFormDropdownKeyVal> {
+  bool visible = false;
+  bool onHovered = false;
+  String? label;
+  List<KeyVal> searchList = [];
+  // Color fillColor = VccFillLoginField;
+
+  @override
+  void didUpdateWidget(PortalFormDropdownKeyVal oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // if (widget.updateable == true) {
+    // debugPrint("update");
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          searchList.clear();
+          searchList.addAll(widget.items);
+          label = null;
+          for (var item in widget.items) {
+            if (widget.selectedItem != null &&
+                item.value == widget.selectedItem!.value) {
+              label = item.label;
+            }
+          }
+        }));
+    // }
+  }
+
+  @override
+  void initState() {
+    label = null;
+    for (var item in widget.items) {
+      if (widget.selectedItem != null &&
+          item.value == widget.selectedItem!.value) {
+        label = item.label;
+      }
+    }
+    searchList.clear();
+    searchList.addAll(widget.items);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = ScrollController();
+    return FormField<KeyVal?>(
+      initialValue: widget.selectedItem,
+      key: widget.key,
+      enabled: (widget.enabled ?? true),
+      builder: (state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: widget.triggerWidth ?? 1.sw,
+              child: LayoutBuilder(
+                builder: (ctx, ctns) => PortalTarget(
+                  visible: visible,
+                  portalFollower: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      setState(() {
+                        visible = !visible;
+                      });
+                    },
+                  ),
+                  child: PortalTarget(
+                    visible: visible,
+                    anchor: Aligned(
+                      follower: widget.optAnchor ?? Alignment.topCenter,
+                      target: widget.mainAnchor ?? Alignment.bottomCenter,
+                    ),
+                    portalFollower: Container(
+                        margin: const EdgeInsets.only(top: 8),
+                        width: widget.portalWidth ?? ctns.maxWidth,
+                        height: searchList.length > 5 ? (1.sh / 3) : null,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: appDivider,
+                              spreadRadius: 0.1,
+                              blurRadius: 12,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                          color: appBgWhite,
+                        ),
+                        child: SingleChildScrollView(
+                          padding:
+                              widget.mainPadding ?? const EdgeInsets.all(10),
+                          controller: controller,
+                          scrollDirection: Axis.vertical,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: searchList.isNotEmpty
+                                ? searchList.map((e) {
+                                    return Theme(
+                                      data: ThemeData(
+                                        hoverColor: appFillField,
+                                      ),
+                                      child: ListTile(
+                                        dense: true,
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                horizontal: 8),
+                                        hoverColor: Colors.transparent,
+                                        horizontalTitleGap: 8,
+                                        minLeadingWidth: 10,
+                                        leading: Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 4),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                visible = !visible;
+                                                state.didChange(e);
+                                                widget.onChange(e);
+                                              });
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: (widget.selectedItem !=
+                                                              null &&
+                                                          widget.selectedItem! ==
+                                                              e)
+                                                      ? appTextBlue
+                                                      : appTextGrey,
+                                                ),
+                                                shape: BoxShape.circle,
+                                              ),
+                                              padding: const EdgeInsets.all(4),
+                                              child: Icon(
+                                                Icons.circle,
+                                                size: 10.sp,
+                                                color: (widget.selectedItem !=
+                                                            null &&
+                                                        widget.selectedItem! ==
+                                                            e)
+                                                    ? appTextBlue
+                                                    : appTextGrey,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          setState(() {
+                                            visible = !visible;
+                                            state.didChange(e);
+                                            widget.onChange(e);
+                                          });
+                                        },
+                                        title: Text(
+                                          e.label,
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            color: appBgBlack,
+                                            overflow: TextOverflow.clip,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList()
+                                : [],
+                          ),
+                        )),
+                    child: GestureDetector(
+                      // focusColor: VccFillField,
+                      onTap: () {
+                        if (widget.enabled != false) {
+                          setState(() {
+                            visible = !visible;
+                          });
+                        }
+                        // widget.onVisibilityChange(!widget.visible);
+                      },
+                      child: Container(
+                        width: widget.triggerWidth ?? ctns.maxWidth,
+                        // height: 45,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: (widget.borderColor != null)
+                                  ? widget.borderColor!
+                                  : (widget.enabled == false)
+                                      ? appDisabledTextField
+                                      : (state.hasError)
+                                          ? appWarning
+                                          : appLightGrey,
+                            ),
+                            borderRadius:
+                                BorderRadius.circular(widget.borderRadius ?? 8),
+                            color: (widget.enabled == false)
+                                ? appDisabledTextField
+                                : onHovered
+                                    ? appFillField
+                                    : (state.hasError)
+                                        ? appValidateField
+                                        : appBgWhite),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.w, horizontal: 12.h),
+                        child: Row(
+                          children: [
+                            widget.prefix != null
+                                ? widget.prefix!
+                                : const SizedBox(),
+                            widget.prefix != null
+                                ? const SizedBox(width: 12)
+                                : const SizedBox(),
+                            Expanded(
+                              child: Text(
+                                label ?? (widget.hintText ?? ""),
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  // fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
+                                  color: widget.selectedItem != null
+                                      ? appRichBlack
+                                      : Theme.of(context).hintColor,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                            HeroIcon(
+                              HeroIcons.chevronDown,
+                              size: 18.sp,
+                              color: appTextGrey,
+                            ),
+                            // )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Visibility(
+              visible: state.hasError,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8, left: 12),
+                child: Text(
+                  state.errorText ?? '',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.error,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ),
+            )
+          ],
+        );
+      },
+      validator: widget.validator,
+    );
+  }
 }
