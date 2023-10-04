@@ -98,7 +98,7 @@ class _AbsentScreenState extends State<AbsentScreen> {
               );
             }
             if (state is OnLogOutSuccess) {
-              context.router.replaceAll([const LoginRoute()]);
+              context.router.replaceAll([const SplashRoute()]);
             }
           },
         ),

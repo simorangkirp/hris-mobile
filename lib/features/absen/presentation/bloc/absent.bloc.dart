@@ -104,9 +104,12 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
     }
     if (dataState is DataError) {
       if (dataState.error != null) {
-        if (dataState.error!.response != null) {
+        if (dataState.error!.message == 'Lokasi di luar wilayah HO.') {
+          msg = dataState.error!.message!;
+        } else if (dataState.error!.response != null) {
           if (dataState.error!.response!.data != null) {
-            msg = dataState.error!.response!.data['messages']['error'];
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            msg = data['messages']['error'];
             log(msg);
           }
         }

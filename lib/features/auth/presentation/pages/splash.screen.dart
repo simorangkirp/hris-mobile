@@ -42,11 +42,13 @@ class _SplashScreenState extends State<SplashScreen> {
       listener: (context, state) {
         if (state is AuthTokenChecked) {
           if (state.token != null) {
-            if (state.token!) {
-              context.router.replace(const HomeRoute());
-            } else {
-              context.router.replace(const LoginRoute());
-            }
+            Future.delayed(const Duration(milliseconds: 1200)).then((value) {
+              if (state.token!) {
+                context.router.replace(const HomeRoute());
+              } else {
+                context.router.replace(const LoginRoute());
+              }
+            });
           }
         }
       },

@@ -37,6 +37,7 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
       PaidLeaveGetPlafond event, Emitter<PaidLeaveState> emit) async {
     emit(PaidLeaveLoading());
     String errMsg = '';
+    List<PaidLeavePlafond> listData = [];
     final dataState = await plafondUsecase.call(NoParams());
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
@@ -44,11 +45,12 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
           if ((dataState.data['data'] as List).isEmpty) {
             errMsg = dataState.data['messages'];
             emit(PaidLeaveErrCall(errMsg));
+          } else {
+            for (var i in (dataState.data['data'] as List)) {
+              listData.add(PaidLeavePlafond.fromMap(i));
+            }
+            emit(PaidLeavePlafondLoaded(listData));
           }
-        } else {
-          var begin = dataState.data['data'] as Map<String, dynamic>;
-          var data = PaidLeavePlafond.fromMap(begin);
-          emit(PaidLeavePlafondLoaded(data));
         }
       }
     }

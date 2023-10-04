@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     buildHome(EntityProfile? mods) {
       return Scaffold(
         appBar: buildAppBar(mods),
@@ -99,12 +99,12 @@ class _HomeScreenState extends State<HomeScreen> {
           listener: (context, state) {
             if (state is ShowLogoutDialog) {
               onLogOutDialog(
-                ctx,
+                context,
                 () => dispatchLogout(),
               );
             }
             if (state is OnLogOutSuccess) {
-              context.router.replaceAll([const LoginRoute()]);
+              context.router.replaceAll([const SplashRoute()]);
             }
           },
         ),

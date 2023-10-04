@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/core/core.dart';
+import 'package:owl_hris/features/features.dart';
 
 const String baseUrl = 'http://182.23.67.40:8083/officeapi/';
 
@@ -62,4 +63,12 @@ class Constant {
   static var containerPadding =
       EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h);
   static const owlBird = 'assets/image/owl-bird.svg';
+}
+
+class ConstLang {
+  const ConstLang._();
+  static const languages = [
+    LanguageEntity(code: 'en', value: 'English'),
+    LanguageEntity(code: 'id', value: 'Indonesia'),
+  ];
 }

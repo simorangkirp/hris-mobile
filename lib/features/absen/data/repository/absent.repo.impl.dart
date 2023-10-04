@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../../../lib.dart';
 
@@ -96,44 +97,58 @@ class AbsentReposImplement implements AbsentRepository {
     post = await Geolocator.getCurrentPosition();
 
     String loc = "${post.longitude},${post.latitude}";
+    LatLng ho = LatLng(-6.277236478788212, 106.79651425937004);
 
-    UserAuthDb auth = UserAuthDb();
-    LoginModel? mods;
-    final res = await auth.getUser();
-    if (res != null) {
-      mods = res;
-    }
-    var header = 'Bearer ${mods?.accesstoken}';
-    var params = SubmitAbsentBody(
-      mods?.uid ?? "-",
-      data.date,
-      data.period,
-      data.absent,
-      data.inoutmode,
-      data.hr,
-      loc,
-      data.photo,
-      data.desc,
-      data.source,
-      data.coorphoto,
-    );
+    var dist = calculateDistance(
+        post.latitude, post.longitude, ho.latitude, ho.longitude);
 
-    try {
-      final httpResp = await _absentAPIServices.submitAbsent(params, header);
-
-      if (httpResp.response.statusCode! >= 200 &&
-          httpResp.response.statusCode! < 300) {
-        return DataSuccess(httpResp.data);
-      } else {
-        return DataError(DioException(
-          error: httpResp.response.statusMessage,
-          response: httpResp.response,
-          type: DioExceptionType.badResponse,
-          requestOptions: httpResp.response.requestOptions,
-        ));
+    if (dist <= 100) {
+      UserAuthDb auth = UserAuthDb();
+      LoginModel? mods;
+      final res = await auth.getUser();
+      if (res != null) {
+        mods = res;
       }
-    } on DioException catch (e) {
-      return DataError(e);
+      var header = 'Bearer ${mods?.accesstoken}';
+      var params = SubmitAbsentBody(
+        mods?.uid ?? "-",
+        data.date,
+        data.period,
+        data.absent,
+        data.inoutmode,
+        data.hr,
+        loc,
+        data.photo,
+        data.desc,
+        data.source,
+        data.coorphoto,
+      );
+
+      try {
+        final httpResp = await _absentAPIServices.submitAbsent(params, header);
+
+        if (httpResp.response.statusCode! >= 200 &&
+            httpResp.response.statusCode! < 300) {
+          return DataSuccess(httpResp.data);
+        } else {
+          return DataError(DioException(
+            error: httpResp.response.statusMessage,
+            response: httpResp.response,
+            type: DioExceptionType.badResponse,
+            requestOptions: httpResp.response.requestOptions,
+          ));
+        }
+      } on DioException catch (e) {
+        return DataError(e);
+      }
+    } else {
+      return DataError(
+        DioException(
+          requestOptions: RequestOptions(),
+          message: 'Lokasi di luar wilayah HO.',
+          type: DioExceptionType.cancel,
+        ),
+      );
     }
   }
 

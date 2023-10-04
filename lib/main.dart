@@ -4,7 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/lib.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // import 'features/home/presentation/pages/home.screen.dart';
 
 Future<void> main() async {
@@ -63,14 +63,12 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           // title: 'Flutter Demo',
           localizationsDelegates: const [
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: const [
-            Locale('en'),
-            Locale('id'),
-          ],
+          supportedLocales: L10n.all,
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: appBgWhite),
             useMaterial3: true,

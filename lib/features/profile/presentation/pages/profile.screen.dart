@@ -132,8 +132,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
+            if (state is ShowLogoutDialog) {
+              onLogOutDialog(
+                context,
+                () => dispatchLogout(),
+              );
+            }
             if (state is OnLogOutSuccess) {
-              context.router.replaceAll([const LoginRoute()]);
+              context.router.replaceAll([const SplashRoute()]);
             }
           },
         ),

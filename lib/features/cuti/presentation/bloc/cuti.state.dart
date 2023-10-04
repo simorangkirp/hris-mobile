@@ -6,7 +6,7 @@ import '../../../../lib.dart';
 abstract class PaidLeaveState extends Equatable {
   final DioException? error;
   final String? errMsg, msg;
-  final PaidLeavePlafond? plafond;
+  final List<PaidLeavePlafond>? plafond;
   final PaidLeaveDataDetail? detail;
   final List<PaidLeaveCatDetail>? catDetail;
   final List<PaidLeaveListData>? listData;
@@ -41,7 +41,8 @@ class PaidLeaveSubmitFormSuccess extends PaidLeaveState {
 class PaidLeaveInitiallized extends PaidLeaveState {}
 
 class PaidLeavePlafondLoaded extends PaidLeaveState {
-  const PaidLeavePlafondLoaded(PaidLeavePlafond data) : super(plafond: data);
+  const PaidLeavePlafondLoaded(List<PaidLeavePlafond> data)
+      : super(plafond: data);
 }
 
 class PaidLeaveErrCall extends PaidLeaveState {

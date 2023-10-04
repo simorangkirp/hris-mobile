@@ -23,7 +23,7 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
   String sltdDt = '';
   String dtParam = '';
   bool startAnimation = false;
-  PaidLeavePlafond? plafond;
+  List<PaidLeavePlafond>? plafond;
   ProfileModel? profile;
   List<PaidLeaveListData>? listpl;
 
@@ -119,7 +119,7 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
               );
             }
             if (state is OnLogOutSuccess) {
-              context.router.replaceAll([const LoginRoute()]);
+              context.router.replaceAll([const SplashRoute()]);
             }
           },
         ),

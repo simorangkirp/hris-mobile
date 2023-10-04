@@ -54,7 +54,8 @@ class _AbsentCameraScreenState extends State<AbsentCameraScreen> {
   }
 
   Future initCamera(CameraDescription cameraDescription) async {
-    _controller = CameraController(cameraDescription, ResolutionPreset.high);
+    _controller = CameraController(cameraDescription, ResolutionPreset.high,
+        imageFormatGroup: ImageFormatGroup.jpeg);
     try {
       await _controller.initialize().then((_) {
         if (!mounted) return;
@@ -78,20 +79,6 @@ class _AbsentCameraScreenState extends State<AbsentCameraScreen> {
       Uint8List headedData = Uint8List.view(byte.buffer);
       param = base64Encode(headedData);
     }
-
-    if (imgData != null) {
-      // List<int> imgList = imgData!.map((e) => e.toInt()).toList();
-      // Bitmap bitmap = Bitmap.fromHeadless(300, 300, imgData!);
-      // Uint8List headedBitmap = bitmap.buildHeaded();
-      // param = base64Encode(headedBitmap);
-      // param = base64Encode(imgData!);
-    }
-    // if (imgData != null) {
-    //   param = base64.encode(imgData!);
-    // }
-    // if (imgData != null) {
-    //   param = convertUint8ListToString(imgData!);
-    // }
     if (param != null) {
       return true;
     } else {
@@ -172,42 +159,6 @@ class _AbsentCameraScreenState extends State<AbsentCameraScreen> {
                   ),
                 ),
               ),
-              // Positioned(
-              //   right: 0,
-              //   left: 0,
-              //   bottom: 24,
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //       shape: BoxShape.circle,
-              //       color: appBgTransparent,
-              //       border: Border.all(color: appBgWhite, width: 6),
-              //     ),
-              //     height: 72.h,
-              //     width: double.maxFinite,
-              //     child: Center(
-              //       child: Container(
-              //         height: 52.h,
-              //         width: double.maxFinite,
-              //         decoration: const BoxDecoration(
-              //           shape: BoxShape.circle,
-              //           color: appBgWhite,
-              //         ),
-              //         child: Center(
-              //           child: SizedBox(
-              //             height: 24.h,
-              //             width: 24.h,
-              //             child: SvgPicture.asset(
-              //               ConstIconPath.cameraIcon,
-              //               colorFilter: const ColorFilter.mode(
-              //                   appBgBlack, BlendMode.srcIn),
-              //               fit: BoxFit.cover,
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ],
           );
         } else {
@@ -218,12 +169,6 @@ class _AbsentCameraScreenState extends State<AbsentCameraScreen> {
       },
     );
   }
-
-  // widgetFrontFace() {
-  //   return _controller.value.isInitialized
-  //       ? cameraWidget()
-  //       : const Center(child: CircularProgressIndicator());
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -239,43 +184,6 @@ class _AbsentCameraScreenState extends State<AbsentCameraScreen> {
         child: isProcess
             ? const Center(child: CircularProgressIndicator())
             : cameraWidget(context),
-        //     child: BlocListener<AbsentBloc, AbsentState>(
-        //   listener: (context, state) {
-        //     if (state is ClockInCameraInitiallized) {
-        //       if (state.listCamera!.isNotEmpty) {
-        //         getFrontFaceCamera(state.listCamera!);
-        //         initCamera(desc);
-        //       }
-        //     }
-        //   },
-        //   child: BlocBuilder<AbsentBloc, AbsentState>(
-        //     builder: (context, state) {
-        //       if (state is ClockInCameraInitiallized) {
-        //         return widgetFrontFace();
-        //       } else {
-        //         return const CircularProgressIndicator();
-        //       }
-        //     },
-        //   ),
-        // )
-
-        // BlocConsumer<AbsentBloc, AbsentState>(
-        //   builder: (context, state) {
-        //     if (state is ClockInCameraInitiallized) {
-        //       return widgetFrontFace();
-        //     } else {
-        //       return const CircularProgressIndicator();
-        //     }
-        //   },
-        //   listener: (context, state) {
-        //     if (state is ClockInCameraInitiallized) {
-        //       if (state.listCamera!.isNotEmpty) {
-        //         getFrontFaceCamera(state.listCamera!);
-        //         initCamera(desc);
-        //       }
-        //     }
-        //   },
-        // ),
       ),
     );
   }

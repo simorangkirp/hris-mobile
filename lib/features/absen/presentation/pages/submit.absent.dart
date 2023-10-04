@@ -201,6 +201,21 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
                             inout: widget.inout, period: widget.period),
                       )
                       .then((value) => onGoBack());
+                  // context.router
+                  //     .pushAndPopUntil(
+                  //         AbsentCameraRoute(
+                  //             inout: widget.inout, period: widget.period),
+                  //         predicate: (route) => false,
+                  //         onFailure: (failure) => '/',
+                  //         scopedPopUntil: true)
+                  //     .then((value) => onGoBack());
+                  // Navigator.of(context).pushAndRemoveUntil(
+                  //     MaterialPageRoute(
+                  //         builder: (BuildContext context) =>
+                  //             const AbsentCameraScreen()),
+                  //     (Route<dynamic> route) =>
+                  //         false // Replace this with your root screen's route name (usually '/')
+                  //     );
                 },
                 child: photo != null
                     ? Material(
@@ -448,7 +463,6 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
     if (widget.photoParam != null) {
       photo = const Base64Decoder().convert(widget.photoParam!.split(',').last);
     }
-    setState(() {});
   }
 
   @override
@@ -484,6 +498,9 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
           Future.delayed(const Duration(seconds: 3)).then((value) {
             context.router.navigate(const AbsentRoute());
           });
+        }
+        if (state is AbsentSubmitAbsentError) {
+          buildScafMsg(state.errMsg ?? "-");
         }
       },
       child: BlocBuilder<AbsentBloc, AbsentState>(
