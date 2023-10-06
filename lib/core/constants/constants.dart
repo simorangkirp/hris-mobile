@@ -7,6 +7,7 @@ const String baseUrl = 'http://182.23.67.40:8083/officeapi/';
 
 class ConstIconPath {
   static const chevronRight = 'assets/icons/chevron-right.svg';
+  static const gallery = 'assets/icons/gallery.svg';
   static const chevronDown = 'assets/icons/chevron-down.svg';
   static const alert = 'assets/icons/alert.svg';
   static const briefcase = 'assets/icons/briefcase.svg';

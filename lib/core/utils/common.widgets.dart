@@ -397,7 +397,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     title: Text(
                       'Dashboard',
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -412,7 +412,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     title: Text(
                       'Claim',
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -424,7 +424,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     title: Text(
                       'Absent',
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -439,7 +439,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     title: Text(
                       'Paid leave',
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -454,7 +454,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     title: Text(
                       'PJD',
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -466,7 +466,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     title: Text(
                       'Calendar',
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

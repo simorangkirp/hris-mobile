@@ -1,0 +1,9 @@
+export 'forgot.pin.dart';
+export 'input.otp.dart';
+export 'language.page.dart';
+export 'new.pin.dart';
+export 'notifications.page.dart';
+export 'password.page.dart';
+export 'pin.page.dart';
+export 'setting.page.dart';
+export 'verify.pin.dart';
