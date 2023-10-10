@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../config/themes/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeTaskWidget extends StatefulWidget {
   // final Function(BuildContext) showSnBar;
@@ -17,6 +18,7 @@ class HomeTaskWidget extends StatefulWidget {
 class _HomeTaskWidgetState extends State<HomeTaskWidget> {
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       children: [
         Row(
@@ -24,7 +26,7 @@ class _HomeTaskWidgetState extends State<HomeTaskWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Active Task',
+              l10n.actTask,
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w900,
@@ -35,7 +37,7 @@ class _HomeTaskWidgetState extends State<HomeTaskWidget> {
               child: Visibility(
                 visible: false,
                 child: Text(
-                  'See all',
+                  l10n.seeAll,
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,

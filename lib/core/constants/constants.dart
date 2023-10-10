@@ -64,6 +64,7 @@ class Constant {
   static var containerPadding =
       EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h);
   static const owlBird = 'assets/image/owl-bird.svg';
+  static const pinValid = 'Data Pin Valid!';
 }
 
 class ConstLang {

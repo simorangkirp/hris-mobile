@@ -20,6 +20,10 @@ abstract class AbsentAPIServices {
   @POST('${baseUrl}API/SDM/travel/active')
   Future<HttpResponse<dynamic>> userAssignLoc(@Body() UserAssignLocBody? param,
       @Header("Authorization") String authHeader);
+
+  @POST('${baseUrl}API/user/pin/check')
+  Future<HttpResponse<dynamic>> userPINcheck(
+      @Body() PINBody? param, @Header("Authorization") String authHeader);
 }
 
 @JsonSerializable()
@@ -35,6 +39,22 @@ class ListAbsentParams {
   factory ListAbsentParams.fromJson(Map<String, dynamic> json) =>
       _$ListAbsentParamsFromJson(json);
   Map<String, dynamic> toJson() => _$ListAbsentParamsToJson(this);
+}
+
+@JsonSerializable()
+class PINBody {
+  @JsonKey(name: 'uid')
+  String? uid;
+  @JsonKey(name: 'pin')
+  String? pin;
+
+  PINBody(
+    this.uid,
+    this.pin,
+  );
+  factory PINBody.fromJson(Map<String, dynamic> json) =>
+      _$PINBodyFromJson(json);
+  Map<String, dynamic> toJson() => _$PINBodyToJson(this);
 }
 
 @JsonSerializable()

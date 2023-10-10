@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class PINScreen extends StatefulWidget {
@@ -15,11 +16,19 @@ class _PINScreenState extends State<PINScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-          // title: Text('Setup PIN'),
-          // centerTitle: true,
+        centerTitle: true,
+        title: Text(
+          l10n.pin,
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w400,
           ),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -31,7 +40,7 @@ class _PINScreenState extends State<PINScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Enable PIN authentication',
+                    l10n.pin_enable_msg,
                     style: TextStyle(
                       fontSize: 14.sp,
                     ),
@@ -48,7 +57,7 @@ class _PINScreenState extends State<PINScreen> {
               ),
               SizedBox(height: 8.h),
               Text(
-                'Reset PIN code',
+                l10n.reset_pin,
                 style: TextStyle(
                   fontSize: 14.sp,
                 ),

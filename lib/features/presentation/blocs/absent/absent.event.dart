@@ -1,4 +1,3 @@
-
 import '../../../../lib.dart';
 
 abstract class AbsentEvent {
@@ -29,3 +28,8 @@ class SubmitUserAbsent extends AbsentEvent {
 class AbsentGetUserInfo extends AbsentEvent {}
 
 class AbsentScrnActPeriod extends AbsentEvent {}
+
+class AbsentCheckPin extends AbsentEvent {
+  String pin;
+  AbsentCheckPin(this.pin);
+}

@@ -1,5 +1,25 @@
 import '../../../../lib.dart';
 
+class AuthModel {
+  String? unm;
+  String? pw;
+
+  AuthModel({
+    this.unm,
+    this.pw,
+  });
+
+  AuthModel.fromMap(Map<String, dynamic> json) {
+    unm = json["unm"];
+    pw = json["pw"];
+  }
+
+  Map<String, dynamic> toMap() => {
+        "unm": unm,
+        "pw": pw,
+      };
+}
+
 class LoginModel extends LoginEntity {
   const LoginModel({
     required String userid,
@@ -8,6 +28,7 @@ class LoginModel extends LoginEntity {
     required String expaccess,
     required String accesstoken,
     required String refreshtoken,
+    required String activeVersion,
   });
 
   LoginModel.fromJson(Map<String, dynamic> map)
@@ -18,6 +39,7 @@ class LoginModel extends LoginEntity {
           expaccess: map['exp_access'] ?? "",
           accesstoken: map['access_token'] ?? "",
           refreshtoken: map['refresh_token'] ?? "",
+          activeVersion: map['activeVersion'] ?? "",
         );
 
   Map<String, dynamic> toJson() {
@@ -28,6 +50,7 @@ class LoginModel extends LoginEntity {
     data['exp_access'] = expaccess ?? "";
     data['access_token'] = accesstoken ?? "";
     data['refresh_token'] = refreshtoken ?? "";
+    data['activeVersion'] = activeVersion ?? "";
     return data;
   }
   // factory LoginModel.fromJson(Map<String, dynamic> map) {

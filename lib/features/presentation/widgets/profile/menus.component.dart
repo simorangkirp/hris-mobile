@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owl_hris/lib.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Widget buildListMenu(BuildContext ctx) {
+  final l10n = AppLocalizations.of(ctx)!;
+
   return Column(
     children: [
       GestureDetector(
@@ -42,7 +45,7 @@ Widget buildListMenu(BuildContext ctx) {
               SizedBox(width: 12.w),
               Expanded(
                 child: Text(
-                  "My Personal Info",
+                  l10n.myPersonalInfo,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: appBgBlack,
@@ -95,7 +98,7 @@ Widget buildListMenu(BuildContext ctx) {
               SizedBox(width: 12.w),
               Expanded(
                 child: Text(
-                  "Settings",
+                  l10n.setting,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: appBgBlack,

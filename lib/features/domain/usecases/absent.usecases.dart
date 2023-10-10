@@ -28,6 +28,16 @@ class GetUserAssignLocationUseCase extends UseCase<DataState, NoParams> {
   }
 }
 
+class AbsentCheckPINUseCase extends UseCase<DataState, String> {
+  final AbsentRepository repos;
+  AbsentCheckPINUseCase(this.repos);
+  @override
+  Future<DataState> call(String params) async {
+    var res = await repos.checkPin(params);
+    return res;
+  }
+}
+
 class AbsentUsecaseGetActPeriod extends UseCase<DataState, NoParams> {
   final AbsentRepository repos;
   AbsentUsecaseGetActPeriod(this.repos);

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../lib.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Widget paidleaveAppHistory(List<PaidLeaveApproval>? mod) {
+Widget paidleaveAppHistory(BuildContext context, List<PaidLeaveApproval>? mod) {
   ScrollController ctrl = ScrollController();
-
+  final l10n = AppLocalizations.of(context)!;
   return NotificationListener<OverscrollIndicatorNotification>(
     onNotification: (OverscrollIndicatorNotification overScrl) {
       overScrl.disallowIndicator();
@@ -20,7 +21,7 @@ Widget paidleaveAppHistory(List<PaidLeaveApproval>? mod) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Timeline',
+              l10n.timeline,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16.sp,

@@ -10,6 +10,7 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
   final GetUserAssignLocationUseCase userAssignLocUsecase;
   final SubmitUserAbsentUseCase submitUserAbsent;
   final AbsentUsecaseGetUserInfo getUserInfoUsecase;
+  final AbsentCheckPINUseCase checkPINUsecase;
 
   AbsentBloc(
     this.getCurrPeriodAbsnt,
@@ -18,6 +19,7 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
     this.submitUserAbsent,
     this.userAssignLocUsecase,
     this.getUserInfoUsecase,
+    this.checkPINUsecase,
   ) : super(AbsentLoading()) {
     on<InitAbsent>(onInit);
     on<InitCamera>(initClockInCamera);
@@ -26,6 +28,7 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
     on<SubmitUserAbsent>(submitAbsent);
     on<GetUserAssignLocation>(getUserAssignLoc);
     on<AbsentGetUserInfo>(getUserInfo);
+    on<AbsentCheckPin>(checkUserPIN);
     // on<SubmitLogin>(onLoginUser);
   }
 
@@ -153,6 +156,29 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
       if (dataState.data != null) {
         emit(AbsentUserInfoLoaded(dataState.data));
       }
+    }
+  }
+
+  void checkUserPIN(AbsentCheckPin event, Emitter<AbsentState> emit) async {
+    String errMsg = '';
+    final dataState = await checkPINUsecase.call(event.pin);
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        errMsg = dataState.data['messages'];
+        emit(AbsentPINChecked(errMsg));
+      }
+    }
+    if (dataState is DataError) {
+      if (dataState.error != null) {
+        if (dataState.error!.response != null) {
+          if (dataState.error!.response!.data != null) {
+            errMsg = dataState.error!.response!.data['messages']['error'];
+          }
+        }
+      } else {
+        errMsg = "The request returned an invalid status code of 400.";
+      }
+      emit(AbsentPINChecked(errMsg));
     }
   }
 }

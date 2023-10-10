@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../lib.dart';
 
@@ -351,6 +352,8 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Drawer(
       child: Container(
         color: appBgWhite,
@@ -384,7 +387,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                   ),
                 ),
                 title: Text(
-                  'Home',
+                  l10n.home,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -395,7 +398,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     tileColor: appBgWhite,
                     leading: const SizedBox(),
                     title: Text(
-                      'Dashboard',
+                      l10n.dashboard,
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
@@ -410,7 +413,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     tileColor: appBgWhite,
                     leading: const SizedBox(),
                     title: Text(
-                      'Claim',
+                      l10n.claim,
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
@@ -422,7 +425,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     tileColor: appBgWhite,
                     leading: const SizedBox(),
                     title: Text(
-                      'Absent',
+                      l10n.absent,
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
@@ -437,7 +440,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     tileColor: appBgWhite,
                     leading: const SizedBox(),
                     title: Text(
-                      'Paid leave',
+                      l10n.paidLeave,
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
@@ -464,7 +467,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                     tileColor: appBgWhite,
                     leading: const SizedBox(),
                     title: Text(
-                      'Calendar',
+                      l10n.calendar,
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
@@ -495,7 +498,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
               //   ),
               // ),
               title: Text(
-                'Activity',
+                l10n.act,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
@@ -514,7 +517,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 ),
               ),
               title: Text(
-                'Inbox & Approval',
+                l10n.inboxNapprv,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
@@ -536,7 +539,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 ),
               ),
               title: Text(
-                'Profile',
+                l10n.profile,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
@@ -551,7 +554,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
               tileColor: appBgWhite,
               leading: Icon(Icons.logout, size: 18.w, color: Colors.black),
               title: Text(
-                'Logout',
+                l10n.logout,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
@@ -1069,7 +1072,8 @@ class _ExpandableWidgetState extends State<ExpandableWidget>
   }
 }
 
-buildCommAppBar(EntityProfile? mod) {
+buildCommAppBar(BuildContext context, EntityProfile? mod) {
+  final l10n = AppLocalizations.of(context)!;
   Uint8List? byteImg;
   if (mod?.photo != null) {
     byteImg = const Base64Decoder().convert(mod!.photo!);
@@ -1099,7 +1103,7 @@ buildCommAppBar(EntityProfile? mod) {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Welcome Back!',
+              l10n.welcomeBack,
               style: TextStyle(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,

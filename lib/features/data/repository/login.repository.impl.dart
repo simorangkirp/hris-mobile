@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../lib.dart';
-
 
 class LoginRepositoryImpl implements UserAuthRepository {
   final String userNm, pwd;
@@ -14,7 +14,11 @@ class LoginRepositoryImpl implements UserAuthRepository {
   LoginRepositoryImpl(this._loginAPIServices, this.userNm, this.pwd, this.db);
   @override
   Future<DataState> loginUser(userNm, pwd) async {
-    var params = LoginParam(userNm, pwd, '1');
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    var version = packageInfo.version;
+    var build = packageInfo.buildNumber;
+    var paramVer = 'v$build($version)';
+    var params = LoginParam(userNm, pwd, paramVer, '1');
     try {
       final httpResp = await _loginAPIServices.loginUser(params);
       if (httpResp.response.statusCode == HttpStatus.ok) {

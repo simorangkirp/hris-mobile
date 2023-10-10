@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/lib.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Widget buildTimeSheet(int? ctr) {
+Widget buildTimeSheet(BuildContext context, int? ctr) {
+  final l10n = AppLocalizations.of(context)!;
+
   return Container(
     decoration: BoxDecoration(
       border: Border.all(
@@ -21,7 +24,7 @@ Widget buildTimeSheet(int? ctr) {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              "Time Off",
+              l10n.timeOff,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 color: appBgBlack.withOpacity(0.6),
@@ -44,7 +47,7 @@ Widget buildTimeSheet(int? ctr) {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                "Attendance",
+                l10n.attendance,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: appBgBlack.withOpacity(0.6),
@@ -68,7 +71,7 @@ Widget buildTimeSheet(int? ctr) {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                "Overtime",
+                l10n.overtime,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: appBgBlack.withOpacity(0.6),

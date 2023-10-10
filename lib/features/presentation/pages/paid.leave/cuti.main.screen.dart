@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../lib.dart';
 
@@ -19,7 +20,6 @@ class PaidLeaveMainScreen extends StatefulWidget {
 
 class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
   ScrollController ctrl = ScrollController();
-  String dt = "Current period";
   String sltdDt = '';
   String dtParam = '';
   bool startAnimation = false;
@@ -84,6 +84,10 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    String dt = l10n.currPeriod;
+
     return MultiBlocListener(
       listeners: [
         BlocListener<PaidLeaveBloc, PaidLeaveState>(
@@ -134,7 +138,7 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
             );
           } else {
             return Scaffold(
-              appBar: buildCommAppBar(profile),
+              appBar: buildCommAppBar(context, profile),
               endDrawer: const AppNavigationDrawer(),
               body: Padding(
                 padding: Constant.appPadding,
@@ -142,7 +146,7 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 18.h),
-                    buildPlafond(plafond),
+                    buildPlafond(context, plafond),
                     SizedBox(height: 16.h),
                     IntrinsicHeight(
                       child: Row(
@@ -213,7 +217,9 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  color:plafond != null ? appNotifCutIcn.withOpacity(0.8) : appDivider.withOpacity(0.8),
+                                  color: plafond != null
+                                      ? appNotifCutIcn.withOpacity(0.8)
+                                      : appDivider.withOpacity(0.8),
                                 ),
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 8.h, vertical: 8.h),
@@ -257,6 +263,7 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
                         builder: (context, state) {
                           if (state is PaidLeaveListDataLoaded) {
                             return buildListItems(
+                              context,
                               listpl,
                               (s) {
                                 context.router
@@ -273,7 +280,7 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
                               ),
                             );
                           } else {
-                            return noDataWidget();
+                            return noDataWidget(context);
                           }
                         },
                       ),

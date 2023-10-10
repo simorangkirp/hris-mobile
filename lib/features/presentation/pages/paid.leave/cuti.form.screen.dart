@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../lib.dart';
 
@@ -85,6 +86,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     buildBtmDialog() {
       return showModalBottomSheet(
         context: context,
@@ -97,7 +99,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Choose from',
+                  l10n.chooseFr,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 16.sp,
@@ -124,7 +126,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                             ),
                             SizedBox(height: 12.h),
                             Text(
-                              'Gallery',
+                              l10n.gallery,
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w400,
@@ -154,7 +156,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                             ),
                             SizedBox(height: 12.h),
                             Text(
-                              'Camera',
+                              l10n.camera,
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w400,
@@ -177,7 +179,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Paid Leave Form',
+            l10n.paidLeavForm,
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w400,
@@ -201,7 +203,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                   children: [
                     SizedBox(height: 18.h),
                     Text(
-                      'Kategori',
+                      l10n.category,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
@@ -219,7 +221,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                       },
                       validator: (val) {
                         if (val == null || val.isEmpty) {
-                          return 'Kategori tidak boleh kosong!';
+                          return l10n.cat_req_msg;
                         } else {
                           return null;
                         }
@@ -227,7 +229,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                     ),
                     SizedBox(height: 8.h),
                     Text(
-                      'Detail',
+                      l10n.catDetail,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
@@ -245,7 +247,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                       },
                       validator: (val) {
                         if (val == null || val.value.isEmpty) {
-                          return 'Kategori detail tidak boleh kosong!';
+                          return l10n.cat_det_req_msg;
                         } else {
                           return null;
                         }
@@ -253,7 +255,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                     ),
                     SizedBox(height: 8.h),
                     Text(
-                      'Tanggal Cuti',
+                      l10n.paidLeaveDt,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
@@ -262,14 +264,14 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                     SizedBox(height: 4.h),
                     CommonDateRangePicker(
                       readOnly: true,
-                      hint: 'Choose date',
+                      hint: l10n.chooseDt,
                       dtRgCtrl: submitmodel.dtRgCtrl,
                       retCtrl: submitmodel.retCtrl,
                       totCtrl: submitmodel.totCtrl,
                       dataCtrl: submitmodel.dataCtrl,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
-                          return 'Tanggal tidak boleh kosong';
+                          return l10n.dtReq;
                         } else {
                           return null;
                         }
@@ -281,7 +283,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                     Visibility(
                       visible: submitmodel.totCtrl!.text != '0',
                       child: Text(
-                        'Tgl Kembali',
+                        l10n.retDt,
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12.sp,
@@ -299,7 +301,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                         fillColor: appBgWhite,
                         validator: (val) {
                           if (val == null || val.isEmpty) {
-                            return 'Tanggal tidak boleh kosong';
+                            return l10n.dtReq;
                           } else {
                             return null;
                           }
@@ -308,7 +310,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                     ),
                     SizedBox(height: 8.h),
                     Text(
-                      'Unggah File',
+                      l10n.uploadFile,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
@@ -335,7 +337,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                                   ),
                                   SizedBox(height: 2.h),
                                   Text(
-                                    'Choose a file',
+                                    l10n.chooseFile,
                                     style: TextStyle(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w500,
@@ -362,7 +364,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                           ),
                     SizedBox(height: 8.h),
                     Text(
-                      'Alasan',
+                      l10n.desc,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
@@ -376,7 +378,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                         });
                       },
                       fillColor: appBgWhite,
-                      hint: 'Write a comment...',
+                      hint: l10n.write_comm,
                     ),
                     SizedBox(height: 24.h),
                     Align(
@@ -390,7 +392,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                               ScaffoldMessenger.of(context)
                                 ..hideCurrentSnackBar()
                                 ..showSnackBar(failSnackBar(
-                                  message: 'Foto harus di isi',
+                                  message: l10n.photo_req,
                                 ));
                             } else {
                               dispatchSubmitForm();
@@ -398,7 +400,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                           }
                         },
                         child: Text(
-                          'Submit',
+                          l10n.submitBtn,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
@@ -464,7 +466,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                       Lottie.asset(ConstantLottie.submitLoading),
                       SizedBox(height: 12.h),
                       Text(
-                        'Please wait while we processing your request...',
+                        l10n.process_req_msg,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,

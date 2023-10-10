@@ -3,59 +3,54 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owl_hris/lib.dart';
-
-List<FeaturesModel> collection = [
-  FeaturesModel(
-    iconPath: ConstIconPath.file,
-    id: 'Daftar\nAbsensi',
-    en: 'Absent\nList',
-    route: 'AbsentList',
-  ),
-  FeaturesModel(
-    iconPath: ConstIconPath.file,
-    id: 'Daftar\nCuti',
-    en: 'Paid Leave\nList',
-    route: 'PaidLeaveList',
-  ),
-  FeaturesModel(
-    iconPath: ConstIconPath.file,
-    id: 'Daftar\nPJD',
-    en: 'Office Trip\nList',
-    route: 'PJDList',
-  ),
-  FeaturesModel(
-    iconPath: ConstIconPath.clock,
-    id: 'Ajukan\nAbsen',
-    en: 'Absent',
-    route: 'Absent',
-  ),
-  FeaturesModel(
-    iconPath: ConstIconPath.timeOff,
-    id: 'Ajukan\nCuti',
-    en: 'Paid\nLeave',
-    route: 'PaidLeave',
-  ),
-  FeaturesModel(
-    iconPath: ConstIconPath.plane,
-    id: 'Ajukan\nPJD',
-    en: 'Office\nTrip',
-    route: 'PJD',
-  ),
-  FeaturesModel(
-    iconPath: ConstIconPath.event,
-    id: 'Acara',
-    en: 'Events',
-    route: 'Events',
-  ),
-  FeaturesModel(
-    iconPath: ConstIconPath.receipt,
-    id: 'Klaim',
-    en: 'Claim',
-    route: 'Claim',
-  ),
-];
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 faturesComponent(BuildContext ctx) {
+  final l10n = AppLocalizations.of(ctx)!;
+
+  List<FeaturesModel> collection = [
+    FeaturesModel(
+      iconPath: ConstIconPath.file,
+      text: l10n.absentList,
+      route: 'AbsentList',
+    ),
+    FeaturesModel(
+      iconPath: ConstIconPath.file,
+      text: l10n.paidLeaveList,
+      route: 'PaidLeaveList',
+    ),
+    FeaturesModel(
+      iconPath: ConstIconPath.file,
+      text: l10n.listPJD,
+      route: 'PJDList',
+    ),
+    FeaturesModel(
+      iconPath: ConstIconPath.clock,
+      text: l10n.submitAbsent,
+      route: 'Absent',
+    ),
+    FeaturesModel(
+      iconPath: ConstIconPath.timeOff,
+      text: l10n.submitPaidLeave,
+      route: 'PaidLeave',
+    ),
+    FeaturesModel(
+      iconPath: ConstIconPath.plane,
+      text: l10n.submitPJD,
+      route: 'PJD',
+    ),
+    FeaturesModel(
+      iconPath: ConstIconPath.event,
+      text: l10n.event,
+      route: 'Events',
+    ),
+    FeaturesModel(
+      iconPath: ConstIconPath.receipt,
+      text: l10n.claim,
+      route: 'Claim',
+    ),
+  ];
+
   onRoute(String menuCd) {
     switch (menuCd) {
       case "AbsentList":
@@ -90,7 +85,7 @@ faturesComponent(BuildContext ctx) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
-        'Features',
+        l10n.features,
         style: TextStyle(
           fontSize: 16.sp,
           fontWeight: FontWeight.w900,
@@ -120,23 +115,35 @@ faturesComponent(BuildContext ctx) {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: appNotifCutIcn.withOpacity(0.8),
-                    ),
-                    height: 38.h,
-                    width: 38.h,
-                    child: SvgPicture.asset(
-                      item.iconPath!,
-                      fit: BoxFit.scaleDown,
-                      colorFilter:
-                          const ColorFilter.mode(appBgWhite, BlendMode.srcIn),
+                  Material(
+                    elevation: 4,
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomRight,
+                          end: Alignment.topLeft,
+                          colors: [
+                            appBtnBlue.withOpacity(0.3),
+                            appNotifCutIcn.withOpacity(0.8),
+                          ],
+                          stops: const [0, 0.7],
+                        ),
+                      ),
+                      height: 38.h,
+                      width: 38.h,
+                      child: SvgPicture.asset(
+                        item.iconPath!,
+                        fit: BoxFit.scaleDown,
+                        colorFilter:
+                            const ColorFilter.mode(appBgWhite, BlendMode.srcIn),
+                      ),
                     ),
                   ),
                   SizedBox(height: 4.h),
                   Text(
-                    item.id!,
+                    item.text!,
                     style: TextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w500,

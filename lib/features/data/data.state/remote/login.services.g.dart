@@ -9,6 +9,7 @@ part of 'login.services.dart';
 LoginParam _$LoginParamFromJson(Map<String, dynamic> json) => LoginParam(
       json['namauser'] as String?,
       json['password'] as String?,
+      json['version'] as String?,
       json['onmobile'] as String?,
     );
 
@@ -16,6 +17,7 @@ Map<String, dynamic> _$LoginParamToJson(LoginParam instance) =>
     <String, dynamic>{
       'namauser': instance.userNm,
       'password': instance.pwd,
+      'version': instance.version,
       'onmobile': instance.onmobile,
     };
 

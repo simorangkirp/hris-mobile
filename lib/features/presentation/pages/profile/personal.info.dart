@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:owl_hris/lib.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class MyPersonalInfoScreen extends StatefulWidget {
@@ -67,9 +68,11 @@ class _MyPersonalInfoScreenState extends State<MyPersonalInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Personal Information'),
+        title: Text(l10n.myPersonalInfo),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -106,18 +109,18 @@ class _MyPersonalInfoScreenState extends State<MyPersonalInfoScreen> {
           child: BlocBuilder<ProfileScreenBloc, ProfileScreenState>(
             builder: (context, state) {
               return PageView(
-                  scrollDirection: Axis.horizontal,
-                  controller: ctrl,
-                  children: <Widget>[
-                    detailInfo(profileModel),
-                    jobHistory(jobModel),
-                    familyInfo(familyModel),
-                    emCtcInfo(emCtcModel),
-                    educationInfo(eduModel),
-                    addressInfo(addressModel),
-                    payrollInfo(payrollModel),
-                  ],
-                );
+                scrollDirection: Axis.horizontal,
+                controller: ctrl,
+                children: <Widget>[
+                  detailInfo(context, profileModel),
+                  jobHistory(context, jobModel),
+                  familyInfo(context, familyModel),
+                  emCtcInfo(context, emCtcModel),
+                  educationInfo(context, eduModel),
+                  addressInfo(context, addressModel),
+                  payrollInfo(context, payrollModel),
+                ],
+              );
             },
           ),
         ),

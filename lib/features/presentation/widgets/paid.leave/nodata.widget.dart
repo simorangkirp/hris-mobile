@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../lib.dart';
 
-Widget noDataWidget() {
+Widget noDataWidget(BuildContext context) {
+  final l10n = AppLocalizations.of(context)!;
+
   return Padding(
     padding: EdgeInsets.only(bottom: 24.h),
     child: Container(
@@ -25,7 +28,7 @@ Widget noDataWidget() {
           ),
           SizedBox(height: 12.h),
           Text(
-            'No data found.',
+            l10n.nodataFound,
             style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.w500,

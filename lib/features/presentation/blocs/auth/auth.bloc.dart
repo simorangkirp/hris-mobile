@@ -28,6 +28,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void onLoginUser(SubmitLogin event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
     final dataState = await _loginUseCase.call(event.model);
+    String unm = event.model.unm;
+    String pw = event.model.pw;
     if (dataState is DataSuccess) {
       var data = LoginModel.fromJson(dataState.data);
       log('Data Auth: $data');
@@ -35,6 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       // await Future.delayed(const Duration(seconds: 3));
       log('Saving User Credential');
       sl<UserAuthDb>().saveUserLoginInfo(data);
+      sl<UserAuthDb>().saveAuthInfo(AuthModel(unm: unm, pw: pw));
       log('Saving Successfully');
       emit(UserAuthGranted());
     }
@@ -104,7 +107,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void checkToken(AuthCheckToken event, Emitter<AuthState> emit) async {
     final state = await _tokenUsecase(NoParams());
-    emit(AuthTokenChecked(state));
+    UserAuthDb auth = UserAuthDb();
+    var authInfo = await auth.getAuth();
+    emit(AuthTokenChecked(state, authInfo ?? AuthModel()));
   }
 
   void onLogOut(OnLogOut event, Emitter<AuthState> emit) async {

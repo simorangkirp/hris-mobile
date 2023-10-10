@@ -7,6 +7,7 @@ class LoginEntity extends Equatable {
   final String? expaccess;
   final String? accesstoken;
   final String? refreshtoken;
+  final String? activeVersion;
 
   const LoginEntity({
     this.userid,
@@ -15,6 +16,7 @@ class LoginEntity extends Equatable {
     this.expaccess,
     this.accesstoken,
     this.refreshtoken,
+    this.activeVersion,
   });
 
   @override
@@ -26,6 +28,7 @@ class LoginEntity extends Equatable {
       expaccess,
       accesstoken,
       refreshtoken,
+      activeVersion,
     ];
   }
 }

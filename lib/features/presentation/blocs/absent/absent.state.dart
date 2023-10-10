@@ -99,3 +99,7 @@ class UserAbsentSubmitted extends AbsentState {
 class AbsentUserInfoLoaded extends AbsentState {
   const AbsentUserInfoLoaded(ProfileModel data) : super(profileModel: data);
 }
+
+class AbsentPINChecked extends AbsentState {
+  const AbsentPINChecked(String data) : super(msg: data);
+}

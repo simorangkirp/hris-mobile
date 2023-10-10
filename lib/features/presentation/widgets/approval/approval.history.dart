@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../lib.dart';
 
-Widget approvalHistory(List<ListApprovalDataDetail>? mod) {
+Widget approvalHistory(
+    BuildContext context, List<ListApprovalDataDetail>? mod) {
+  final l10n = AppLocalizations.of(context)!;
   ScrollController ctrl = ScrollController();
 
   return NotificationListener<OverscrollIndicatorNotification>(
@@ -21,7 +24,7 @@ Widget approvalHistory(List<ListApprovalDataDetail>? mod) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Timeline',
+              l10n.timeline,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16.sp,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../lib.dart';
 
@@ -14,29 +15,31 @@ Widget buildScreen(
   Function(String mode) onTap,
   Function() logout,
 ) {
+  final l10n = AppLocalizations.of(context)!;
+
   bool isClockIn = false;
   bool isClockOut = false;
   bool isDone = false;
   String clockText = '';
   if (absenData?.absenIdIn != null && absenData?.absenIdOut == null) {
-    clockText = 'Clock out';
+    clockText = l10n.clockOut;
     isClockIn = false;
     isClockOut = true;
     isDone = false;
   } else if (absenData?.absenIdIn == null && absenData?.absenIdOut == null) {
-    clockText = 'Clock in';
+    clockText = l10n.clockIn;
     isClockIn = true;
     isClockOut = false;
     isDone = false;
   } else if (absenData?.absenIdIn != null && absenData?.absenIdOut != null) {
-    clockText = 'Good bye!';
+    clockText = l10n.goodbye;
     isClockIn = false;
     isClockOut = false;
     isDone = true;
   }
 
   return Scaffold(
-    appBar: buildCommAppBar(mod),
+    appBar: buildCommAppBar(context, mod),
     endDrawer: const AppNavigationDrawer(),
     body: SafeArea(
       child: Padding(
@@ -124,7 +127,7 @@ Widget buildScreen(
                       children: [
                         Expanded(
                           child: Text(
-                            "Date",
+                            l10n.date,
                             style: TextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w500,
@@ -149,7 +152,7 @@ Widget buildScreen(
                       children: [
                         Expanded(
                           child: Text(
-                            "Location assignment",
+                            l10n.assignmentLocation,
                             style: TextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w500,
@@ -201,7 +204,7 @@ Widget buildScreen(
                                     ),
                                   ),
                                   Text(
-                                    'clock in',
+                                    l10n.clockIn,
                                     style: TextStyle(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w600,
@@ -245,7 +248,7 @@ Widget buildScreen(
                                     ),
                                   ),
                                   Text(
-                                    'clock out',
+                                    l10n.clockOut,
                                     style: TextStyle(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w600,
@@ -300,7 +303,7 @@ Widget buildScreen(
                           ),
                           SizedBox(height: 8.h),
                           Text(
-                            'Paid leave',
+                            l10n.paidLeave,
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
@@ -340,7 +343,7 @@ Widget buildScreen(
                           ),
                           SizedBox(height: 8.h),
                           Text(
-                            'History',
+                            l10n.history,
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,

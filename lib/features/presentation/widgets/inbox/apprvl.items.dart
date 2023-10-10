@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import '../../../../../lib.dart';
 
@@ -26,11 +28,12 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
       }
     }
   }
+  final l10n = AppLocalizations.of(ctx)!;
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
-        'Approval',
+        l10n.approval,
         style: TextStyle(
           fontSize: 16.sp,
           fontWeight: FontWeight.w900,
@@ -80,7 +83,7 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                           SvgPicture.asset(ConstIconPath.clock),
                           SizedBox(height: 8.h),
                           Text(
-                            'Absent',
+                            l10n.absent,
                             style: TextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w500,
@@ -134,7 +137,7 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                           SvgPicture.asset(ConstIconPath.timeOff),
                           SizedBox(height: 8.h),
                           Text(
-                            'Paid leave',
+                            l10n.paidLeave,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 12.sp,
@@ -189,7 +192,7 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                           SvgPicture.asset(ConstIconPath.receipt),
                           SizedBox(height: 8.h),
                           Text(
-                            'Claim',
+                            l10n.claim,
                             style: TextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w500,

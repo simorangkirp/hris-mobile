@@ -99,6 +99,7 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
               controller: ctrl,
               children: <Widget>[
                 activeList(
+                  context,
                   dataAct,
                   (val) {
                     context.router
@@ -114,6 +115,7 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
                   },
                 ),
                 historyList(
+                  context,
                   dataHist,
                   (val) {
                     context.router

@@ -108,9 +108,16 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<LoginRouteArgs>(
+          orElse: () => LoginRouteArgs(param: pathParams.optString('param')));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: const LoginScreen()),
+        child: WrappedRoute(
+            child: LoginScreen(
+          param: args.param,
+          key: args.key,
+        )),
       );
     },
     MyPersonalInfoRoute.name: (routeData) {
@@ -477,16 +484,40 @@ class InputOTPRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [LoginScreen]
-class LoginRoute extends PageRouteInfo<void> {
-  const LoginRoute({List<PageRouteInfo>? children})
-      : super(
+class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
+  LoginRoute({
+    String? param,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           LoginRoute.name,
+          args: LoginRouteArgs(
+            param: param,
+            key: key,
+          ),
+          rawPathParams: {'param': param},
           initialChildren: children,
         );
 
   static const String name = 'LoginRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<LoginRouteArgs> page = PageInfo<LoginRouteArgs>(name);
+}
+
+class LoginRouteArgs {
+  const LoginRouteArgs({
+    this.param,
+    this.key,
+  });
+
+  final String? param;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'LoginRouteArgs{param: $param, key: $key}';
+  }
 }
 
 /// generated route for

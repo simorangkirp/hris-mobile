@@ -75,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: 72.h),
             buildProfileInfo(data),
             SizedBox(height: 12.h),
-            buildTimeSheet(aCtr),
+            buildTimeSheet(context,aCtr),
             SizedBox(height: 12.h),
             buildListMenu(ctx),
           ],

@@ -6,12 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../lib.dart';
 
 @RoutePage()
 class LoginScreen extends StatefulWidget implements AutoRouteWrapper {
-  const LoginScreen({super.key});
+  const LoginScreen({
+    @PathParam('param') this.param,
+    super.key,
+  });
+  final String? param;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -26,37 +31,66 @@ class LoginScreen extends StatefulWidget implements AutoRouteWrapper {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController user = TextEditingController();
+  TextEditingController pw = TextEditingController();
+  String dt = '';
+  String loc = '';
+  bool isBio = false;
+  AuthModel authmodel = AuthModel();
+
+  void dispatchLogin() {
+    BlocProvider.of<AuthBloc>(context).add(SubmitLogin(LoginParams(
+      unm: user.text,
+      pw: pw.text,
+    )));
+  }
+
+  //! Dispatch after successfully login
+  void dispatchProfileDetail() {
+    BlocProvider.of<AuthBloc>(context).add(AuthGetProfileDetail());
+  }
+
+  //! Dispatch after get profile details
+  void dispatchActPeriod() {
+    BlocProvider.of<AuthBloc>(context).add(AuthGetActPeriod(dt, loc));
+  }
+
+  void dispatchAuth() {
+    BlocProvider.of<AuthBloc>(context).add(AuthCheckToken());
+  }
+
+  void refreshData() {
+    setState(() {});
+  }
+
+  FutureOr onGoBack() {
+    refreshData();
+  }
+
+  Widget loadingAuth() {
+    return Center(child: Lottie.asset('assets/lotties/animation_loading.json'));
+  }
+
+  Widget authSuccess() {
+    return Center(child: Lottie.asset('assets/lotties/animation_success.json'));
+  }
+
+  void redirectScreen() {
+    context.router.popAndPush(const HomeRoute()).then((value) => onGoBack());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.param == 'bio') {
+      dispatchAuth();
+    }
+    // dispatchGetCameras();
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController user = TextEditingController();
-    TextEditingController pw = TextEditingController();
-    String dt = '';
-    String loc = '';
-
-    void dispatchLogin() {
-      BlocProvider.of<AuthBloc>(context).add(SubmitLogin(LoginParams(
-        unm: user.text,
-        pw: pw.text,
-      )));
-    }
-
-    //! Dispatch after successfully login
-    void dispatchProfileDetail() {
-      BlocProvider.of<AuthBloc>(context).add(AuthGetProfileDetail());
-    }
-
-    //! Dispatch after get profile details
-    void dispatchActPeriod() {
-      BlocProvider.of<AuthBloc>(context).add(AuthGetActPeriod(dt, loc));
-    }
-
-    void refreshData() {
-      setState(() {});
-    }
-
-    FutureOr onGoBack() {
-      refreshData();
-    }
+    final l10n = AppLocalizations.of(context)!;
 
     Widget loginCard() {
       return Padding(
@@ -82,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Welcome!',
+                              l10n.welcome,
                               style: TextStyle(
                                 fontSize: 24.sp,
                                 fontWeight: FontWeight.w700,
@@ -90,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             SizedBox(height: 4.h),
                             Text(
-                              'Login to your account',
+                              l10n.login_to_acc_msg,
                               style: TextStyle(
                                 fontSize: 14.sp,
                               ),
@@ -110,50 +144,83 @@ class _LoginScreenState extends State<LoginScreen> {
                         )
                       ],
                     ),
-                    SizedBox(height: 24.h),
-                    CustomFormTextField(
-                      hint: 'username',
-                      maxLine: 1,
-                      maxLength: 24,
-                      controller: user,
+                    Visibility(visible: !isBio, child: SizedBox(height: 24.h)),
+                    Visibility(
+                      visible: !isBio,
+                      child: CustomFormTextField(
+                        hint: 'username',
+                        maxLine: 1,
+                        maxLength: 24,
+                        controller: user,
+                      ),
                     ),
-                    SizedBox(height: 12.h),
-                    CustomFormTextField(
-                      hint: 'password',
-                      obscureText: true,
-                      maxLine: 1,
-                      maxLength: 12,
-                      controller: pw,
+                    Visibility(visible: !isBio, child: SizedBox(height: 12.h)),
+                    Visibility(
+                      visible: !isBio,
+                      child: CustomFormTextField(
+                        hint: 'password',
+                        obscureText: true,
+                        maxLine: 1,
+                        maxLength: 12,
+                        controller: pw,
+                      ),
                     ),
-                    SizedBox(height: 12.h),
-                    Text(
-                      'Forgot password?',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
+                    Visibility(visible: !isBio, child: SizedBox(height: 12.h)),
+                    Visibility(
+                      visible: !isBio,
+                      child: Text(
+                        l10n.forgot_msg,
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                     SizedBox(height: 48.h),
-                    GestureDetector(
-                      onTap: () {
-                        if (user.text.isEmpty || pw.text.isEmpty) {
-                          ScaffoldMessenger.of(context)
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(failSnackBar(
-                              message: user.text.isEmpty
-                                  ? 'Username should not be empty'
-                                  : 'Password should not be empty',
-                            ));
-                        } else {
-                          dispatchLogin();
-                        }
-                      },
-                      child: Material(
-                        elevation: 4,
-                        color: appBtnBlue,
-                        borderRadius: BorderRadius.circular(12),
-                        child: const ButtonConfirm(
-                          text: 'Login',
+                    Visibility(
+                      visible: !isBio,
+                      child: GestureDetector(
+                        onTap: () {
+                          if (user.text.isEmpty || pw.text.isEmpty) {
+                            ScaffoldMessenger.of(context)
+                              ..hideCurrentSnackBar()
+                              ..showSnackBar(failSnackBar(
+                                message: user.text.isEmpty
+                                    ? l10n.usern_mt_msg
+                                    : l10n.pwd_mt_msg,
+                              ));
+                          } else {
+                            dispatchLogin();
+                          }
+                        },
+                        child: Material(
+                          elevation: 4,
+                          color: appBtnBlue,
+                          borderRadius: BorderRadius.circular(12),
+                          child: const ButtonConfirm(
+                            text: 'Login',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: isBio,
+                      child: GestureDetector(
+                        onTap: () async {
+                          final isAuth = await LocalAuthAPI.authenticate();
+                          if (isAuth) {
+                            user.text = authmodel.unm ?? "";
+                            pw.text = authmodel.pw ?? "";
+                            dispatchLogin();
+                          }
+                        },
+                        child: Material(
+                          elevation: 4,
+                          color: appBtnBlue,
+                          borderRadius: BorderRadius.circular(12),
+                          child: const ButtonConfirm(
+                            text: 'Login',
+                          ),
                         ),
                       ),
                     ),
@@ -169,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Kebijakan privasi',
+                      l10n.privacy_policy,
                       style: TextStyle(
                         color: appDisabledTextField,
                         fontSize: 12.sp,
@@ -186,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      'Ketentuan penggunaan',
+                      l10n.term_use,
                       style: TextStyle(
                         color: appDisabledTextField,
                         fontSize: 12.sp,
@@ -196,7 +263,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Tentang HRIS OWL',
+                  l10n.about_owl_ess,
                   style: TextStyle(
                     color: appDisabledTextField,
                     fontSize: 12.sp,
@@ -210,45 +277,21 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     }
 
-    Widget loadingAuth() {
-      return Center(
-          child: Lottie.asset('assets/lotties/animation_loading.json'));
-    }
-
-    // Widget authError() {
-    //   return Center(
-    //       child: Lottie.asset('assets/lotties/animation_failed.json'));
-    // }
-
-    Widget authSuccess() {
-      return Center(
-          child: Lottie.asset('assets/lotties/animation_success.json'));
-    }
-
-    void redirectScreen() {
-      context.router.popAndPush(const HomeRoute()).then((value) => onGoBack());
-    }
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: BlocConsumer<AuthBloc, AuthState>(
-          builder: (context, state) {
-            if (state is AuthLoading) {
-              return loadingAuth();
-            } else if (state is AuthActPeriodLoaded) {
-              return authSuccess();
-            } else if (state is AuthError) {
-              return loginCard();
-            } else {
-              return loginCard();
-            }
-          },
+        child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
-            // if (state is ProccessDone) {
-            //   // Future.delayed(const Duration(seconds: 3))
-            //   //     .then((_) => redirectScreen());
-            // }
+            if (state is AuthTokenChecked) {
+              if (state.token == false &&
+                  state.authModel?.unm != null &&
+                  state.authModel?.pw != null) {
+                isBio = true;
+                authmodel = state.authModel!;
+              } else {
+                isBio = false;
+              }
+            }
             if (state is UserAuthGranted) {
               dispatchProfileDetail();
             }
@@ -278,17 +321,60 @@ class _LoginScreenState extends State<LoginScreen> {
                 ));
             }
           },
+          child: BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              if (state is AuthLoading) {
+                return loadingAuth();
+              } else if (state is AuthActPeriodLoaded) {
+                return authSuccess();
+              } else if (state is AuthError) {
+                return loginCard();
+              } else {
+                return loginCard();
+              }
+            },
+          ),
         ),
-        //  BlocBuilder<AuthBloc, AuthState>(
+        // child: BlocConsumer<AuthBloc, AuthState>(
         //   builder: (context, state) {
         //     if (state is AuthLoading) {
         //       return loadingAuth();
-        //     } else if (state is ProccessDone) {
+        //     } else if (state is AuthActPeriodLoaded) {
         //       return authSuccess();
         //     } else if (state is AuthError) {
-        //       return authError();
+        //       return loginCard();
         //     } else {
         //       return loginCard();
+        //     }
+        //   },
+        //   listener: (context, state) {
+        //     if (state is UserAuthGranted) {
+        //       dispatchProfileDetail();
+        //     }
+        //     if (state is AuthDetailProfileLoaded) {
+        //       if (state.profileModel?.lokasitugas != null) {
+        //         loc = state.profileModel!.lokasitugas!;
+        //       }
+        //       dt = DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
+        //       dispatchActPeriod();
+        //     }
+        //     if (state is AuthActPeriodLoaded) {
+        //       Future.delayed(const Duration(seconds: 2))
+        //           .then((_) => redirectScreen());
+        //     }
+        //     if (state is AuthError) {
+        //       ScaffoldMessenger.of(context)
+        //         ..hideCurrentSnackBar()
+        //         ..showSnackBar(failSnackBar(
+        //           message: state.error!.messages!.error,
+        //         ));
+        //     }
+        //     if (state is AuthStrMsg) {
+        //       ScaffoldMessenger.of(context)
+        //         ..hideCurrentSnackBar()
+        //         ..showSnackBar(failSnackBar(
+        //           message: state.msg,
+        //         ));
         //     }
         //   },
         // ),

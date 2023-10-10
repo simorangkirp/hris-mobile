@@ -59,11 +59,12 @@ class _PaidLeaveDetailScreenState extends State<PaidLeaveDetailScreen> {
           controller: ctrl,
           children: [
             paidLeaveDetail(
+              context,
               '',
               data,
               (comment, cd) {},
             ),
-            paidleaveAppHistory(listData),
+            paidleaveAppHistory(context, listData),
           ],
         ),
       ),

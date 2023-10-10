@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import '../../../../lib.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class AbsentHistoryScreen extends StatefulWidget implements AutoRouteWrapper {
@@ -27,8 +28,6 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
     BlocProvider.of<AbsentBloc>(context).add(GetAbsentPeriod(dtParam));
   }
 
-  ScrollController ctrl = ScrollController();
-  String dt = "current period";
   String sltdDt = '';
   String dtParam = '';
   bool startAnimation = false;
@@ -69,11 +68,14 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    ScrollController ctrl = ScrollController();
+    String dt = l10n.currPeriod;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Absent list',
+          l10n.absentList,
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.w400,

@@ -13,6 +13,29 @@ class UserAuthDb {
     await prefs.setString('LoginInfo', jsonBody);
   }
 
+  Future saveAuthInfo(AuthModel model) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map dataMap = model.toMap();
+    String jsonBody = json.encode(dataMap);
+    await prefs.setString('AuthInfo', jsonBody);
+  }
+
+  Future<AuthModel?> getAuth() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    AuthModel? log;
+    try {
+      String? jsonBody = prefs.getString('AuthInfo');
+      if (jsonBody != null) {
+        final map = json.decode(jsonBody) as Map<String, dynamic>;
+        log = AuthModel.fromMap(map);
+      }
+    } catch (e) {
+      throw Exception('Session is Expired');
+    }
+
+    return log;
+  }
+
   Future<LoginModel?> getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     LoginModel? log;

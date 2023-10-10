@@ -14,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void dispatchGetProfileList() {
+  void dispatchAuth() {
     BlocProvider.of<AuthBloc>(context).add(AuthCheckToken());
   }
 
@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     precacheImage(const AssetImage('assets/image/owl.logo.png'), context);
-    dispatchGetProfileList();
+    dispatchAuth();
   }
 
   @override
@@ -41,13 +41,23 @@ class _SplashScreenState extends State<SplashScreen> {
       listener: (context, state) {
         if (state is AuthTokenChecked) {
           if (state.token != null) {
-            Future.delayed(const Duration(milliseconds: 1200)).then((value) {
-              if (state.token!) {
-                context.router.replace(const HomeRoute());
-              } else {
-                context.router.replace(const LoginRoute());
+            if (state.token!) {
+              Future.delayed(const Duration(milliseconds: 1200))
+                  .then((value) => context.router.replace(const HomeRoute()));
+            } else {
+              if (state.authModel != null) {
+                Future.delayed(const Duration(milliseconds: 1200)).then(
+                    (value) =>
+                        context.router.replace(LoginRoute(param: 'bio')));
               }
-            });
+            }
+            // Future.delayed(const Duration(milliseconds: 1200)).then((value) {
+            //   if (state.token!) {
+            //     context.router.replace(const HomeRoute());
+            //   } else {
+            //     context.router.replace(const LoginRoute());
+            //   }
+            // });
           }
         }
       },

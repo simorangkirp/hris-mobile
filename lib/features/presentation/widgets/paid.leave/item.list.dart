@@ -5,8 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../lib.dart';
 
 // PaidLeaveListData data
-Widget buildListItems(
-    List<PaidLeaveListData>? listdata, Function(String id) onTapItem) {
+Widget buildListItems(BuildContext context, List<PaidLeaveListData>? listdata,
+    Function(String id) onTapItem) {
   ScrollController ctrl = ScrollController();
   return listdata == null
       ? const SizedBox()
@@ -121,5 +121,5 @@ Widget buildListItems(
                 ),
               ),
             )
-          : noDataWidget();
+          : noDataWidget(context);
 }

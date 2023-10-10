@@ -29,10 +29,12 @@ class LoginParam {
   String? userNm;
   @JsonKey(name: 'password')
   String? pwd;
+  @JsonKey(name: 'version')
+  String? version;
   @JsonKey(name: 'onmobile')
   String? onmobile;
 
-  LoginParam(this.userNm, this.pwd, this.onmobile);
+  LoginParam(this.userNm, this.pwd, this.version, this.onmobile);
   factory LoginParam.fromJson(Map<String, dynamic> json) =>
       _$LoginParamFromJson(json);
   Map<String, dynamic> toJson() => _$LoginParamToJson(this);

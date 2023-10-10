@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../lib.dart';
 
-Widget buildPlafond(List<PaidLeavePlafond>? list) {
+Widget buildPlafond(BuildContext context, List<PaidLeavePlafond>? list) {
+  final l10n = AppLocalizations.of(context)!;
+
   return list != null && list.isNotEmpty
       ? ListView.builder(
           itemCount: list.length,
@@ -32,7 +35,7 @@ Widget buildPlafond(List<PaidLeavePlafond>? list) {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Period',
+                                    l10n.period,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12.sp,
@@ -56,7 +59,7 @@ Widget buildPlafond(List<PaidLeavePlafond>? list) {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Annual leave',
+                                    l10n.annualLeave,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12.sp,
@@ -80,7 +83,7 @@ Widget buildPlafond(List<PaidLeavePlafond>? list) {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Available',
+                                    l10n.available,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12.sp,
@@ -104,7 +107,7 @@ Widget buildPlafond(List<PaidLeavePlafond>? list) {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Taken',
+                                    l10n.taken,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12.sp,
@@ -141,7 +144,7 @@ Widget buildPlafond(List<PaidLeavePlafond>? list) {
             ),
             padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
             child: Text(
-              "You're not eligible to create a new request",
+              l10n.not_elig_msg,
               style: TextStyle(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,

@@ -4,11 +4,12 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../lib.dart';
 
-Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
-    Function(String comment, String cd) onAction) {
+Widget paidLeaveDetail(BuildContext context, String mode,
+    PaidLeaveDataDetail? mod, Function(String comment, String cd) onAction) {
   TextEditingController tCtrl = TextEditingController();
   ScrollController ctrl = ScrollController();
   // ScrollController sCtrl = ScrollController();
@@ -21,6 +22,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
       }
     }
   }
+  final l10n = AppLocalizations.of(context)!;
   return Column(
     children: [
       Expanded(
@@ -37,7 +39,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Details',
+                    l10n.details,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16.sp,
@@ -53,7 +55,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'No transaksi',
+                                l10n.txnNo,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12.sp,
@@ -77,7 +79,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Nama',
+                                l10n.name,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12.sp,
@@ -107,7 +109,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Tanggal pengajuan',
+                                l10n.applyDt,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12.sp,
@@ -131,7 +133,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Jenis ijin',
+                                l10n.type,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12.sp,
@@ -161,7 +163,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Tanggal dari',
+                                l10n.dtFr,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12.sp,
@@ -185,7 +187,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Tanggal sampai',
+                                l10n.dtTo,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12.sp,
@@ -215,7 +217,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Keterangan',
+                                l10n.desc,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12.sp,
@@ -239,7 +241,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Jumlah hari',
+                                l10n.totDays,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12.sp,
@@ -269,7 +271,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Status batal',
+                                l10n.cancelSts,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12.sp,
@@ -293,7 +295,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Alasan batal',
+                                l10n.cancelDesc,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12.sp,
@@ -323,7 +325,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Tanggal dari real',
+                                l10n.dtFrRl,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12.sp,
@@ -347,7 +349,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Tanggal sampai real',
+                                l10n.dtToRl,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12.sp,
@@ -371,7 +373,7 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                   Visibility(
                     visible: photo != null,
                     child: Text(
-                      'Documents',
+                      l10n.doc,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16.sp,
@@ -461,8 +463,8 @@ Widget paidLeaveDetail(String mode, PaidLeaveDataDetail? mod,
                     child: TextFormField(
                       controller: tCtrl,
                       autocorrect: false,
-                      decoration: const InputDecoration(
-                        hintText: "Tuliskan komentar...",
+                      decoration: InputDecoration(
+                        hintText: l10n.write_comm,
                       ),
                       minLines: 1,
                       maxLines: 3,

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../config/config.dart';
 import '../../../../../core/core.dart';
 
-Future<void> modalBtnPIN(
-    BuildContext context, List<TextEditingController> listCtrl) async {
+Future<void> modalBtnPIN(BuildContext context,
+    List<TextEditingController> listCtrl, Function() onSubmitPin) async {
+  final l10n = AppLocalizations.of(context)!;
   return showDialog(
     context: context,
     builder: (context) {
@@ -29,7 +31,7 @@ Future<void> modalBtnPIN(
             ),
             SizedBox(height: 8.h),
             Text(
-              'PIN Code Verification',
+              l10n.pin_cd_verify,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16.sp,
@@ -86,20 +88,26 @@ Future<void> modalBtnPIN(
               }),
             ),
             SizedBox(height: 16.h),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: appBtnBlue,
-              ),
-              width: double.maxFinite,
-              height: 42.h,
-              child: Center(
-                child: Text(
-                  'VERIFY',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16.sp,
-                    color: appBgWhite,
+            InkWell(
+              onTap: () {
+                 context.router.pop();
+                 onSubmitPin();
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: appBtnBlue,
+                ),
+                width: double.maxFinite,
+                height: 42.h,
+                child: Center(
+                  child: Text(
+                    l10n.verifyBtn,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16.sp,
+                      color: appBgWhite,
+                    ),
                   ),
                 ),
               ),

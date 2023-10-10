@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../lib.dart';
 
-Widget activeList(
-    List<ApprovalDetail>? detail, Function(ApprovalDetail) ontapItems) {
+Widget activeList(BuildContext context, List<ApprovalDetail>? detail,
+    Function(ApprovalDetail) ontapItems) {
+  final l10n = AppLocalizations.of(context)!;
   ScrollController ctrl = ScrollController();
   return NotificationListener<OverscrollIndicatorNotification>(
     onNotification: (OverscrollIndicatorNotification overScrl) {
@@ -21,7 +23,7 @@ Widget activeList(
           children: [
             SizedBox(height: 4.h),
             Text(
-              'Active',
+              l10n.active,
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 16.sp,

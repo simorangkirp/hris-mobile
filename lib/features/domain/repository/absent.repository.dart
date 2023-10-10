@@ -22,6 +22,8 @@ abstract class AbsentRepository {
   // uid, tanggal, absenid
   Future<DataState> getAbsentDetails();
 
+  Future<DataState> checkPin(String params);
+
   //! Get List of Camera
   Future<List<CameraDescription>> getListCamera();
 }

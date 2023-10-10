@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../lib.dart';
 
@@ -59,6 +60,7 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return BlocListener<ApprovalScrnBloc, ApprovalState>(
       listener: (context, state) {
         if (state is ApprovalDataDetailLoaded) {
@@ -103,6 +105,7 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                   controller: ctrl,
                   children: <Widget>[
                     approvalDetail(
+                      context,
                       widget.mode,
                       detail,
                       listDoc,
@@ -125,7 +128,7 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Confirmation',
+                                      l10n.confirm_msg,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 16.sp,
@@ -133,7 +136,7 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                                       ),
                                     ),
                                     Text(
-                                      'Are you sure want to proceed?',
+                                      l10n.proceed_msg,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 14.sp,
@@ -152,7 +155,7 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                                                 context.router.pop();
                                               },
                                               child: Text(
-                                                'Cancel',
+                                                l10n.cancelBtn,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 12.sp,
@@ -170,7 +173,7 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                                                     comment);
                                               },
                                               child: Text(
-                                                'Confirm',
+                                                l10n.confirmBtn,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 12.sp,
@@ -190,7 +193,7 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                         );
                       },
                     ),
-                    approvalHistory(listData),
+                    approvalHistory(context, listData),
                   ],
                 ),
               ),
@@ -229,7 +232,7 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                     Lottie.asset(ConstantLottie.submitLoading),
                     SizedBox(height: 12.h),
                     Text(
-                      'Please wait while we processing your request...',
+                      l10n.process_req_msg,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/lib.dart';
@@ -34,6 +34,9 @@ Future<void> main() async {
         BlocProvider(
           create: (context) => sl<PaidLeaveBloc>(),
         ),
+        BlocProvider(
+          create: (context) => sl<LanguageBloc>(),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -46,37 +49,37 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appRouter = AppRouter();
-    return ScreenUtilInit(
-      builder: (context, child) => Portal(
-        child: MaterialApp.router(
-          builder: (context, child) {
-            final mediaQueryData = MediaQuery.of(context);
-            final scale = mediaQueryData.textScaleFactor.clamp(1.0, 1.0);
-            return MediaQuery(
-                data: MediaQuery.of(context)
-                    .copyWith(textScaleFactor: scale, boldText: false),
-                child: child!);
-          },
-          routerConfig: appRouter.config(),
-          // routerDelegate: appRouter.delegate(),
-          // routeInformationParser: appRouter.defaultRouteParser(),
-          debugShowCheckedModeBanner: false,
-          // title: 'Flutter Demo',
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: L10n.all,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: appBgWhite),
-            useMaterial3: true,
+    return BlocBuilder<LanguageBloc, LanguageState>(
+      builder: (context, state) {
+        return ScreenUtilInit(
+          builder: (context, child) => Portal(
+            child: MaterialApp.router(
+              builder: (context, child) {
+                final mediaQueryData = MediaQuery.of(context);
+                final scale = mediaQueryData.textScaleFactor.clamp(1.0, 1.0);
+                return MediaQuery(
+                    data: MediaQuery.of(context)
+                        .copyWith(textScaleFactor: scale, boldText: false),
+                    child: child!);
+              },
+              routerConfig: appRouter.config(),
+              // routerDelegate: appRouter.delegate(),
+              // routeInformationParser: appRouter.defaultRouteParser(),
+              debugShowCheckedModeBanner: false,
+              // title: 'Flutter Demo',
+              locale: state.selectedLanguage.value,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: appBgWhite),
+                useMaterial3: true,
+              ),
+              // home: HomeScreen(),
+            ),
           ),
-          // home: HomeScreen(),
-        ),
-      ),
-      designSize: const Size(360, 640),
+          designSize: const Size(360, 640),
+        );
+      },
     );
   }
 }

@@ -31,6 +31,7 @@ Future<void> initializeDependencies() async {
 
   // Usecase
   sl.registerSingleton<LoginUserUseCase>(LoginUserUseCase(sl()));
+  sl.registerSingleton<AbsentCheckPINUseCase>(AbsentCheckPINUseCase(sl()));
   sl.registerSingleton<AuthCheckTokenExp>(AuthCheckTokenExp(sl()));
   sl.registerSingleton<NotifScreenGetDataList>(NotifScreenGetDataList(sl()));
   sl.registerSingleton<NotifScreenGetApprovalList>(
@@ -91,9 +92,10 @@ Future<void> initializeDependencies() async {
   // BLoCs
   sl.registerFactory<AuthBloc>(
       () => AuthBloc(sl(), sl(), sl(), sl())..add(InitAuth()));
-  sl.registerFactory<AbsentBloc>(
-      () => AbsentBloc(sl(), sl(), sl(), sl(), sl(), sl())..add(InitAbsent()));
+  sl.registerFactory<AbsentBloc>(() =>
+      AbsentBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl())..add(InitAbsent()));
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl())..add(InitHome()));
+  sl.registerFactory<LanguageBloc>(() => LanguageBloc()..add(GetLanguage()));
   sl.registerFactory<ProfileScreenBloc>(() =>
       ProfileScreenBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl())
         ..add(InitProfileScreen()));

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../lib.dart';
 
-Widget historyList(
-    List<ApprovalDetail>? detail, Function(ApprovalDetail) ontapItems) {
+Widget historyList(BuildContext context, List<ApprovalDetail>? detail,
+    Function(ApprovalDetail) ontapItems) {
   ScrollController ctrl = ScrollController();
+  final l10n = AppLocalizations.of(context)!;
+
   return NotificationListener<OverscrollIndicatorNotification>(
     onNotification: (OverscrollIndicatorNotification overScrl) {
       overScrl.disallowIndicator();
@@ -21,7 +24,7 @@ Widget historyList(
           children: [
             SizedBox(height: 4.h),
             Text(
-              'History',
+              l10n.history,
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 16.sp,

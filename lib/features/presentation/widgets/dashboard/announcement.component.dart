@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/lib.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePengumumanWidget extends StatefulWidget {
   // final Function(BuildContext) showSnBar;
@@ -19,6 +19,7 @@ class HomePengumumanWidget extends StatefulWidget {
 class _HomePengumumanWidgetState extends State<HomePengumumanWidget> {
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       children: [
         Row(
@@ -26,7 +27,7 @@ class _HomePengumumanWidgetState extends State<HomePengumumanWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Announcement',
+              l10n.announcement,
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w900,
@@ -35,7 +36,7 @@ class _HomePengumumanWidgetState extends State<HomePengumumanWidget> {
             GestureDetector(
               // onTap: () => widget.showSnBar(context),
               child: Text(
-                'See all',
+                l10n.seeAll,
                 style: TextStyle(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w500,

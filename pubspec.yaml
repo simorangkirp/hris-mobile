@@ -20,6 +20,9 @@ dependencies:
   ## Image picker
   image_picker: ^0.8.7
 
+  ## Versioning
+  package_info_plus: ^4.1.0
+
   ## Portal
   flutter_portal: ^1.1.3
 
