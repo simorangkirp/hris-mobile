@@ -1123,10 +1123,15 @@ buildCommAppBar(BuildContext context, EntityProfile? mod) {
   );
 }
 
-onLogOutDialog(BuildContext context, Function() logoutFunc) {
+onLogOutDialog(
+  BuildContext context,
+  Function() logoutFunc,
+  Function() onCancel,
+) {
+  final l10n = AppLocalizations.of(context)!;
   return showDialog(
     context: context,
-    builder: (context) {
+    builder: (ctx) {
       return Dialog(
         insetPadding: EdgeInsets.symmetric(
           horizontal: (0.1.sw),
@@ -1142,7 +1147,7 @@ onLogOutDialog(BuildContext context, Function() logoutFunc) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Sign out!',
+                l10n.signOut,
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16.sp,
@@ -1150,7 +1155,7 @@ onLogOutDialog(BuildContext context, Function() logoutFunc) {
                 ),
               ),
               Text(
-                'Are you sure want to proceed?',
+                l10n.proceed_msg,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 14.sp,
@@ -1165,10 +1170,11 @@ onLogOutDialog(BuildContext context, Function() logoutFunc) {
                     children: [
                       InkWell(
                         onTap: () {
-                          context.router.pop();
+                          context.router.pop(ctx);
+                          onCancel();
                         },
                         child: Text(
-                          'Cancel',
+                          l10n.cancelBtn,
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 12.sp,
@@ -1179,11 +1185,11 @@ onLogOutDialog(BuildContext context, Function() logoutFunc) {
                       SizedBox(width: 12.w),
                       InkWell(
                         onTap: () {
-                          context.router.pop();
+                          context.router.pop(ctx);
                           logoutFunc();
                         },
                         child: Text(
-                          'Confirm',
+                          l10n.confirmBtn,
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 12.sp,

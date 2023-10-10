@@ -61,3 +61,5 @@ class AuthActPeriodLoaded extends AuthState {
 class OnLogOutSuccess extends AuthState {}
 
 class ShowLogoutDialog extends AuthState {}
+
+class AuthCancelSuccess extends AuthState {}

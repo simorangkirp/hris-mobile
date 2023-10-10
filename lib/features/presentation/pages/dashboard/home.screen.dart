@@ -32,6 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<AuthBloc>(context).add(OnLogOut());
   }
 
+  void dispatchCancel() {
+    BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
+  }
+
   @override
   void initState() {
     super.initState();
@@ -95,15 +99,19 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
         BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
+          listener: (authContext, state) {
             if (state is ShowLogoutDialog) {
               onLogOutDialog(
-                context,
+                authContext,
                 () => dispatchLogout(),
+                () => dispatchCancel(),
               );
             }
             if (state is OnLogOutSuccess) {
-              context.router.replaceAll([const SplashRoute()]);
+              authContext.router.replaceAll([const SplashRoute()]);
+            }
+            if (state is AuthCancelSuccess) {
+              setState(() {});
             }
           },
         ),

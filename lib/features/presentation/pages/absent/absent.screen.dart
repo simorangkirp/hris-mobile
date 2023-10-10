@@ -42,6 +42,10 @@ class _AbsentScreenState extends State<AbsentScreen> {
     BlocProvider.of<AuthBloc>(context).add(OnLogOut());
   }
 
+  void dispatchCancel() {
+    BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
+  }
+
   FutureOr onGoBack() {
     refreshData();
   }
@@ -95,7 +99,11 @@ class _AbsentScreenState extends State<AbsentScreen> {
               onLogOutDialog(
                 context,
                 () => dispatchLogout(),
+                () => dispatchCancel(),
               );
+            }
+            if (state is AuthCancelSuccess) {
+              setState(() {});
             }
             if (state is OnLogOutSuccess) {
               context.router.replaceAll([const SplashRoute()]);
@@ -117,7 +125,11 @@ class _AbsentScreenState extends State<AbsentScreen> {
                     period: period,
                   ))
                   .then((value) => onGoBack()),
-              () => onLogOutDialog(context, () => dispatchLogout()),
+              () => onLogOutDialog(
+                context,
+                () => dispatchLogout(),
+                () => dispatchCancel(),
+              ),
             );
           } else {
             return const Scaffold(

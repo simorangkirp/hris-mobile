@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void redirectScreen() {
-    context.router.popAndPush(const HomeRoute()).then((value) => onGoBack());
+    context.router.replaceAll([const HomeRoute()]);
   }
 
   @override

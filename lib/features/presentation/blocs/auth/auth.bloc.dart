@@ -23,6 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthCheckToken>(checkToken);
     on<OnLogOut>(onLogOut);
     on<DisplayLogoutDialog>(onDisplayDialog);
+    on<AuthCancelLogout>(onCancel);
   }
 
   void onLoginUser(SubmitLogin event, Emitter<AuthState> emit) async {
@@ -119,5 +120,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void onDisplayDialog(DisplayLogoutDialog event, Emitter<AuthState> emit) {
     emit(ShowLogoutDialog());
+  }
+
+  void onCancel(AuthCancelLogout event, Emitter<AuthState> emit) {
+    emit(AuthCancelSuccess());
   }
 }

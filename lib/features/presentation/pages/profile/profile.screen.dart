@@ -47,6 +47,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     BlocProvider.of<AuthBloc>(context).add(OnLogOut());
   }
 
+  void dispatchCancel() {
+    BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
+  }
+
   @override
   void initState() {
     absCtr = 0;
@@ -75,7 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: 72.h),
             buildProfileInfo(data),
             SizedBox(height: 12.h),
-            buildTimeSheet(context,aCtr),
+            buildTimeSheet(context, aCtr),
             SizedBox(height: 12.h),
             buildListMenu(ctx),
           ],
@@ -131,15 +135,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
         ),
         BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
+          listener: (logOutContext, state) {
             if (state is ShowLogoutDialog) {
               onLogOutDialog(
-                context,
+                logOutContext,
                 () => dispatchLogout(),
+                () => dispatchCancel(),
               );
             }
             if (state is OnLogOutSuccess) {
-              context.router.replaceAll([const SplashRoute()]);
+              logOutContext.router.replaceAll([const SplashRoute()]);
+            }
+            if (state is AuthCancelSuccess) {
+              setState(() {});
             }
           },
         ),

@@ -33,10 +33,29 @@ class _SettingScreenState extends State<SettingScreen> {
 
   bool expandLang = false;
   bool isDarkmode = false;
-  String ddVal = 'Bahasa Indonesia';
+  String ddVal = '';
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    Locale myLocale = Localizations.localeOf(context);
+    Locale? stdLoc;
+    if (myLocale.toString() == 'en') {
+      stdLoc = const Locale('en', 'US');
+    } else {
+      stdLoc = const Locale('id', 'ID');
+    }
+
+    Language? stdLang;
+    for (var el in Language.values) {
+      if (stdLoc == el.value) {
+        stdLang = el;
+      } else {
+        stdLang = Language.english;
+      }
+    }
+
+    ddVal = stdLang?.text ?? "-";
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

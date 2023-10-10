@@ -24,3 +24,5 @@ class AuthGetActPeriod extends AuthEvent {
 class OnLogOut extends AuthEvent {}
 
 class DisplayLogoutDialog extends AuthEvent {}
+
+class AuthCancelLogout extends AuthEvent {}

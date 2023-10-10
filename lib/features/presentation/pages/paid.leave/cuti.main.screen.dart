@@ -52,6 +52,10 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
     BlocProvider.of<AuthBloc>(context).add(OnLogOut());
   }
 
+  void dispatchCancel() {
+    BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
+  }
+
   void displayMonthPicker(BuildContext ctx) {
     showDialog(
       context: ctx,
@@ -120,10 +124,14 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
               onLogOutDialog(
                 context,
                 () => dispatchLogout(),
+                () => dispatchCancel(),
               );
             }
             if (state is OnLogOutSuccess) {
               context.router.replaceAll([const SplashRoute()]);
+            }
+            if (state is AuthCancelSuccess) {
+              setState(() {});
             }
           },
         ),
