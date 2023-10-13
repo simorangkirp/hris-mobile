@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
 abstract class SettingsRepository {
-  Future<Locale> changeLanguage();
+  Future<ThemeData> changeThemeMode(String param);
 }

@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart'
+    show TargetPlatform, defaultTargetPlatform;
 
 import '../../../lib.dart';
 
@@ -156,6 +159,24 @@ class LoginRepositoryImpl implements UserAuthRepository {
       }
     } else {
       // throw UnauthorisedException('Session is Expired');
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> checkDeviceInfo() async {
+    final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    bool? isEmulator;
+
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      final androidInfo = await deviceInfo.androidInfo;
+      isEmulator = !androidInfo.isPhysicalDevice;
+      return isEmulator;
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      final iosInfo = await deviceInfo.iosInfo;
+      isEmulator = !iosInfo.isPhysicalDevice;
+      return isEmulator;
+    } else {
       return false;
     }
   }

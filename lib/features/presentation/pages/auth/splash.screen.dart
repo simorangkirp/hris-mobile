@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/foundation.dart'
+    show TargetPlatform, defaultTargetPlatform;
 
 import '../../../../lib.dart';
 
@@ -18,6 +21,18 @@ class _SplashScreenState extends State<SplashScreen> {
     BlocProvider.of<AuthBloc>(context).add(AuthCheckToken());
   }
 
+  void dispatchDeviceInfo() {
+    BlocProvider.of<AuthBloc>(context).add(AuthCheckDeviceInfo());
+  }
+
+  displayScfldMsg(BuildContext context, String msg) {
+    return ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(failSnackBar(
+        message: msg,
+      ));
+  }
+
   Future<void> precacheImage(
       ImageProvider<Object> provider, BuildContext context,
       {Size? size, ImageErrorListener? onError}) async {}
@@ -32,13 +47,27 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     precacheImage(const AssetImage('assets/image/owl.logo.png'), context);
-    dispatchAuth();
+    dispatchDeviceInfo();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
+        if (state is AuthDeviceChecked) {
+          if (state.isEmu!) {
+            if (defaultTargetPlatform == TargetPlatform.android) {
+              // SystemNavigator.pop();
+              displayScfldMsg(context, "you're on a simulator device!");
+              dispatchAuth();
+            }
+            if (defaultTargetPlatform == TargetPlatform.iOS) {
+              displayScfldMsg(context, "you're on a simulator device!");
+            }
+          } else {
+            dispatchAuth();
+          }
+        }
         if (state is AuthTokenChecked) {
           if (state.token != null) {
             if (state.token!) {

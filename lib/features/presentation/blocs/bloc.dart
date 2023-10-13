@@ -5,5 +5,6 @@ export 'dashboard/dashboard.dart';
 export 'inbox/inbox.dart';
 export 'paid.leave/paid.leave.dart';
 export 'profile/profile.dart';
-export 'setting/setting.dart';
 export 'language/language.dart';
+export 'theme/theme.dart';
+export 'setting/setting.dart';

@@ -3,7 +3,6 @@
     "@language":{
         "description": "Pilih bahasa"
     },
-
     "helloWorld": "Hello World!",
     "@helloWorld":{
         "description": "A programmer greetings!"
@@ -41,6 +40,8 @@
     "absent":"Absen",
     "profileInfo":"Informasi Profil",
 
+    "usern_mt_msg":"Username tidak boleh kosong?",
+    "pwd_mt_msg":"Sandi tidak boleh kosong",
     "login_to_acc_msg":"Masuk ke akun anda",
     "process_req_msg":"Mohon tunggu selama proses berjalan...",
     "loc_disable_msg":"Aktifkan servis lokasi.",
@@ -106,9 +107,6 @@
     "taken":"Diambil",
     "category":"Kategori",
     "catDetail":"Perincian Kategori",
-    "@catDetail":{
-        "description": "Perincian kategori tidak boleh kosong!"
-    },
     "retDt":"Tanggal Kembali",
     "@retDt":{
         "description": "Tanggal kembali tidak boleh kosong!"

@@ -3,7 +3,6 @@
     "@language":{
         "description": "Select language"
     },
-
     "helloWorld": "Hello World!",
     "@helloWorld":{
         "description": "A programmer greetings!"
@@ -23,9 +22,6 @@
 
     "pin_enable_msg":"Enable PIN authentication",
     "reset_pin":"Reset PIN code",
-
-
-
 
     "welcomeBack":"Welcome Back!",
     "nodataFound":"No data found!",

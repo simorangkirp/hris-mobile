@@ -17,4 +17,14 @@ class ChangeLanguage extends LanguageEvent {
   List<Object> get props => [selectedLanguage];
 }
 
+// class ChangeTheme extends LanguageEvent {
+//   const ChangeTheme({required this.selectedTheme});
+//   final AppTheme selectedTheme;
+
+//   @override
+//   List<Object> get props => [selectedTheme];
+// }
+
 class GetLanguage extends LanguageEvent {}
+
+// class GetTheme extends LanguageEvent {}

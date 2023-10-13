@@ -13,4 +13,5 @@ abstract class UserAuthRepository {
   Future<DataState> getAuthActPeriod(String dt, String loc);
   Future<DataState> saveActPeriodToLocal();
   Future<bool> checkTokenExpire();
+  Future<bool> checkDeviceInfo();
 }

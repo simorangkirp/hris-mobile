@@ -16,6 +16,16 @@ class LoginUserUseCase extends UseCase<DataState, LoginParams> {
   }
 }
 
+class AuthCheckDeviceInfoUsecase extends UseCase<bool, void> {
+  final UserAuthRepository _loginRepo;
+  AuthCheckDeviceInfoUsecase(this._loginRepo);
+  @override
+  Future<bool> call(void params) async {
+    var res = await _loginRepo.checkDeviceInfo();
+    return res;
+  }
+}
+
 class AuthCheckTokenExp extends UseCase<bool, void> {
   final UserAuthRepository _loginRepo;
   AuthCheckTokenExp(this._loginRepo);

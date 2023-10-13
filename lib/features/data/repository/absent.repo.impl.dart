@@ -93,8 +93,16 @@ class AbsentReposImplement implements AbsentRepository {
   @override
   Future<DataState> submitUserAbsent(data) async {
     Position? post;
+    bool isMock = false;
 
     post = await Geolocator.getCurrentPosition();
+
+    isMock = await Geolocator.getCurrentPosition().then((value) {
+      if (value.isMocked) {
+        return true;
+      }
+      return false;
+    });
 
     String loc = "${post.longitude},${post.latitude}";
     LatLng ho = LatLng(-6.277236478788212, 106.79651425937004);
@@ -102,7 +110,7 @@ class AbsentReposImplement implements AbsentRepository {
     var dist = calculateDistance(
         post.latitude, post.longitude, ho.latitude, ho.longitude);
 
-    if (dist <= 100) {
+    if (dist <= 100 && !isMock) {
       UserAuthDb auth = UserAuthDb();
       LoginModel? mods;
       final res = await auth.getUser();

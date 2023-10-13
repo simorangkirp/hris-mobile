@@ -9,12 +9,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthGetProfileDataDetails _profileDetailUseCase;
   final AuthGetActPeriodUseCase _actPeriodUseCase;
   final AuthCheckTokenExp _tokenUsecase;
+  final AuthCheckDeviceInfoUsecase _checkDevUsecase;
 
   AuthBloc(
     this._loginUseCase,
     this._profileDetailUseCase,
     this._actPeriodUseCase,
     this._tokenUsecase,
+    this._checkDevUsecase,
   ) : super(const AuthLoading()) {
     on<InitAuth>(onInit);
     on<SubmitLogin>(onLoginUser);
@@ -24,6 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<OnLogOut>(onLogOut);
     on<DisplayLogoutDialog>(onDisplayDialog);
     on<AuthCancelLogout>(onCancel);
+    on<AuthCheckDeviceInfo>(onDeviceCheck);
   }
 
   void onLoginUser(SubmitLogin event, Emitter<AuthState> emit) async {
@@ -124,5 +127,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void onCancel(AuthCancelLogout event, Emitter<AuthState> emit) {
     emit(AuthCancelSuccess());
+  }
+
+  void onDeviceCheck(AuthCheckDeviceInfo event, Emitter<AuthState> emit) async {
+    final state = await _checkDevUsecase(NoParams());
+    emit(AuthDeviceChecked(state));
   }
 }

@@ -34,6 +34,9 @@ Future<void> main() async {
         BlocProvider(
           create: (context) => sl<PaidLeaveBloc>(),
         ),
+        // BlocProvider(
+        //   create: (context) => sl<SettingBloc>(),
+        // ),
         BlocProvider(
           create: (context) => sl<LanguageBloc>(),
         ),
@@ -43,11 +46,27 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
+    // ThemeData? theme;
+    // Locale? locale;
+
+    // buildTheme() {
+    //   return theme ?? ThemeData.light();
+    // }
+
+    // buildLocale() {
+    //   return locale ?? Language.english.value;
+    // }
+
     final appRouter = AppRouter();
     return BlocBuilder<LanguageBloc, LanguageState>(
       builder: (context, state) {
@@ -68,12 +87,18 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               // title: 'Flutter Demo',
               locale: state.selectedLanguage.value,
+              // state.locale?.value ?? Language.english.value,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
-              theme: ThemeData(
+              theme:
+                  // state.theme ?? ThemeData.light(),
+                  // buildTheme(),
+                  ThemeData(
                 colorScheme: ColorScheme.fromSeed(seedColor: appBgWhite),
                 useMaterial3: true,
               ),
+              // state.theme
+
               // home: HomeScreen(),
             ),
           ),

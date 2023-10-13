@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../lib.dart';
 
-class SettingChangeLanguageUsecase extends UseCase<Locale, void> {
+class SettingChangeLanguageUsecase extends UseCase<ThemeData, String> {
   final SettingsRepository repos;
   SettingChangeLanguageUsecase(this.repos);
   @override
-  Future<Locale> call(params) async {
-    var res = await repos.changeLanguage();
+  Future<ThemeData> call(params) async {
+    var res = await repos.changeThemeMode(params);
     return res;
   }
 }

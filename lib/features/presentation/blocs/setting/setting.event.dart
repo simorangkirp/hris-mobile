@@ -1,12 +1,30 @@
-import '../../../../lib.dart';
+// import 'package:equatable/equatable.dart';
 
-abstract class SettingsEvent {
-  const SettingsEvent();
-}
+// import '../../../../lib.dart';
 
-class SettingsInit extends SettingsEvent {}
+// abstract class SettingsEvent extends Equatable {
+//   const SettingsEvent();
 
-class SettingsChangeLang extends SettingsEvent {
-  final LanguageEntity lang;
-  SettingsChangeLang(this.lang);
-}
+//   @override
+//   List<Object> get props => [];
+// }
+
+// class ChangeLanguage extends SettingsEvent {
+//   const ChangeLanguage({required this.selectedLanguage});
+//   final Language selectedLanguage;
+
+//   @override
+//   List<Object> get props => [selectedLanguage];
+// }
+
+// class ChangeTheme extends SettingsEvent {
+//   const ChangeTheme({required this.selectedTheme});
+//   final AppTheme selectedTheme;
+
+//   @override
+//   List<Object> get props => [selectedTheme];
+// }
+
+// class GetTheme extends SettingsEvent {}
+
+// class GetLanguage extends SettingsEvent {}

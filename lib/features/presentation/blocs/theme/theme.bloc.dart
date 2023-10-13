@@ -1,45 +1,19 @@
+// import 'package:bloc/bloc.dart';
 // import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
-// import '../../../../../lib.dart';
+// import '../../../../lib.dart';
 
-// const languagePrefsKey = 'languagePrefs';
+// // const languagePrefsKey = 'languagePrefs';
 // const themePrefsKey = 'themePrefs';
 
-// class SettingBloc extends Bloc<SettingsEvent, SettingState> {
-//   SettingBloc() : super(const SettingState()) {
+// class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
+//   ThemeBloc() : super(ThemeState()) {
 //     on<ChangeTheme>(onChangeTheme);
 //     on<GetTheme>(onGetTheme);
-//     on<ChangeLanguage>(onChangeLanguage);
-//     on<GetLanguage>(onGetLanguage);
 //   }
 
-//   onChangeLanguage(ChangeLanguage event, Emitter<SettingState> emit) async {
-//     // emit(SettingLoading());
-//     final prefs = await SharedPreferences.getInstance();
-//     await prefs.setString(
-//       languagePrefsKey,
-//       event.selectedLanguage.value.languageCode,
-//     );
-//     emit(LanguageLoaded(event.selectedLanguage));
-//   }
-
-//   onGetLanguage(GetLanguage event, Emitter<SettingState> emit) async {
-//     // emit(SettingLoading());
-//     final prefs = await SharedPreferences.getInstance();
-//     final selectedLanguage = prefs.getString(languagePrefsKey);
-//     emit(GetLanguageLoaded(
-//       selectedLanguage != null
-//           ? Language.values
-//               .where((item) => item.value.languageCode == selectedLanguage)
-//               .first
-//           : Language.english,
-//     ));
-//   }
-
-//   onChangeTheme(ChangeTheme event, Emitter<SettingState> emit) async {
-//     // emit(SettingLoading());
+//   onChangeTheme(ChangeTheme event, Emitter<ThemeState> emit) async {
 //     ThemeData? selectedTheme;
 //     AppTheme? appTheme;
 //     final prefs = await SharedPreferences.getInstance();
@@ -60,11 +34,10 @@
 //       },
 //     );
 //     selectedTheme ??= ThemeData.light();
-//     emit(ThemeLoaded(selectedTheme!));
+//     emit(state.copyWith(selectedTheme: selectedTheme));
 //   }
 
-//   onGetTheme(GetTheme event, Emitter<SettingState> emit) async {
-//     // emit(SettingLoading());
+//   onGetTheme(GetTheme event, Emitter<ThemeState> emit) async {
 //     ThemeData? selectedTheme;
 //     AppTheme? appTheme;
 //     final prefs = await SharedPreferences.getInstance();
@@ -86,7 +59,7 @@
 //       },
 //     );
 //     selectedTheme ??= ThemeData.light();
-//     emit(GetThemeLoaded(selectedTheme!));
+//     emit(state.copyWith(selectedTheme: selectedTheme));
 //     // if(getTheme){}
 
 //     // appThemeData.forEach(
