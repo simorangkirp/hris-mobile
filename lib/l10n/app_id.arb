@@ -8,6 +8,8 @@
         "description": "A programmer greetings!"
     },
 
+    "appVersion": "OWL ESS Versi {version}\nBuatan v{build}",
+
     "home":"Utama",
     "dashboard":"Dashbor",
     "calendar":"Kalender",
@@ -15,6 +17,8 @@
     "inboxNapprv":"Pesan & Persetujuan",
     "profile":"Profil",
     "logout":"Keluar",
+
+    "chgAcc":"Ganti akun",
 
     "chgPwd":"Ganti sandi",
     "resetPwd":"Atur ulang sandi",
@@ -128,7 +132,7 @@
     "address":"Alamat",
     "maritalSts":"Status perkawinan",
     "religion":"Agama",
-    "phone 1":"No HP 1",
+    "phone1":"No HP 1",
     "telephone":"Telp",
     "marriageDt":"Tanggal pernikahan",
     "noOfChild":"Jumlah anak",

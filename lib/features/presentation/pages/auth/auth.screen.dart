@@ -59,6 +59,10 @@ class _LoginScreenState extends State<LoginScreen> {
     BlocProvider.of<AuthBloc>(context).add(AuthCheckToken());
   }
 
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
   void refreshData() {
     setState(() {});
   }
@@ -115,18 +119,39 @@ class _LoginScreenState extends State<LoginScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              l10n.welcome,
-                              style: TextStyle(
-                                fontSize: 24.sp,
-                                fontWeight: FontWeight.w700,
+                            Visibility(
+                              visible: !isBio,
+                              replacement: Text(
+                                l10n.welcomeBack,
+                                style: TextStyle(
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              child: Text(
+                                l10n.welcome,
+                                style: TextStyle(
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                             SizedBox(height: 4.h),
-                            Text(
-                              l10n.login_to_acc_msg,
-                              style: TextStyle(
-                                fontSize: 14.sp,
+                            Visibility(
+                              visible: !isBio,
+                              replacement: Text(
+                                authmodel.unm ?? "-",
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: appDivider.withOpacity(0.8),
+                                ),
+                              ),
+                              child: Text(
+                                l10n.login_to_acc_msg,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                ),
                               ),
                             ),
                           ],
@@ -144,7 +169,33 @@ class _LoginScreenState extends State<LoginScreen> {
                         )
                       ],
                     ),
-                    Visibility(visible: !isBio, child: SizedBox(height: 24.h)),
+                    Visibility(
+                      visible: !isBio,
+                      replacement: SizedBox(
+                        height: 16.h,
+                      ),
+                      child: SizedBox(height: 24.h),
+                    ),
+                    Visibility(
+                      visible: isBio,
+                      child: InkWell(
+                        onTap: () {
+                          authmodel.unm = '';
+                          authmodel.pw = '';
+                          setState(() {
+                            isBio = !isBio;
+                          });
+                          dispatchLogout();
+                        },
+                        child: Text(
+                          l10n.chgAcc,
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: appBtnBlue,
+                          ),
+                        ),
+                      ),
+                    ),
                     Visibility(
                       visible: !isBio,
                       child: CustomFormTextField(

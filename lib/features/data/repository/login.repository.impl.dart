@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
 import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -166,16 +167,21 @@ class LoginRepositoryImpl implements UserAuthRepository {
   @override
   Future<bool> checkDeviceInfo() async {
     final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    bool? isEmulator;
+    bool? isNotPass;
 
     if (defaultTargetPlatform == TargetPlatform.android) {
       final androidInfo = await deviceInfo.androidInfo;
-      isEmulator = !androidInfo.isPhysicalDevice;
-      return isEmulator;
+      if (isNotPass = !androidInfo.isPhysicalDevice) {
+        return isNotPass;
+      }
+      return false;
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       final iosInfo = await deviceInfo.iosInfo;
-      isEmulator = !iosInfo.isPhysicalDevice;
-      return isEmulator;
+      if (isNotPass = !iosInfo.isPhysicalDevice &&
+          await FlutterJailbreakDetection.jailbroken) {
+        return isNotPass;
+      }
+      return false;
     } else {
       return false;
     }

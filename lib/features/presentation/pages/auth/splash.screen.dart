@@ -55,10 +55,12 @@ class _SplashScreenState extends State<SplashScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthDeviceChecked) {
-          if (state.isEmu!) {
+          if (state.isNotPass!) {
             if (defaultTargetPlatform == TargetPlatform.android) {
               // SystemNavigator.pop();
               displayScfldMsg(context, "you're on a simulator device!");
+              // Future.delayed(const Duration(seconds: 2))
+              //     .then((value) => SystemNavigator.pop());
               dispatchAuth();
             }
             if (defaultTargetPlatform == TargetPlatform.iOS) {

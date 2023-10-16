@@ -11,7 +11,7 @@ abstract class AuthState extends Equatable {
   final String? msg;
   final AuthModel? authModel;
   final bool? token;
-  final bool? isEmu;
+  final bool? isNotPass;
   const AuthState({
     this.user,
     this.error,
@@ -20,7 +20,7 @@ abstract class AuthState extends Equatable {
     this.msg,
     this.profileModel,
     this.authModel,
-    this.isEmu,
+    this.isNotPass,
   });
   @override
   List<Object> get props => [];
@@ -67,5 +67,5 @@ class ShowLogoutDialog extends AuthState {}
 class AuthCancelSuccess extends AuthState {}
 
 class AuthDeviceChecked extends AuthState {
-  const AuthDeviceChecked(bool data) : super(isEmu: data);
+  const AuthDeviceChecked(bool data) : super(isNotPass: data);
 }

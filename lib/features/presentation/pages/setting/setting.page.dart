@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 @RoutePage()
 class SettingScreen extends StatefulWidget {
@@ -34,6 +35,22 @@ class _SettingScreenState extends State<SettingScreen> {
   bool expandLang = false;
   bool isDarkmode = false;
   String ddVal = '';
+  String ver = '';
+  String appBuild = '';
+
+  getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    ver = packageInfo.version;
+    appBuild = packageInfo.buildNumber;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAppVersion();
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -235,7 +252,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     SizedBox(width: 12.w),
                     Expanded(
-                      flex: 6,
+                      flex: 5,
                       child: Text(
                         l10n.darkMode,
                         style: TextStyle(
@@ -244,18 +261,31 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 12.w),
-                    Switch(
-                      value: isDarkmode,
-                      onChanged: (value) {
-                        setState(() {
-                          isDarkmode = !isDarkmode;
-                        });
-                      },
-                    )
+                    Expanded(
+                      child: Switch(
+                        value: isDarkmode,
+                        onChanged: (value) {
+                          setState(() {
+                            isDarkmode = !isDarkmode;
+                          });
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
+
+              const Spacer(),
+              Text(
+                l10n.appVersion(ver, appBuild),
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: appDivider.withOpacity(0.8),
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 48.h),
               // SizedBox(height: 12.h),
               // Material(
               //   elevation: 4,

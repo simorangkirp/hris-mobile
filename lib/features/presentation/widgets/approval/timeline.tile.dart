@@ -139,6 +139,21 @@ class _MyTimelineStyleState extends State<MyTimelineStyle> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
+                          Visibility(
+                              visible: widget.data.list![0].keterangan != '' &&
+                                  widget.data.list![0].keterangan != null,
+                              child: SizedBox(height: 2.h)),
+                          Visibility(
+                            visible: widget.data.list![0].keterangan != '' &&
+                                widget.data.list![0].keterangan != null,
+                            child: Text(
+                              widget.data.list![0].keterangan ?? '-',
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

@@ -8,6 +8,21 @@
         "description": "A programmer greetings!"
     },
 
+    "appVersion": "OWL ESS Version {version}\nBuild v{build}",
+    "@appVersion":
+    {
+        "description": "The application verision.",
+        "placeholders": 
+        {
+            "version": {
+                "type": "String"
+            },
+            "build": {
+                "type": "String"
+            }
+        }
+    },
+
     "home":"Home",
     "dashboard":"Dashboard",
     "calendar":"Calendar",
@@ -15,6 +30,8 @@
     "inboxNapprv":"Inbox & Approval",
     "profile":"Profile",
     "logout":"Logout",
+
+    "chgAcc":"Change account",
 
     "chgPwd":"Change password",
     "resetPwd":"Reset password",
