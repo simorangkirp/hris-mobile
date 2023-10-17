@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @RoutePage()
 class SettingScreen extends StatefulWidget {
@@ -25,8 +26,9 @@ class _SettingScreenState extends State<SettingScreen> {
         stdLang = Language.english;
       }
     }
-    context.read<LanguageBloc>().add(
+    context.read<SettingBloc>().add(
           ChangeLanguage(
+            selectedTheme: isDarkmode ? 'dark' : 'light',
             selectedLanguage: stdLang!,
           ),
         );
@@ -37,6 +39,16 @@ class _SettingScreenState extends State<SettingScreen> {
   String ddVal = '';
   String ver = '';
   String appBuild = '';
+
+  getCurrTheme() async {
+    final prefs = await SharedPreferences.getInstance();
+    final selectedTheme = prefs.getString(themePrefsKey);
+    if (selectedTheme == "dark") {
+      isDarkmode = true;
+    } else {
+      isDarkmode = false;
+    }
+  }
 
   getAppVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -49,6 +61,7 @@ class _SettingScreenState extends State<SettingScreen> {
   void initState() {
     super.initState();
     getAppVersion();
+    getCurrTheme();
   }
 
   @override
@@ -268,6 +281,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           setState(() {
                             isDarkmode = !isDarkmode;
                           });
+                          dispatchChangeLanguage(ddVal);
                         },
                       ),
                     ),

@@ -38,13 +38,13 @@ class _AbsentScreenState extends State<AbsentScreen> {
     ));
   }
 
-  void dispatchLogout() {
-    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
-  }
+  // void dispatchLogout() {
+  //   BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  // }
 
-  void dispatchCancel() {
-    BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
-  }
+  // void dispatchCancel() {
+  //   BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
+  // }
 
   FutureOr onGoBack() {
     refreshData();
@@ -93,23 +93,23 @@ class _AbsentScreenState extends State<AbsentScreen> {
             }
           },
         ),
-        BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is ShowLogoutDialog) {
-              onLogOutDialog(
-                context,
-                () => dispatchLogout(),
-                () => dispatchCancel(),
-              );
-            }
-            if (state is AuthCancelSuccess) {
-              setState(() {});
-            }
-            if (state is OnLogOutSuccess) {
-              context.router.replaceAll([const SplashRoute()]);
-            }
-          },
-        ),
+        // BlocListener<AuthBloc, AuthState>(
+        //   listener: (context, state) {
+        //     if (state is ShowLogoutDialog) {
+        //       onLogOutDialog(
+        //         context,
+        //         () => dispatchLogout(),
+        //         () => dispatchCancel(),
+        //       );
+        //     }
+        //     if (state is AuthCancelSuccess) {
+        //       setState(() {});
+        //     }
+        //     if (state is OnLogOutSuccess) {
+        //       context.router.replaceAll([const SplashRoute()]);
+        //     }
+        //   },
+        // ),
       ],
       child: BlocBuilder<AbsentBloc, AbsentState>(
         builder: (context, state) {
@@ -125,11 +125,11 @@ class _AbsentScreenState extends State<AbsentScreen> {
                     period: period,
                   ))
                   .then((value) => onGoBack()),
-              () => onLogOutDialog(
-                context,
-                () => dispatchLogout(),
-                () => dispatchCancel(),
-              ),
+              // () => onLogOutDialog(
+              //   context,
+              //   () => dispatchLogout(),
+              //   () => dispatchCancel(),
+              // ),
             );
           } else {
             return const Scaffold(

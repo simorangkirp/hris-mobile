@@ -16,6 +16,7 @@ abstract class AbsentRepository {
   Future<DataState> getUserAssignLoc();
   Future<DataState> getUserActPeriod();
   Future<DataState> getUserInfo();
+  Future<DataState> getHolidayList();
 
   //! Call Api to describe users selected absent detail
   // This Api call need parameter of :

@@ -30,6 +30,19 @@ Map<String, dynamic> _$PINBodyToJson(PINBody instance) => <String, dynamic>{
       'pin': instance.pin,
     };
 
+HolidayBody _$HolidayBodyFromJson(Map<String, dynamic> json) => HolidayBody(
+      json['kodeorg'] as String?,
+      json['tahun'] as String?,
+      json['tipekaryawan'] as String?,
+    );
+
+Map<String, dynamic> _$HolidayBodyToJson(HolidayBody instance) =>
+    <String, dynamic>{
+      'kodeorg': instance.kodeorg,
+      'tahun': instance.tahun,
+      'tipekaryawan': instance.tipekaryawan,
+    };
+
 UserAssignLocBody _$UserAssignLocBodyFromJson(Map<String, dynamic> json) =>
     UserAssignLocBody(
       json['uid'] as String?,
@@ -213,6 +226,40 @@ class _AbsentAPIServices implements AbsentAPIServices {
             .compose(
               _dio.options,
               'http://182.23.67.40:8083/officeapi/API/user/pin/check',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<dynamic>> holidayList(
+    HolidayBody? param,
+    String authHeader,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{r'Authorization': authHeader};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(param?.toJson() ?? <String, dynamic>{});
+    final _result =
+        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'http://182.23.67.40:8083/officeapi/API/SDM/holiday/list',
               queryParameters: queryParameters,
               data: _data,
             )

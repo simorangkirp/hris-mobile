@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
     buildHome(EntityProfile? mods) {
       return Scaffold(
         appBar: buildAppBar(context, mods),
-        endDrawer: const AppNavigationDrawer(),
+        endDrawer: AppNavigationDrawer(ctx: context),
         body: SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,

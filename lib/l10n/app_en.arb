@@ -23,6 +23,9 @@
         }
     },
 
+    "absentListTitle":"Absent List",
+    "paidLeaveListTitle":"Paid Leave List",
+
     "home":"Home",
     "dashboard":"Dashboard",
     "calendar":"Calendar",

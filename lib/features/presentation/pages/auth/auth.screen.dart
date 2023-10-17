@@ -218,7 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Visibility(visible: !isBio, child: SizedBox(height: 12.h)),
                     Visibility(
-                      visible: !isBio,
+                      visible: false,
                       child: Text(
                         l10n.forgot_msg,
                         style: TextStyle(

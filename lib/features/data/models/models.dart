@@ -1,6 +1,7 @@
 export 'absent/absent.detail.model.dart';
 export 'absent/absent.list.model.dart';
 export 'absent/user.assignment.location.model.dart';
+export 'absent/holiday.model.dart';
 export 'approval/approval.model.dart';
 export 'auth/login.model.dart';
 export 'dashboard/features.model.dart';

@@ -43,13 +43,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ));
   }
 
-  void dispatchLogout() {
-    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
-  }
+  // void dispatchLogout() {
+  //   BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  // }
 
-  void dispatchCancel() {
-    BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
-  }
+  // void dispatchCancel() {
+  //   BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
+  // }
 
   @override
   void initState() {
@@ -71,7 +71,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         //   ),
         // ),
       ),
-      endDrawer: const AppNavigationDrawer(),
+      endDrawer: AppNavigationDrawer(
+        ctx: ctx,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w),
         child: Column(
@@ -134,23 +136,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
             }
           },
         ),
-        BlocListener<AuthBloc, AuthState>(
-          listener: (logOutContext, state) {
-            if (state is ShowLogoutDialog) {
-              onLogOutDialog(
-                logOutContext,
-                () => dispatchLogout(),
-                () => dispatchCancel(),
-              );
-            }
-            if (state is OnLogOutSuccess) {
-              logOutContext.router.replaceAll([const SplashRoute()]);
-            }
-            if (state is AuthCancelSuccess) {
-              setState(() {});
-            }
-          },
-        ),
+        // BlocListener<AuthBloc, AuthState>(
+        //   listener: (logOutContext, authState) {
+        //     if (authState is ShowLogoutDialog) {
+        //       onLogOutDialog(
+        //         logOutContext,
+        //         () => dispatchLogout(),
+        //         () => dispatchCancel(),
+        //       );
+        //     }
+        //     if (authState is OnLogOutSuccess) {
+        //       logOutContext.router.replaceAll([const SplashRoute()]);
+        //     }
+        //     if (authState is AuthCancelSuccess) {
+        //       setState(() {});
+        //     }
+        //   },
+        // ),
       ],
       child: BlocBuilder<ProfileScreenBloc, ProfileScreenState>(
         builder: (context, state) {

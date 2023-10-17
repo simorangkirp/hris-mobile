@@ -25,6 +25,8 @@ class SubmitUserAbsent extends AbsentEvent {
   SubmitUserAbsent(this.params);
 }
 
+class AbsentHolidayList extends AbsentEvent {}
+
 class AbsentGetUserInfo extends AbsentEvent {}
 
 class AbsentScrnActPeriod extends AbsentEvent {}

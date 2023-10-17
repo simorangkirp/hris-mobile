@@ -13,7 +13,7 @@ Widget buildScreen(
   UserAssignLocationModel? userLoc,
   AbsentData? absenData,
   Function(String mode) onTap,
-  Function() logout,
+  // Function() logout,
 ) {
   final l10n = AppLocalizations.of(context)!;
 
@@ -40,7 +40,9 @@ Widget buildScreen(
 
   return Scaffold(
     appBar: buildCommAppBar(context, mod),
-    endDrawer: const AppNavigationDrawer(),
+    endDrawer: AppNavigationDrawer(
+      ctx: context,
+    ),
     body: SafeArea(
       child: Padding(
         padding: Constant.appPadding,

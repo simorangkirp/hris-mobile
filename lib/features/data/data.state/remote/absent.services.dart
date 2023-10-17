@@ -24,6 +24,10 @@ abstract class AbsentAPIServices {
   @POST('${baseUrl}API/user/pin/check')
   Future<HttpResponse<dynamic>> userPINcheck(
       @Body() PINBody? param, @Header("Authorization") String authHeader);
+
+  @POST('${baseUrl}API/SDM/holiday/list')
+  Future<HttpResponse<dynamic>> holidayList(
+      @Body() HolidayBody? param, @Header("Authorization") String authHeader);
 }
 
 @JsonSerializable()
@@ -55,6 +59,25 @@ class PINBody {
   factory PINBody.fromJson(Map<String, dynamic> json) =>
       _$PINBodyFromJson(json);
   Map<String, dynamic> toJson() => _$PINBodyToJson(this);
+}
+
+@JsonSerializable()
+class HolidayBody {
+  @JsonKey(name: 'kodeorg')
+  String? kodeorg;
+  @JsonKey(name: 'tahun')
+  String? tahun;
+  @JsonKey(name: 'tipekaryawan')
+  String? tipekaryawan;
+
+  HolidayBody(
+    this.kodeorg,
+    this.tahun,
+    this.tipekaryawan,
+  );
+  factory HolidayBody.fromJson(Map<String, dynamic> json) =>
+      _$HolidayBodyFromJson(json);
+  Map<String, dynamic> toJson() => _$HolidayBodyToJson(this);
 }
 
 @JsonSerializable()

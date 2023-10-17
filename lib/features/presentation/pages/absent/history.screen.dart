@@ -28,6 +28,12 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
     BlocProvider.of<AbsentBloc>(context).add(GetAbsentPeriod(dtParam));
   }
 
+  void dispatchGetHolidayList() {
+    BlocProvider.of<AbsentBloc>(context).add(AbsentHolidayList());
+  }
+
+  List<HolidayModel>? listHoliday;
+
   String sltdDt = '';
   String dtParam = '';
   bool startAnimation = false;
@@ -41,6 +47,7 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
     //     startAnimation = true;
     //   });
     // });
+    dispatchGetHolidayList();
   }
 
   void changeDate(DateTime v) {
@@ -75,7 +82,8 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          l10n.absentList,
+          l10n.absentListTitle,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.w400,
@@ -95,6 +103,9 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
                 startAnimation = true;
               });
             });
+          }
+          if (state is AbsentListHolidayLoaded) {
+            listHoliday = state.listHoliday;
           }
         },
         child: SafeArea(
@@ -276,6 +287,7 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
             elevation: 4,
             borderRadius: BorderRadius.circular(4),
             child: AbsentItemCard(
+              holiday: listHoliday,
               item: items,
             ),
           ),

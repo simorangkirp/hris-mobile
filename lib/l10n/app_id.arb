@@ -10,6 +10,9 @@
 
     "appVersion": "OWL ESS Versi {version}\nBuatan v{build}",
 
+    "absentListTitle":"Daftar Absen",
+    "paidLeaveListTitle":"Daftar Cuti",
+
     "home":"Utama",
     "dashboard":"Dashbor",
     "calendar":"Kalender",

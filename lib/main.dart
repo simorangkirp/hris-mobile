@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
@@ -38,7 +39,7 @@ Future<void> main() async {
         //   create: (context) => sl<SettingBloc>(),
         // ),
         BlocProvider(
-          create: (context) => sl<LanguageBloc>(),
+          create: (context) => sl<SettingBloc>(),
         ),
       ],
       child: const MyApp(),
@@ -54,6 +55,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
+  void dispatchCancel() {
+    BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
+  }
+
   @override
   Widget build(BuildContext context) {
     // ThemeData? theme;
@@ -68,43 +77,64 @@ class _MyAppState extends State<MyApp> {
     // }
 
     final appRouter = AppRouter();
-    return BlocBuilder<LanguageBloc, LanguageState>(
-      builder: (context, state) {
-        return ScreenUtilInit(
-          builder: (context, child) => Portal(
-            child: MaterialApp.router(
-              builder: (context, child) {
-                final mediaQueryData = MediaQuery.of(context);
-                final scale = mediaQueryData.textScaleFactor.clamp(1.0, 1.0);
-                return MediaQuery(
-                    data: MediaQuery.of(context)
-                        .copyWith(textScaleFactor: scale, boldText: false),
-                    child: child!);
-              },
-              routerConfig: appRouter.config(),
-              // routerDelegate: appRouter.delegate(),
-              // routeInformationParser: appRouter.defaultRouteParser(),
-              debugShowCheckedModeBanner: false,
-              // title: 'Flutter Demo',
-              locale: state.selectedLanguage.value,
-              // state.locale?.value ?? Language.english.value,
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: AppLocalizations.supportedLocales,
-              theme:
-                  // state.theme ?? ThemeData.light(),
-                  // buildTheme(),
-                  ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: appBgWhite),
-                useMaterial3: true,
-              ),
-              // state.theme
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthBloc, AuthState>(
+          listener: (authCtx, authState) {
+            if (authState is ShowLogoutDialog) {
+              onLogOutDialog(
+                authCtx,
+                () => dispatchLogout(),
+                () => dispatchCancel(),
+              );
+            }
+            if (authState is OnLogOutSuccess) {
+              authCtx.router.replaceAll([const SplashRoute()]);
+            }
+            if (authState is AuthCancelSuccess) {
+              // setState(() {});
+            }
+          },
+        ),
+      ],
+      child: BlocBuilder<SettingBloc, SettingState>(
+        builder: (settingCtx, state) {
+          return ScreenUtilInit(
+            builder: (settingCtx, child) => Portal(
+              child: MaterialApp.router(
+                builder: (settingCtx, child) {
+                  final mediaQueryData = MediaQuery.of(settingCtx);
+                  final scale = mediaQueryData.textScaleFactor.clamp(1.0, 1.0);
+                  return MediaQuery(
+                      data: MediaQuery.of(settingCtx)
+                          .copyWith(textScaleFactor: scale, boldText: false),
+                      child: child!);
+                },
+                routerConfig: appRouter.config(),
+                // routerDelegate: appRouter.delegate(),
+                // routeInformationParser: appRouter.defaultRouteParser(),
+                debugShowCheckedModeBanner: false,
+                // title: 'Flutter Demo',
+                locale: state.selectedLanguage.value,
+                // state.locale?.value ?? Language.english.value,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
+                theme: state.selectedTheme,
+                // state.theme ?? ThemeData.light(),
+                // buildTheme(),
+                //     ThemeData(
+                //   colorScheme: ColorScheme.fromSeed(seedColor: appBgWhite),
+                //   useMaterial3: true,
+                // ),
+                // state.theme
 
-              // home: HomeScreen(),
+                // home: HomeScreen(),
+              ),
             ),
-          ),
-          designSize: const Size(360, 640),
-        );
-      },
+            designSize: const Size(360, 640),
+          );
+        },
+      ),
     );
   }
 }

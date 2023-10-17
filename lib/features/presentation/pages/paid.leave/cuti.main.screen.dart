@@ -48,13 +48,13 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
     BlocProvider.of<PaidLeaveBloc>(context).add(PaidLeaveGetListData(dtParam));
   }
 
-  void dispatchLogout() {
-    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
-  }
+  // void dispatchLogout() {
+  //   BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  // }
 
-  void dispatchCancel() {
-    BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
-  }
+  // void dispatchCancel() {
+  //   BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
+  // }
 
   void displayMonthPicker(BuildContext ctx) {
     showDialog(
@@ -118,23 +118,23 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
             }
           },
         ),
-        BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is ShowLogoutDialog) {
-              onLogOutDialog(
-                context,
-                () => dispatchLogout(),
-                () => dispatchCancel(),
-              );
-            }
-            if (state is OnLogOutSuccess) {
-              context.router.replaceAll([const SplashRoute()]);
-            }
-            if (state is AuthCancelSuccess) {
-              setState(() {});
-            }
-          },
-        ),
+        // BlocListener<AuthBloc, AuthState>(
+        //   listener: (context, state) {
+        //     if (state is ShowLogoutDialog) {
+        //       onLogOutDialog(
+        //         context,
+        //         () => dispatchLogout(),
+        //         () => dispatchCancel(),
+        //       );
+        //     }
+        //     if (state is OnLogOutSuccess) {
+        //       context.router.replaceAll([const SplashRoute()]);
+        //     }
+        //     if (state is AuthCancelSuccess) {
+        //       setState(() {});
+        //     }
+        //   },
+        // ),
       ],
       child: BlocBuilder<PaidLeaveBloc, PaidLeaveState>(
         builder: (context, state) {
@@ -147,7 +147,9 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
           } else {
             return Scaffold(
               appBar: buildCommAppBar(context, profile),
-              endDrawer: const AppNavigationDrawer(),
+              endDrawer: AppNavigationDrawer(
+                ctx: context,
+              ),
               body: Padding(
                 padding: Constant.appPadding,
                 child: Column(

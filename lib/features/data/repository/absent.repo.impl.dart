@@ -213,4 +213,37 @@ class AbsentReposImplement implements AbsentRepository {
       return DataError(e);
     }
   }
+
+  @override
+  Future<DataState> getHolidayList() async {
+    UserAuthDb auth = UserAuthDb();
+    LoginModel? mods;
+    final res = await auth.getUser();
+    if (res != null) {
+      mods = res;
+    }
+    var header = 'Bearer ${mods?.accesstoken}';
+    var data = HolidayBody(
+      'OWHO',
+      '2023',
+      '0',
+    );
+
+    try {
+      final httpResp = await _absentAPIServices.holidayList(data, header);
+
+      if (httpResp.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResp.data);
+      } else {
+        return DataError(DioException(
+          error: httpResp.response.statusMessage,
+          response: httpResp.response,
+          type: DioExceptionType.badResponse,
+          requestOptions: httpResp.response.requestOptions,
+        ));
+      }
+    } on DioException catch (e) {
+      return DataError(e);
+    }
+  }
 }

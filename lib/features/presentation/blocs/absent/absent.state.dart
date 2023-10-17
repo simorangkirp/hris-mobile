@@ -21,6 +21,7 @@ abstract class AbsentState extends Equatable {
   final UserAssignLocationModel? assignLoc;
   final ProfileModel? profileModel;
   final String? errMsg, msg;
+  final List<HolidayModel>? listHoliday;
   const AbsentState({
     this.error,
     this.listAbsent,
@@ -30,6 +31,7 @@ abstract class AbsentState extends Equatable {
     this.period,
     this.assignLoc,
     this.profileModel,
+    this.listHoliday,
   });
 
   @override
@@ -102,4 +104,9 @@ class AbsentUserInfoLoaded extends AbsentState {
 
 class AbsentPINChecked extends AbsentState {
   const AbsentPINChecked(String data) : super(msg: data);
+}
+
+class AbsentListHolidayLoaded extends AbsentState {
+  const AbsentListHolidayLoaded(List<HolidayModel> data)
+      : super(listHoliday: data);
 }

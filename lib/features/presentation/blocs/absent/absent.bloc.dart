@@ -11,6 +11,7 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
   final SubmitUserAbsentUseCase submitUserAbsent;
   final AbsentUsecaseGetUserInfo getUserInfoUsecase;
   final AbsentCheckPINUseCase checkPINUsecase;
+  final GetHolidayListUsecase getHolidayUsecase;
 
   AbsentBloc(
     this.getCurrPeriodAbsnt,
@@ -20,6 +21,7 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
     this.userAssignLocUsecase,
     this.getUserInfoUsecase,
     this.checkPINUsecase,
+    this.getHolidayUsecase,
   ) : super(AbsentLoading()) {
     on<InitAbsent>(onInit);
     on<InitCamera>(initClockInCamera);
@@ -29,6 +31,7 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
     on<GetUserAssignLocation>(getUserAssignLoc);
     on<AbsentGetUserInfo>(getUserInfo);
     on<AbsentCheckPin>(checkUserPIN);
+    on<AbsentHolidayList>(getHoliday);
     // on<SubmitLogin>(onLoginUser);
   }
 
@@ -179,6 +182,33 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
         errMsg = "The request returned an invalid status code of 400.";
       }
       emit(AbsentPINChecked(errMsg));
+    }
+  }
+
+  void getHoliday(AbsentHolidayList event, Emitter<AbsentState> emit) async {
+    String errMsg = '';
+    final dataState = await getHolidayUsecase.call(NoParams());
+    if (dataState is DataSuccess) {
+      List<HolidayModel> list = [];
+      var listAbsent = dataState.data['data'];
+      if (dataState.data['data'] is List) {
+        for (var i in (listAbsent as List)) {
+          list.add(HolidayModel.fromMap(i));
+        }
+      }
+      emit(AbsentListHolidayLoaded(list));
+    }
+    if (dataState is DataError) {
+      if (dataState.error != null) {
+        if (dataState.error!.response != null) {
+          if (dataState.error!.response!.data != null) {
+            errMsg = dataState.error!.response!.data['messages']['error'];
+          }
+        }
+      } else {
+        errMsg = "The request returned an invalid status code of 400.";
+      }
+      emit(AbsentError(errMsg));
     }
   }
 }
