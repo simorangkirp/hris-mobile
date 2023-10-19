@@ -12,7 +12,7 @@ buildAppBar(BuildContext context, EntityProfile? mod) {
   if (mod?.photo != null) {
     byteImg = const Base64Decoder().convert(mod!.photo!);
   }
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
 
   return AppBar(
     backgroundColor: Theme.of(context).appBarTheme.backgroundColor,

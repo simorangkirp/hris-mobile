@@ -19,7 +19,7 @@ class HomePengumumanWidget extends StatefulWidget {
 class _HomePengumumanWidgetState extends State<HomePengumumanWidget> {
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     return Column(
       children: [
         Row(

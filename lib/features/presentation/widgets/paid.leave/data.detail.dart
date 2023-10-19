@@ -22,7 +22,7 @@ Widget paidLeaveDetail(BuildContext context, String mode,
       }
     }
   }
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
   return Column(
     children: [
       Expanded(

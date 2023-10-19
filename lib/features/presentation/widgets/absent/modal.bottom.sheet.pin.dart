@@ -4,13 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../../../config/config.dart';
-import '../../../../../core/core.dart';
+import '../../../../lib.dart';
 
 Future<void> modalBtnPIN(BuildContext context,
     List<TextEditingController> listCtrl, Function() onSubmitPin) async {
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
   return showDialog(
     context: context,
     builder: (context) {

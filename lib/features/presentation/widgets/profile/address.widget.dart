@@ -4,7 +4,7 @@ import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Widget addressInfo(BuildContext context, AddressEntity? model) {
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
 
   ScrollController ctrl = ScrollController();
   buildAddressItem(AddressDetails data) {

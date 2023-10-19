@@ -122,7 +122,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void onDisplayDialog(DisplayLogoutDialog event, Emitter<AuthState> emit) {
-    emit(ShowLogoutDialog());
+    emit(ShowLogoutDialog(event.nm));
   }
 
   void onCancel(AuthCancelLogout event, Emitter<AuthState> emit) {

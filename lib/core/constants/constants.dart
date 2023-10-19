@@ -65,6 +65,10 @@ class Constant {
       EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h);
   static const owlBird = 'assets/image/owl-bird.svg';
   static const pinValid = 'Data Pin Valid!';
+  static const dashboardPgNm = 'DashboardPageName';
+  static const paidleavePgNm = 'PaidLeavePageName';
+  static const profilePgNm = 'ProfilePageName';
+  static const absentPgNm = 'AbsentPageName';
 }
 
 class ConstLang {

@@ -144,6 +144,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const PINScreen(),
       );
     },
+    PJDFormRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PJDFormScreen(),
+      );
+    },
+    PJDMainRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PJDMainScreen(),
+      );
+    },
     PaidLeaveCameraRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -572,6 +584,34 @@ class PINRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'PINRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PJDFormScreen]
+class PJDFormRoute extends PageRouteInfo<void> {
+  const PJDFormRoute({List<PageRouteInfo>? children})
+      : super(
+          PJDFormRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PJDFormRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PJDMainScreen]
+class PJDMainRoute extends PageRouteInfo<void> {
+  const PJDMainRoute({List<PageRouteInfo>? children})
+      : super(
+          PJDMainRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PJDMainRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

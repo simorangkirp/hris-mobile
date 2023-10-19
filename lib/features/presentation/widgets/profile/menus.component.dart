@@ -6,7 +6,7 @@ import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Widget buildListMenu(BuildContext ctx) {
-  final l10n = AppLocalizations.of(ctx)!;
+  final l10n = AppLocalizations.of(ctx);
 
   return Column(
     children: [

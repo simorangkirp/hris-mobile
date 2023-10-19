@@ -126,5 +126,15 @@ class AppRouter extends _$AppRouter {
           path: '/paidleave-camera',
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
+        CustomRoute(
+          page: PJDMainRoute.page,
+          path: '/PJD',
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: PJDFormRoute.page,
+          path: '/PJD-form',
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
       ];
 }

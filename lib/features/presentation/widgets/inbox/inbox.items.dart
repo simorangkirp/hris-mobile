@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../lib.dart';
 
 Widget buildInboxItem(BuildContext context, List<NotifEntity>? listData) {
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
   List<GroupNotifModel> listModel = [];
   List<String> lstDt = [];
   String dt = "";

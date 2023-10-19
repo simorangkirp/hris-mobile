@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../../config/themes/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../lib.dart';
 
 class HomeTaskWidget extends StatefulWidget {
   // final Function(BuildContext) showSnBar;
@@ -18,7 +17,7 @@ class HomeTaskWidget extends StatefulWidget {
 class _HomeTaskWidgetState extends State<HomeTaskWidget> {
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     return Column(
       children: [
         Row(

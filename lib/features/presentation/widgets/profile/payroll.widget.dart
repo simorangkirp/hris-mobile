@@ -3,9 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+
 Widget payrollInfo(BuildContext context, PayrollEntity? model) {
   ScrollController ctrl = ScrollController();
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
   buildPayrollItem(PayrollDetails data) {
     return Column(
       children: [

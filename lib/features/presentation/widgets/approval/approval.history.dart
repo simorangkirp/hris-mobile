@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../../lib.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 Widget approvalHistory(
     BuildContext context, List<ListApprovalDataDetail>? mod) {
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
   ScrollController ctrl = ScrollController();
 
   return NotificationListener<OverscrollIndicatorNotification>(

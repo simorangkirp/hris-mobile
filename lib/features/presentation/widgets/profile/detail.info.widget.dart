@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../lib.dart';
 
 Widget detailInfo(BuildContext context, EntityProfile? model) {
   ScrollController ctrl = ScrollController();
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
 
   buildProfileItem(EntityProfile data) {
     return Column(

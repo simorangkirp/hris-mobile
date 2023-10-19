@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/lib.dart';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Widget buildTimeSheet(BuildContext context, int? ctr) {
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
 
   return Container(
     decoration: BoxDecoration(

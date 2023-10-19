@@ -6,7 +6,7 @@ import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 faturesComponent(BuildContext ctx) {
-  final l10n = AppLocalizations.of(ctx)!;
+  final l10n = AppLocalizations.of(ctx);
 
   List<FeaturesModel> collection = [
     FeaturesModel(
@@ -61,6 +61,7 @@ faturesComponent(BuildContext ctx) {
         break;
       case "PJDList":
         // ctx.router.push();
+        ctx.router.push(const PJDMainRoute());
         break;
       case "Absent":
         ctx.router.push(const AbsentRoute());

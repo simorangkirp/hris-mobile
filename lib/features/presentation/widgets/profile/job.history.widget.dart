@@ -6,7 +6,7 @@ import 'package:owl_hris/lib.dart';
 
 Widget jobHistory(BuildContext context, JobEntity? model) {
   ScrollController ctrl = ScrollController();
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
 
   buildJobItem(DataDetails data) {
     return Column(

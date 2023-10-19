@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../../../lib.dart';
 
 @RoutePage()
@@ -88,9 +87,17 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
 
     String dt = l10n.currPeriod;
+    String pgNm = Constant.paidleavePgNm;
+    void dispatchLogout() {
+      BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+    }
+
+    void dispatchCancel() {
+      BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
+    }
 
     return MultiBlocListener(
       listeners: [
@@ -118,23 +125,24 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
             }
           },
         ),
-        // BlocListener<AuthBloc, AuthState>(
-        //   listener: (context, state) {
-        //     if (state is ShowLogoutDialog) {
-        //       onLogOutDialog(
-        //         context,
-        //         () => dispatchLogout(),
-        //         () => dispatchCancel(),
-        //       );
-        //     }
-        //     if (state is OnLogOutSuccess) {
-        //       context.router.replaceAll([const SplashRoute()]);
-        //     }
-        //     if (state is AuthCancelSuccess) {
-        //       setState(() {});
-        //     }
-        //   },
-        // ),
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is ShowLogoutDialog &&
+                state.pgNm == Constant.paidleavePgNm) {
+              onLogOutDialog(
+                context,
+                () => dispatchLogout(),
+                () => dispatchCancel(),
+              );
+            }
+            if (state is OnLogOutSuccess) {
+              context.router.replaceAll([const SplashRoute()]);
+            }
+            if (state is AuthCancelSuccess) {
+              setState(() {});
+            }
+          },
+        ),
       ],
       child: BlocBuilder<PaidLeaveBloc, PaidLeaveState>(
         builder: (context, state) {
@@ -149,6 +157,7 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
               appBar: buildCommAppBar(context, profile),
               endDrawer: AppNavigationDrawer(
                 ctx: context,
+                scrNm: pgNm,
               ),
               body: Padding(
                 padding: Constant.appPadding,

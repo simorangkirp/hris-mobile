@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../lib.dart';
 
 Widget buildPlafond(BuildContext context, List<PaidLeavePlafond>? list) {
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
 
   return list != null && list.isNotEmpty
       ? ListView.builder(

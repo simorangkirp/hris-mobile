@@ -26,6 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late int absCtr;
   String? now;
   String? currPeriod;
+  String pgNm = Constant.profilePgNm;
   void dispatchGetProfileInfo() {
     BlocProvider.of<ProfileScreenBloc>(context)
         .add(GetProfileInfoProfileScreen());
@@ -72,6 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         // ),
       ),
       endDrawer: AppNavigationDrawer(
+        scrNm: pgNm,
         ctx: ctx,
       ),
       body: Padding(
@@ -109,6 +111,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
+  void dispatchCancel() {
+    BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -136,23 +146,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
             }
           },
         ),
-        // BlocListener<AuthBloc, AuthState>(
-        //   listener: (logOutContext, authState) {
-        //     if (authState is ShowLogoutDialog) {
-        //       onLogOutDialog(
-        //         logOutContext,
-        //         () => dispatchLogout(),
-        //         () => dispatchCancel(),
-        //       );
-        //     }
-        //     if (authState is OnLogOutSuccess) {
-        //       logOutContext.router.replaceAll([const SplashRoute()]);
-        //     }
-        //     if (authState is AuthCancelSuccess) {
-        //       setState(() {});
-        //     }
-        //   },
-        // ),
+        BlocListener<AuthBloc, AuthState>(
+          listener: (logOutContext, authState) {
+            if (authState is ShowLogoutDialog &&
+                authState.pgNm == Constant.profilePgNm) {
+              onLogOutDialog(
+                logOutContext,
+                () => dispatchLogout(),
+                () => dispatchCancel(),
+              );
+            }
+            if (authState is OnLogOutSuccess) {
+              logOutContext.router.replaceAll([const SplashRoute()]);
+            }
+            if (authState is AuthCancelSuccess) {
+              setState(() {});
+            }
+          },
+        ),
       ],
       child: BlocBuilder<ProfileScreenBloc, ProfileScreenState>(
         builder: (context, state) {

@@ -28,7 +28,7 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
       }
     }
   }
-  final l10n = AppLocalizations.of(ctx)!;
+  final l10n = AppLocalizations.of(ctx);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [

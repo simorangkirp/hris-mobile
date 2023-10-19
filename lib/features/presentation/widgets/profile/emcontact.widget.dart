@@ -6,7 +6,7 @@ import 'package:owl_hris/lib.dart';
 
 Widget emCtcInfo(BuildContext context, EmerContactEntity? model) {
   ScrollController ctrl = ScrollController();
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
   buildEmCtcItem(EmerContactDetails data) {
     return Column(
       children: [

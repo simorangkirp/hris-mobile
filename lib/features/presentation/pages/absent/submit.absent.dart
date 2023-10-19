@@ -11,7 +11,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../../lib.dart';
 
 @RoutePage()
@@ -102,7 +101,7 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
 
     Future<bool> determinePosition() async {
       bool serviceEnabled;

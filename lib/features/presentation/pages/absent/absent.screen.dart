@@ -55,6 +55,14 @@ class _AbsentScreenState extends State<AbsentScreen> {
     setState(() {});
   }
 
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
+  void dispatchCancel() {
+    BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
+  }
+
   @override
   void initState() {
     super.initState();
@@ -93,23 +101,24 @@ class _AbsentScreenState extends State<AbsentScreen> {
             }
           },
         ),
-        // BlocListener<AuthBloc, AuthState>(
-        //   listener: (context, state) {
-        //     if (state is ShowLogoutDialog) {
-        //       onLogOutDialog(
-        //         context,
-        //         () => dispatchLogout(),
-        //         () => dispatchCancel(),
-        //       );
-        //     }
-        //     if (state is AuthCancelSuccess) {
-        //       setState(() {});
-        //     }
-        //     if (state is OnLogOutSuccess) {
-        //       context.router.replaceAll([const SplashRoute()]);
-        //     }
-        //   },
-        // ),
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is ShowLogoutDialog &&
+                state.pgNm == Constant.absentPgNm) {
+              onLogOutDialog(
+                context,
+                () => dispatchLogout(),
+                () => dispatchCancel(),
+              );
+            }
+            if (state is AuthCancelSuccess) {
+              setState(() {});
+            }
+            if (state is OnLogOutSuccess) {
+              context.router.replaceAll([const SplashRoute()]);
+            }
+          },
+        ),
       ],
       child: BlocBuilder<AbsentBloc, AbsentState>(
         builder: (context, state) {

@@ -4,9 +4,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../lib.dart';
 
 Widget approvalDetail(
     BuildContext context,
@@ -17,7 +17,7 @@ Widget approvalDetail(
   TextEditingController tCtrl = TextEditingController();
   ScrollController ctrl = ScrollController();
   // ScrollController sCtrl = ScrollController();
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
   Uint8List? photo;
   if (doc != null) {
     if (doc.isNotEmpty) {

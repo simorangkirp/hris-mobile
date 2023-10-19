@@ -23,7 +23,10 @@ class AuthGetActPeriod extends AuthEvent {
 
 class OnLogOut extends AuthEvent {}
 
-class DisplayLogoutDialog extends AuthEvent {}
+class DisplayLogoutDialog extends AuthEvent {
+  String nm;
+  DisplayLogoutDialog(this.nm);
+}
 
 class AuthCancelLogout extends AuthEvent {}
 

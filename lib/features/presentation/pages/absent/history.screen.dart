@@ -75,7 +75,7 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     ScrollController ctrl = ScrollController();
     String dt = l10n.currPeriod;
     return Scaffold(

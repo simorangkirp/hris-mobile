@@ -9,7 +9,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../../lib.dart';
 
 @RoutePage()
@@ -86,7 +85,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     buildBtmDialog() {
       return showModalBottomSheet(
         context: context,

@@ -45,9 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     buildHome(EntityProfile? mods) {
+      String pgNm = Constant.dashboardPgNm;
       return Scaffold(
         appBar: buildAppBar(context, mods),
-        endDrawer: AppNavigationDrawer(ctx: context),
+        endDrawer: AppNavigationDrawer(ctx: context, scrNm: pgNm),
         body: SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -100,7 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         BlocListener<AuthBloc, AuthState>(
           listener: (authContext, state) {
-            if (state is ShowLogoutDialog) {
+            if (state is ShowLogoutDialog &&
+                state.pgNm == Constant.dashboardPgNm) {
               onLogOutDialog(
                 authContext,
                 () => dispatchLogout(),

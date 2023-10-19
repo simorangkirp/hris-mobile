@@ -8,7 +8,7 @@ abstract class AuthState extends Equatable {
   final EntityProfile? profileModel;
   final ErrMsg? error;
   final ActivePeriodEntity? actPeriodModel;
-  final String? msg;
+  final String? msg, pgNm;
   final AuthModel? authModel;
   final bool? token;
   final bool? isNotPass;
@@ -18,6 +18,7 @@ abstract class AuthState extends Equatable {
     this.token,
     this.actPeriodModel,
     this.msg,
+    this.pgNm,
     this.profileModel,
     this.authModel,
     this.isNotPass,
@@ -62,7 +63,9 @@ class AuthActPeriodLoaded extends AuthState {
 
 class OnLogOutSuccess extends AuthState {}
 
-class ShowLogoutDialog extends AuthState {}
+class ShowLogoutDialog extends AuthState {
+  const ShowLogoutDialog(String data) : super(pgNm: data);
+}
 
 class AuthCancelSuccess extends AuthState {}
 

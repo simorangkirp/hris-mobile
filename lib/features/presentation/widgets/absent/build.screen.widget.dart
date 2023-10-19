@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../../lib.dart';
 
 Widget buildScreen(
@@ -15,8 +14,8 @@ Widget buildScreen(
   Function(String mode) onTap,
   // Function() logout,
 ) {
-  final l10n = AppLocalizations.of(context)!;
-
+  final l10n = AppLocalizations.of(context);
+  String pgNm = Constant.absentPgNm;
   bool isClockIn = false;
   bool isClockOut = false;
   bool isDone = false;
@@ -41,6 +40,7 @@ Widget buildScreen(
   return Scaffold(
     appBar: buildCommAppBar(context, mod),
     endDrawer: AppNavigationDrawer(
+      scrNm: pgNm,
       ctx: context,
     ),
     body: SafeArea(

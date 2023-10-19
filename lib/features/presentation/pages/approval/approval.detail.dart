@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../../lib.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class ApprovalDetailScreen extends StatefulWidget {
@@ -60,7 +59,7 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     return BlocListener<ApprovalScrnBloc, ApprovalState>(
       listener: (context, state) {
         if (state is ApprovalDataDetailLoaded) {

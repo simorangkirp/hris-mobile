@@ -33,7 +33,7 @@ class CustomFormTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final bool? readOnly, enabled, obscureText;
   final bool isDense;
-  final int? maxLine, maxLength, precision;
+  final int? minLine, maxLine, maxLength, precision;
   final Widget? suffix;
   final Widget? prefix;
   final String? errorMessage;
@@ -60,6 +60,7 @@ class CustomFormTextField extends StatefulWidget {
       this.readOnly,
       this.controller,
       this.enabled,
+      this.minLine,
       this.maxLine,
       this.maxLength,
       this.isDense = true,
@@ -125,6 +126,7 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
       focusNode: (widget.focusNode ?? focusNode),
       maxLength: widget.maxLength,
       maxLines: widget.maxLine,
+      minLines: widget.minLine,
       obscureText: widget.obscureText ?? false,
       // inputFormatters: inputformat,
       textInputAction: widget.inputAction,
@@ -338,8 +340,10 @@ class AppNavigationDrawer extends StatefulWidget {
   const AppNavigationDrawer({
     super.key,
     required this.ctx,
+    required this.scrNm,
   });
   final BuildContext ctx;
+  final String scrNm;
 
   @override
   State<AppNavigationDrawer> createState() => _AppNavigationDrawerState();
@@ -349,12 +353,12 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
   ScrollController ctrl = ScrollController();
 
   void dispatchLogout() {
-    BlocProvider.of<AuthBloc>(context).add(DisplayLogoutDialog());
+    BlocProvider.of<AuthBloc>(context).add(DisplayLogoutDialog(widget.scrNm));
   }
 
   @override
   Widget build(ctx) {
-    final l10n = AppLocalizations.of(ctx)!;
+    final l10n = AppLocalizations.of(ctx);
     // log(Theme.of(ctx).listTileTheme.tileColor.toString());
     // log(Theme.of(ctx).drawerTheme.backgroundColor.toString());
     // log(Theme.of(ctx).expansionTileTheme.collapsedBackgroundColor.toString());
@@ -1083,7 +1087,7 @@ class _ExpandableWidgetState extends State<ExpandableWidget>
 }
 
 buildCommAppBar(BuildContext context, EntityProfile? mod) {
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
   Uint8List? byteImg;
   if (mod?.photo != null) {
     byteImg = const Base64Decoder().convert(mod!.photo!);
@@ -1130,93 +1134,6 @@ buildCommAppBar(BuildContext context, EntityProfile? mod) {
         ),
       ],
     ),
-  );
-}
-
-onLogOutDialog(
-  BuildContext context,
-  Function() logoutFunc,
-  Function() onCancel,
-) {
-  final l10n = AppLocalizations.of(context)!;
-  return showDialog(
-    context: context,
-    builder: (ctx) {
-      return Dialog(
-        insetPadding: EdgeInsets.symmetric(
-          horizontal: (0.1.sw),
-          vertical: (0.4.sh),
-        ),
-        backgroundColor: appBgWhite,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(8.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                l10n.signOut,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.sp,
-                  color: appBgBlack.withOpacity(0.4),
-                ),
-              ),
-              SizedBox(height: 4.h),
-              Text(
-                l10n.proceed_msg,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14.sp,
-                ),
-              ),
-              const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(),
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          context.router.pop(ctx);
-                          onCancel();
-                        },
-                        child: Text(
-                          l10n.cancelBtn,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12.sp,
-                            color: appWarning,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 12.w),
-                      InkWell(
-                        onTap: () {
-                          context.router.pop(ctx);
-                          logoutFunc();
-                        },
-                        child: Text(
-                          l10n.confirmBtn,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12.sp,
-                            color: appBtnBlue,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      );
-    },
   );
 }
 
@@ -1818,4 +1735,90 @@ class _PortalFormDropdownKeyValState extends State<PortalFormDropdownKeyVal> {
       validator: widget.validator,
     );
   }
+}
+
+onLogOutDialog(
+  BuildContext context,
+  Function() logout,
+  Function() cancel,
+) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return Dialog(
+        insetPadding: EdgeInsets.symmetric(
+          horizontal: (0.1.sw),
+          vertical: (0.4.sh),
+        ),
+        backgroundColor: appBgWhite,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(8.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                AppLocalizations.of(context).signOut,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.sp,
+                  color: appBgBlack.withOpacity(0.4),
+                ),
+              ),
+              SizedBox(height: 4.h),
+              Text(
+                AppLocalizations.of(context).proceed_msg,
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                ),
+              ),
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(),
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          context.router.pop();
+                          cancel();
+                        },
+                        child: Text(
+                          AppLocalizations.of(context).cancelBtn,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12.sp,
+                            color: appWarning,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 12.w),
+                      InkWell(
+                        onTap: () {
+                          context.router.pop();
+                          logout();
+                        },
+                        child: Text(
+                          AppLocalizations.of(context).confirmBtn,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12.sp,
+                            color: appBtnBlue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }

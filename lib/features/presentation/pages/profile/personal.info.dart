@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 @RoutePage()
 class MyPersonalInfoScreen extends StatefulWidget {
   const MyPersonalInfoScreen({super.key});
@@ -68,7 +67,7 @@ class _MyPersonalInfoScreenState extends State<MyPersonalInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(

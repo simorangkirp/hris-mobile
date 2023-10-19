@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:owl_hris/lib.dart';
 
 Widget familyInfo(BuildContext context, FamilyEntity? model) {
   ScrollController ctrl = ScrollController();
-  final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context);
   buildFamilyItem(FamilyDetails data) {
     return Column(
       children: [
