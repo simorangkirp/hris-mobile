@@ -15,7 +15,7 @@ buildAppBar(BuildContext context, EntityProfile? mod) {
   final l10n = AppLocalizations.of(context);
 
   return AppBar(
-    backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+    backgroundColor: Theme.of(context).colorScheme.background,
     automaticallyImplyLeading: false,
     title: Row(
       children: [

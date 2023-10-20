@@ -365,7 +365,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
     // log(Theme.of(ctx).drawerTheme.backgroundColor.toString());
     // log(Theme.of(ctx).expansionTileTheme.collapsedBackgroundColor.toString());
     return Drawer(
-      backgroundColor: Theme.of(ctx).drawerTheme.backgroundColor,
+      backgroundColor: Theme.of(ctx).colorScheme.onError,
       child: ListView(
         controller: ctrl,
         padding: EdgeInsets.zero,
@@ -1750,7 +1750,7 @@ onLogOutDialog(
       return Dialog(
         insetPadding: EdgeInsets.symmetric(
           horizontal: (0.1.sw),
-           vertical: (defaultTargetPlatform == TargetPlatform.iOS ? 0.39.sh : 0.41),
+           vertical: (defaultTargetPlatform == TargetPlatform.iOS ? 0.39.sh : 0.41.sh),
         ),
         backgroundColor: appBgWhite,
         shape: RoundedRectangleBorder(
