@@ -136,15 +136,15 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
       }
     }
     if (dataState is DataError) {
-      // if (dataState.error != null) {
-      //   if (dataState.error!.response != null) {
-      //     if (dataState.error!.response!.data != null) {
-      //       errMsg = dataState.error!.response!.data['messages'];
-      //     }
-      //   }
-      // } else {
+      if (dataState.error != null) {
+        if (dataState.error!.response != null) {
+          if (dataState.error!.response!.data != null) {
+            errMsg = dataState.error!.response!.data['messages']['error'];
+          }
+        }
+      } else {
       errMsg = "The request returned an invalid status code of 400.";
-      // }
+      }
       emit(PaidLeaveErrCall(errMsg));
     }
   }

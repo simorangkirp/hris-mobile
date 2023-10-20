@@ -78,14 +78,14 @@ class MyApp extends StatelessWidget {
               // state.locale?.value ?? Language.english.value,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
-              // theme: state.selectedTheme,
-              // darkTheme: state.selectedTheme,
+              theme: state.selectedTheme,
+              darkTheme: state.selectedTheme,
               // state.theme ?? ThemeData.light(),
               // buildTheme(),
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: appBgWhite),
-                useMaterial3: true,
-              ),
+              // theme: ThemeData(
+              //   colorScheme: ColorScheme.fromSeed(seedColor: appBgWhite),
+              //   useMaterial3: true,
+              // ),
               // state.theme
 
               // home: HomeScreen(),

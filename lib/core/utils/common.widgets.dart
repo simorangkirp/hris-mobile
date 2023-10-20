@@ -11,6 +11,8 @@ import 'package:heroicons/heroicons.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/foundation.dart'
+    show TargetPlatform, defaultTargetPlatform;
 
 import '../../lib.dart';
 
@@ -1748,7 +1750,7 @@ onLogOutDialog(
       return Dialog(
         insetPadding: EdgeInsets.symmetric(
           horizontal: (0.1.sw),
-          vertical: (0.4.sh),
+           vertical: (defaultTargetPlatform == TargetPlatform.iOS ? 0.39.sh : 0.41),
         ),
         backgroundColor: appBgWhite,
         shape: RoundedRectangleBorder(
