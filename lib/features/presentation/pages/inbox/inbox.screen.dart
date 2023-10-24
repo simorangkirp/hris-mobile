@@ -20,6 +20,14 @@ class _InboxScreenState extends State<InboxScreen> {
   List<ApprovalCountEntity>? listApp = [];
   List<NotifEntity>? listNotif = [];
   ScrollController ctrl = ScrollController();
+  EntityProfile? profile;
+  String pgNm = Constant.ibxNAppPgNm;
+
+  void dispatchGetProfile() {
+    BlocProvider.of<ApprovalScrnBloc>(context).add(
+      ApprovalScrnGetProfile(),
+    );
+  }
 
   void dispatchGetListNotif() {
     BlocProvider.of<InboxScrnBloc>(context).add(
@@ -33,8 +41,16 @@ class _InboxScreenState extends State<InboxScreen> {
     );
   }
 
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
+  void dispatchCancel() {
+    BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
+  }
+
   void refreshData() {
-    dispatchGetListNotif();
+    dispatchGetProfile();
   }
 
   FutureOr onGoBack() {
@@ -45,32 +61,68 @@ class _InboxScreenState extends State<InboxScreen> {
   @override
   void initState() {
     super.initState();
-    dispatchGetListNotif();
+    dispatchGetProfile();
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final ThemeData theme = Theme.of(context);
+    String scrMst = l10n.inboxNapprv;
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
+      appBar: buildCommAppBar(context, profile),
+      endDrawer: AppNavigationDrawer(
+        scrNm: pgNm,
+        ctx: context,
+        scrMst: scrMst,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w),
-        child: BlocListener<InboxScrnBloc, InboxState>(
-          listener: (context, state) {
-            if (state is InboxScrnListNotifLoaded) {
-              if (state.listNotif != null) {
-                listNotif = state.listNotif;
-              }
-              dispatchGetApprvData();
-            }
-            if (state is InboxScrnApprvDataLoaded) {
-              if (state.listApprv != null) {
-                listApp = state.listApprv;
-              }
-            }
-          },
+        child: MultiBlocListener(
+          listeners: [
+            BlocListener<ApprovalScrnBloc, ApprovalState>(
+              listener: (context, state) {
+                if (state is ApprovalProfileLoaded) {
+                  profile = state.profile;
+                  dispatchGetListNotif();
+                  setState(() {});
+                }
+              },
+            ),
+            BlocListener<InboxScrnBloc, InboxState>(
+              listener: (context, state) {
+                if (state is InboxScrnListNotifLoaded) {
+                  if (state.listNotif != null) {
+                    listNotif = state.listNotif;
+                  }
+                  dispatchGetApprvData();
+                }
+                if (state is InboxScrnApprvDataLoaded) {
+                  if (state.listApprv != null) {
+                    listApp = state.listApprv;
+                  }
+                }
+              },
+            ),
+            BlocListener<AuthBloc, AuthState>(
+              listener: (authContext, state) {
+                if (state is ShowLogoutDialog &&
+                    state.pgNm == Constant.ibxNAppPgNm) {
+                  onLogOutDialog(
+                    authContext,
+                    () => dispatchLogout(),
+                    () => dispatchCancel(),
+                  );
+                }
+                if (state is OnLogOutSuccess) {
+                  authContext.router.replaceAll([const SplashRoute()]);
+                }
+                if (state is AuthCancelSuccess) {
+                  setState(() {});
+                }
+              },
+            ),
+          ],
           child: BlocBuilder<InboxScrnBloc, InboxState>(
             builder: (context, state) {
               if (state is InboxScrnApprvDataLoaded) {
@@ -84,26 +136,21 @@ class _InboxScreenState extends State<InboxScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: 12.h),
                         buildApprvlItem(context, listApp, (val) {
                           context.router
                               .push(ApprovalRoute(type: val))
                               .then((value) => onGoBack());
                         }),
                         SizedBox(height: 8.h),
-                        Divider(
-                          color: appBgBlack.withOpacity(0.3),
-                          thickness: 2,
-                        ),
-                        SizedBox(height: 4.h),
+                        const Divider(),
+                        SizedBox(height: 8.h),
                         Text(
                           l10n.notification,
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w900,
-                          ),
+                          style: theme.textTheme.displayMedium,
                         ),
                         SizedBox(height: 12.h),
-                        buildInboxItem(context,listNotif),
+                        buildInboxItem(context, listNotif),
                         SizedBox(height: 12.h),
                       ],
                     ),

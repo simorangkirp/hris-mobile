@@ -8,15 +8,23 @@ abstract class ApprovalState extends Equatable {
   final String? msg;
   final ApprovalDetailEntity? apprvDetail;
   final List<ApprovalEntity>? listApprv;
+  final EntityProfile? profile;
   const ApprovalState({
     this.error,
     this.errMsg,
     this.msg,
     this.apprvDetail,
     this.listApprv,
+    this.profile,
   });
   @override
-  List<Object> get props => [error!, errMsg!, apprvDetail!, listApprv!];
+  List<Object> get props => [
+        error!,
+        errMsg!,
+        apprvDetail!,
+        listApprv!,
+        profile!,
+      ];
 }
 
 class ApprovalScrnDataErr extends ApprovalState {
@@ -38,4 +46,8 @@ class ApprovalDataDetailLoaded extends ApprovalState {
 
 class ApprovalResponseSubmited extends ApprovalState {
   const ApprovalResponseSubmited(String data) : super(msg: data);
+}
+
+class ApprovalProfileLoaded extends ApprovalState {
+  const ApprovalProfileLoaded(EntityProfile data) : super(profile: data);
 }

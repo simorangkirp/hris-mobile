@@ -69,6 +69,7 @@ class Constant {
   static const paidleavePgNm = 'PaidLeavePageName';
   static const profilePgNm = 'ProfilePageName';
   static const absentPgNm = 'AbsentPageName';
+  static const ibxNAppPgNm = 'InboxNApprovalPageName';
 }
 
 class ConstLang {

@@ -4,19 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../lib.dart';
+import '../../../data/models/language/theme.model.dart';
 
 const languagePrefsKey = 'languagePrefs';
 const themePrefsKey = 'themePrefs';
 
 class SettingBloc extends Bloc<SettingEvent, SettingState> {
   SettingBloc() : super(SettingState()) {
-    on<ChangeLanguage>(onChangeLanguage);
-    on<GetLanguage>(onGetLanguage);
+    on<ChangeLanguage>(onChangeSettings);
+    on<GetLanguage>(onGetSettings);
     // on<GetTheme>(onGetTheme);
     // on<ChangeTheme>(onChangeTheme);
   }
 
-  onChangeLanguage(ChangeLanguage event, Emitter<SettingState> emit) async {
+  onChangeSettings(ChangeLanguage event, Emitter<SettingState> emit) async {
     ThemeData? theme;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(
@@ -25,27 +26,29 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     );
     await prefs.setString(themePrefsKey, event.selectedTheme);
     if (event.selectedTheme == "dark") {
-      final apptheme = AppTheme.values[1];
-      theme = appThemeData[apptheme];
+      // final apptheme = AppTheme.values[1];
+      // theme = appThemeData[apptheme];
+      theme = themesData[0];
     } else {
-      final apptheme = AppTheme.values[0];
-      theme = appThemeData[apptheme];
+      // final apptheme = AppTheme.values[0];
+      // theme = appThemeData[apptheme];
+      theme = themesData[1];
     }
     emit(state.copyWith(
         selectedLanguage: event.selectedLanguage, selectedTheme: theme));
   }
 
-  onGetLanguage(GetLanguage event, Emitter<SettingState> emit) async {
+  onGetSettings(GetLanguage event, Emitter<SettingState> emit) async {
     ThemeData? theme;
     final prefs = await SharedPreferences.getInstance();
     final selectedLanguage = prefs.getString(languagePrefsKey);
     final selectedTheme = prefs.getString(themePrefsKey);
     if (selectedTheme == "dark") {
-      final apptheme = AppTheme.values[1];
-      theme = appThemeData[apptheme];
+      // final apptheme = AppTheme.values[1];
+      theme = themesData[0];
     } else {
-      final apptheme = AppTheme.values[0];
-      theme = appThemeData[apptheme];
+      // final apptheme = AppTheme.values[0];
+      theme = themesData[1];
     }
     emit(state.copyWith(
       selectedLanguage: selectedLanguage != null

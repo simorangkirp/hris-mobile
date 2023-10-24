@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/lib.dart';
 
-Widget buildProfileInfo(EntityProfile? mod) {
+Widget buildProfileInfo(EntityProfile? mod, BuildContext context) {
+  final ThemeData theme = Theme.of(context);
   Uint8List? byteImg;
   if (mod?.photo != null) {
     byteImg = const Base64Decoder().convert(mod!.photo!);
@@ -78,20 +79,40 @@ Widget buildProfileInfo(EntityProfile? mod) {
         right: 50,
         left: 50,
         child: byteImg != null
-            ? Container(
-                width: 112.w,
-                height: 112.w,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: MemoryImage(byteImg),
-                    fit: BoxFit.contain,
-                  ),
-                  border: Border.all(
-                    color: appBgWhite,
-                    width: 8,
-                    strokeAlign: BorderSide.strokeAlignOutside,
-                  ),
+            ? Align(
+                alignment: Alignment.center,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 112.w,
+                      height: 112.w,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: appRichBlack,
+                        border: Border.all(
+                          color: theme.scaffoldBackgroundColor,
+                          width: 8,
+                          strokeAlign: BorderSide.strokeAlignOutside,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 112.w,
+                      height: 112.w,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: MemoryImage(byteImg),
+                          fit: BoxFit.contain,
+                        ),
+                        border: Border.all(
+                          color: theme.scaffoldBackgroundColor,
+                          width: 8,
+                          strokeAlign: BorderSide.strokeAlignOutside,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               )
             : Container(
@@ -99,12 +120,6 @@ Widget buildProfileInfo(EntityProfile? mod) {
                 height: 112.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  image: const DecorationImage(
-                    image: AssetImage(
-                      'assets/image/serenia-0363.jpg',
-                    ),
-                    fit: BoxFit.scaleDown,
-                  ),
                   border: Border.all(
                     color: appBgWhite,
                     width: 8,

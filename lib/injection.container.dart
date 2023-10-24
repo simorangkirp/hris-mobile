@@ -31,6 +31,7 @@ Future<void> initializeDependencies() async {
 
   // Usecase
   sl.registerSingleton<LoginUserUseCase>(LoginUserUseCase(sl()));
+  sl.registerSingleton<ApprvGetProfileUseCase>(ApprvGetProfileUseCase(sl()));
   sl.registerSingleton<GetHolidayListUsecase>(GetHolidayListUsecase(sl()));
   sl.registerSingleton<AuthCheckDeviceInfoUsecase>(
       AuthCheckDeviceInfoUsecase(sl()));
@@ -110,7 +111,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<InboxScrnBloc>(
       () => InboxScrnBloc(sl(), sl())..add(InitInboxScreen()));
   sl.registerFactory<ApprovalScrnBloc>(
-      () => ApprovalScrnBloc(sl(), sl(), sl())..add(ApprovalScrnInit()));
+      () => ApprovalScrnBloc(sl(), sl(), sl(), sl())..add(ApprovalScrnInit()));
   sl.registerFactory<PaidLeaveBloc>(() =>
       PaidLeaveBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl())
         ..add(PaidLeaveInit()));

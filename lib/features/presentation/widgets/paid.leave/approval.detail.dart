@@ -20,6 +20,7 @@ Widget paidleaveAppHistory(BuildContext context, List<PaidLeaveApproval>? mod) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 8.h),
             Text(
               l10n.timeline,
               style: TextStyle(

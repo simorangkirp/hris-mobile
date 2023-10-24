@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/foundation.dart'
@@ -52,6 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthDeviceChecked) {
@@ -99,7 +99,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Container(
                 height: 1.sh,
                 width: 1.sw,
-                color: appBgWhite,
+                color: theme.scaffoldBackgroundColor,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -121,7 +121,6 @@ class _SplashScreenState extends State<SplashScreen> {
                     Text(
                       'OWL ESS',
                       style: TextStyle(
-                        color: appBgBlack,
                         fontSize: 24.sp,
                         fontWeight: FontWeight.w800,
                       ),

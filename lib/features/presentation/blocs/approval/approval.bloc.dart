@@ -6,15 +6,18 @@ class ApprovalScrnBloc extends Bloc<ApprovalEvent, ApprovalState> {
   final GetApprovalListDataUsecase listUsecase;
   final GetApprovalDataDetail detailUsecase;
   final SubmitApprovalDataResponse submitUsecase;
+  final ApprvGetProfileUseCase profileUsecase;
   ApprovalScrnBloc(
     this.listUsecase,
     this.detailUsecase,
     this.submitUsecase,
+    this.profileUsecase,
   ) : super(ApprovalScrnLoading()) {
     on<ApprovalScrnInit>(init);
     on<ApprovalScrnGetApproval>(getListApprv);
     on<ApprovalScrnGetApprovalDataDetail>(getApprvDataDetail);
     on<ApprovalScrnSubmitResponse>(submitApprvDataResponse);
+    on<ApprovalScrnGetProfile>(getApprvProfile);
   }
 
   void init(ApprovalScrnInit event, Emitter<ApprovalState> emit) async {
@@ -38,6 +41,17 @@ class ApprovalScrnBloc extends Bloc<ApprovalEvent, ApprovalState> {
         emit(ApprovalListLoaded(list));
       } else {
         emit(ApprovalScrnDataErr(dataState.error!));
+      }
+    }
+  }
+
+  void getApprvProfile(
+      ApprovalScrnGetProfile event, Emitter<ApprovalState> emit) async {
+    emit(ApprovalScrnLoading());
+    final dataState = await profileUsecase.call(NoParams());
+    if (dataState is DataSuccess) {
+      if (dataState.data != null) {
+        emit(ApprovalProfileLoaded(dataState.data));
       }
     }
   }

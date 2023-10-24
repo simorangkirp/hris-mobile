@@ -6,7 +6,7 @@ import '../../../../../lib.dart';
 
 // PaidLeaveListData data
 Widget buildListItems(BuildContext context, List<PaidLeaveListData>? listdata,
-    Function(String id) onTapItem) {
+    Function(String id) onTapItem, ThemeData theme) {
   ScrollController ctrl = ScrollController();
   return listdata == null
       ? const SizedBox()
@@ -49,7 +49,7 @@ Widget buildListItems(BuildContext context, List<PaidLeaveListData>? listdata,
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              color: appBgWhite,
+                              color: theme.drawerTheme.backgroundColor,
                             ),
                             padding: EdgeInsets.symmetric(
                                 vertical: 8.h, horizontal: 12.w),
@@ -62,25 +62,15 @@ Widget buildListItems(BuildContext context, List<PaidLeaveListData>? listdata,
                                     children: [
                                       Text(
                                         data.notransaksi ?? "-",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 14.sp,
-                                        ),
+                                        style: theme.textTheme.bodyLarge,
                                       ),
                                       Text(
                                         comb,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12.sp,
-                                          color: appBgBlack.withOpacity(0.7),
-                                        ),
+                                        style: theme.textTheme.bodyMedium,
                                       ),
                                       Text(
                                         data.namastatus ?? "-",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12.sp,
-                                        ),
+                                        style: theme.textTheme.bodyMedium,
                                       ),
                                     ],
                                   ),

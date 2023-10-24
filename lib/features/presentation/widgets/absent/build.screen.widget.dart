@@ -16,6 +16,8 @@ Widget buildScreen(
 ) {
   final l10n = AppLocalizations.of(context);
   String pgNm = Constant.absentPgNm;
+  String scrMst = l10n.home;
+  String scrSub = l10n.absent;
   bool isClockIn = false;
   bool isClockOut = false;
   bool isDone = false;
@@ -40,6 +42,8 @@ Widget buildScreen(
   return Scaffold(
     appBar: buildCommAppBar(context, mod),
     endDrawer: AppNavigationDrawer(
+      scrSub: scrSub,
+      scrMst: scrMst,
       scrNm: pgNm,
       ctx: context,
     ),

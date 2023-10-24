@@ -343,9 +343,13 @@ class AppNavigationDrawer extends StatefulWidget {
     super.key,
     required this.ctx,
     required this.scrNm,
+    required this.scrMst,
+    this.scrSub,
   });
   final BuildContext ctx;
   final String scrNm;
+  final String scrMst;
+  final String? scrSub;
 
   @override
   State<AppNavigationDrawer> createState() => _AppNavigationDrawerState();
@@ -358,231 +362,337 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
     BlocProvider.of<AuthBloc>(context).add(DisplayLogoutDialog(widget.scrNm));
   }
 
+  // ExpansionTileController? homeCtrl;
+  bool homeExpand = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // homeCtrl = ExpansionTileController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(ctx) {
+    final ThemeData theme = Theme.of(ctx);
     final l10n = AppLocalizations.of(ctx);
+    List<String> subHome = [
+      l10n.dashboard,
+      l10n.claim,
+      l10n.absent,
+      l10n.paidLeave,
+      'PJD',
+      l10n.calendar,
+    ];
+
+    onSubSelected(String menuNm) {
+      if (menuNm == subHome[0]) {
+        ctx.router.push(const HomeRoute());
+      }
+      if (menuNm == subHome[1]) {
+        // ctx.router.push(const _Route());
+      }
+      if (menuNm == subHome[2]) {
+        ctx.router.push(const AbsentRoute());
+      }
+      if (menuNm == subHome[3]) {
+        ctx.router.push(const PaidLeaveMainRoute());
+      }
+      if (menuNm == subHome[4]) {
+        // ctx.router.push(const _Route());
+      }
+      if (menuNm == subHome[5]) {
+        // ctx.router.push(const _Route());
+      }
+    }
+
     // log(Theme.of(ctx).listTileTheme.tileColor.toString());
     // log(Theme.of(ctx).drawerTheme.backgroundColor.toString());
     // log(Theme.of(ctx).expansionTileTheme.collapsedBackgroundColor.toString());
     return Drawer(
-      backgroundColor: Theme.of(ctx).colorScheme.onError,
-      child: ListView(
-        controller: ctrl,
-        padding: EdgeInsets.zero,
-        children: [
-          // DrawerHeader(
-          //   child: Text('HRIS Mobile'),
-          // ),
-          SizedBox(height: 56.h),
-          ExpansionTile(
-            // collapsedBackgroundColor: appBgWhite,
-            collapsedBackgroundColor:
-                Theme.of(ctx).expansionTileTheme.collapsedBackgroundColor,
-            leading: SizedBox(
-              height: 16.w,
-              width: 16.w,
-              child: SvgPicture.asset(
-                'assets/icons/home.svg',
-                fit: BoxFit.cover,
-              ),
-            ),
-            trailing: SizedBox(
-              width: 10.w,
-              height: 8.w,
-              child: SvgPicture.asset(
-                'assets/icons/chevron-down.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-            title: Text(
-              l10n.home,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            children: [
-              ListTile(
-                // tileColor: appBgWhite,
-                tileColor: Theme.of(ctx).listTileTheme.tileColor,
-                leading: const SizedBox(),
-                title: Text(
-                  l10n.dashboard,
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(ctx);
-                  ctx.router.push(const HomeRoute());
-                },
-              ),
-              ListTile(
-                // tileColor: appBgWhite,
-                tileColor: Theme.of(ctx).listTileTheme.tileColor,
-                leading: const SizedBox(),
-                title: Text(
-                  l10n.claim,
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                onTap: () {},
-              ),
-              ListTile(
-                // tileColor: appBgWhite,
-                tileColor: Theme.of(ctx).listTileTheme.tileColor,
-                leading: const SizedBox(),
-                title: Text(
-                  l10n.absent,
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(ctx);
-                  ctx.router.push(const AbsentRoute());
-                },
-              ),
-              ListTile(
-                // tileColor: appBgWhite,
-                tileColor: Theme.of(ctx).listTileTheme.tileColor,
-                leading: const SizedBox(),
-                title: Text(
-                  l10n.paidLeave,
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(ctx);
-                  ctx.router.push(const PaidLeaveMainRoute());
-                },
-              ),
-              ListTile(
-                tileColor: Theme.of(ctx).listTileTheme.tileColor,
-                // tileColor: appBgWhite,
-                leading: const SizedBox(),
-                title: Text(
-                  'PJD',
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                onTap: () {},
-              ),
-              ListTile(
-                tileColor: Theme.of(ctx).listTileTheme.tileColor,
-                // tileColor: appBgWhite,
-                leading: const SizedBox(),
-                title: Text(
-                  l10n.calendar,
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                onTap: () {},
-              ),
-            ],
-          ),
-
-          ListTile(
-            // tileColor: appBgWhite,
-            tileColor: Theme.of(ctx).listTileTheme.tileColor,
-            leading: SizedBox(
-              height: 16.w,
-              width: 16.w,
-              child: SvgPicture.asset(
-                'assets/icons/briefcase.svg',
-                fit: BoxFit.fill,
-              ),
-            ),
-            // trailing: SizedBox(
-            //   width: 10.w,
-            //   height: 8.w,
-            //   child: SvgPicture.asset(
-            //     'assets/icons/chevron-down.svg',
-            //     fit: BoxFit.scaleDown,
-            //   ),
+      backgroundColor: theme.drawerTheme.backgroundColor,
+      child: Padding(
+        padding: EdgeInsets.only(left: 8.w),
+        child: ListView(
+          controller: ctrl,
+          padding: EdgeInsets.zero,
+          children: [
+            // DrawerHeader(
+            //   child: Text('HRIS Mobile'),
             // ),
-            title: Text(
-              l10n.act,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
+            SizedBox(height: 56.h),
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
+              ),
+              child: ExpansionTile(
+                onExpansionChanged: (value) {
+                  homeExpand = value;
+                  setState(() {});
+                },
+                // collapsedBackgroundColor: appBgWhite,
+                collapsedBackgroundColor: widget.scrMst == l10n.home
+                    ? theme.expansionTileTheme.backgroundColor
+                    : theme.expansionTileTheme.collapsedBackgroundColor,
+                backgroundColor: theme.expansionTileTheme.backgroundColor,
+                leading: SizedBox(
+                  height: 16.w,
+                  width: 16.w,
+                  child: SvgPicture.asset(
+                    'assets/icons/home.svg',
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      widget.scrMst == l10n.home && !homeExpand
+                          ? appBgWhite
+                          : widget.scrMst == l10n.home && homeExpand
+                              ? appBtnBlue
+                              : widget.scrMst != l10n.home && !homeExpand
+                                  ? theme.expansionTileTheme.collapsedTextColor!
+                                  : theme.expansionTileTheme.textColor!,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+                trailing: SizedBox(
+                  width: 10.w,
+                  height: 8.w,
+                  child: SvgPicture.asset(
+                    'assets/icons/chevron-down.svg',
+                    fit: BoxFit.scaleDown,
+                    colorFilter: ColorFilter.mode(
+                      widget.scrMst == l10n.home && !homeExpand
+                          ? appBgWhite
+                          : widget.scrMst == l10n.home && homeExpand
+                              ? appBtnBlue
+                              : widget.scrMst != l10n.home && !homeExpand
+                                  ? theme.expansionTileTheme.collapsedTextColor!
+                                  : theme.expansionTileTheme.textColor!,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+                title: Text(
+                  l10n.home,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    color: widget.scrMst == l10n.home && !homeExpand
+                        ? appBgWhite
+                        : widget.scrMst == l10n.home && homeExpand
+                            ? appBtnBlue
+                            : widget.scrMst != l10n.home && !homeExpand
+                                ? theme.expansionTileTheme.collapsedTextColor!
+                                : theme.expansionTileTheme.textColor!,
+                  ),
+                ),
+                children: List.generate(
+                  subHome.length,
+                  (index) => ListTile(
+                    leading: const SizedBox(),
+                    title: Text(
+                      subHome[index],
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
+                        color: widget.scrSub == subHome[index]
+                            ? appBtnBlue
+                            : appBgWhite,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(ctx);
+                      onSubSelected(subHome[index]);
+                    },
+                  ),
+                ),
               ),
             ),
-            onTap: () {},
-          ),
-          ListTile(
-            tileColor: Theme.of(ctx).listTileTheme.tileColor,
-            // tileColor: appBgWhite,
-            leading: SizedBox(
-              height: 16.w,
-              width: 16.w,
-              child: SvgPicture.asset(
-                'assets/icons/notification.svg',
-                fit: BoxFit.fill,
+
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
+              ),
+              child: InkWell(
+                onTap: () {},
+                child: IgnorePointer(
+                  ignoring: true,
+                  child: ExpansionTile(
+                    collapsedBackgroundColor: widget.scrMst == l10n.act
+                        ? theme.expansionTileTheme.backgroundColor
+                        : theme.expansionTileTheme.collapsedBackgroundColor,
+                    // tileColor: appBgWhite,
+                    // tileColor: Theme.of(ctx).listTileTheme.tileColor,
+                    leading: SizedBox(
+                      height: 16.w,
+                      width: 16.w,
+                      child: SvgPicture.asset(
+                        'assets/icons/briefcase.svg',
+                        colorFilter: ColorFilter.mode(
+                            widget.scrMst == l10n.act
+                                ? appBgWhite
+                                : widget.scrMst != l10n.act
+                                    ? theme
+                                        .expansionTileTheme.collapsedTextColor!
+                                    : appRichBlack,
+                            BlendMode.srcIn),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    trailing: const SizedBox(),
+                    // trailing: SizedBox(
+                    //   width: 10.w,
+                    //   height: 8.w,
+                    //   child: SvgPicture.asset(
+                    //     'assets/icons/chevron-down.svg',
+                    //     fit: BoxFit.scaleDown,
+                    //   ),
+                    // ),
+                    title: Text(
+                      l10n.act,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: widget.scrMst == l10n.act
+                            ? appBgWhite
+                            : widget.scrMst != l10n.act
+                                ? theme.expansionTileTheme.collapsedTextColor!
+                                : appRichBlack,
+                      ),
+                    ),
+                    // onTap: () {},
+                  ),
+                ),
               ),
             ),
-            title: Text(
-              l10n.inboxNapprv,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
+              ),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(ctx);
+                  ctx.router.push(const InboxRoute());
+                },
+                child: IgnorePointer(
+                  ignoring: true,
+                  child: ExpansionTile(
+                    collapsedBackgroundColor: widget.scrMst == l10n.inboxNapprv
+                        ? theme.expansionTileTheme.backgroundColor
+                        : theme.expansionTileTheme.collapsedBackgroundColor,
+                    // tileColor: appBgWhite,
+                    leading: SizedBox(
+                      height: 16.w,
+                      width: 16.w,
+                      child: SvgPicture.asset(
+                        'assets/icons/notification.svg',
+                        colorFilter: ColorFilter.mode(
+                            widget.scrMst == l10n.inboxNapprv
+                                ? appBgWhite
+                                : widget.scrMst != l10n.inboxNapprv
+                                    ? theme
+                                        .expansionTileTheme.collapsedTextColor!
+                                    : appRichBlack,
+                            BlendMode.srcIn),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    title: Text(
+                      l10n.inboxNapprv,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: widget.scrMst == l10n.inboxNapprv
+                            ? appBgWhite
+                            : widget.scrMst != l10n.inboxNapprv
+                                ? theme.expansionTileTheme.collapsedTextColor!
+                                : appRichBlack,
+                      ),
+                    ),
+                    trailing: const SizedBox(),
+                  ),
+                ),
               ),
             ),
-            onTap: () {
-              Navigator.pop(ctx);
-              ctx.router.push(const InboxRoute());
-            },
-          ),
-          ListTile(
-            tileColor: Theme.of(ctx).listTileTheme.tileColor,
-            // tileColor: appBgWhite,
-            leading: SizedBox(
-              height: 16.w,
-              width: 16.w,
-              child: SvgPicture.asset(
-                'assets/icons/profile.svg',
-                fit: BoxFit.fill,
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
+              ),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(ctx);
+                  ctx.router.push(const ProfileRoute());
+                },
+                child: IgnorePointer(
+                  ignoring: true,
+                  child: ExpansionTile(
+                    collapsedBackgroundColor: widget.scrMst == l10n.profile
+                        ? theme.expansionTileTheme.backgroundColor
+                        : theme.expansionTileTheme.collapsedBackgroundColor,
+                    // tileColor: appBgWhite,
+                    leading: SizedBox(
+                      height: 16.w,
+                      width: 16.w,
+                      child: SvgPicture.asset(
+                        'assets/icons/profile.svg',
+                        colorFilter: ColorFilter.mode(
+                            widget.scrMst == l10n.profile
+                                ? appBgWhite
+                                : widget.scrMst != l10n.profile
+                                    ? theme
+                                        .expansionTileTheme.collapsedTextColor!
+                                    : appRichBlack,
+                            BlendMode.srcIn),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    title: Text(
+                      l10n.profile,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: widget.scrMst == l10n.profile
+                            ? appBgWhite
+                            : widget.scrMst != l10n.profile
+                                ? theme.expansionTileTheme.collapsedTextColor!
+                                : appRichBlack,
+                      ),
+                    ),
+                    trailing: const SizedBox(),
+                    // onTap: () {
+                    //   Navigator.pop(ctx);
+                    //   ctx.router.push(const ProfileRoute());
+                    // },
+                  ),
+                ),
               ),
             ),
-            title: Text(
-              l10n.profile,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
+            ListTile(
+              // tileColor: Theme.of(ctx).listTileTheme.tileColor,
+              // tileColor: appBgWhite,
+              leading: Icon(Icons.logout,
+                  size: 18.w, color: theme.listTileTheme.iconColor),
+              title: Text(
+                l10n.logout,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
+              onTap: () {
+                Navigator.pop(ctx);
+                dispatchLogout();
+              },
             ),
-            onTap: () {
-              Navigator.pop(ctx);
-              ctx.router.push(const ProfileRoute());
-            },
-          ),
-          ListTile(
-            tileColor: Theme.of(ctx).listTileTheme.tileColor,
-            // tileColor: appBgWhite,
-            leading: Icon(Icons.logout, size: 18.w, color: Colors.black),
-            title: Text(
-              l10n.logout,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            onTap: () {
-              Navigator.pop(ctx);
-              dispatchLogout();
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -679,14 +789,15 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Dialog(
+      backgroundColor: theme.dialogTheme.backgroundColor,
       insetPadding: EdgeInsets.symmetric(
         vertical: 0.20.sh,
         horizontal: 0.05.sw,
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: appBgWhite,
           borderRadius: BorderRadius.circular(12),
         ),
         // width: context.deviceWidth() * 0.4,
@@ -783,7 +894,7 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
             //   ),
             // ),
             SizedBox(
-              height: 8.h,
+              height: 12.h,
             ),
             Expanded(
               child: NotificationListener<OverscrollIndicatorNotification>(
@@ -810,7 +921,7 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
                               color: item.isSelected == true
                                   ? appBtnBlue
                                   : appBgTransparent),
-                          color: appBgWhite,
+                          color: theme.dialogTheme.backgroundColor,
                           borderRadius: BorderRadius.circular(24),
                         ),
                         width: 48.w,
@@ -837,7 +948,7 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
               ),
             ),
             SizedBox(
-              height: 8.h,
+              height: 4.h,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 32),
@@ -886,7 +997,7 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
               ),
             ),
             SizedBox(
-              height: 16.h,
+              height: 20.h,
             ),
           ],
         ),
@@ -1090,6 +1201,7 @@ class _ExpandableWidgetState extends State<ExpandableWidget>
 
 buildCommAppBar(BuildContext context, EntityProfile? mod) {
   final l10n = AppLocalizations.of(context);
+  final ThemeData theme = Theme.of(context);
   Uint8List? byteImg;
   if (mod?.photo != null) {
     byteImg = const Base64Decoder().convert(mod!.photo!);
@@ -1120,17 +1232,11 @@ buildCommAppBar(BuildContext context, EntityProfile? mod) {
           children: [
             Text(
               l10n.welcomeBack,
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w500,
-              ),
+              style: theme.textTheme.titleSmall,
             ),
             Text(
               mod?.namakaryawan ?? "",
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500,
-              ),
+              style: theme.textTheme.titleMedium,
             ),
           ],
         ),
@@ -1745,14 +1851,15 @@ onLogOutDialog(
   Function() cancel,
 ) {
   return showDialog(
+    barrierDismissible: false,
     context: context,
     builder: (context) {
       return Dialog(
         insetPadding: EdgeInsets.symmetric(
           horizontal: (0.1.sw),
-           vertical: (defaultTargetPlatform == TargetPlatform.iOS ? 0.39.sh : 0.41.sh),
+          vertical:
+              (defaultTargetPlatform == TargetPlatform.iOS ? 0.39.sh : 0.41.sh),
         ),
-        backgroundColor: appBgWhite,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),

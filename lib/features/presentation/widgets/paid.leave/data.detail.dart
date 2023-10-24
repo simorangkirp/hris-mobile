@@ -38,6 +38,7 @@ Widget paidLeaveDetail(BuildContext context, String mode,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 8.h),
                   Text(
                     l10n.details,
                     style: TextStyle(

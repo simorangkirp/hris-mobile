@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../lib.dart';
 
 @RoutePage()
@@ -37,16 +35,13 @@ class _PaidLeaveDetailScreenState extends State<PaidLeaveDetailScreen> {
     dispatchGetDataDetail();
   }
 
-  buildScreen() {
+  buildScreen(BuildContext context, ThemeData theme) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
           widget.id ?? '-',
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w400,
-          ),
+          style: theme.appBarTheme.titleTextStyle,
         ),
       ),
       body: NotificationListener<OverscrollIndicatorNotification>(
@@ -73,6 +68,8 @@ class _PaidLeaveDetailScreenState extends State<PaidLeaveDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return BlocListener<PaidLeaveBloc, PaidLeaveState>(
       listener: (context, state) {
         if (state is PaidLeaveDetailLoaded) {
@@ -84,7 +81,7 @@ class _PaidLeaveDetailScreenState extends State<PaidLeaveDetailScreen> {
       child: BlocBuilder<PaidLeaveBloc, PaidLeaveState>(
         builder: (context, state) {
           if (state is PaidLeaveDetailLoaded) {
-            return buildScreen();
+            return buildScreen(context, theme);
           }
           if (state is PaidLeaveLoading) {
             return const Scaffold(

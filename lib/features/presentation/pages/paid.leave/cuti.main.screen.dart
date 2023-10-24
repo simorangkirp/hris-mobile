@@ -88,9 +88,11 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-
+    final ThemeData theme = Theme.of(context);
     String dt = l10n.currPeriod;
     String pgNm = Constant.paidleavePgNm;
+    String scrMst = l10n.home;
+    String scrSub = l10n.paidLeave;
     void dispatchLogout() {
       BlocProvider.of<AuthBloc>(context).add(OnLogOut());
     }
@@ -158,6 +160,8 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
               endDrawer: AppNavigationDrawer(
                 ctx: context,
                 scrNm: pgNm,
+                scrMst: scrMst,
+                scrSub: scrSub,
               ),
               body: Padding(
                 padding: Constant.appPadding,
@@ -206,19 +210,11 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
                                 children: [
                                   Text(
                                     dt,
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: appBgBlack,
-                                    ),
+                                    style: theme.textTheme.bodyLarge,
                                   ),
                                   Text(
                                     sltdDt,
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: appBgBlack.withOpacity(0.6),
-                                    ),
+                                    style: theme.textTheme.bodyMedium,
                                   ),
                                 ],
                               ),
@@ -289,6 +285,7 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
                                     .push(PaidLeaveDetailRoute(id: s))
                                     .then((value) => onGoBack());
                               },
+                              theme,
                             );
                           } else if (state is PaidLeaveSearchLoading) {
                             return Center(

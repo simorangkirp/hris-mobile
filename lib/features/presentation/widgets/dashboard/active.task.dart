@@ -18,6 +18,7 @@ class _HomeTaskWidgetState extends State<HomeTaskWidget> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final ThemeData theme = Theme.of(context);
     return Column(
       children: [
         Row(
@@ -26,10 +27,7 @@ class _HomeTaskWidgetState extends State<HomeTaskWidget> {
           children: [
             Text(
               l10n.actTask,
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w900,
-              ),
+              style: theme.textTheme.displayMedium,
             ),
             GestureDetector(
               // onTap: () => widget.showSnBar(context),

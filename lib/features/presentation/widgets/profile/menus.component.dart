@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Widget buildListMenu(BuildContext ctx) {
   final l10n = AppLocalizations.of(ctx);
-
+  final ThemeData theme = Theme.of(ctx);
   return Column(
     children: [
       GestureDetector(
@@ -17,7 +17,7 @@ Widget buildListMenu(BuildContext ctx) {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: appIconMenuTitle.withOpacity(0.1),
+              color: theme.dividerTheme.color!,
               width: 1,
             ),
             borderRadius: BorderRadius.circular(2),
@@ -46,17 +46,15 @@ Widget buildListMenu(BuildContext ctx) {
               Expanded(
                 child: Text(
                   l10n.myPersonalInfo,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: appBgBlack,
-                    fontSize: 14.sp,
-                  ),
+                  style: theme.textTheme.bodyLarge,
                 ),
               ),
               SvgPicture.asset(
                 'assets/icons/chevron-right.svg',
                 fit: BoxFit.contain,
                 height: 8.w,
+                colorFilter:
+                    ColorFilter.mode(theme.iconTheme.color!, BlendMode.srcIn),
               ),
             ],
           ),
@@ -70,7 +68,7 @@ Widget buildListMenu(BuildContext ctx) {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: appIconMenuTitle.withOpacity(0.1),
+              color: theme.dividerTheme.color!,
               width: 1,
             ),
             borderRadius: BorderRadius.circular(2),
@@ -99,17 +97,15 @@ Widget buildListMenu(BuildContext ctx) {
               Expanded(
                 child: Text(
                   l10n.setting,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: appBgBlack,
-                    fontSize: 14.sp,
-                  ),
+                  style: theme.textTheme.bodyLarge,
                 ),
               ),
               SvgPicture.asset(
                 'assets/icons/chevron-right.svg',
                 fit: BoxFit.contain,
                 height: 8.w,
+                colorFilter:
+                    ColorFilter.mode(theme.iconTheme.color!, BlendMode.srcIn),
               ),
             ],
           ),

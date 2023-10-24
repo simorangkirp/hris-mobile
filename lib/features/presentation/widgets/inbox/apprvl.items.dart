@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 import '../../../../../lib.dart';
 
 Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
@@ -29,15 +28,13 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
     }
   }
   final l10n = AppLocalizations.of(ctx);
+  final ThemeData theme = Theme.of(ctx);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
         l10n.approval,
-        style: TextStyle(
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w900,
-        ),
+        style: theme.textTheme.displayMedium,
       ),
       SizedBox(height: 12.h),
       IntrinsicHeight(
@@ -80,7 +77,11 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SvgPicture.asset(ConstIconPath.clock),
+                          SvgPicture.asset(
+                            ConstIconPath.clock,
+                            colorFilter: ColorFilter.mode(
+                                theme.iconTheme.color!, BlendMode.srcIn),
+                          ),
                           SizedBox(height: 8.h),
                           Text(
                             l10n.absent,
@@ -134,7 +135,11 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SvgPicture.asset(ConstIconPath.timeOff),
+                          SvgPicture.asset(
+                            ConstIconPath.timeOff,
+                            colorFilter: ColorFilter.mode(
+                                theme.iconTheme.color!, BlendMode.srcIn),
+                          ),
                           SizedBox(height: 8.h),
                           Text(
                             l10n.paidLeave,
@@ -189,7 +194,11 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SvgPicture.asset(ConstIconPath.receipt),
+                          SvgPicture.asset(
+                            ConstIconPath.receipt,
+                            colorFilter: ColorFilter.mode(
+                                theme.iconTheme.color!, BlendMode.srcIn),
+                          ),
                           SizedBox(height: 8.h),
                           Text(
                             l10n.claim,
@@ -243,7 +252,11 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SvgPicture.asset(ConstIconPath.plane),
+                        SvgPicture.asset(
+                          ConstIconPath.plane,
+                          colorFilter: ColorFilter.mode(
+                              theme.iconTheme.color!, BlendMode.srcIn),
+                        ),
                         SizedBox(height: 8.h),
                         Text(
                           'PJD',

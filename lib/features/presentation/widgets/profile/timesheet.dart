@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Widget buildTimeSheet(BuildContext context, int? ctr) {
   final l10n = AppLocalizations.of(context);
-
+  final ThemeData theme = Theme.of(context);
   return Container(
     decoration: BoxDecoration(
       border: Border.all(
@@ -26,18 +26,13 @@ Widget buildTimeSheet(BuildContext context, int? ctr) {
           children: [
             Text(
               l10n.timeOff,
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                color: appBgBlack.withOpacity(0.6),
-                fontSize: 12.sp,
-              ),
+              style: theme.textTheme.bodyMedium,
             ),
             Text(
               // plafond.diambil ?? "0",
               "0",
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                color: appBgBlack,
                 fontSize: 16.sp,
               ),
             ),
@@ -49,18 +44,13 @@ Widget buildTimeSheet(BuildContext context, int? ctr) {
             children: [
               Text(
                 l10n.attendance,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  color: appBgBlack.withOpacity(0.6),
-                  fontSize: 12.sp,
-                ),
+                style: theme.textTheme.bodyMedium,
               ),
               Text(
                 // ctr.toString(),
                 (ctr ?? 0).toString(),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  color: appBgBlack,
                   fontSize: 16.sp,
                 ),
               ),
@@ -73,17 +63,12 @@ Widget buildTimeSheet(BuildContext context, int? ctr) {
             children: [
               Text(
                 l10n.overtime,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  color: appBgBlack.withOpacity(0.6),
-                  fontSize: 12.sp,
-                ),
+                style: theme.textTheme.bodyMedium,
               ),
               Text(
                 "0",
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  color: appBgBlack,
                   fontSize: 16.sp,
                 ),
               ),

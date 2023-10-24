@@ -1,4 +1,3 @@
-
 import '../../../../lib.dart';
 
 abstract class ApprovalEvent {
@@ -21,3 +20,5 @@ class ApprovalScrnSubmitResponse extends ApprovalEvent {
   final ApprvSubmitResponseParams param;
   ApprovalScrnSubmitResponse(this.param);
 }
+
+class ApprovalScrnGetProfile extends ApprovalEvent {}

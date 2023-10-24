@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-faturesComponent(BuildContext ctx) {
+faturesComponent(BuildContext ctx, ThemeData theme) {
   final l10n = AppLocalizations.of(ctx);
 
   List<FeaturesModel> collection = [
@@ -87,10 +87,7 @@ faturesComponent(BuildContext ctx) {
     children: [
       Text(
         l10n.features,
-        style: TextStyle(
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w900,
-        ),
+        style: theme.textTheme.displayMedium,
       ),
       SizedBox(height: 12.h),
       GridView.builder(

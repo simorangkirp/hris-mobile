@@ -13,6 +13,17 @@ class GetApprovalListDataUsecase
   }
 }
 
+class ApprvGetProfileUseCase extends UseCase<DataState, NoParams> {
+  final ApprovalRepository _repos;
+  ApprvGetProfileUseCase(this._repos);
+
+  @override
+  Future<DataState> call(params) async {
+    var res = await _repos.getAppProfile();
+    return res;
+  }
+}
+
 class GetApprovalDataDetail extends UseCase<DataState, ApprvDataDetailParams> {
   final ApprovalRepository _repos;
   GetApprovalDataDetail(this._repos);

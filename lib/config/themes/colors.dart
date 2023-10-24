@@ -32,3 +32,7 @@ const appSnackbarBgSuccess = Color(0xff00E676);
 const appTextGrey = Color(0xff8D9797);
 const appTextBlue = Color(0xff3422FF);
 const appFillField = Color(0xffF3F6F9);
+
+
+//* DarkMode Color
+const darkmodeTextColor = Color(0xFFF4F4F4);

@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../lib.dart';
 
-buildAppBar(BuildContext context, EntityProfile? mod) {
+buildAppBar(BuildContext context, EntityProfile? mod, ThemeData theme) {
   Uint8List? byteImg;
   if (mod?.photo != null) {
     byteImg = const Base64Decoder().convert(mod!.photo!);
@@ -15,7 +15,7 @@ buildAppBar(BuildContext context, EntityProfile? mod) {
   final l10n = AppLocalizations.of(context);
 
   return AppBar(
-    backgroundColor: Theme.of(context).colorScheme.background,
+    // backgroundColor: Theme.of(context).colorScheme.primary,
     automaticallyImplyLeading: false,
     title: Row(
       children: [
@@ -41,17 +41,11 @@ buildAppBar(BuildContext context, EntityProfile? mod) {
           children: [
             Text(
               l10n.welcomeBack,
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w500,
-              ),
+              style: theme.textTheme.titleSmall,
             ),
             Text(
               mod?.namakaryawan ?? "",
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500,
-              ),
+              style: theme.textTheme.titleMedium,
             ),
           ],
         ),

@@ -20,6 +20,7 @@ class _HomePengumumanWidgetState extends State<HomePengumumanWidget> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final ThemeData theme = Theme.of(context);
     return Column(
       children: [
         Row(
@@ -28,10 +29,7 @@ class _HomePengumumanWidgetState extends State<HomePengumumanWidget> {
           children: [
             Text(
               l10n.announcement,
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w900,
-              ),
+              style: theme.textTheme.displayMedium,
             ),
             GestureDetector(
               // onTap: () => widget.showSnBar(context),
@@ -150,17 +148,17 @@ class _ContentSliderWidgetState extends State<ContentSliderWidget> {
             (index) => index != pageNo
                 ? Container(
                     margin: const EdgeInsets.all(4),
-                    child: Icon(
+                    child: const Icon(
                       Icons.circle,
                       size: 12,
-                      color: appBgBlack.withOpacity(0.5),
+                      color: appDisabledTextField,
                     ),
                   )
                 : Container(
                     margin: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
-                      color: appBgBlack,
+                      color: appBtnBlue,
                     ),
                     height: 12,
                     width: 32,

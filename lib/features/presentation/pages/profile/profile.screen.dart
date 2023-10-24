@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:owl_hris/lib.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class ProfileScreen extends StatefulWidget implements AutoRouteWrapper {
@@ -60,6 +61,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   buildProfileScreen(BuildContext ctx, EntityProfile? data, int? aCtr) {
+    final l10n = AppLocalizations.of(ctx);
+    String scrMst = l10n.profile;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -75,13 +78,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       endDrawer: AppNavigationDrawer(
         scrNm: pgNm,
         ctx: ctx,
+        scrMst: scrMst,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 72.h),
-            buildProfileInfo(data),
+            buildProfileInfo(data, context),
             SizedBox(height: 12.h),
             buildTimeSheet(context, aCtr),
             SizedBox(height: 12.h),

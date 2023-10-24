@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 
 import '../../../lib.dart';
 
-
 class ApprovalRepoImpl implements ApprovalRepository {
   final ApprovalApiServices _apiServices;
   ApprovalRepoImpl(this._apiServices);
@@ -94,5 +93,16 @@ class ApprovalRepoImpl implements ApprovalRepository {
     } on DioException catch (e) {
       return DataError(e);
     }
+  }
+
+  @override
+  Future<DataState> getAppProfile() async {
+    UserAuthDb auth = UserAuthDb();
+    ProfileModel? mods;
+    final res = await auth.getProfileDetail();
+    if (res != null) {
+      mods = res;
+    }
+    return DataSuccess(mods);
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../lib.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget implements AutoRouteWrapper {
@@ -44,11 +45,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData themeData = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     buildHome(EntityProfile? mods) {
       String pgNm = Constant.dashboardPgNm;
+      String scMst = l10n.home;
+      String scSub = l10n.dashboard;
       return Scaffold(
-        appBar: buildAppBar(context, mods),
-        endDrawer: AppNavigationDrawer(ctx: context, scrNm: pgNm),
+        appBar: buildAppBar(context, mods, themeData),
+        endDrawer: AppNavigationDrawer(
+          ctx: context,
+          scrNm: pgNm,
+          scrMst: scMst,
+          scrSub: scSub,
+        ),
         body: SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -67,16 +77,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(height: 12.h),
-                          faturesComponent(context),
-                          Divider(
-                            color: appBgBlack.withOpacity(0.3),
-                            height: 32.h,
-                          ),
+                          faturesComponent(context, themeData),
+                          const Divider(),
+                          SizedBox(height: 8.h),
                           const HomePengumumanWidget(),
-                          Divider(
-                            color: appBgBlack.withOpacity(0.3),
-                            height: 32.h,
-                          ),
+                          SizedBox(height: 8.h),
+                          const Divider(),
+                          SizedBox(height: 8.h),
                           const HomeTaskWidget(),
                         ],
                       ),

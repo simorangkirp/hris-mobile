@@ -7,7 +7,7 @@ import '../../../../../lib.dart';
 
 Widget buildPlafond(BuildContext context, List<PaidLeavePlafond>? list) {
   final l10n = AppLocalizations.of(context);
-
+  final ThemeData theme = Theme.of(context);
   return list != null && list.isNotEmpty
       ? ListView.builder(
           itemCount: list.length,
@@ -41,13 +41,10 @@ Widget buildPlafond(BuildContext context, List<PaidLeavePlafond>? list) {
                                       fontSize: 12.sp,
                                     ),
                                   ),
+                                  SizedBox(height: 2.h),
                                   Text(
                                     data.periodecuti ?? '-',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12.sp,
-                                      color: appBgBlack.withOpacity(0.6),
-                                    ),
+                                    style: theme.textTheme.bodyLarge,
                                   ),
                                 ],
                               ),
@@ -65,13 +62,10 @@ Widget buildPlafond(BuildContext context, List<PaidLeavePlafond>? list) {
                                       fontSize: 12.sp,
                                     ),
                                   ),
+                                  SizedBox(height: 2.h),
                                   Text(
                                     data.hakcuti ?? '-',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12.sp,
-                                      color: appBgBlack.withOpacity(0.6),
-                                    ),
+                                    style: theme.textTheme.bodyLarge,
                                   ),
                                 ],
                               ),
@@ -89,13 +83,10 @@ Widget buildPlafond(BuildContext context, List<PaidLeavePlafond>? list) {
                                       fontSize: 12.sp,
                                     ),
                                   ),
+                                  SizedBox(height: 2.h),
                                   Text(
                                     data.sisa ?? '-',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12.sp,
-                                      color: appBgBlack.withOpacity(0.6),
-                                    ),
+                                    style: theme.textTheme.bodyLarge,
                                   ),
                                 ],
                               ),
@@ -113,13 +104,10 @@ Widget buildPlafond(BuildContext context, List<PaidLeavePlafond>? list) {
                                       fontSize: 12.sp,
                                     ),
                                   ),
+                                  SizedBox(height: 2.h),
                                   Text(
                                     data.diambil ?? '-',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12.sp,
-                                      color: appBgBlack.withOpacity(0.6),
-                                    ),
+                                    style: theme.textTheme.bodyLarge,
                                   ),
                                 ],
                               ),

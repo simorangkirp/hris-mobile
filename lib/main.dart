@@ -64,8 +64,13 @@ class MyApp extends StatelessWidget {
                 return MediaQuery(
                   data: MediaQuery.of(context)
                       .copyWith(textScaleFactor: scale, boldText: false),
-                  child: MyAppChildWidget(
-                    child: child!,
+                  child: Builder(
+                    builder: (context) {
+                      return Theme(
+                        data: state.selectedTheme,
+                        child: child!,
+                      );
+                    },
                   ),
                 );
               },
@@ -98,14 +103,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyAppChildWidget extends StatelessWidget {
-  const MyAppChildWidget({
-    required this.child,
-    super.key,
-  });
-  final Widget child;
-  @override
-  Widget build(BuildContext context) {
-    return child;
-  }
-}
+// class MyAppChildWidget extends StatelessWidget {
+//   const MyAppChildWidget({
+//     required this.child,
+//     super.key,
+//   });
+//   final Widget child;
+//   @override
+//   Widget build(BuildContext context) {
+//     return child;
+//   }
+// }
