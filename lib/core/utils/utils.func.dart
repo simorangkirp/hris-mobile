@@ -127,3 +127,29 @@ String combineDates(DateTime start, DateTime end) {
 //Uint8List decodedbytes = base64.decode(base64string);
 //decode base64 stirng to bytes 
 // Uint8List byte = Uint8List Uint8List.fromList(List<int> elements);
+
+/// Darken a color by [percent] amount (100 = black)
+// ........................................................
+Color darken(Color c, [int percent = 10]) {
+    assert(1 <= percent && percent <= 100);
+    var f = 1 - percent / 100;
+    return Color.fromARGB(
+        c.alpha,
+        (c.red * f).round(),
+        (c.green  * f).round(),
+        (c.blue * f).round()
+    );
+}
+
+/// Lighten a color by [percent] amount (100 = white)
+// ........................................................
+Color lighten(Color c, [int percent = 10]) {
+    assert(1 <= percent && percent <= 100);
+    var p = percent / 100;
+    return Color.fromARGB(
+        c.alpha,
+        c.red + ((255 - c.red) * p).round(),
+        c.green + ((255 - c.green) * p).round(),
+        c.blue + ((255 - c.blue) * p).round()
+    );
+}

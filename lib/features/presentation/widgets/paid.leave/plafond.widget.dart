@@ -15,13 +15,14 @@ Widget buildPlafond(BuildContext context, List<PaidLeavePlafond>? list) {
           itemBuilder: (context, index) {
             var data = list[index];
             return Padding(
-              padding: EdgeInsets.only(bottom: 12.h),
+              padding: EdgeInsets.only(bottom: 4.h),
               child: Material(
                 elevation: 8,
                 borderRadius: BorderRadius.circular(8),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
+                    color: theme.colorScheme.secondary,
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
                   child: Column(

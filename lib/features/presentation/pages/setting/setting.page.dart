@@ -115,17 +115,18 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: SvgPicture.asset(ConstIconPath.passLock),
+                          child: SvgPicture.asset(
+                            ConstIconPath.passLock,
+                            colorFilter: ColorFilter.mode(
+                                theme.iconTheme.color!, BlendMode.srcIn),
+                          ),
                         ),
                         SizedBox(width: 12.w),
                         Expanded(
                           flex: 6,
                           child: Text(
                             l10n.pass,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: theme.textTheme.titleLarge,
                           ),
                         ),
                       ],
@@ -151,17 +152,18 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: SvgPicture.asset(ConstIconPath.pinLock),
+                          child: SvgPicture.asset(
+                            ConstIconPath.pinLock,
+                            colorFilter: ColorFilter.mode(
+                                theme.iconTheme.color!, BlendMode.srcIn),
+                          ),
                         ),
                         SizedBox(width: 12.w),
                         Expanded(
                           flex: 6,
                           child: Text(
                             l10n.pin,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: theme.textTheme.titleLarge,
                           ),
                         ),
                       ],
@@ -184,7 +186,11 @@ class _SettingScreenState extends State<SettingScreen> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: SvgPicture.asset(ConstIconPath.textIcon),
+                            child: SvgPicture.asset(
+                              ConstIconPath.textIcon,
+                              colorFilter: ColorFilter.mode(
+                                  theme.iconTheme.color!, BlendMode.srcIn),
+                            ),
                           ),
                           SizedBox(width: 12.w),
                           Expanded(

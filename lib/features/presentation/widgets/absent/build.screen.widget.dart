@@ -123,9 +123,11 @@ Widget buildScreen(
             SizedBox(height: 42.h),
             Material(
               elevation: 4,
+              borderRadius: BorderRadius.circular(8),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
+                  color: appBgBlack,
                 ),
                 padding: Constant.containerPadding,
                 child: Column(
@@ -135,10 +137,7 @@ Widget buildScreen(
                         Expanded(
                           child: Text(
                             l10n.date,
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: theme.textTheme.titleSmall,
                           ),
                         ),
                         SizedBox(width: 4.w),
@@ -146,10 +145,7 @@ Widget buildScreen(
                           child: Text(
                             DateFormat('EEE, dd MMM yyyy')
                                 .format(DateTime.now()),
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: theme.textTheme.titleSmall,
                           ),
                         ),
                       ],
@@ -160,20 +156,14 @@ Widget buildScreen(
                         Expanded(
                           child: Text(
                             l10n.assignmentLocation,
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: theme.textTheme.titleSmall,
                           ),
                         ),
                         SizedBox(width: 4.w),
                         Expanded(
                           child: Text(
                             userLoc?.namacustomer ?? "HO",
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: theme.textTheme.titleSmall,
                           ),
                         ),
                       ],
@@ -205,10 +195,7 @@ Widget buildScreen(
                                 children: [
                                   Text(
                                     absenData?.hrIn ?? '-',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    style: theme.textTheme.titleSmall,
                                   ),
                                   Text(
                                     l10n.clockIn,
@@ -220,7 +207,7 @@ Widget buildScreen(
                           ),
                         ),
                         VerticalDivider(
-                            color: appBgBlack.withOpacity(0.3), thickness: 2),
+                            color: theme.dividerTheme.color, thickness: 2),
                         Expanded(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -245,10 +232,7 @@ Widget buildScreen(
                                 children: [
                                   Text(
                                     absenData?.hrOut ?? '-',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    style: theme.textTheme.titleSmall,
                                   ),
                                   Text(
                                     l10n.clockOut,
@@ -287,6 +271,7 @@ Widget buildScreen(
                                 border: Border.all(
                                   color: theme.dividerColor,
                                 ),
+                                color: theme.colorScheme.primary,
                               ),
                               padding: EdgeInsets.all(16.w),
                               child: Center(
@@ -324,6 +309,7 @@ Widget buildScreen(
                                 border: Border.all(
                                   color: theme.dividerColor,
                                 ),
+                                color: theme.colorScheme.primary,
                               ),
                               padding: EdgeInsets.all(16.w),
                               child: Center(

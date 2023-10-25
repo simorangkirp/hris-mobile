@@ -415,6 +415,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
     // log(Theme.of(ctx).expansionTileTheme.collapsedBackgroundColor.toString());
     return Drawer(
       backgroundColor: theme.drawerTheme.backgroundColor,
+      surfaceTintColor: theme.drawerTheme.backgroundColor,
       child: Padding(
         padding: EdgeInsets.only(left: 8.w),
         child: ListView(
@@ -512,7 +513,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 ),
               ),
             ),
-
+            SizedBox(height: 4.h),
             ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
@@ -570,6 +571,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 ),
               ),
             ),
+            SizedBox(height: 4.h),
             ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
@@ -620,6 +622,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 ),
               ),
             ),
+            SizedBox(height: 4.h),
             ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
@@ -674,6 +677,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 ),
               ),
             ),
+            SizedBox(height: 4.h),
             ListTile(
               // tileColor: Theme.of(ctx).listTileTheme.tileColor,
               // tileColor: appBgWhite,
@@ -684,6 +688,7 @@ class _AppNavigationDrawerState extends State<AppNavigationDrawer> {
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
+                  color: theme.expansionTileTheme.collapsedTextColor,
                 ),
               ),
               onTap: () {
@@ -793,7 +798,8 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
     return Dialog(
       backgroundColor: theme.dialogTheme.backgroundColor,
       insetPadding: EdgeInsets.symmetric(
-        vertical: 0.20.sh,
+        vertical:
+            defaultTargetPlatform == TargetPlatform.iOS ? 0.19.sh : 0.20.sh,
         horizontal: 0.05.sw,
       ),
       child: Container(
@@ -866,8 +872,11 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 4.h,
+            Visibility(
+              visible: widget.title != null,
+              child: SizedBox(
+                height: 4.h,
+              ),
             ),
             Visibility(
               visible: widget.title != null,
@@ -947,11 +956,11 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 4.h,
-            ),
+            // SizedBox(
+            //   height: 4.h,
+            // ),
             Padding(
-              padding: const EdgeInsets.only(right: 32),
+              padding: EdgeInsets.only(right: 24.w, top: 4.h),
               child: Visibility(
                 visible: showConfirm,
                 child: Row(
@@ -1857,8 +1866,9 @@ onLogOutDialog(
       return Dialog(
         insetPadding: EdgeInsets.symmetric(
           horizontal: (0.1.sw),
-          vertical:
-              (defaultTargetPlatform == TargetPlatform.iOS ? 0.39.sh : 0.42.sh),
+          vertical: (defaultTargetPlatform == TargetPlatform.iOS
+              ? 0.395.sh
+              : 0.42.sh),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -1869,10 +1879,10 @@ onLogOutDialog(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(AppLocalizations.of(context).signOut,
-                  style: Theme.of(context).textTheme.titleMedium),
+                  style: Theme.of(context).textTheme.bodyLarge),
               SizedBox(height: 4.h),
               Text(AppLocalizations.of(context).proceed_msg,
-                  style: Theme.of(context).textTheme.titleSmall),
+                  style: Theme.of(context).textTheme.bodyMedium),
               const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

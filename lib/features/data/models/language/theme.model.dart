@@ -19,12 +19,12 @@ List<ThemeData> themesData = [
         color: appBgWhite,
       ),
     ),
-    dividerTheme: DividerThemeData(
+    dividerTheme: const DividerThemeData(
       color: appDisabledTextField,
-      thickness: 1.2.h,
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: appBgBlack,
+      surfaceTintColor: appBgBlack,
     ),
     iconTheme: const IconThemeData(
       color: appText5,
@@ -33,11 +33,11 @@ List<ThemeData> themesData = [
       brightness: Brightness.dark,
       primary: appRichBlack,
       onPrimary: appBgBlack.withOpacity(0.8),
-      secondary: appBtnBlue,
+      secondary: appRichBlack,
       onSecondary: appBtnBlue.withOpacity(0.8),
       error: appImperialRed,
       onError: appImperialRed.withOpacity(0.8),
-      background: appBgBlack,
+      background: appRichBlack,
       onBackground: appBgBlack.withOpacity(0.8),
       surface: appWarning,
       onSurface: appWarning.withOpacity(0.8),
@@ -92,10 +92,20 @@ List<ThemeData> themesData = [
         fontWeight: FontWeight.w500,
         color: appBgWhite,
       ),
+      titleLarge: TextStyle(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+        color: appBgWhite,
+      ),
       titleMedium: TextStyle(
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
         color: appBgWhite,
+      ),
+      bodySmall: TextStyle(
+        fontWeight: FontWeight.w400,
+        color: appRichBlack,
+        fontSize: 14.sp
       ),
       bodyMedium: TextStyle(
         fontWeight: FontWeight.w400,
@@ -112,6 +122,7 @@ List<ThemeData> themesData = [
   ThemeData(
     brightness: Brightness.light,
     primaryColor: appBgWhite,
+    scaffoldBackgroundColor: appBgWhite,
     dropdownMenuTheme: DropdownMenuThemeData(
       textStyle: TextStyle(
         fontWeight: FontWeight.w700,
@@ -119,11 +130,15 @@ List<ThemeData> themesData = [
         color: appRichBlack,
       ),
     ),
+    dialogTheme: const DialogTheme(
+      backgroundColor: appBgWhite,
+      surfaceTintColor: appBgWhite,
+    ),
     colorScheme: ColorScheme(
       brightness: Brightness.light,
       primary: appBgWhite,
       onPrimary: appDivider.withOpacity(0.8),
-      secondary: appBtnBlue,
+      secondary: appText3,
       onSecondary: appBtnBlue.withOpacity(0.8),
       error: appImperialRed,
       onError: appImperialRed.withOpacity(0.8),
@@ -135,9 +150,8 @@ List<ThemeData> themesData = [
     iconTheme: const IconThemeData(
       color: appRichBlack,
     ),
-    dividerTheme: DividerThemeData(
-      color: appDivider,
-      thickness: 1.2.h,
+    dividerTheme: const DividerThemeData(
+      color: appBgWhite,
     ),
     drawerTheme: const DrawerThemeData(
       backgroundColor: appBgWhite,
@@ -191,10 +205,20 @@ List<ThemeData> themesData = [
         fontWeight: FontWeight.w500,
         color: appBgWhite,
       ),
+      titleLarge: TextStyle(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+        color: appBgWhite,
+      ),
       titleMedium: TextStyle(
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
         color: appBgWhite,
+      ),
+      bodySmall: TextStyle(
+        fontWeight: FontWeight.w400,
+        color: appRichBlack,
+        fontSize: 14.sp
       ),
       bodyMedium: TextStyle(
         fontWeight: FontWeight.w400,

@@ -71,7 +71,10 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                         width: double.maxFinite,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: theme.dividerTheme.color!),
+                          border: Border.all(
+                            color: theme.dividerTheme.color!,
+                          ),
+                          color: theme.colorScheme.secondary,
                         ),
                         padding: EdgeInsets.symmetric(
                             vertical: 8.h, horizontal: 8.w),
@@ -132,6 +135,7 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: theme.dividerTheme.color!),
+                          color: theme.colorScheme.secondary,
                         ),
                         padding: EdgeInsets.symmetric(
                             vertical: 8.h, horizontal: 8.w),
@@ -193,6 +197,7 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: theme.dividerTheme.color!),
+                          color: theme.colorScheme.secondary,
                         ),
                         padding: EdgeInsets.symmetric(
                             vertical: 8.h, horizontal: 8.w),
@@ -253,6 +258,7 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(color: theme.dividerTheme.color!),
+                        color: theme.colorScheme.secondary,
                       ),
                       padding:
                           EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),

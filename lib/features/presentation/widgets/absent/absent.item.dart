@@ -92,18 +92,19 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final ThemeData theme = Theme.of(context);
     return (isDayOff || isClear)
         ? Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
               border: Border.all(
                 color: isClear
-                    ? appIjinBg.withOpacity(0.3)
-                    : appCutiBg.withOpacity(0.3),
+                    ? lighten(appIjinBg, 30)
+                    : lighten(appCutiBg, 30),
               ),
               color: isClear
-                  ? appIjinBg.withOpacity(0.3)
-                  : appCutiBg.withOpacity(0.3),
+                  ? lighten(appIjinBg, 30)
+                    : lighten(appCutiBg, 30),
             ),
             padding: const EdgeInsets.all(12),
             child: Row(
@@ -144,10 +145,12 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
         : isWeekEnd
             ? Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    border: Border.all(
-                      color: appBgBlack.withOpacity(0.3),
-                    )),
+                  borderRadius: BorderRadius.circular(2),
+                  border: Border.all(
+                    color: appRichBlack,
+                  ),
+                  color: theme.colorScheme.secondary,
+                ),
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -183,7 +186,7 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
                               visible: vacNm != '',
                               child: Text(
                                 vacNm,
-                                style: widget.theme.textTheme.bodyLarge,
+                                style: widget.theme.textTheme.bodyMedium,
                               ),
                             ),
                           ],
@@ -207,10 +210,12 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(2),
-                          border: Border.all(
-                            color: appBgBlack.withOpacity(0.3),
-                          )),
+                        borderRadius: BorderRadius.circular(2),
+                        border: Border.all(
+                          color: theme.colorScheme.background,
+                        ),
+                        color: theme.colorScheme.secondary,
+                      ),
                       padding: EdgeInsets.symmetric(
                           horizontal: 12.w, vertical: 12.h),
                       child: Row(
@@ -222,11 +227,11 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
                               children: [
                                 Text(
                                   '$day, $date',
-                                  style: widget.theme.textTheme.bodyLarge,
+                                  style: widget.theme.textTheme.bodyMedium,
                                 ),
                                 Text(
                                   '${lstDiff?[0] ?? "0"}:${lstDiff?[1] ?? "00"} ${l10n.totHrs} ',
-                                  style: widget.theme.textTheme.displayMedium,
+                                  style: widget.theme.textTheme.bodyLarge,
                                 ),
                               ],
                             ),

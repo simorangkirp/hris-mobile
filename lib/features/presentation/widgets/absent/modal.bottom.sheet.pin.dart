@@ -15,6 +15,7 @@ Future<void> modalBtnPIN(BuildContext context,
       return AlertDialog(
         contentPadding: EdgeInsets.all(12.h),
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -69,7 +70,8 @@ Future<void> modalBtnPIN(BuildContext context,
                           borderSide:
                               const BorderSide(color: appWarning, width: 1.5)),
                     ),
-                    style: Theme.of(context).textTheme.titleLarge,
+                    cursorColor: appBtnBlue,
+                    style: Theme.of(context).textTheme.bodySmall,
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     inputFormatters: [

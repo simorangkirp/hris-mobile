@@ -170,7 +170,7 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
                   children: [
                     SizedBox(height: 18.h),
                     buildPlafond(context, plafond),
-                    SizedBox(height: 16.h),
+                    // SizedBox(height: 16.h),
                     IntrinsicHeight(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
