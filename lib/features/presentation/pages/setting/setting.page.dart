@@ -67,6 +67,7 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final ThemeData theme = Theme.of(context);
     Locale myLocale = Localizations.localeOf(context);
     Locale? stdLoc;
     if (myLocale.toString() == 'en') {
@@ -209,7 +210,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            'Select language',
+                            l10n.selectLang,
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 12.sp,
@@ -224,20 +225,14 @@ class _SettingScreenState extends State<SettingScreen> {
                                   value: 'English',
                                   child: Text(
                                     'English',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14.sp,
-                                    ),
+                                    style: theme.textTheme.bodyMedium,
                                   ),
                                 ),
                                 DropdownMenuItem<String>(
                                   value: 'Bahasa Indonesia',
                                   child: Text(
                                     'Bahasa Indonesia',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14.sp,
-                                    ),
+                                    style: theme.textTheme.bodyMedium,
                                   ),
                                 ),
                               ],

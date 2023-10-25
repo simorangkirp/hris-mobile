@@ -64,33 +64,35 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                         ),
                       ),
                     ),
-                    Container(
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: appBgBlack.withOpacity(0.4),
+                    Material(
+                      elevation: 2,
+                      borderRadius: BorderRadius.circular(8),
+                      child: Container(
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: theme.dividerTheme.color!),
                         ),
-                      ),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SvgPicture.asset(
-                            ConstIconPath.clock,
-                            colorFilter: ColorFilter.mode(
-                                theme.iconTheme.color!, BlendMode.srcIn),
-                          ),
-                          SizedBox(height: 8.h),
-                          Text(
-                            l10n.absent,
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 8.h, horizontal: 8.w),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SvgPicture.asset(
+                              ConstIconPath.clock,
+                              colorFilter: ColorFilter.mode(
+                                  theme.iconTheme.color!, BlendMode.srcIn),
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 8.h),
+                            Text(
+                              l10n.absent,
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -122,34 +124,36 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                       onTap('CUTI');
                       // }
                     },
-                    child: Container(
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: appBgBlack.withOpacity(0.4),
+                    child: Material(
+                      elevation: 2,
+                      borderRadius: BorderRadius.circular(8),
+                      child: Container(
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: theme.dividerTheme.color!),
                         ),
-                      ),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SvgPicture.asset(
-                            ConstIconPath.timeOff,
-                            colorFilter: ColorFilter.mode(
-                                theme.iconTheme.color!, BlendMode.srcIn),
-                          ),
-                          SizedBox(height: 8.h),
-                          Text(
-                            l10n.paidLeave,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 8.h, horizontal: 8.w),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SvgPicture.asset(
+                              ConstIconPath.timeOff,
+                              colorFilter: ColorFilter.mode(
+                                  theme.iconTheme.color!, BlendMode.srcIn),
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 8.h),
+                            Text(
+                              l10n.paidLeave,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -181,33 +185,35 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                       onTap('REIMBURSEMENT');
                       // }
                     },
-                    child: Container(
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: appBgBlack.withOpacity(0.4),
+                    child: Material(
+                      elevation: 2,
+                      borderRadius: BorderRadius.circular(8),
+                      child: Container(
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: theme.dividerTheme.color!),
                         ),
-                      ),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SvgPicture.asset(
-                            ConstIconPath.receipt,
-                            colorFilter: ColorFilter.mode(
-                                theme.iconTheme.color!, BlendMode.srcIn),
-                          ),
-                          SizedBox(height: 8.h),
-                          Text(
-                            l10n.claim,
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 8.h, horizontal: 8.w),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SvgPicture.asset(
+                              ConstIconPath.receipt,
+                              colorFilter: ColorFilter.mode(
+                                  theme.iconTheme.color!, BlendMode.srcIn),
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 8.h),
+                            Text(
+                              l10n.claim,
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -239,33 +245,35 @@ Widget buildApprvlItem(BuildContext ctx, List<ApprovalCountEntity>? model,
                     onTap('PJD');
                     // }
                   },
-                  child: Container(
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: appBgBlack.withOpacity(0.4),
+                  child: Material(
+                    elevation: 2,
+                    borderRadius: BorderRadius.circular(8),
+                    child: Container(
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: theme.dividerTheme.color!),
                       ),
-                    ),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SvgPicture.asset(
-                          ConstIconPath.plane,
-                          colorFilter: ColorFilter.mode(
-                              theme.iconTheme.color!, BlendMode.srcIn),
-                        ),
-                        SizedBox(height: 8.h),
-                        Text(
-                          'PJD',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset(
+                            ConstIconPath.plane,
+                            colorFilter: ColorFilter.mode(
+                                theme.iconTheme.color!, BlendMode.srcIn),
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 8.h),
+                          Text(
+                            'PJD',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

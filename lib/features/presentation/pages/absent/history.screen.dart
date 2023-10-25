@@ -76,6 +76,7 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final ThemeData theme = Theme.of(context);
     ScrollController ctrl = ScrollController();
     String dt = l10n.currPeriod;
     return Scaffold(
@@ -119,7 +120,7 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
               child: ListView(
                 controller: ctrl,
                 children: [
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 12.h),
                   IntrinsicHeight(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -156,19 +157,11 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
                           children: [
                             Text(
                               dt,
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                color: appBgBlack,
-                              ),
+                              style: theme.textTheme.bodyLarge,
                             ),
                             Text(
                               sltdDt,
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                color: appBgBlack.withOpacity(0.6),
-                              ),
+                              style: theme.textTheme.bodyMedium,
                             ),
                           ],
                         ),
@@ -242,11 +235,8 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
                   //   ),
                   // ),
                   // SizedBox(height: 4.h),
-                  Divider(
-                    color: appBgBlack.withOpacity(0.5),
-                    thickness: 2,
-                  ),
-                  SizedBox(height: 8.h),
+                  const Divider(),
+                  SizedBox(height: 4.h),
                   BlocBuilder<AbsentBloc, AbsentState>(
                     builder: (context, state) {
                       if (state is AbsentPeriodLoaded) {
@@ -257,7 +247,7 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
                                 itemCount: state.listAbsent!.length,
                                 itemBuilder: (context, index) {
                                   var item = state.listAbsent![index];
-                                  return items(item, index);
+                                  return items(item, index, theme);
                                 },
                               )
                             : const SizedBox();
@@ -276,7 +266,7 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
     );
   }
 
-  Widget items(AbsentEntity items, int index) {
+  Widget items(AbsentEntity items, int index, ThemeData data) {
     return AnimatedContainer(
       curve: Curves.easeInOut,
       duration: Duration(milliseconds: 300 + (index * 100)),
@@ -289,6 +279,7 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
             child: AbsentItemCard(
               holiday: listHoliday,
               item: items,
+              theme: data,
             ),
           ),
           SizedBox(height: 12.h),

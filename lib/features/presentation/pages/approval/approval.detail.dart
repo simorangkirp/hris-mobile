@@ -60,6 +60,7 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final ThemeData theme = Theme.of(context);
     return BlocListener<ApprovalScrnBloc, ApprovalState>(
       listener: (context, state) {
         if (state is ApprovalDataDetailLoaded) {
@@ -204,17 +205,12 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 0.1.sh),
                     Lottie.asset(ConstantLottie.submitSuccess),
                     SizedBox(height: 12.h),
                     Text(
                       state.msg ?? "",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 22.sp,
-                        color: appBgBlack.withOpacity(0.8),
-                      ),
+                      style: theme.textTheme.displayLarge,
                     ),
                   ],
                 ),
@@ -227,17 +223,12 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 0.12.sh),
                     Lottie.asset(ConstantLottie.submitLoading),
                     SizedBox(height: 12.h),
                     Text(
                       l10n.process_req_msg,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 22.sp,
-                        color: appBgBlack.withOpacity(0.8),
-                      ),
+                      style: theme.textTheme.displayLarge,
                     )
                   ],
                 ),

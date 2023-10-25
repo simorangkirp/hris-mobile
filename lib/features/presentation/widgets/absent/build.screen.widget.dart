@@ -15,6 +15,7 @@ Widget buildScreen(
   // Function() logout,
 ) {
   final l10n = AppLocalizations.of(context);
+  final ThemeData theme = Theme.of(context);
   String pgNm = Constant.absentPgNm;
   String scrMst = l10n.home;
   String scrSub = l10n.absent;
@@ -211,11 +212,7 @@ Widget buildScreen(
                                   ),
                                   Text(
                                     l10n.clockIn,
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: appBgBlack.withOpacity(0.6),
-                                    ),
+                                    style: theme.textTheme.titleSmall,
                                   ),
                                 ],
                               ),
@@ -255,11 +252,7 @@ Widget buildScreen(
                                   ),
                                   Text(
                                     l10n.clockOut,
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: appBgBlack.withOpacity(0.6),
-                                    ),
+                                    style: theme.textTheme.titleSmall,
                                   ),
                                 ],
                               ),
@@ -292,7 +285,7 @@ Widget buildScreen(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: appBgBlack.withOpacity(0.2),
+                                  color: theme.dividerColor,
                                 ),
                               ),
                               padding: EdgeInsets.all(16.w),
@@ -310,10 +303,7 @@ Widget buildScreen(
                           SizedBox(height: 8.h),
                           Text(
                             l10n.paidLeave,
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: theme.textTheme.displayMedium,
                           ),
                         ],
                       ),
@@ -332,7 +322,7 @@ Widget buildScreen(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: appBgBlack.withOpacity(0.2),
+                                  color: theme.dividerColor,
                                 ),
                               ),
                               padding: EdgeInsets.all(16.w),
@@ -350,10 +340,7 @@ Widget buildScreen(
                           SizedBox(height: 8.h),
                           Text(
                             l10n.history,
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: theme.textTheme.displayMedium,
                           ),
                         ],
                       ),

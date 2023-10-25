@@ -12,6 +12,13 @@ List<ThemeData> themesData = [
     brightness: Brightness.dark,
     primaryColor: appBgBlack,
     scaffoldBackgroundColor: appBgBlack,
+    dropdownMenuTheme: DropdownMenuThemeData(
+      textStyle: TextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: 14.sp,
+        color: appBgWhite,
+      ),
+    ),
     dividerTheme: DividerThemeData(
       color: appDisabledTextField,
       thickness: 1.2.h,
@@ -65,9 +72,19 @@ List<ThemeData> themesData = [
       iconColor: appBgWhite,
     ),
     textTheme: TextTheme(
+      displayLarge: TextStyle(
+        fontWeight: FontWeight.w500,
+        fontSize: 22.sp,
+        color: darkmodeTextColor.withOpacity(0.8),
+      ),
       displayMedium: TextStyle(
         fontSize: 16.sp,
         fontWeight: FontWeight.w700,
+        color: darkmodeTextColor,
+      ),
+      displaySmall: TextStyle(
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w500,
         color: darkmodeTextColor,
       ),
       titleSmall: TextStyle(
@@ -95,6 +112,13 @@ List<ThemeData> themesData = [
   ThemeData(
     brightness: Brightness.light,
     primaryColor: appBgWhite,
+    dropdownMenuTheme: DropdownMenuThemeData(
+      textStyle: TextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: 14.sp,
+        color: appRichBlack,
+      ),
+    ),
     colorScheme: ColorScheme(
       brightness: Brightness.light,
       primary: appBgWhite,
@@ -147,9 +171,19 @@ List<ThemeData> themesData = [
       toolbarHeight: 56.h,
     ),
     textTheme: TextTheme(
+      displayLarge: TextStyle(
+        fontWeight: FontWeight.w500,
+        fontSize: 22.sp,
+        color: appBgBlack.withOpacity(0.8),
+      ),
       displayMedium: TextStyle(
         fontSize: 16.sp,
         fontWeight: FontWeight.w700,
+        color: appBgBlack,
+      ),
+      displaySmall: TextStyle(
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w500,
         color: appBgBlack,
       ),
       titleSmall: TextStyle(

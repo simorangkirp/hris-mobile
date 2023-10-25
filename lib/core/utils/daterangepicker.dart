@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../lib.dart';
 
@@ -79,23 +81,39 @@ class _CommonDateRangePickerState extends State<CommonDateRangePicker> {
   String? retDt;
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         IntrinsicHeight(
           child: Row(
             children: [
-              InkWell(
-                onTap: () => pickDateRange(context).then((value) {
-                  var splitStr = diffDays(value).split(',');
-                  widget.dtRgCtrl?.text = splitStr[0];
-                  widget.totCtrl?.text = splitStr[1];
-                  widget.retCtrl?.text = splitStr[2];
-                  widget.dataCtrl?.text = diffDays(value);
-                  setState(() {});
-                }),
-                child: const Icon(
-                  Icons.calendar_month,
+              Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(12),
+                child: GestureDetector(
+                  onTap: () => pickDateRange(context).then((value) {
+                    var splitStr = diffDays(value).split(',');
+                    widget.dtRgCtrl?.text = splitStr[0];
+                    widget.totCtrl?.text = splitStr[1];
+                    widget.retCtrl?.text = splitStr[2];
+                    widget.dataCtrl?.text = diffDays(value);
+                    setState(() {});
+                  }),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: appNotifCutIcn.withOpacity(0.8),
+                    ),
+                    height: 38.h,
+                    width: 38.h,
+                    child: SvgPicture.asset(
+                      ConstIconPath.calendarDays,
+                      fit: BoxFit.scaleDown,
+                      colorFilter:
+                          const ColorFilter.mode(appBgWhite, BlendMode.srcIn),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(width: 12.w),
@@ -208,7 +226,7 @@ class _CommonDateRangePickerState extends State<CommonDateRangePicker> {
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(
-              "${widget.totCtrl?.text ?? '-'} hari",
+              "${widget.totCtrl?.text ?? '-'} ${l10n.day}",
               style: TextStyle(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,

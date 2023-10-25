@@ -1858,7 +1858,7 @@ onLogOutDialog(
         insetPadding: EdgeInsets.symmetric(
           horizontal: (0.1.sw),
           vertical:
-              (defaultTargetPlatform == TargetPlatform.iOS ? 0.39.sh : 0.41.sh),
+              (defaultTargetPlatform == TargetPlatform.iOS ? 0.39.sh : 0.42.sh),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -1868,22 +1868,11 @@ onLogOutDialog(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                AppLocalizations.of(context).signOut,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.sp,
-                  color: appBgBlack.withOpacity(0.4),
-                ),
-              ),
+              Text(AppLocalizations.of(context).signOut,
+                  style: Theme.of(context).textTheme.titleMedium),
               SizedBox(height: 4.h),
-              Text(
-                AppLocalizations.of(context).proceed_msg,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14.sp,
-                ),
-              ),
+              Text(AppLocalizations.of(context).proceed_msg,
+                  style: Theme.of(context).textTheme.titleSmall),
               const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -3,12 +3,20 @@
     "@language":{
         "description": "Pilih bahasa"
     },
+    "selectLang":"Pilih bahasa",
     "helloWorld": "Hello World!",
     "@helloWorld":{
         "description": "A programmer greetings!"
     },
 
     "appVersion": "OWL ESS Versi {version}\nBuatan v{build}",
+
+    "vacation":"Libur",
+    "sick":"Sakit",
+
+    "inOut":"masuk & keluar",
+    "totHrs":"total jam",
+    "weekEnd":"Akhir pekan",
 
     "absentListTitle":"Daftar Absen",
     "paidLeaveListTitle":"Daftar Cuti",

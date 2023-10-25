@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:styled_text/styled_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '/../lib.dart';
 
 class AbsentItemCard extends StatefulWidget {
   final AbsentEntity item;
   final List<HolidayModel>? holiday;
+  final ThemeData theme;
   const AbsentItemCard({
     this.holiday,
     required this.item,
+    required this.theme,
     super.key,
   });
 
@@ -29,6 +32,7 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
   String day = "";
   String hIn = "-";
   String hOut = "-";
+  String vacNm = '';
   List<String>? lstDiff;
   DateFormat format = DateFormat('yyyy-MM-dd');
   DateFormat hrFormat = DateFormat('HH:mm');
@@ -40,6 +44,7 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
       for (var e in widget.holiday!) {
         if (e.tanggal == widget.item.tanggal) {
           isWeekEnd = true;
+          vacNm = e.keterangan ?? "-";
         }
       }
     }
@@ -86,6 +91,7 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return (isDayOff || isClear)
         ? Container(
             decoration: BoxDecoration(
@@ -106,19 +112,11 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
                   children: [
                     Text(
                       day,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: appBgBlack,
-                        fontSize: 16.sp,
-                      ),
+                      style: widget.theme.textTheme.displayMedium,
                     ),
                     Text(
                       date,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12.sp,
-                        color: appBgBlack,
-                      ),
+                      style: widget.theme.textTheme.displaySmall,
                     ),
                   ],
                 ),
@@ -132,7 +130,7 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: Center(
                     child: Text(
-                      isClear ? "Izin / Sakit" : "Cuti",
+                      isClear ? l10n.sick : l10n.paidLeave,
                       style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         color: appBgBlack,
@@ -156,19 +154,11 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
                   children: [
                     StyledText(
                       text: '<bold>$day</bold>\n$date',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        color: appBgBlack.withOpacity(0.5),
-                      ),
+                      style: widget.theme.textTheme.displaySmall,
                       textAlign: TextAlign.center,
                       tags: {
                         'bold': StyledTextTag(
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w700,
-                            color: appBgBlack,
-                          ),
+                          style: widget.theme.textTheme.bodyLarge,
                         ),
                       },
                     ),
@@ -180,16 +170,23 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
                           color: appBgBlack.withOpacity(0.7),
                         ),
                         padding: EdgeInsets.symmetric(vertical: 8.h),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Libur',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                              color: appBgWhite,
+                        child: Column(
+                          children: [
+                            Text(
+                              vacNm != '' ? l10n.vacation : l10n.weekEnd,
+                              style: widget.theme.textTheme.bodyMedium,
                             ),
-                          ),
+                            Visibility(
+                                visible: vacNm != '',
+                                child: SizedBox(height: 2.h)),
+                            Visibility(
+                              visible: vacNm != '',
+                              child: Text(
+                                vacNm,
+                                style: widget.theme.textTheme.bodyLarge,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -225,18 +222,11 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
                               children: [
                                 Text(
                                   '$day, $date',
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: appBgBlack.withOpacity(0.5),
-                                  ),
+                                  style: widget.theme.textTheme.bodyLarge,
                                 ),
                                 Text(
-                                  '${lstDiff?[0] ?? "0"}:${lstDiff?[1] ?? "00"} total hrs ',
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  '${lstDiff?[0] ?? "0"}:${lstDiff?[1] ?? "00"} ${l10n.totHrs} ',
+                                  style: widget.theme.textTheme.displayMedium,
                                 ),
                               ],
                             ),
@@ -271,29 +261,19 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
                                           ? 'Luar Kota'
                                           : 'Dalam Kota',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: appBgWhite,
-                                      ),
+                                      style:
+                                          widget.theme.textTheme.displaySmall,
                                     ),
                                   ),
                                 ),
                                 SizedBox(height: 2.h),
                                 Text(
-                                  'in & out',
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: appBgBlack.withOpacity(0.5),
-                                  ),
+                                  l10n.inOut,
+                                  style: widget.theme.textTheme.displaySmall,
                                 ),
                                 Text(
                                   '$hIn - $hOut',
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                  style: widget.theme.textTheme.bodyLarge,
                                 ),
                               ],
                             ),

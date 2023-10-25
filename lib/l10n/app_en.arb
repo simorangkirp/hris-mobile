@@ -3,6 +3,7 @@
     "@language":{
         "description": "Select language"
     },
+    "selectLang":"Select language",
     "helloWorld": "Hello World!",
     "@helloWorld":{
         "description": "A programmer greetings!"
@@ -22,6 +23,13 @@
             }
         }
     },
+
+    "vacation":"Vacation",
+    "sick":"Sick",
+
+    "inOut":"in & out",
+    "totHrs":"total hrs",
+    "weekEnd":"Weekend",
 
     "absentListTitle":"Absent List",
     "paidLeaveListTitle":"Paid Leave List",

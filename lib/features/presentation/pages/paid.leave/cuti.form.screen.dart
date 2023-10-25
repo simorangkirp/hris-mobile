@@ -86,6 +86,7 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final ThemeData theme = Theme.of(context);
     buildBtmDialog() {
       return showModalBottomSheet(
         context: context,
@@ -461,17 +462,12 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 0.12.sh),
                       Lottie.asset(ConstantLottie.submitLoading),
                       SizedBox(height: 12.h),
                       Text(
                         l10n.process_req_msg,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 22.sp,
-                          color: appBgBlack.withOpacity(0.8),
-                        ),
+                        style: theme.textTheme.displayLarge,
                       )
                     ],
                   ),
@@ -486,17 +482,12 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 0.1.sh),
                       Lottie.asset(ConstantLottie.submitSuccess),
                       SizedBox(height: 12.h),
                       Text(
                         state.msg ?? "",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 22.sp,
-                          color: appBgBlack.withOpacity(0.8),
-                        ),
+                        style: theme.textTheme.displayLarge,
                       ),
                     ],
                   ),

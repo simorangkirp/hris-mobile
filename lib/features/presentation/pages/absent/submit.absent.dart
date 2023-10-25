@@ -102,7 +102,7 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-
+    final ThemeData theme = Theme.of(context);
     Future<bool> determinePosition() async {
       bool serviceEnabled;
       LocationPermission permission;
@@ -152,6 +152,7 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 12.h),
                 IntrinsicHeight(
                   child: Row(
                     children: [
@@ -162,12 +163,9 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
                           children: [
                             Text(
                               l10n.date,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12.sp,
-                                color: appBgBlack.withOpacity(0.7),
-                              ),
+                              style: theme.textTheme.displaySmall,
                             ),
+                            SizedBox(height: 2.h),
                             Text(
                               DateFormat('EEE, dd MMM yyyy')
                                   .format(DateTime.now()),
@@ -187,12 +185,9 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
                           children: [
                             Text(
                               l10n.hour,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12.sp,
-                                color: appBgBlack.withOpacity(0.7),
-                              ),
+                              style: theme.textTheme.displaySmall,
                             ),
+                            SizedBox(height: 2.h),
                             StreamBuilder(
                               stream:
                                   Stream.periodic(const Duration(seconds: 1)),
@@ -215,11 +210,7 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
                 SizedBox(height: 8.h),
                 Text(
                   l10n.assignmentLocation,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.sp,
-                    color: appBgBlack.withOpacity(0.7),
-                  ),
+                  style: theme.textTheme.displaySmall,
                 ),
                 SizedBox(height: 2.h),
                 Text(
@@ -232,11 +223,7 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
                 SizedBox(height: 8.h),
                 Text(
                   l10n.photo,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.sp,
-                    color: appBgBlack.withOpacity(0.7),
-                  ),
+                  style: theme.textTheme.displaySmall,
                 ),
                 SizedBox(height: 8.h),
                 InkWell(
@@ -535,18 +522,14 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
                 child: Padding(
                   padding: Constant.appPadding,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 0.1.sh),
                       Lottie.asset(ConstantLottie.submitSuccess),
                       SizedBox(height: 12.h),
                       Text(
                         state.msg ?? "",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 22.sp,
-                          color: appBgBlack.withOpacity(0.8),
-                        ),
+                        style: theme.textTheme.displayLarge,
                       ),
                     ],
                   ),
@@ -559,18 +542,14 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
                 child: Padding(
                   padding: Constant.appPadding,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 0.12.sh),
                       Lottie.asset(ConstantLottie.submitLoading),
                       SizedBox(height: 12.h),
                       Text(
                         l10n.process_req_msg,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 22.sp,
-                          color: appBgBlack.withOpacity(0.8),
-                        ),
+                        style: theme.textTheme.displayLarge,
                       )
                     ],
                   ),
