@@ -6,11 +6,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 import '../../../../../lib.dart';
 
 Widget buildInboxItem(BuildContext context, List<NotifEntity>? listData) {
   final l10n = AppLocalizations.of(context);
+  final theme = Theme.of(context);
   List<GroupNotifModel> listModel = [];
   List<String> lstDt = [];
   String dt = "";
@@ -124,6 +124,7 @@ Widget buildInboxItem(BuildContext context, List<NotifEntity>? listData) {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
+                                      color: theme.colorScheme.secondary,
                                     ),
                                     padding: EdgeInsets.all(8.h),
                                     child: IntrinsicHeight(
@@ -156,17 +157,13 @@ Widget buildInboxItem(BuildContext context, List<NotifEntity>? listData) {
                                                   // 'Pengajuan cuti baru dengan No. Transaksi: ${dets.noreferensi}',
                                                   dets.detail ?? "",
                                                   maxLines: 4,
-                                                  style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
+                                                  style: theme
+                                                      .textTheme.bodyMedium,
                                                 ),
                                                 Text(
                                                   hr,
-                                                  style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                  style: theme
+                                                      .textTheme.displaySmall,
                                                 ),
                                               ],
                                             ),
