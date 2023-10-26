@@ -8,6 +8,7 @@ Widget historyList(BuildContext context, List<ApprovalDetail>? detail,
     Function(ApprovalDetail) ontapItems) {
   ScrollController ctrl = ScrollController();
   final l10n = AppLocalizations.of(context);
+  final theme = Theme.of(context);
 
   return NotificationListener<OverscrollIndicatorNotification>(
     onNotification: (OverscrollIndicatorNotification overScrl) {
@@ -21,13 +22,10 @@ Widget historyList(BuildContext context, List<ApprovalDetail>? detail,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 4.h),
+            SizedBox(height: 12.h),
             Text(
               l10n.history,
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 16.sp,
-              ),
+              style: theme.textTheme.displayLarge,
             ),
             SizedBox(height: 8.h),
             detail != null
@@ -69,25 +67,17 @@ Widget historyList(BuildContext context, List<ApprovalDetail>? detail,
                                       children: [
                                         Text(
                                           data.namakaryawan ?? "-",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14.sp,
-                                          ),
+                                          style: theme.textTheme.titleLarge,
                                         ),
+                                        SizedBox(height: 2.h),
                                         Text(
                                           data.notransaksi ?? "-",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12.sp,
-                                            color: appBgBlack.withOpacity(0.7),
-                                          ),
+                                          style: theme.textTheme.bodyMedium,
                                         ),
+                                        SizedBox(height: 2.h),
                                         Text(
                                           data.namajenis ?? "-",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12.sp,
-                                          ),
+                                          style: theme.textTheme.displaySmall,
                                         ),
                                       ],
                                     ),

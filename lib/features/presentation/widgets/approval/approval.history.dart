@@ -21,6 +21,7 @@ Widget approvalHistory(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 12.h),
             Text(
               l10n.timeline,
               style: TextStyle(

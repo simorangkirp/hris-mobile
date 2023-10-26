@@ -19,6 +19,10 @@ List<ThemeData> themesData = [
         color: appBgWhite,
       ),
     ),
+    cardTheme: const CardTheme(
+      color: appRichBlack,
+      surfaceTintColor: appRichBlack,
+    ),
     dividerTheme: const DividerThemeData(
       color: appDisabledTextField,
     ),
@@ -103,10 +107,7 @@ List<ThemeData> themesData = [
         color: appBgWhite,
       ),
       bodySmall: TextStyle(
-        fontWeight: FontWeight.w400,
-        color: appRichBlack,
-        fontSize: 14.sp
-      ),
+          fontWeight: FontWeight.w400, color: appRichBlack, fontSize: 14.sp),
       bodyMedium: TextStyle(
         fontWeight: FontWeight.w400,
         color: darkmodeTextColor,
@@ -129,6 +130,10 @@ List<ThemeData> themesData = [
         fontSize: 14.sp,
         color: appRichBlack,
       ),
+    ),
+    cardTheme: const CardTheme(
+      color: appText3,
+      surfaceTintColor: appText3,
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: appBgWhite,
@@ -208,7 +213,7 @@ List<ThemeData> themesData = [
       titleLarge: TextStyle(
         fontSize: 14.sp,
         fontWeight: FontWeight.w500,
-        color: appBgWhite,
+        color: appRichBlack,
       ),
       titleMedium: TextStyle(
         fontSize: 16.sp,
@@ -218,7 +223,7 @@ List<ThemeData> themesData = [
       bodySmall: TextStyle(
         fontWeight: FontWeight.w400,
         color: appRichBlack,
-        fontSize: 14.sp
+        fontSize: 14.sp,
       ),
       bodyMedium: TextStyle(
         fontWeight: FontWeight.w400,

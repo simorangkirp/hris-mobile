@@ -133,7 +133,7 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
       // inputFormatters: inputformat,
       textInputAction: widget.inputAction,
       onFieldSubmitted: widget.onAction,
-      // cursorColor: widget.cursorColor ?? VccFillLoginField,
+      cursorColor: appBtnBlue,
       style: TextStyle(
         color: appBgBlack,
         fontSize: 12.sp,

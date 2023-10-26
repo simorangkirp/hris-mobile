@@ -61,6 +61,7 @@ class _MyTimelineStyleState extends State<MyTimelineStyle> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return TimelineTile(
       isFirst: widget.isFirst,
       isLast: widget.isLast,
@@ -108,6 +109,7 @@ class _MyTimelineStyleState extends State<MyTimelineStyle> {
                   growable: false,
                   widget.data.list!.length,
                   (index) => Card(
+                    color: theme.colorScheme.secondary,
                     child: Container(
                       width: double.maxFinite,
                       padding: EdgeInsets.all(8.w),
@@ -117,19 +119,12 @@ class _MyTimelineStyleState extends State<MyTimelineStyle> {
                         children: [
                           Text(
                             widget.data.list![0].notransaksi ?? "-",
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              color: appBgBlack.withOpacity(0.6),
-                            ),
+                            style: theme.textTheme.titleLarge,
                           ),
                           SizedBox(height: 2.h),
                           Text(
                             widget.data.list![0].namakaryawan ?? '-',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: theme.textTheme.bodyLarge,
                           ),
                           SizedBox(height: 4.h),
                           Text(
@@ -148,10 +143,7 @@ class _MyTimelineStyleState extends State<MyTimelineStyle> {
                                 widget.data.list![0].keterangan != null,
                             child: Text(
                               widget.data.list![0].keterangan ?? '-',
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: theme.textTheme.displaySmall,
                             ),
                           ),
                         ],

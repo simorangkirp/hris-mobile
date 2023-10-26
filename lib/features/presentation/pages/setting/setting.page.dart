@@ -195,13 +195,8 @@ class _SettingScreenState extends State<SettingScreen> {
                           SizedBox(width: 12.w),
                           Expanded(
                             flex: 6,
-                            child: Text(
-                              l10n.language,
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                            child: Text(l10n.language,
+                                style: theme.textTheme.titleLarge),
                           ),
                         ],
                       ),
@@ -267,13 +262,8 @@ class _SettingScreenState extends State<SettingScreen> {
                     SizedBox(width: 12.w),
                     Expanded(
                       flex: 5,
-                      child: Text(
-                        l10n.darkMode,
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: Text(l10n.darkMode,
+                          style: theme.textTheme.titleLarge),
                     ),
                     Expanded(
                       child: Switch(

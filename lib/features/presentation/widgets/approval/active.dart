@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 Widget activeList(BuildContext context, List<ApprovalDetail>? detail,
     Function(ApprovalDetail) ontapItems) {
   final l10n = AppLocalizations.of(context);
+  final theme = Theme.of(context);
   ScrollController ctrl = ScrollController();
   return NotificationListener<OverscrollIndicatorNotification>(
     onNotification: (OverscrollIndicatorNotification overScrl) {
@@ -20,13 +21,10 @@ Widget activeList(BuildContext context, List<ApprovalDetail>? detail,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 4.h),
+            SizedBox(height: 12.h),
             Text(
               l10n.active,
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 16.sp,
-              ),
+              style: theme.textTheme.displayLarge,
             ),
             SizedBox(height: 8.h),
             detail != null
@@ -49,7 +47,7 @@ Widget activeList(BuildContext context, List<ApprovalDetail>? detail,
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
-                                color: appBgWhite,
+                                color: theme.colorScheme.secondary,
                               ),
                               padding: EdgeInsets.symmetric(
                                   vertical: 8.h, horizontal: 12.w),
@@ -62,25 +60,17 @@ Widget activeList(BuildContext context, List<ApprovalDetail>? detail,
                                       children: [
                                         Text(
                                           data.namakaryawan ?? "-",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14.sp,
-                                          ),
+                                          style: theme.textTheme.titleLarge,
                                         ),
+                                        SizedBox(height: 2.h),
                                         Text(
                                           data.notransaksi ?? "-",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12.sp,
-                                            color: appBgBlack.withOpacity(0.7),
-                                          ),
+                                          style: theme.textTheme.bodyMedium,
                                         ),
+                                        SizedBox(height: 2.h),
                                         Text(
                                           data.namajenis ?? "-",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12.sp,
-                                          ),
+                                          style: theme.textTheme.displaySmall,
                                         ),
                                       ],
                                     ),

@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import '../../../../lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/foundation.dart'
+    show TargetPlatform, defaultTargetPlatform;
 
 @RoutePage()
 class ApprovalDetailScreen extends StatefulWidget {
@@ -116,9 +118,11 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                             return Dialog(
                               insetPadding: EdgeInsets.symmetric(
                                 horizontal: (0.1.sw),
-                                vertical: (0.41.sh),
+                                vertical:
+                                    (defaultTargetPlatform == TargetPlatform.iOS
+                                        ? 0.395.sh
+                                        : 0.42.sh),
                               ),
-                              backgroundColor: appBgWhite,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -129,20 +133,17 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                                   children: [
                                     Text(
                                       l10n.confirm_msg,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16.sp,
-                                        color: appBgBlack.withOpacity(0.4),
-                                      ),
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
                                     ),
+                                    SizedBox(height: 4.h),
                                     Text(
                                       l10n.proceed_msg,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14.sp,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
                                     ),
-                                    SizedBox(height: 8.h),
+                                    const Spacer(),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,

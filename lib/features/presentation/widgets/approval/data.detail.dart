@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 Widget approvalDetail(
     BuildContext context,
     String mode,
@@ -18,6 +17,7 @@ Widget approvalDetail(
   ScrollController ctrl = ScrollController();
   // ScrollController sCtrl = ScrollController();
   final l10n = AppLocalizations.of(context);
+  final theme = Theme.of(context);
   Uint8List? photo;
   if (doc != null) {
     if (doc.isNotEmpty) {
@@ -41,6 +41,7 @@ Widget approvalDetail(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 12.h),
                   Text(
                     l10n.details,
                     style: TextStyle(
@@ -59,18 +60,12 @@ Widget approvalDetail(
                             children: [
                               Text(
                                 l10n.txnNo,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: appBgBlack.withOpacity(0.7),
-                                ),
+                                style: theme.textTheme.bodyMedium,
                               ),
+                              SizedBox(height: 2.h),
                               Text(
                                 mod?.notransaksi ?? "-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                ),
+                                style: theme.textTheme.titleLarge,
                               ),
                             ],
                           ),
@@ -83,18 +78,12 @@ Widget approvalDetail(
                             children: [
                               Text(
                                 l10n.name,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: appBgBlack.withOpacity(0.7),
-                                ),
+                                style: theme.textTheme.bodyMedium,
                               ),
+                              SizedBox(height: 2.h),
                               Text(
                                 mod?.namakaryawan ?? "-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                ),
+                                style: theme.textTheme.titleLarge,
                               ),
                             ],
                           ),
@@ -113,18 +102,12 @@ Widget approvalDetail(
                             children: [
                               Text(
                                 l10n.applyDt,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: appBgBlack.withOpacity(0.7),
-                                ),
+                                style: theme.textTheme.bodyMedium,
                               ),
+                              SizedBox(height: 2.h),
                               Text(
                                 mod?.tglpengajuan ?? "-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                ),
+                                style: theme.textTheme.titleLarge,
                               ),
                             ],
                           ),
@@ -137,18 +120,12 @@ Widget approvalDetail(
                             children: [
                               Text(
                                 l10n.type,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: appBgBlack.withOpacity(0.7),
-                                ),
+                                style: theme.textTheme.bodyMedium,
                               ),
+                              SizedBox(height: 2.h),
                               Text(
                                 mod?.jenisijin ?? "-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                ),
+                                style: theme.textTheme.titleLarge,
                               ),
                             ],
                           ),
@@ -167,18 +144,12 @@ Widget approvalDetail(
                             children: [
                               Text(
                                 l10n.dtFr,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: appBgBlack.withOpacity(0.7),
-                                ),
+                                style: theme.textTheme.bodyMedium,
                               ),
+                              SizedBox(height: 2.h),
                               Text(
                                 mod?.tgldari ?? "-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                ),
+                                style: theme.textTheme.titleLarge,
                               ),
                             ],
                           ),
@@ -191,18 +162,12 @@ Widget approvalDetail(
                             children: [
                               Text(
                                 l10n.dtTo,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: appBgBlack.withOpacity(0.7),
-                                ),
+                                style: theme.textTheme.bodyMedium,
                               ),
+                              SizedBox(height: 2.h),
                               Text(
                                 mod?.tglsampai ?? "-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                ),
+                                style: theme.textTheme.titleLarge,
                               ),
                             ],
                           ),
@@ -221,18 +186,12 @@ Widget approvalDetail(
                             children: [
                               Text(
                                 l10n.desc,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: appBgBlack.withOpacity(0.7),
-                                ),
+                                style: theme.textTheme.bodyMedium,
                               ),
+                              SizedBox(height: 2.h),
                               Text(
                                 mod?.keterangan ?? "-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                ),
+                                style: theme.textTheme.titleLarge,
                               ),
                             ],
                           ),
@@ -245,18 +204,12 @@ Widget approvalDetail(
                             children: [
                               Text(
                                 l10n.totDays,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: appBgBlack.withOpacity(0.7),
-                                ),
+                                style: theme.textTheme.bodyMedium,
                               ),
+                              SizedBox(height: 2.h),
                               Text(
                                 mod?.jumlahhari ?? "-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                ),
+                                style: theme.textTheme.titleLarge,
                               ),
                             ],
                           ),
@@ -275,18 +228,12 @@ Widget approvalDetail(
                             children: [
                               Text(
                                 l10n.cancelSts,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: appBgBlack.withOpacity(0.7),
-                                ),
+                                style: theme.textTheme.bodyMedium,
                               ),
+                              SizedBox(height: 2.h),
                               Text(
                                 mod?.statusbatal ?? "-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                ),
+                                style: theme.textTheme.titleLarge,
                               ),
                             ],
                           ),
@@ -299,18 +246,12 @@ Widget approvalDetail(
                             children: [
                               Text(
                                 l10n.cancelDesc,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: appBgBlack.withOpacity(0.7),
-                                ),
+                                style: theme.textTheme.bodyMedium,
                               ),
+                              SizedBox(height: 2.h),
                               Text(
                                 mod?.alasanbatal ?? "-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                ),
+                                style: theme.textTheme.titleLarge,
                               ),
                             ],
                           ),
@@ -329,18 +270,12 @@ Widget approvalDetail(
                             children: [
                               Text(
                                 l10n.dtFrRl,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: appBgBlack.withOpacity(0.7),
-                                ),
+                                style: theme.textTheme.bodyMedium,
                               ),
+                              SizedBox(height: 2.h),
                               Text(
                                 mod?.tgldarireal ?? "-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                ),
+                                style: theme.textTheme.titleLarge,
                               ),
                             ],
                           ),
@@ -353,18 +288,12 @@ Widget approvalDetail(
                             children: [
                               Text(
                                 l10n.dtToRl,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: appBgBlack.withOpacity(0.7),
-                                ),
+                                style: theme.textTheme.bodyMedium,
                               ),
+                              SizedBox(height: 2.h),
                               Text(
                                 mod?.tglsampaireal ?? "-",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                ),
+                                style: theme.textTheme.titleLarge,
                               ),
                             ],
                           ),
@@ -378,10 +307,7 @@ Widget approvalDetail(
                     visible: photo != null,
                     child: Text(
                       l10n.doc,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.sp,
-                      ),
+                      style: theme.textTheme.displayMedium,
                     ),
                   ),
                   Visibility(
@@ -466,7 +392,7 @@ Widget approvalDetail(
                   color: appIconMenuTitle.withOpacity(0.2),
                 ),
               ),
-              color: appBgWhite,
+              color: theme.colorScheme.secondary,
             ),
             height: 0.2.sh,
             width: double.maxFinite,
