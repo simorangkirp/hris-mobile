@@ -54,7 +54,7 @@ Widget historyList(BuildContext context, List<ApprovalDetail>? detail,
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
-                                color: appBgWhite,
+                                color: theme.colorScheme.secondary,
                               ),
                               padding: EdgeInsets.symmetric(
                                   vertical: 8.h, horizontal: 12.w),
