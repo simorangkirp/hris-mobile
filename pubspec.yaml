@@ -105,6 +105,7 @@ dependencies:
   ## Internationalization
   flutter_localizations:
     sdk: flutter
+  firebase_core: ^2.20.0
 
 dev_dependencies:
   flutter_test:

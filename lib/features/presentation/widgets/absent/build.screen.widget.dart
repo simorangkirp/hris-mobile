@@ -127,7 +127,7 @@ Widget buildScreen(
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: appBgBlack,
+                  color: theme.colorScheme.secondary,
                 ),
                 padding: Constant.containerPadding,
                 child: Column(

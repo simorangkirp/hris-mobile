@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:owl_hris/lib.dart';
 
-Widget emCtcInfo(BuildContext context, EmerContactEntity? model) {
+Widget emCtcInfo(BuildContext context, EmerContactEntity? model, ThemeData theme) {
   ScrollController ctrl = ScrollController();
   final l10n = AppLocalizations.of(context);
   buildEmCtcItem(EmerContactDetails data) {
@@ -20,18 +20,11 @@ Widget emCtcInfo(BuildContext context, EmerContactEntity? model) {
                   children: [
                     Text(
                       l10n.name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.nama ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -44,18 +37,11 @@ Widget emCtcInfo(BuildContext context, EmerContactEntity? model) {
                   children: [
                     Text(
                       l10n.famRelative,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.hubungankeluarga ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -74,18 +60,11 @@ Widget emCtcInfo(BuildContext context, EmerContactEntity? model) {
                   children: [
                     Text(
                       l10n.telephone,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.telp ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -98,18 +77,11 @@ Widget emCtcInfo(BuildContext context, EmerContactEntity? model) {
                   children: [
                     Text(
                       l10n.personalEmail,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.email ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -131,11 +103,7 @@ Widget emCtcInfo(BuildContext context, EmerContactEntity? model) {
           SizedBox(height: 4.h),
           Text(
             l10n.emerCtc,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 18.sp,
-              color: appBgBlack.withOpacity(0.7),
-            ),
+            style: theme.textTheme.headlineSmall,
           ),
           model != null
               ? model.dataDetails!.isNotEmpty

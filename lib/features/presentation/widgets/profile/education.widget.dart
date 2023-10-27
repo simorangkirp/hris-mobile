@@ -4,7 +4,7 @@ import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
-Widget educationInfo(BuildContext context, EducationEntity? model) {
+Widget educationInfo(BuildContext context, EducationEntity? model, ThemeData theme) {
   ScrollController ctrl = ScrollController();
   final l10n = AppLocalizations.of(context);
   buildEduItem(EducationDetails data) {
@@ -20,18 +20,11 @@ Widget educationInfo(BuildContext context, EducationEntity? model) {
                   children: [
                     Text(
                       l10n.schlNm,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.namasekolah ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -44,18 +37,11 @@ Widget educationInfo(BuildContext context, EducationEntity? model) {
                   children: [
                     Text(
                       l10n.schlField,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.spesialisasi ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -74,18 +60,11 @@ Widget educationInfo(BuildContext context, EducationEntity? model) {
                   children: [
                     Text(
                       l10n.schlTtl,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.gelar ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -98,18 +77,11 @@ Widget educationInfo(BuildContext context, EducationEntity? model) {
                   children: [
                     Text(
                       l10n.gradYr,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.tahunlulus ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -128,18 +100,11 @@ Widget educationInfo(BuildContext context, EducationEntity? model) {
                   children: [
                     Text(
                       l10n.schlScr,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.nilai ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -152,18 +117,11 @@ Widget educationInfo(BuildContext context, EducationEntity? model) {
                   children: [
                     Text(
                       l10n.city,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.kota ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -185,11 +143,7 @@ Widget educationInfo(BuildContext context, EducationEntity? model) {
           SizedBox(height: 4.h),
           Text(
             l10n.eduHist,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 18.sp,
-              color: appBgBlack.withOpacity(0.7),
-            ),
+            style: theme.textTheme.headlineSmall,
           ),
           model != null
               ? model.dataDetails!.isNotEmpty
