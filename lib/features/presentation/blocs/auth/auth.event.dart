@@ -31,3 +31,5 @@ class DisplayLogoutDialog extends AuthEvent {
 class AuthCancelLogout extends AuthEvent {}
 
 class AuthCheckDeviceInfo extends AuthEvent {}
+
+class AuthGetIntroInfo extends AuthEvent {}

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import '../../../../lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -34,8 +35,17 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController pw = TextEditingController();
   String dt = '';
   String loc = '';
+  String ver = '';
+  String appBuild = '';
   bool isBio = false;
   AuthModel authmodel = AuthModel();
+
+  getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    ver = packageInfo.version;
+    appBuild = packageInfo.buildNumber;
+    setState(() {});
+  }
 
   void dispatchLogin() {
     BlocProvider.of<AuthBloc>(context).add(SubmitLogin(LoginParams(
@@ -47,6 +57,10 @@ class _LoginScreenState extends State<LoginScreen> {
   //! Dispatch after successfully login
   void dispatchProfileDetail() {
     BlocProvider.of<AuthBloc>(context).add(AuthGetProfileDetail());
+  }
+
+  void dispatchGetIntro() {
+    BlocProvider.of<AuthBloc>(context).add(AuthGetIntroInfo());
   }
 
   //! Dispatch after get profile details
@@ -82,12 +96,14 @@ class _LoginScreenState extends State<LoginScreen> {
     context.router.replaceAll([const HomeRoute()]);
   }
 
+  void redirectIntrScreen() {
+    context.router.replaceAll([const IntroductionRoute()]);
+  }
+
   @override
   void initState() {
     super.initState();
-    if (widget.param == 'bio') {
-      dispatchAuth();
-    }
+    dispatchGetIntro();
     // dispatchGetCameras();
   }
 
@@ -313,7 +329,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  l10n.about_owl_ess,
+                  l10n.about_owl_ess(ver, appBuild),
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     color: appDisabledTextField,
                     fontSize: 12.sp,
@@ -332,6 +349,19 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
+            if (state is AuthIntroInfoLoaded) {
+              if (!state.intro!) {
+                //! go to intro screen
+                redirectIntrScreen();
+              }
+              if (state.intro!) {
+                //! go to login screen
+                getAppVersion();
+                if (widget.param == 'bio') {
+                  dispatchAuth();
+                }
+              }
+            }
             if (state is AuthTokenChecked) {
               if (state.token == false &&
                   state.authModel?.unm != null &&

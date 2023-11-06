@@ -136,5 +136,10 @@ class AppRouter extends _$AppRouter {
           path: '/PJD-form',
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
+        CustomRoute(
+          page: IntroductionRoute.page,
+          path: '/Intro',
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
       ];
 }

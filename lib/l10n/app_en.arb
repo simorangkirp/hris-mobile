@@ -62,7 +62,19 @@
     "forgot_msg":"Forgot password?",
     "privacy_policy":"Privacy policy",
     "term_use":"Terms of use",
-    "about_owl_ess":"About OWL ESS",
+    "about_owl_ess":"About OWL ESS\nVersion {version} Build v{build}",
+    "@about_owl_ess":
+    {
+        "placeholders":
+        {
+            "version": {
+                "type": "String"
+            },
+            "build": {
+                "type": "String"
+            }
+        }
+    },
     "gallery":"Gallery",
     "camera":"Camera",
     "absent":"Absent",

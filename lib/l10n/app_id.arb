@@ -49,7 +49,7 @@
     "forgot_msg":"Lupa sandi?",
     "privacy_policy":"Kebijakan privasi",
     "term_use":"Ketentuan pengunaan",
-    "about_owl_ess":"Tentang OWL ESS",
+    "about_owl_ess":"Tentang OWL ESS\nVersi {version} Buatan v{build}",
     "gallery":"Galeri",
     "camera":"Kamera",
     "absent":"Absen",

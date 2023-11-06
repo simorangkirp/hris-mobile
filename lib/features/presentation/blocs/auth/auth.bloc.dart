@@ -27,6 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<DisplayLogoutDialog>(onDisplayDialog);
     on<AuthCancelLogout>(onCancel);
     on<AuthCheckDeviceInfo>(onDeviceCheck);
+    on<AuthGetIntroInfo>(onCheckIntro);
   }
 
   void onLoginUser(SubmitLogin event, Emitter<AuthState> emit) async {
@@ -117,7 +118,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void onLogOut(OnLogOut event, Emitter<AuthState> emit) async {
-    sl<UserAuthDb>().dbClear();
+    sl<UserAuthDb>().onLogout();
     emit(OnLogOutSuccess());
   }
 
@@ -132,5 +133,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void onDeviceCheck(AuthCheckDeviceInfo event, Emitter<AuthState> emit) async {
     final state = await _checkDevUsecase(NoParams());
     emit(AuthDeviceChecked(state));
+  }
+
+  void onCheckIntro(AuthGetIntroInfo event, Emitter<AuthState> emit) async {
+    final state = await sl<UserAuthDb>().getIntro();
+    emit(AuthIntroInfoLoaded(state ?? false));
   }
 }

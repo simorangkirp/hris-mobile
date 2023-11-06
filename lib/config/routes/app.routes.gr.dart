@@ -107,6 +107,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const InputOTPScreen(),
       );
     },
+    IntroductionRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const IntroductionScreen(),
+      );
+    },
     LoginRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<LoginRouteArgs>(
@@ -490,6 +496,20 @@ class InputOTPRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'InputOTPRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [IntroductionScreen]
+class IntroductionRoute extends PageRouteInfo<void> {
+  const IntroductionRoute({List<PageRouteInfo>? children})
+      : super(
+          IntroductionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'IntroductionRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

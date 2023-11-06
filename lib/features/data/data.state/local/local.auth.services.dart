@@ -20,6 +20,16 @@ class UserAuthDb {
     await prefs.setString('AuthInfo', jsonBody);
   }
 
+  Future saveIntro() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('intro', true);
+  }
+
+  Future getIntro() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.getBool('intro');
+  }
+
   Future<AuthModel?> getAuth() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     AuthModel? log;
@@ -113,6 +123,11 @@ class UserAuthDb {
 
   //   return Right(mod);
   // }
+
+  Future onLogout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('LoginInfo');
+  }
 
   Future dbClear() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
