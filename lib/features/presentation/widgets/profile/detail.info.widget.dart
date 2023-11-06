@@ -4,7 +4,7 @@ import '../../../../lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
-Widget detailInfo(BuildContext context, EntityProfile? model) {
+Widget detailInfo(BuildContext context, EntityProfile? model, ThemeData theme) {
   ScrollController ctrl = ScrollController();
   final l10n = AppLocalizations.of(context);
 
@@ -21,18 +21,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.emplyId,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.nik ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -45,18 +38,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.namakaryawan ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -75,18 +61,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.ktpNo,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.noktp ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -99,18 +78,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.gender,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.jeniskelamin ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -129,18 +101,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.birthPlace,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.tempatlahir ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -153,18 +118,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.birthDt,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.tanggallahir ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -183,18 +141,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.province,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.provinsi ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -207,18 +158,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.city,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.kota ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -237,18 +181,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.zipCode,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.kodepos ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -261,18 +198,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.address,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.alamataktif ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -291,18 +221,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.maritalSts,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.statusperkawinan ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -315,18 +238,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.religion,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.agama ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -345,18 +261,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.telephone,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.noteleponrumah ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -369,18 +278,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.phone1,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.nohp ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -399,18 +301,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.marriageDt,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.tanggalmenikah ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -423,18 +318,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.noOfChild,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.jumlahanak ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -453,18 +341,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.eduLvl,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.levelpendidikan ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -477,18 +358,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.bloodType,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.golongandarah ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -507,18 +381,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.npwp,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.npwp ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -531,18 +398,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.personalEmail,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.email ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -561,18 +421,11 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
                   children: [
                     Text(
                       l10n.bpjsNaker,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.bpjs ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -593,11 +446,7 @@ Widget detailInfo(BuildContext context, EntityProfile? model) {
           SizedBox(height: 4.h),
           Text(
             l10n.profileInfo,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 18.sp,
-              color: appBgBlack.withOpacity(0.7),
-            ),
+            style: theme.textTheme.headlineSmall,
           ),
           model != null
               ? Padding(

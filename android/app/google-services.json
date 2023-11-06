@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "541373305176",
+    "project_id": "owl-ess-fc85e",
+    "storage_bucket": "owl-ess-fc85e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541373305176:android:1ca408e19911585664952d",
+        "android_client_info": {
+          "package_name": "com.owl.owl_ess"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdMteY3RV65-jZqUzQGIUCNSvvYmj40Y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "owl_hris" "\0"
+            VALUE "CompanyName", "com.owl" "\0"
+            VALUE "FileDescription", "owl_ess" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "owl_hris" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "owl_hris.exe" "\0"
-            VALUE "ProductName", "owl_hris" "\0"
+            VALUE "InternalName", "owl_ess" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 com.owl. All rights reserved." "\0"
+            VALUE "OriginalFilename", "owl_ess.exe" "\0"
+            VALUE "ProductName", "owl_ess" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

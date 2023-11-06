@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
-Widget payrollInfo(BuildContext context, PayrollEntity? model) {
+Widget payrollInfo(
+    BuildContext context, PayrollEntity? model, ThemeData theme) {
   ScrollController ctrl = ScrollController();
   final l10n = AppLocalizations.of(context);
   buildPayrollItem(PayrollDetails data) {
@@ -20,18 +20,11 @@ Widget payrollInfo(BuildContext context, PayrollEntity? model) {
                   children: [
                     Text(
                       l10n.bankNm,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.namabank ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -44,18 +37,11 @@ Widget payrollInfo(BuildContext context, PayrollEntity? model) {
                   children: [
                     Text(
                       l10n.bankNo,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.norek ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -74,18 +60,11 @@ Widget payrollInfo(BuildContext context, PayrollEntity? model) {
                   children: [
                     Text(
                       l10n.bankBranch,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.cabang ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -111,11 +90,7 @@ Widget payrollInfo(BuildContext context, PayrollEntity? model) {
           SizedBox(height: 4.h),
           Text(
             l10n.payrollInfo,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 18.sp,
-              color: appBgBlack.withOpacity(0.7),
-            ),
+            style: theme.textTheme.headlineSmall,
           ),
           model != null
               ? model.dataDetails!.isNotEmpty

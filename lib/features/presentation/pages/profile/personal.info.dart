@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 @RoutePage()
 class MyPersonalInfoScreen extends StatefulWidget {
   const MyPersonalInfoScreen({super.key});
@@ -68,10 +69,13 @@ class _MyPersonalInfoScreenState extends State<MyPersonalInfoScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.myPersonalInfo),
+        title: Text(
+          l10n.myPersonalInfo,
+          style: theme.appBarTheme.titleTextStyle,
+        ),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -111,13 +115,13 @@ class _MyPersonalInfoScreenState extends State<MyPersonalInfoScreen> {
                 scrollDirection: Axis.horizontal,
                 controller: ctrl,
                 children: <Widget>[
-                  detailInfo(context, profileModel),
-                  jobHistory(context, jobModel),
-                  familyInfo(context, familyModel),
-                  emCtcInfo(context, emCtcModel),
-                  educationInfo(context, eduModel),
-                  addressInfo(context, addressModel),
-                  payrollInfo(context, payrollModel),
+                  detailInfo(context, profileModel, theme),
+                  jobHistory(context, jobModel, theme),
+                  familyInfo(context, familyModel, theme),
+                  emCtcInfo(context, emCtcModel, theme),
+                  educationInfo(context, eduModel, theme),
+                  addressInfo(context, addressModel, theme),
+                  payrollInfo(context, payrollModel, theme),
                 ],
               );
             },

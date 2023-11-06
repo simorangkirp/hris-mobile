@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:owl_hris/lib.dart';
 
-Widget familyInfo(BuildContext context, FamilyEntity? model) {
+Widget familyInfo(BuildContext context, FamilyEntity? model, ThemeData theme) {
   ScrollController ctrl = ScrollController();
   final l10n = AppLocalizations.of(context);
   buildFamilyItem(FamilyDetails data) {
@@ -19,18 +19,11 @@ Widget familyInfo(BuildContext context, FamilyEntity? model) {
                   children: [
                     Text(
                       l10n.name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.nama ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -43,18 +36,11 @@ Widget familyInfo(BuildContext context, FamilyEntity? model) {
                   children: [
                     Text(
                       l10n.gender,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.jeniskelamin ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -73,18 +59,11 @@ Widget familyInfo(BuildContext context, FamilyEntity? model) {
                   children: [
                     Text(
                       l10n.birthPlace,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.tempatlahir ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -97,18 +76,11 @@ Widget familyInfo(BuildContext context, FamilyEntity? model) {
                   children: [
                     Text(
                       l10n.birthDt,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.tanggallahir ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -127,18 +99,11 @@ Widget familyInfo(BuildContext context, FamilyEntity? model) {
                   children: [
                     Text(
                       l10n.famRelative,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.hubungankeluarga ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -151,18 +116,11 @@ Widget familyInfo(BuildContext context, FamilyEntity? model) {
                   children: [
                     Text(
                       l10n.maritalSts,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.status ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -181,18 +139,11 @@ Widget familyInfo(BuildContext context, FamilyEntity? model) {
                   children: [
                     Text(
                       l10n.empEmplmny,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.pekerjaan ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -205,18 +156,11 @@ Widget familyInfo(BuildContext context, FamilyEntity? model) {
                   children: [
                     Text(
                       l10n.telephone,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.telp ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -238,11 +182,7 @@ Widget familyInfo(BuildContext context, FamilyEntity? model) {
           SizedBox(height: 4.h),
           Text(
             l10n.famInfo,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 18.sp,
-              color: appBgBlack.withOpacity(0.7),
-            ),
+            style: theme.textTheme.headlineSmall,
           ),
           model != null
               ? model.dataDetails!.isNotEmpty

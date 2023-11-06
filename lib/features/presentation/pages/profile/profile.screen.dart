@@ -62,10 +62,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   buildProfileScreen(BuildContext ctx, EntityProfile? data, int? aCtr) {
     final l10n = AppLocalizations.of(ctx);
+    final theme = Theme.of(ctx);
     String scrMst = l10n.profile;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        title: Text(
+          l10n.profile,
+          style: theme.appBarTheme.titleTextStyle,
+        ),
         // centerTitle: true,
         // title: Text(
         //   'Profile',

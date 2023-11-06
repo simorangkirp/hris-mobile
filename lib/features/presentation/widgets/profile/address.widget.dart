@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Widget addressInfo(BuildContext context, AddressEntity? model) {
+Widget addressInfo(BuildContext context, AddressEntity? model, ThemeData theme) {
   final l10n = AppLocalizations.of(context);
 
   ScrollController ctrl = ScrollController();
@@ -20,18 +20,11 @@ Widget addressInfo(BuildContext context, AddressEntity? model) {
                   children: [
                     Text(
                       l10n.address,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.alamat ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -44,18 +37,11 @@ Widget addressInfo(BuildContext context, AddressEntity? model) {
                   children: [
                     Text(
                       l10n.city,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.kota ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -74,18 +60,11 @@ Widget addressInfo(BuildContext context, AddressEntity? model) {
                   children: [
                     Text(
                       l10n.zipCode,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.kodepos ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -98,18 +77,11 @@ Widget addressInfo(BuildContext context, AddressEntity? model) {
                   children: [
                     Text(
                       l10n.province,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: appBgBlack.withOpacity(0.7),
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     Text(
                       data.provinsi ?? "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
+                      style: theme.textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -131,11 +103,7 @@ Widget addressInfo(BuildContext context, AddressEntity? model) {
           SizedBox(height: 4.h),
           Text(
             l10n.address,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 18.sp,
-              color: appBgBlack.withOpacity(0.7),
-            ),
+            style: theme.textTheme.headlineSmall,
           ),
           model != null
               ? model.dataDetails!.isNotEmpty
