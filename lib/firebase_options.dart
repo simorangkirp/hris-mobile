@@ -62,19 +62,19 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDCCAs0CLYXTNNKWPRpEJTVrcEUxEfWNsw',
-    appId: '1:541373305176:ios:35538fa3dac5540164952d',
+    appId: '1:541373305176:ios:d1891cf41e0457fc64952d',
     messagingSenderId: '541373305176',
     projectId: 'owl-ess-fc85e',
     storageBucket: 'owl-ess-fc85e.appspot.com',
-    iosBundleId: 'com.example.owlHris',
+    iosBundleId: 'com.owl.owl-ESS.RunnerTests',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDCCAs0CLYXTNNKWPRpEJTVrcEUxEfWNsw',
-    appId: '1:541373305176:ios:08f6c959f480684464952d',
+    appId: '1:541373305176:ios:d1891cf41e0457fc64952d',
     messagingSenderId: '541373305176',
     projectId: 'owl-ess-fc85e',
     storageBucket: 'owl-ess-fc85e.appspot.com',
-    iosBundleId: 'com.example.owlHris.RunnerTests',
+    iosBundleId: 'com.owl.owl-ESS.RunnerTests',
   );
 }

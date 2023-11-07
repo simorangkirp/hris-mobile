@@ -122,6 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
               elevation: 2,
               borderRadius: BorderRadius.circular(8),
               child: Container(
+                color: Theme.of(context).colorScheme.secondary,
                 // color: Colors.red.withOpacity(0.4),
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Column(
@@ -352,7 +353,14 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state is AuthIntroInfoLoaded) {
               if (!state.intro!) {
                 //! go to intro screen
-                redirectIntrScreen();
+                //! todo
+                // redirectIntrScreen();
+
+                //! delete this if finished above
+                getAppVersion();
+                if (widget.param == 'bio') {
+                  dispatchAuth();
+                }
               }
               if (state.intro!) {
                 //! go to login screen

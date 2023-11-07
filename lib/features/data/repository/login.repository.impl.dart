@@ -20,8 +20,9 @@ class LoginRepositoryImpl implements UserAuthRepository {
   Future<DataState> loginUser(userNm, pwd) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     var version = packageInfo.version;
-    var build = packageInfo.buildNumber;
-    var paramVer = 'v$build($version)';
+    // var build = packageInfo.buildNumber;
+    // var paramVer = 'v$build($version)';
+    var paramVer = version;
     var params = LoginParam(userNm, pwd, paramVer, '1');
     try {
       final httpResp = await _loginAPIServices.loginUser(params);
