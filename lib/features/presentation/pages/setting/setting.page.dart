@@ -107,7 +107,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: appBgBlack.withOpacity(0.1),
+                      color: theme.colorScheme.secondary,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     padding:
@@ -144,7 +144,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: appBgBlack.withOpacity(0.1),
+                      color: theme.colorScheme.secondary,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     padding:

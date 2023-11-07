@@ -44,6 +44,10 @@ class ConstIconPath {
 class ConstantLottie {
   static const submitLoading = 'assets/lotties/submit_loading.json';
   static const submitSuccess = 'assets/lotties/submit_success.json';
+  static const introComplete = 'assets/lotties/intro/complete-intro.json';
+  static const introBiometric = 'assets/lotties/intro/biometric-intro.json';
+  static const introApproval = 'assets/lotties/intro/approval-intro.json';
+  static const introSelfservice = 'assets/lotties/intro/selfservice-intro.json';
 }
 
 class ConstantMode {

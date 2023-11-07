@@ -354,13 +354,13 @@ class _LoginScreenState extends State<LoginScreen> {
               if (!state.intro!) {
                 //! go to intro screen
                 //! todo
-                // redirectIntrScreen();
+                redirectIntrScreen();
 
                 //! delete this if finished above
-                getAppVersion();
-                if (widget.param == 'bio') {
-                  dispatchAuth();
-                }
+                // getAppVersion();
+                // if (widget.param == 'bio') {
+                //   dispatchAuth();
+                // }
               }
               if (state.intro!) {
                 //! go to login screen

@@ -137,7 +137,7 @@ Widget buildScreen(
                         Expanded(
                           child: Text(
                             l10n.date,
-                            style: theme.textTheme.titleSmall,
+                            style: theme.textTheme.displaySmall,
                           ),
                         ),
                         SizedBox(width: 4.w),
@@ -145,7 +145,7 @@ Widget buildScreen(
                           child: Text(
                             DateFormat('EEE, dd MMM yyyy')
                                 .format(DateTime.now()),
-                            style: theme.textTheme.titleSmall,
+                            style: theme.textTheme.displaySmall,
                           ),
                         ),
                       ],
@@ -156,14 +156,14 @@ Widget buildScreen(
                         Expanded(
                           child: Text(
                             l10n.assignmentLocation,
-                            style: theme.textTheme.titleSmall,
+                            style: theme.textTheme.displaySmall,
                           ),
                         ),
                         SizedBox(width: 4.w),
                         Expanded(
                           child: Text(
                             userLoc?.namacustomer ?? "HO",
-                            style: theme.textTheme.titleSmall,
+                            style: theme.textTheme.displaySmall,
                           ),
                         ),
                       ],
@@ -195,11 +195,11 @@ Widget buildScreen(
                                 children: [
                                   Text(
                                     absenData?.hrIn ?? '-',
-                                    style: theme.textTheme.titleSmall,
+                                    style: theme.textTheme.displaySmall,
                                   ),
                                   Text(
                                     l10n.clockIn,
-                                    style: theme.textTheme.titleSmall,
+                                    style: theme.textTheme.displaySmall,
                                   ),
                                 ],
                               ),
@@ -232,11 +232,11 @@ Widget buildScreen(
                                 children: [
                                   Text(
                                     absenData?.hrOut ?? '-',
-                                    style: theme.textTheme.titleSmall,
+                                    style: theme.textTheme.displaySmall,
                                   ),
                                   Text(
                                     l10n.clockOut,
-                                    style: theme.textTheme.titleSmall,
+                                    style: theme.textTheme.displaySmall,
                                   ),
                                 ],
                               ),
