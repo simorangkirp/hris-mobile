@@ -59,10 +59,6 @@ class _LoginScreenState extends State<LoginScreen> {
     BlocProvider.of<AuthBloc>(context).add(AuthGetProfileDetail());
   }
 
-  void dispatchGetIntro() {
-    BlocProvider.of<AuthBloc>(context).add(AuthGetIntroInfo());
-  }
-
   //! Dispatch after get profile details
   void dispatchActPeriod() {
     BlocProvider.of<AuthBloc>(context).add(AuthGetActPeriod(dt, loc));
@@ -96,14 +92,14 @@ class _LoginScreenState extends State<LoginScreen> {
     context.router.replaceAll([const HomeRoute()]);
   }
 
-  void redirectIntrScreen() {
-    context.router.replaceAll([const IntroductionRoute()]);
-  }
-
   @override
   void initState() {
     super.initState();
-    dispatchGetIntro();
+    getAppVersion();
+    if (widget.param == 'bio') {
+      dispatchAuth();
+    }
+    // dispatchGetIntro();
     // dispatchGetCameras();
   }
 
@@ -328,7 +324,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 Text(
                   l10n.about_owl_ess(ver, appBuild),
                   textAlign: TextAlign.center,
@@ -350,26 +346,6 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
-            if (state is AuthIntroInfoLoaded) {
-              if (!state.intro!) {
-                //! go to intro screen
-                //! todo
-                redirectIntrScreen();
-
-                //! delete this if finished above
-                // getAppVersion();
-                // if (widget.param == 'bio') {
-                //   dispatchAuth();
-                // }
-              }
-              if (state.intro!) {
-                //! go to login screen
-                getAppVersion();
-                if (widget.param == 'bio') {
-                  dispatchAuth();
-                }
-              }
-            }
             if (state is AuthTokenChecked) {
               if (state.token == false &&
                   state.authModel?.unm != null &&
@@ -423,49 +399,6 @@ class _LoginScreenState extends State<LoginScreen> {
             },
           ),
         ),
-        // child: BlocConsumer<AuthBloc, AuthState>(
-        //   builder: (context, state) {
-        //     if (state is AuthLoading) {
-        //       return loadingAuth();
-        //     } else if (state is AuthActPeriodLoaded) {
-        //       return authSuccess();
-        //     } else if (state is AuthError) {
-        //       return loginCard();
-        //     } else {
-        //       return loginCard();
-        //     }
-        //   },
-        //   listener: (context, state) {
-        //     if (state is UserAuthGranted) {
-        //       dispatchProfileDetail();
-        //     }
-        //     if (state is AuthDetailProfileLoaded) {
-        //       if (state.profileModel?.lokasitugas != null) {
-        //         loc = state.profileModel!.lokasitugas!;
-        //       }
-        //       dt = DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
-        //       dispatchActPeriod();
-        //     }
-        //     if (state is AuthActPeriodLoaded) {
-        //       Future.delayed(const Duration(seconds: 2))
-        //           .then((_) => redirectScreen());
-        //     }
-        //     if (state is AuthError) {
-        //       ScaffoldMessenger.of(context)
-        //         ..hideCurrentSnackBar()
-        //         ..showSnackBar(failSnackBar(
-        //           message: state.error!.messages!.error,
-        //         ));
-        //     }
-        //     if (state is AuthStrMsg) {
-        //       ScaffoldMessenger.of(context)
-        //         ..hideCurrentSnackBar()
-        //         ..showSnackBar(failSnackBar(
-        //           message: state.msg,
-        //         ));
-        //     }
-        //   },
-        // ),
       ),
     );
   }

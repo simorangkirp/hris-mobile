@@ -7,3 +7,4 @@ export 'paid.leave/paid.leave.dart';
 export 'profile/profile.dart';
 export 'settings/setting.dart';
 export 'theme/theme.dart';
+export 'introduction/intro.dart';

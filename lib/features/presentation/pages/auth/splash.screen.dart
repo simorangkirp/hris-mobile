@@ -32,6 +32,14 @@ class _SplashScreenState extends State<SplashScreen> {
       ));
   }
 
+  void redirectIntrScreen() {
+    context.router.replaceAll([const IntroductionRoute()]);
+  }
+
+  void dispatchGetIntro() {
+    BlocProvider.of<IntrodBloc>(context).add(IntrodGetIntroInfo());
+  }
+
   Future<void> precacheImage(
       ImageProvider<Object> provider, BuildContext context,
       {Size? size, ImageErrorListener? onError}) async {}
@@ -46,91 +54,104 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     precacheImage(const AssetImage('assets/image/owl.logo.png'), context);
-    dispatchDeviceInfo();
+    // dispatchDeviceInfo();
+    dispatchGetIntro();
   }
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state is AuthDeviceChecked) {
-          if (state.isNotPass!) {
-            if (defaultTargetPlatform == TargetPlatform.android) {
-              // SystemNavigator.pop();
-              displayScfldMsg(context, "you're on a simulator device!");
-              // Future.delayed(const Duration(seconds: 2))
-              //     .then((value) => SystemNavigator.pop());
-              dispatchAuth();
-            }
-            if (defaultTargetPlatform == TargetPlatform.iOS) {
-              displayScfldMsg(context, "you're on a simulator device!");
-            }
-          } else {
-            dispatchAuth();
-          }
-        }
-        if (state is AuthTokenChecked) {
-          if (state.token != null) {
-            if (state.token!) {
-              Future.delayed(const Duration(milliseconds: 1200))
-                  .then((value) => context.router.replace(const HomeRoute()));
-            } else {
-              if (state.authModel != null) {
-                Future.delayed(const Duration(milliseconds: 1200)).then(
-                    (value) =>
-                        context.router.replace(LoginRoute(param: 'bio')));
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthDeviceChecked) {
+              if (state.isNotPass!) {
+                if (defaultTargetPlatform == TargetPlatform.android) {
+                  // SystemNavigator.pop();
+                  displayScfldMsg(context, "you're on a simulator device!");
+                  // Future.delayed(const Duration(seconds: 2))
+                  //     .then((value) => SystemNavigator.pop());
+                  dispatchAuth();
+                }
+                if (defaultTargetPlatform == TargetPlatform.iOS) {
+                  displayScfldMsg(context, "you're on a simulator device!");
+                }
+              } else {
+                dispatchAuth();
               }
             }
-            // Future.delayed(const Duration(milliseconds: 1200)).then((value) {
-            //   if (state.token!) {
-            //     context.router.replace(const HomeRoute());
-            //   } else {
-            //     context.router.replace(const LoginRoute());
-            //   }
-            // });
-          }
-        }
-      },
-      child: BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          return Scaffold(
-            body: SafeArea(
-              child: Container(
-                height: 1.sh,
-                width: 1.sw,
-                color: theme.scaffoldBackgroundColor,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/image/owl.logo.png',
-                          ),
-                          fit: BoxFit.contain,
-                        ),
-                        shape: BoxShape.circle,
+            if (state is AuthTokenChecked) {
+              if (state.token != null) {
+                if (state.token!) {
+                  Future.delayed(const Duration(milliseconds: 1200)).then(
+                      (value) => context.router.replace(const HomeRoute()));
+                } else {
+                  if (state.authModel != null) {
+                    Future.delayed(const Duration(milliseconds: 1200)).then(
+                        (value) =>
+                            context.router.replace(LoginRoute(param: 'bio')));
+                  }
+                }
+                // Future.delayed(const Duration(milliseconds: 1200)).then((value) {
+                //   if (state.token!) {
+                //     context.router.replace(const HomeRoute());
+                //   } else {
+                //     context.router.replace(const LoginRoute());
+                //   }
+                // });
+              }
+            }
+          },
+        ),
+        BlocListener<IntrodBloc, IntrodState>(
+          listener: (context, state) {
+            if (state is IntrodInfoLoaded) {
+              if (!state.intro!) {
+                redirectIntrScreen();
+              }
+              if (state.intro!) {
+                dispatchDeviceInfo();
+              }
+            }
+          },
+        ),
+      ],
+      child: Scaffold(
+        body: SafeArea(
+          child: Container(
+            height: 1.sh,
+            width: 1.sw,
+            color: theme.scaffoldBackgroundColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        'assets/image/owl.logo.png',
                       ),
-                      width: 0.28.sh,
-                      height: 0.28.sh,
+                      fit: BoxFit.contain,
                     ),
-                    SizedBox(height: 24.h),
-                    Text(
-                      'OWL ESS',
-                      style: TextStyle(
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ],
+                    shape: BoxShape.circle,
+                  ),
+                  width: 0.28.sh,
+                  height: 0.28.sh,
                 ),
-              ),
+                SizedBox(height: 24.h),
+                Text(
+                  'OWL ESS',
+                  style: TextStyle(
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

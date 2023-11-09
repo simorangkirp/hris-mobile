@@ -15,7 +15,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );  
+  );
   runApp(
     MultiBlocProvider(
       providers: [
@@ -46,6 +46,9 @@ Future<void> main() async {
         BlocProvider(
           create: (context) => sl<SettingBloc>(),
         ),
+        BlocProvider(
+          create: (context) => sl<IntrodBloc>(),
+        )
       ],
       child: const MyApp(),
     ),

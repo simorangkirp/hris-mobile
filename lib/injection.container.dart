@@ -101,6 +101,7 @@ Future<void> initializeDependencies() async {
         ..add(InitAbsent()));
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl())..add(InitHome()));
   sl.registerFactory<SettingBloc>(() => SettingBloc()..add(GetLanguage()));
+  sl.registerFactory<IntrodBloc>(() => IntrodBloc()..add(InitIntrod()));
   // sl.registerFactory<ThemeBloc>(() => ThemeBloc()..add(GetTheme()));
   // sl.registerFactory<SettingBloc>(() => SettingBloc()
   //   ..add(GetTheme())
