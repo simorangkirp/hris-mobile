@@ -1,5 +1,5 @@
 export 'introduction.page.dart';
-export 'approval.dart';
-export 'biometric.dart';
+export 'needs.dart';
+export 'collab.dart';
 export 'complete.dart';
-export 'selfservice.dart';
+export 'boost.dart';

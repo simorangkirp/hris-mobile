@@ -48,6 +48,9 @@ class ConstantLottie {
   static const introBiometric = 'assets/lotties/intro/biometric-intro.json';
   static const introApproval = 'assets/lotties/intro/approval-intro.json';
   static const introSelfservice = 'assets/lotties/intro/selfservice-intro.json';
+  static const introBoost = 'assets/lotties/intro/boost.json';
+  static const introNeeds = 'assets/lotties/intro/need.json';
+  static const introCollab = 'assets/lotties/intro/collab.json';
 }
 
 class ConstantMode {

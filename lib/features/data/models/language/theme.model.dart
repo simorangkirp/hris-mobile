@@ -76,6 +76,10 @@ List<ThemeData> themesData = [
       iconColor: appBgWhite,
     ),
     textTheme: TextTheme(
+      headlineLarge: TextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: 32.sp,
+      ),
       headlineSmall: TextStyle(
         fontWeight: FontWeight.w500,
         fontSize: 18.sp,
@@ -195,6 +199,10 @@ List<ThemeData> themesData = [
       toolbarHeight: 56.h,
     ),
     textTheme: TextTheme(
+      headlineLarge: TextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: 32.sp,
+      ),
       headlineSmall: TextStyle(
         fontWeight: FontWeight.w500,
         fontSize: 18.sp,

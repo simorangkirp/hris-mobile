@@ -39,12 +39,11 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             children: [
               PageView(
                 onPageChanged: (value) {
-                  if (value == 3) {
+                  if (value == 2) {
                     setState(() {
                       isLast = true;
                     });
-                  }
-                  else{
+                  } else {
                     setState(() {
                       isLast = false;
                     });
@@ -52,10 +51,10 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 },
                 controller: ctrl,
                 children: [
-                  selfServiceIntroPage(context),
-                  approvalIntroPage(context),
-                  biometricIntroPage(context),
-                  completeIntroPage(context),
+                  boostIntroPage(context),
+                  needsIntroPage(context),
+                  collabIntroPage(context),
+                  // completeIntroPage(context),
                 ],
               ),
               Container(
@@ -68,14 +67,28 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                       replacement: const SizedBox(),
                       child: GestureDetector(
                         onTap: () => dispatchSubmitIntro(),
-                        child: Text('Skip'),
+                        child: Text(
+                          'Skip',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                       ),
                     ),
-                    SmoothPageIndicator(controller: ctrl, count: 4),
+                    SmoothPageIndicator(
+                      controller: ctrl,
+                      count: 3,
+                      effect: ExpandingDotsEffect(
+                        activeDotColor:
+                            Theme.of(context).listTileTheme.selectedColor!,
+                        dotColor: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
                     Visibility(
                       visible: isLast,
                       replacement: const SizedBox(),
-                      child: Text('Done'),
+                      child: Text(
+                        'Done',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
                     ),
                   ],
                 ),
