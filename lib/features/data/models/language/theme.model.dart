@@ -79,6 +79,7 @@ List<ThemeData> themesData = [
       headlineLarge: TextStyle(
         fontWeight: FontWeight.w700,
         fontSize: 32.sp,
+        color: appBgWhite,
       ),
       headlineSmall: TextStyle(
         fontWeight: FontWeight.w500,
@@ -202,6 +203,7 @@ List<ThemeData> themesData = [
       headlineLarge: TextStyle(
         fontWeight: FontWeight.w700,
         fontSize: 32.sp,
+        color: appBgBlack,
       ),
       headlineSmall: TextStyle(
         fontWeight: FontWeight.w500,
