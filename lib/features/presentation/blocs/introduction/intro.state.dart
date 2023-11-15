@@ -21,3 +21,5 @@ class IntrodInfoLoaded extends IntrodState {
 }
 
 class IntrodInfoSubmited extends IntrodState {}
+
+class IntrodRedirected extends IntrodState {}

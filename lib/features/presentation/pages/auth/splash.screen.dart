@@ -111,8 +111,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 redirectIntrScreen();
               }
               if (state.intro!) {
-                dispatchDeviceInfo();
+                BlocProvider.of<IntrodBloc>(context).add(IntrodRedirect());
               }
+            }
+            if (state is IntrodRedirected) {
+              dispatchDeviceInfo();
             }
           },
         ),

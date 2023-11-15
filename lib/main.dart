@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:owl_hris/firebase_options.dart';
 import 'package:owl_hris/lib.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/services.dart';
 
 // import 'features/home/presentation/pages/home.screen.dart';
 
@@ -16,41 +17,43 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => sl<AuthBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => sl<AbsentBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => sl<HomeBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => sl<ProfileScreenBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => sl<InboxScrnBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => sl<ApprovalScrnBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => sl<PaidLeaveBloc>(),
-        ),
-        // BlocProvider(
-        //   create: (context) => sl<SettingBloc>(),
-        // ),
-        BlocProvider(
-          create: (context) => sl<SettingBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => sl<IntrodBloc>(),
-        )
-      ],
-      child: const MyApp(),
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
+    (value) => runApp(
+      MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => sl<AuthBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<AbsentBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<HomeBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<ProfileScreenBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<InboxScrnBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<ApprovalScrnBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<PaidLeaveBloc>(),
+          ),
+          // BlocProvider(
+          //   create: (context) => sl<SettingBloc>(),
+          // ),
+          BlocProvider(
+            create: (context) => sl<SettingBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<IntrodBloc>(),
+          )
+        ],
+        child: const MyApp(),
+      ),
     ),
   );
 }

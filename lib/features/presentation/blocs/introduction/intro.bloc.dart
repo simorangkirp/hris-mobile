@@ -7,6 +7,7 @@ class IntrodBloc extends Bloc<IntrodEvent, IntrodState> {
     on<InitIntrod>(onInit);
     on<IntrodGetIntroInfo>(onCheckIntro);
     on<IntrodSubmitIntro>(onSubmitIntrod);
+    on<IntrodRedirect>(onRedirect);
   }
 
   void onInit(InitIntrod event, Emitter<IntrodState> emit) async {
@@ -24,5 +25,9 @@ class IntrodBloc extends Bloc<IntrodEvent, IntrodState> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('intro', true);
     emit(IntrodInfoSubmited());
+  }
+
+  void onRedirect(IntrodRedirect event, Emitter<IntrodState> emit) async {
+    emit(IntrodRedirected());
   }
 }

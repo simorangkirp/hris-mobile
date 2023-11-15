@@ -7,3 +7,5 @@ class InitIntrod extends IntrodEvent {}
 class IntrodGetIntroInfo extends IntrodEvent {}
 
 class IntrodSubmitIntro extends IntrodEvent {}
+
+class IntrodRedirect extends IntrodEvent {}

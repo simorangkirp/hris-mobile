@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../lib.dart';
 
@@ -118,7 +119,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void onLogOut(OnLogOut event, Emitter<AuthState> emit) async {
-    sl<UserAuthDb>().onLogout();
+    // sl<UserAuthDb>().onLogout();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('LoginInfo');
+    await prefs.remove('AuthInfo');
     emit(OnLogOutSuccess());
   }
 
