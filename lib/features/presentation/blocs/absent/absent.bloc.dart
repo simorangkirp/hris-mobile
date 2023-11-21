@@ -33,6 +33,17 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
     on<AbsentCheckPin>(checkUserPIN);
     on<AbsentHolidayList>(getHoliday);
     // on<SubmitLogin>(onLoginUser);
+    on<AbsentAddComment>(addComment);
+    on<AbsentRemoveComment>(removeComment);
+  }
+
+  void addComment(AbsentAddComment event, Emitter<AbsentState> emit) async {
+    emit(AbsentCommentAdded());
+  }
+
+  void removeComment(
+      AbsentRemoveComment event, Emitter<AbsentState> emit) async {
+    emit(AbsentCommentRemoved());
   }
 
   void onInit(InitAbsent event, Emitter<AbsentState> emit) async {

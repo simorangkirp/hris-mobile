@@ -22,6 +22,7 @@ abstract class AbsentState extends Equatable {
   final ProfileModel? profileModel;
   final String? errMsg, msg;
   final List<HolidayModel>? listHoliday;
+  // final bool? comment;
   const AbsentState({
     this.error,
     this.listAbsent,
@@ -32,15 +33,16 @@ abstract class AbsentState extends Equatable {
     this.assignLoc,
     this.profileModel,
     this.listHoliday,
+    // this.comment,
   });
 
   @override
   List<Object> get props => [
-        error!,
-        listAbsent!,
-        listCamera!,
-        errMsg!,
-        assignLoc!,
+        // error!,
+        // listAbsent!,
+        // listCamera!,
+        // errMsg!,
+        // assignLoc!,
       ];
 }
 
@@ -110,3 +112,7 @@ class AbsentListHolidayLoaded extends AbsentState {
   const AbsentListHolidayLoaded(List<HolidayModel> data)
       : super(listHoliday: data);
 }
+
+class AbsentCommentAdded extends AbsentState {}
+
+class AbsentCommentRemoved extends AbsentState {}

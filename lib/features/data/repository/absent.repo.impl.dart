@@ -131,6 +131,7 @@ class AbsentReposImplement implements AbsentRepository {
         data.source,
         data.coorphoto,
       );
+      // return DataError(DioException(requestOptions: RequestOptions()));
 
       try {
         final httpResp = await _absentAPIServices.submitAbsent(params, header);

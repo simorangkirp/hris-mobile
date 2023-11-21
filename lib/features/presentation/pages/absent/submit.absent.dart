@@ -78,8 +78,18 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
     dispatchSubmitPIN();
   }
 
+  TextEditingController desCtrl = TextEditingController();
+
   void dispatchSubmitPIN() {
     BlocProvider.of<AbsentBloc>(context).add(AbsentCheckPin(paramPIN));
+  }
+
+  void dispatchAddComment() {
+    BlocProvider.of<AbsentBloc>(context).add(AbsentAddComment());
+  }
+
+  void dispatchRemoveComment() {
+    BlocProvider.of<AbsentBloc>(context).add(AbsentRemoveComment());
   }
 
   void dispatchSubmitAbsent() {
@@ -92,12 +102,14 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
         DateFormat('HH:mm:ss').format(DateTime.now()),
         '', // Coordinate
         widget.photoParam ?? "",
-        '', // Desc
+        desCtrl.text, // Desc
         'mobile',
         '', // Coorphoto
       )),
     );
   }
+
+  bool isAddDesc = false;
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +164,7 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 12.h),
+                SizedBox(height: 16.h),
                 IntrinsicHeight(
                   child: Row(
                     children: [
@@ -207,17 +219,92 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 8.h),
-                Text(
-                  l10n.assignmentLocation,
-                  style: theme.textTheme.displaySmall,
-                ),
-                SizedBox(height: 2.h),
-                Text(
-                  'OWL HO',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14.sp,
+                SizedBox(height: 12.h),
+                IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              l10n.assignmentLocation,
+                              style: theme.textTheme.displaySmall,
+                            ),
+                            SizedBox(height: 2.h),
+                            Text(
+                              'OWL HO',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: !isAddDesc
+                            ? GestureDetector(
+                                onTap: () {
+                                  dispatchAddComment();
+                                },
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: appBtnBlue,
+                                      ),
+                                      padding: EdgeInsets.all(4.w),
+                                      child: Icon(
+                                        Icons.add,
+                                        size: 12.w,
+                                        color: appBgWhite,
+                                      ),
+                                    ),
+                                    SizedBox(width: 4.w),
+                                    Text(
+                                      l10n.desc,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Row(
+                                children: [
+                                  Expanded(
+                                    child: CustomFormTextField(
+                                      label: l10n.desc,
+                                      maxLength: 128,
+                                      controller: desCtrl,
+                                    ),
+                                  ),
+                                  SizedBox(width: 4.w),
+                                  GestureDetector(
+                                    onTap: () {
+                                      dispatchRemoveComment();
+                                    },
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: appImperialRed,
+                                      ),
+                                      padding: EdgeInsets.all(4.w),
+                                      child: Icon(
+                                        Icons.close,
+                                        size: 12.w,
+                                        color: appBgWhite,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                      )
+                    ],
                   ),
                 ),
                 SizedBox(height: 8.h),
@@ -501,6 +588,14 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
             context.router.navigate(const AbsentRoute());
           });
         }
+        if (state is AbsentCommentAdded) {
+          isAddDesc = true;
+          setState(() {});
+        }
+        if (state is AbsentCommentRemoved) {
+          isAddDesc = false;
+          setState(() {});
+        }
         if (state is AbsentPINChecked) {
           if (state.msg == Constant.pinValid) {
             setState(() {
@@ -559,7 +654,9 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
           }
           return Scaffold(
             appBar: AppBar(),
-            body: SafeArea(child: buildFormAbsent()),
+            body: SafeArea(
+              child: buildFormAbsent(),
+            ),
           );
         },
       ),
