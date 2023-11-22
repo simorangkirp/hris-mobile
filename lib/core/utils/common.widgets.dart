@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -130,7 +131,9 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
       maxLines: widget.maxLine,
       minLines: widget.minLine,
       obscureText: widget.obscureText ?? false,
-      // inputFormatters: inputformat,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+      ],
       textInputAction: widget.inputAction,
       onFieldSubmitted: widget.onAction,
       cursorColor: appBtnBlue,

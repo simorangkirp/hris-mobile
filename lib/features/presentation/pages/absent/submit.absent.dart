@@ -594,6 +594,7 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
         }
         if (state is AbsentCommentRemoved) {
           isAddDesc = false;
+          desCtrl.text = '';
           setState(() {});
         }
         if (state is AbsentPINChecked) {
