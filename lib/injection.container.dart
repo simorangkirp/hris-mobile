@@ -31,6 +31,7 @@ Future<void> initializeDependencies() async {
 
   // Usecase
   sl.registerSingleton<LoginUserUseCase>(LoginUserUseCase(sl()));
+  sl.registerSingleton<DashboardGetListApprovalMsg>(DashboardGetListApprovalMsg(sl()));
   sl.registerSingleton<ApprvGetProfileUseCase>(ApprvGetProfileUseCase(sl()));
   sl.registerSingleton<GetHolidayListUsecase>(GetHolidayListUsecase(sl()));
   sl.registerSingleton<AuthCheckDeviceInfoUsecase>(
@@ -99,7 +100,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<AbsentBloc>(() =>
       AbsentBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl())
         ..add(InitAbsent()));
-  sl.registerFactory<HomeBloc>(() => HomeBloc(sl())..add(InitHome()));
+  sl.registerFactory<HomeBloc>(() => HomeBloc(sl(), sl())..add(InitHome()));
   sl.registerFactory<SettingBloc>(() => SettingBloc()..add(GetLanguage()));
   sl.registerFactory<IntrodBloc>(() => IntrodBloc()..add(InitIntrod()));
   // sl.registerFactory<ThemeBloc>(() => ThemeBloc()..add(GetTheme()));

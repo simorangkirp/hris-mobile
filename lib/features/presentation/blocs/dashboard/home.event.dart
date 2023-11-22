@@ -5,3 +5,5 @@ abstract class HomeEvent {
 class InitHome extends HomeEvent {}
 
 class GetProfileInfo extends HomeEvent {}
+
+class GetListAppMsg extends HomeEvent {}

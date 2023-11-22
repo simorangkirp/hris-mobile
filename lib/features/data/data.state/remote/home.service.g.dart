@@ -3,6 +3,22 @@
 part of 'home.service.dart';
 
 // **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+DashboardApproval _$DashboardApprovalFromJson(Map<String, dynamic> json) =>
+    DashboardApproval(
+      json['uid'] as String?,
+      json['onmobile'] as String?,
+    );
+
+Map<String, dynamic> _$DashboardApprovalToJson(DashboardApproval instance) =>
+    <String, dynamic>{
+      'uid': instance.uid,
+      'onmobile': instance.onmobile,
+    };
+
+// **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
@@ -39,6 +55,40 @@ class _HomeApiServices implements HomeApiServices {
             .compose(
               _dio.options,
               'http://182.23.67.40:8083/officeapi/API/user/profile/${uid}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<dynamic>> dashboardScreenApprovalData(
+    DashboardApproval? param,
+    String authHeader,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{r'Authorization': authHeader};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(param?.toJson() ?? <String, dynamic>{});
+    final _result =
+        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'http://182.23.67.40:8083/officeapi/API/apprv/user/listnotif',
               queryParameters: queryParameters,
               data: _data,
             )

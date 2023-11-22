@@ -24,6 +24,18 @@
         }
     },
 
+    "homeAppMsg": "You have {items} items to approve!",
+    "@homeAppMsg":
+    {
+        "description": "Items to approve.",
+        "placeholders": 
+        {
+            "items": {
+                "type": "String"
+            }
+        }
+    },
+
     "vacation":"Vacation",
     "sick":"Sick",
 

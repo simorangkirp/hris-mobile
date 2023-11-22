@@ -296,7 +296,7 @@ class _AbsentItemCardState extends State<AbsentItemCard> {
                       ),
                       padding:
                           EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-                      child: Text('Submit Absent'),
+                      child: const Text('Submit Absent'),
                     ),
                   ),
                 ],

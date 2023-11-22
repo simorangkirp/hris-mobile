@@ -107,6 +107,14 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
 
+    scfldMsg(String msg) {
+      return ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(failSnackBar(
+          message: msg,
+        ));
+    }
+
     Widget loginCard() {
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -275,6 +283,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             user.text = authmodel.unm ?? "";
                             pw.text = authmodel.pw ?? "";
                             dispatchLogin();
+                          } else {
+                            scfldMsg('Biometrics not available');
                           }
                         },
                         child: Material(

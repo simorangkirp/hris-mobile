@@ -78,7 +78,7 @@ class _LoginAPIServices implements LoginAPIServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data['data'];
+    final value = _result.data;
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

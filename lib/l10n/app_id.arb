@@ -11,6 +11,8 @@
 
     "appVersion": "OWL ESS Versi {version}\nBuatan v{build}",
 
+    "homeAppMsg": "Anda punya {items} permintaan untuk di approve!",
+
     "vacation":"Libur",
     "sick":"Sakit",
 

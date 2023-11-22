@@ -24,9 +24,14 @@ class HomeScreen extends StatefulWidget implements AutoRouteWrapper {
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController sCtrl = ScrollController();
   EntityProfile? model;
+  int appMsg = 0;
 
   void dispatchGetProfileList() {
     BlocProvider.of<HomeBloc>(context).add(GetProfileInfo());
+  }
+
+  void dispatchGetAppMsg() {
+    BlocProvider.of<HomeBloc>(context).add(GetListAppMsg());
   }
 
   void dispatchLogout() {
@@ -47,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final l10n = AppLocalizations.of(context);
+
     buildHome(EntityProfile? mods) {
       String pgNm = Constant.dashboardPgNm;
       String scMst = l10n.home;
@@ -78,6 +84,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           SizedBox(height: 12.h),
                           faturesComponent(context, themeData),
+                          Visibility(
+                              visible: appMsg > 0, child: const Divider()),
+                          Visibility(
+                              visible: appMsg > 0,
+                              child: messagesWidget(context, appMsg)),
                           const Divider(),
                           SizedBox(height: 8.h),
                           const HomePengumumanWidget(),
@@ -103,6 +114,16 @@ class _HomeScreenState extends State<HomeScreen> {
           listener: (context, state) {
             if (state is ProfileDataLoaded) {
               model = state.profile;
+              appMsg = 0;
+              dispatchGetAppMsg();
+            }
+            if (state is DashboardListAppMsgLoaded) {
+              if (state.listApprv != null && state.listApprv!.isNotEmpty) {
+                for (var el in state.listApprv!) {
+                  var num = int.parse(el.jumlah ?? "0");
+                  appMsg + num;
+                }
+              }
             }
           },
         ),

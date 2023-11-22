@@ -48,4 +48,33 @@ class HomeReposImpl implements HomeRepository {
       return DataError(e);
     }
   }
+
+  @override
+  Future<DataState> getListApprvMsg() async {
+    UserAuthDb auth = UserAuthDb();
+    LoginModel? mods;
+    final res = await auth.getUser();
+    if (res != null) {
+      mods = res;
+    }
+    var params = DashboardApproval(mods?.uid ?? "-", '1');
+    var header = 'Bearer ${mods?.accesstoken}';
+    try {
+      final httpResp =
+          await _homeAPIServices.dashboardScreenApprovalData(params, header);
+
+      if (httpResp.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResp.data);
+      } else {
+        return DataError(DioException(
+          error: httpResp.response.statusMessage,
+          response: httpResp.response,
+          type: DioExceptionType.badResponse,
+          requestOptions: httpResp.response.requestOptions,
+        ));
+      }
+    } on DioException catch (e) {
+      return DataError(e);
+    }
+  }
 }

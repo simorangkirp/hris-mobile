@@ -4,4 +4,5 @@ abstract class HomeRepository {
   Future<DataState> getProfileInfo(String uid);
   Future<DataState> getAnnouncementBanner();
   Future<DataState> getActiveTask();
+  Future<DataState> getListApprvMsg();
 }
