@@ -88,7 +88,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               visible: appMsg > 0, child: const Divider()),
                           Visibility(
                               visible: appMsg > 0,
-                              child: messagesWidget(context, appMsg)),
+                              child: GestureDetector(
+                                onTap: () => context.router.push(const InboxRoute()),
+                                child: messagesWidget(context, appMsg))),
                           const Divider(),
                           SizedBox(height: 8.h),
                           const HomePengumumanWidget(),

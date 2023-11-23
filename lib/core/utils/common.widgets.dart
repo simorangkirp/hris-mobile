@@ -131,9 +131,9 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
       maxLines: widget.maxLine,
       minLines: widget.minLine,
       obscureText: widget.obscureText ?? false,
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
-      ],
+      // inputFormatters: [
+        // FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+      // ],
       textInputAction: widget.inputAction,
       onFieldSubmitted: widget.onAction,
       cursorColor: appBtnBlue,

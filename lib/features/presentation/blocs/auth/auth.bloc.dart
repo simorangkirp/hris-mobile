@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,13 +38,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     String unm = event.model.unm;
     String pw = event.model.pw;
     if (dataState is DataSuccess) {
-      var data = LoginModel.fromJson(dataState.data);
+      var data = LoginModel.fromJson(dataState.data['data']);
       log('Data Auth: $data');
       //! Add Process To Save Data Locally
       // await Future.delayed(const Duration(seconds: 3));
       log('Saving User Credential');
-      sl<UserAuthDb>().saveUserLoginInfo(data);
-      sl<UserAuthDb>().saveAuthInfo(AuthModel(unm: unm, pw: pw));
+      // sl<UserAuthDb>().saveUserLoginInfo(LoginModel.fromJson(dataState.data));
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      Map loginMap = data.toJson();
+      String jsonBody = json.encode(loginMap);
+      await prefs.setString('LoginInfo', jsonBody);
+      // sl<UserAuthDb>().saveAuthInfo(AuthModel(unm: unm, pw: pw));
+      Map dataMap = AuthModel(unm: unm, pw: pw).toMap();
+      String authInfo = json.encode(dataMap);
+      await prefs.setString('AuthInfo', authInfo);
       log('Saving Successfully');
       emit(UserAuthGranted());
     }

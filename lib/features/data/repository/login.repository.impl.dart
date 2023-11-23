@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -8,6 +9,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart'
     show TargetPlatform, defaultTargetPlatform;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../lib.dart';
 
@@ -72,13 +74,23 @@ class LoginRepositoryImpl implements UserAuthRepository {
 
   @override
   Future<DataState> getProfileDetails(String uid) async {
-    UserAuthDb auth = UserAuthDb();
+    // UserAuthDb auth = UserAuthDb();
     var id = uid;
     LoginModel? mods;
-    final res = await auth.getUser();
-    if (res != null) {
-      mods = res;
+    // final res = await auth.getUser();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      String? jsonBody = prefs.getString('LoginInfo');
+      if (jsonBody != null) {
+        final map = json.decode(jsonBody) as Map<String, dynamic>;
+        mods = LoginModel.fromJson(map);
+      }
+    } catch (e) {
+      throw Exception('Session is Expired');
     }
+    // if (mods != null) {
+    //   mods = res;
+    // }
     var header = 'Bearer ${mods?.accesstoken}';
 
     try {
