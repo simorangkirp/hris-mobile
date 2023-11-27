@@ -32,10 +32,20 @@
     "logout":"Keluar",
 
     "chgAcc":"Ganti akun",
-
     "chgPwd":"Ganti sandi",
+    "currPwd":"Sandi saat ini",
+    "newPwd":"Sandi baru",
+    "valPwd":"Validasi sandi",
+    "currPwdReq":"Sandi tidak boleh kosong",
+    "newPwdReq":"Sandi baru tidak boleh kosong",
+    "valPwdReq":"Sandi baru tidak cocok!",
     "resetPwd":"Atur ulang sandi",
     "rst_pwd_msg":"Mohon masukan sandi akun anda, kami akan mengirim kode OTP ke nomor anda yang terdaftar.",
+
+    "otpVerif":"Verifikasi OTP",
+    "otpVerifDesc":"Masukan kode OTP yang terkirim ke",
+    "otpResendDesc":"Belum menerima kode OTP?",
+    "otpResend":"Kirim ulang OTP",
 
     "pin_enable_msg":"Aktifkan PIN otentikasi",
     "reset_pin":"Atur ulang kode PIN",
@@ -61,6 +71,7 @@
     "pwd_mt_msg":"Sandi tidak boleh kosong",
     "login_to_acc_msg":"Masuk ke akun anda",
     "process_req_msg":"Mohon tunggu selama proses berjalan...",
+    "process_req_msg_scs":"Permohonan anda berhasil di proses!",
     "loc_disable_msg":"Aktifkan servis lokasi.",
     "loc_denied_msg":"'Ijinkan servis lokasi.'",
     "loc_permission_msg":"Ijin lokasi di non-aktifkan permanen.",

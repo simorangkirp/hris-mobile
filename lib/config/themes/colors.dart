@@ -36,3 +36,8 @@ const appFillField = Color(0xffF3F6F9);
 
 //* DarkMode Color
 const darkmodeTextColor = Color(0xFFF4F4F4);
+
+//* LOGIN CARD
+
+const darkmodeLoginCard = Color(0xFF495579);
+const lightmodeLoginCard = Color(0xFFFFFBEB);

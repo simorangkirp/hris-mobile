@@ -11,3 +11,23 @@ class SettingChangeLanguageUsecase extends UseCase<ThemeData, String> {
     return res;
   }
 }
+
+class SettingReqOtp extends UseCase<DataState, String> {
+  final SettingsRepository repos;
+  SettingReqOtp(this.repos);
+  @override
+  Future<DataState> call(params) async {
+    var res = await repos.reqOTP(params);
+    return res;
+  }
+}
+
+class SettingChangePwdUseCase extends UseCase<DataState, SettingChgPwdModel> {
+  final SettingsRepository repos;
+  SettingChangePwdUseCase(this.repos);
+  @override
+  Future<DataState> call(params) async {
+    var res = await repos.changePass(params);
+    return res;
+  }
+}

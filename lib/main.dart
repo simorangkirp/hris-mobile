@@ -46,6 +46,9 @@ Future<void> main() async {
           //   create: (context) => sl<SettingBloc>(),
           // ),
           BlocProvider(
+            create: (context) => sl<PasswordBloc>(),
+          ),
+          BlocProvider(
             create: (context) => sl<SettingBloc>(),
           ),
           BlocProvider(

@@ -84,7 +84,6 @@ class CustomFormTextField extends StatefulWidget {
 
 class _CustomFormTextFieldState extends State<CustomFormTextField> {
   FocusNode focusNode = FocusNode();
-  Color fillColor = appBgWhite;
   bool valid = false;
 
   @override
@@ -106,6 +105,8 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
   // bool hasFocus = false;
   @override
   Widget build(BuildContext context) {
+    Color fillColor = Theme.of(context).colorScheme.secondary;
+
     // final focusNode = FocusNode();
     return TextFormField(
       readOnly: widget.readOnly ?? false,
@@ -132,17 +133,14 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
       minLines: widget.minLine,
       obscureText: widget.obscureText ?? false,
       // inputFormatters: [
-        // FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+      // FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
       // ],
       textInputAction: widget.inputAction,
       onFieldSubmitted: widget.onAction,
       cursorColor: appBtnBlue,
-      style: TextStyle(
-        color: appBgBlack,
-        fontSize: 12.sp,
-        fontWeight: FontWeight.w500,
-      ),
+      style: Theme.of(context).textTheme.bodyMedium,
       decoration: InputDecoration(
+        suffixIcon: widget.suffix,
         errorStyle: TextStyle(fontSize: 12.sp, color: appWarning),
         errorText: widget.errorMessage,
         counterText: '',
@@ -151,25 +149,17 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
         enabled: widget.enabled ?? true,
         labelText: widget.label,
         // focusColor: appBgWhite,
-        floatingLabelStyle: TextStyle(
-          color: appBgBlack,
-          fontWeight: FontWeight.w600,
-          fontSize: 12.sp,
-        ),
-        labelStyle: TextStyle(
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w500,
-          color: appBgBlack,
-        ),
+        floatingLabelStyle: Theme.of(context).textTheme.bodyMedium,
+        labelStyle: Theme.of(context).textTheme.bodyMedium,
         hintText: widget.hint,
         hintStyle: TextStyle(
           fontSize: 12.sp,
         ),
         filled: true,
         fillColor: valid
-            ? appValidateField
+            ? fillColor
             : (widget.fillColor != null)
-                ? widget.fillColor
+                ? fillColor
                 : (!(widget.enabled ?? true))
                     ? appFieldUnselect
                     : fillColor,

@@ -33,6 +33,11 @@ class AppRouter extends _$AppRouter {
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
         CustomRoute(
+          page: InputOTPRoute.page,
+          path: '/otp/:param',
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
           page: ClockInRoute.page,
           path: '/absent-form',
           transitionsBuilder: TransitionsBuilders.noTransition,

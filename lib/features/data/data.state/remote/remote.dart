@@ -5,3 +5,4 @@ export 'login.services.dart';
 export 'notif.remote.service.dart';
 export 'paid.leave.remote.dart';
 export 'profile.remote.services.dart';
+export 'settings.remote.services.dart';

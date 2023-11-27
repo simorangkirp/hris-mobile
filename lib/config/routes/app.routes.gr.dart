@@ -102,9 +102,16 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     InputOTPRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<InputOTPRouteArgs>(
+          orElse: () =>
+              InputOTPRouteArgs(param: pathParams.optString('param')));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const InputOTPScreen(),
+        child: InputOTPScreen(
+          param: args.param,
+          key: args.key,
+        ),
       );
     },
     IntroductionRoute.name: (routeData) {
@@ -488,16 +495,41 @@ class InboxRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [InputOTPScreen]
-class InputOTPRoute extends PageRouteInfo<void> {
-  const InputOTPRoute({List<PageRouteInfo>? children})
-      : super(
+class InputOTPRoute extends PageRouteInfo<InputOTPRouteArgs> {
+  InputOTPRoute({
+    String? param,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           InputOTPRoute.name,
+          args: InputOTPRouteArgs(
+            param: param,
+            key: key,
+          ),
+          rawPathParams: {'param': param},
           initialChildren: children,
         );
 
   static const String name = 'InputOTPRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<InputOTPRouteArgs> page =
+      PageInfo<InputOTPRouteArgs>(name);
+}
+
+class InputOTPRouteArgs {
+  const InputOTPRouteArgs({
+    this.param,
+    this.key,
+  });
+
+  final String? param;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'InputOTPRouteArgs{param: $param, key: $key}';
+  }
 }
 
 /// generated route for

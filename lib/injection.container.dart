@@ -18,6 +18,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton(NotifAPIServices(sl()));
   sl.registerSingleton(ApprovalApiServices(sl()));
   sl.registerSingleton(PaidLeaveAPIService(sl()));
+  sl.registerSingleton(SettingAPIServices(sl()));
 
   // Repository
   sl.registerSingleton<UserAuthRepository>(
@@ -28,10 +29,16 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<NotificationRepository>(NotifRepoImpl(sl()));
   sl.registerSingleton<ApprovalRepository>(ApprovalRepoImpl(sl()));
   sl.registerSingleton<PaidLeaveRepository>(PaidLeaveImplement(sl()));
+  sl.registerSingleton<SettingsRepository>(SettingRepoImpl(sl()));
 
   // Usecase
   sl.registerSingleton<LoginUserUseCase>(LoginUserUseCase(sl()));
-  sl.registerSingleton<DashboardGetListApprovalMsg>(DashboardGetListApprovalMsg(sl()));
+  sl.registerSingleton<SettingReqOtp>(SettingReqOtp(sl()));
+  sl.registerSingleton<SettingChangePwdUseCase>(SettingChangePwdUseCase(sl()));
+  sl.registerSingleton<SettingChangeLanguageUsecase>(
+      SettingChangeLanguageUsecase(sl()));
+  sl.registerSingleton<DashboardGetListApprovalMsg>(
+      DashboardGetListApprovalMsg(sl()));
   sl.registerSingleton<ApprvGetProfileUseCase>(ApprvGetProfileUseCase(sl()));
   sl.registerSingleton<GetHolidayListUsecase>(GetHolidayListUsecase(sl()));
   sl.registerSingleton<AuthCheckDeviceInfoUsecase>(
@@ -103,6 +110,8 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl(), sl())..add(InitHome()));
   sl.registerFactory<SettingBloc>(() => SettingBloc()..add(GetLanguage()));
   sl.registerFactory<IntrodBloc>(() => IntrodBloc()..add(InitIntrod()));
+  sl.registerFactory<PasswordBloc>(
+      () => PasswordBloc(sl(), sl())..add(InitPassword()));
   // sl.registerFactory<ThemeBloc>(() => ThemeBloc()..add(GetTheme()));
   // sl.registerFactory<SettingBloc>(() => SettingBloc()
   //   ..add(GetTheme())

@@ -8,3 +8,4 @@ export 'profile/profile.dart';
 export 'settings/setting.dart';
 export 'theme/theme.dart';
 export 'introduction/intro.dart';
+export 'password/password.dart';

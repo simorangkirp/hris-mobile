@@ -123,10 +123,14 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             const SizedBox(),
             Material(
-              elevation: 2,
-              borderRadius: BorderRadius.circular(8),
+              elevation: 4,
+              borderRadius: BorderRadius.circular(12),
+              shadowColor: lighten(Theme.of(context).colorScheme.onSecondary, 75),
               child: Container(
-                color: Theme.of(context).colorScheme.secondary,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onSecondary,
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 // color: Colors.red.withOpacity(0.4),
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Column(
@@ -219,7 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Visibility(
                       visible: !isBio,
                       child: CustomFormTextField(
-                        hint: 'username',
+                        label: 'Username',
                         maxLine: 1,
                         maxLength: 24,
                         controller: user,
@@ -229,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Visibility(
                       visible: !isBio,
                       child: CustomFormTextField(
-                        hint: 'password',
+                        label: 'Password',
                         obscureText: true,
                         maxLine: 1,
                         maxLength: 12,

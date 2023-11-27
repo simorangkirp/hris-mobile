@@ -57,8 +57,19 @@
     "chgAcc":"Change account",
 
     "chgPwd":"Change password",
+    "currPwd":"Current password",
+    "newPwd":"New password",
+    "valPwd":"Validate password",
+    "currPwdReq":"current password required",
+    "newPwdReq":"new password required",
+    "valPwdReq":"new password don't match!",
     "resetPwd":"Reset password",
     "rst_pwd_msg":"Please insert your account password, we'll send OTP code to your connected number.",
+
+    "otpVerif":"OTP Verification",
+    "otpVerifDesc":"Enter the OTP sent to",
+    "otpResendDesc":"Don't receive the OTP?",
+    "otpResend":"RESEND OTP",
 
     "pin_enable_msg":"Enable PIN authentication",
     "reset_pin":"Reset PIN code",
@@ -96,6 +107,7 @@
     "pwd_mt_msg":"Password should not be empty",
     "login_to_acc_msg":"Login to your account",
     "process_req_msg":"Please wait while we processing your request...",
+    "process_req_msg_scs":"Your request was successfully submitted!",
     "loc_disable_msg":"Location services are disabled.",
     "loc_denied_msg":"Location permissions are denied.",
     "loc_permission_msg":"Location permissions are permanently denied, we cannot request permissions.",
@@ -234,4 +246,6 @@
     "pass":"Password",
     "pin":"PIN",
     "darkMode":"Dark mode"
+
+
 }

@@ -12,6 +12,16 @@ List<ThemeData> themesData = [
     brightness: Brightness.dark,
     primaryColor: appBgBlack,
     scaffoldBackgroundColor: appBgBlack,
+
+    // inputDecorationTheme: InputDecorationTheme(
+    //   focusColor: appBtnBlue,
+    //   focusedBorder: UnderlineInputBorder(
+    //     borderSide: BorderSide(color: appBtnBlue),
+    //   ),
+    //   hintStyle: TextStyle(),
+    //   labelStyle: TextStyle(),
+    //   fillColor: appRichBlack,
+    // ),
     dropdownMenuTheme: DropdownMenuThemeData(
       textStyle: TextStyle(
         fontWeight: FontWeight.w700,
@@ -38,7 +48,7 @@ List<ThemeData> themesData = [
       primary: appRichBlack,
       onPrimary: appBgBlack.withOpacity(0.8),
       secondary: appRichBlack,
-      onSecondary: appBtnBlue.withOpacity(0.8),
+      onSecondary: darkmodeLoginCard,
       error: appImperialRed,
       onError: appImperialRed.withOpacity(0.8),
       background: appRichBlack,
@@ -117,7 +127,10 @@ List<ThemeData> themesData = [
         color: appBgWhite,
       ),
       bodySmall: TextStyle(
-          fontWeight: FontWeight.w400, color: appRichBlack, fontSize: 14.sp),
+        fontWeight: FontWeight.w400,
+        color: appRichBlack,
+        fontSize: 14.sp,
+      ),
       bodyMedium: TextStyle(
         fontWeight: FontWeight.w400,
         color: darkmodeTextColor,
@@ -141,6 +154,16 @@ List<ThemeData> themesData = [
         color: appRichBlack,
       ),
     ),
+
+    // inputDecorationTheme: InputDecorationTheme(
+    //   focusColor: appBtnBlue,
+    //   focusedBorder: UnderlineInputBorder(
+    //     borderSide: BorderSide(color: appBtnBlue),
+    //   ),
+    //   hintStyle: TextStyle(),
+    //   labelStyle: TextStyle(),
+    //   fillColor: appText3,
+    // ),
     cardTheme: const CardTheme(
       color: appText3,
       surfaceTintColor: appText3,
@@ -154,7 +177,7 @@ List<ThemeData> themesData = [
       primary: appBgWhite,
       onPrimary: appDivider.withOpacity(0.8),
       secondary: appText3,
-      onSecondary: appBtnBlue.withOpacity(0.8),
+      onSecondary: lightmodeLoginCard,
       error: appImperialRed,
       onError: appImperialRed.withOpacity(0.8),
       background: appBgBlack,
