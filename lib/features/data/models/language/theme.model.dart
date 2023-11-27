@@ -40,6 +40,20 @@ List<ThemeData> themesData = [
       backgroundColor: appBgBlack,
       surfaceTintColor: appBgBlack,
     ),
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateColor.resolveWith((states) {
+        if(states.contains(MaterialState.selected)){
+          return appSnackbarBgSuccess;
+        }
+        return appText3;
+      }),
+      trackColor: MaterialStateColor.resolveWith((states) {
+        if(states.contains(MaterialState.selected)){
+          return appRichBlack;
+        }
+        return appRichBlack;
+      }),
+    ),
     iconTheme: const IconThemeData(
       color: appText5,
     ),
@@ -184,6 +198,20 @@ List<ThemeData> themesData = [
       onBackground: appBgBlack.withOpacity(0.8),
       surface: appWarning,
       onSurface: appWarning.withOpacity(0.8),
+    ),
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateColor.resolveWith((states) {
+        if(states.contains(MaterialState.selected)){
+          return appSnackbarBgSuccess;
+        }
+        return appRichBlack;
+      }),
+      trackColor: MaterialStateColor.resolveWith((states) {
+        if(states.contains(MaterialState.selected)){
+          return appText3;
+        }
+        return appText3;
+      }),
     ),
     iconTheme: const IconThemeData(
       color: appRichBlack,

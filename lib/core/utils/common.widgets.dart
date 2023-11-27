@@ -28,6 +28,8 @@ class CustomFormTextField extends StatefulWidget {
 
   ///* fill color when focus, if fillColor is [null]
   final Color? focusColor;
+  final List<TextInputFormatter>? inputFormatters;
+
 
   ///* fill color when idle, if fillColor is [null]
   final Color? idleColor;
@@ -50,6 +52,7 @@ class CustomFormTextField extends StatefulWidget {
       {this.key,
       this.hint,
       this.label,
+      this.inputFormatters,
       this.validator,
       this.precision,
       this.onChanged,
@@ -132,9 +135,7 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
       maxLines: widget.maxLine,
       minLines: widget.minLine,
       obscureText: widget.obscureText ?? false,
-      // inputFormatters: [
-      // FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
-      // ],
+      inputFormatters: widget.inputFormatters,
       textInputAction: widget.inputAction,
       onFieldSubmitted: widget.onAction,
       cursorColor: appBtnBlue,

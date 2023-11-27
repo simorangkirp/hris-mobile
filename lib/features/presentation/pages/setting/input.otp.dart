@@ -162,7 +162,12 @@ class _InputOTPScreenState extends State<InputOTPScreen> {
                   validator: (val) {
                     if (val == null || val.isEmpty) {
                       return l10n.currPwdReq;
-                    } else {
+                    } 
+                    else if(val != widget.param){
+                      return l10n.invPwdVal;
+                    }
+                    
+                    else {
                       return null;
                     }
                   },

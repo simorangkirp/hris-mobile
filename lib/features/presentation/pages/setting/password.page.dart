@@ -103,60 +103,93 @@ class _PasswordScreenState extends State<PasswordScreen> {
                       ),
                     ),
                     SizedBox(height: 8.h),
-                    TextFormField(
-                      maxLines: 1,
+                    CustomFormTextField(
+                      obscureText: _visPass,
+                      suffix: IconButton(
+                        icon: Icon(
+                          _visPass!
+                              ? Icons.remove_red_eye
+                              : Icons.remove_red_eye_outlined,
+                          color: _visPass! ? lighten(appText5, 50) : appText5,
+                        ),
+                        onPressed: () {
+                          _visPass = _visPass;
+                          setState(() {});
+                        },
+                      ),
+                      maxLine: 1,
                       maxLength: 16,
-                      controller: ctrl,
+                      label: l10n.currPwd,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
                             RegExp(r'^([a-zA-Z0-9.,/-])*')),
+                        LengthLimitingTextInputFormatter(1),
                       ],
-                      cursorColor: appBtnBlue,
-                      minLines: 1,
-                      style: theme.textTheme.displaySmall,
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _visPass!
-                                ? Icons.remove_red_eye
-                                : Icons.remove_red_eye_outlined,
-                            color: _visPass! ? lighten(appText5, 50) : appText5,
-                          ),
-                          onPressed: () {
-                            _visPass = !_visPass!;
-                            setState(() {});
-                          },
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: appBtnBlue,
-                          ),
-                        ),
-                        border: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: appText3,
-                          ),
-                        ),
-                        labelStyle: theme.textTheme.displaySmall,
-                        fillColor: theme.colorScheme.secondary,
-                        hintStyle: theme.textTheme.displaySmall,
-                        hintText: l10n.pass,
-                      ),
-                      // decoration: InputDecoration(
-
-                      // ),
-                      // decoration: InputDecoration(
-                      //   hintText: l10n.pass,
-                      // ),
-                      obscureText: _visPass!,
+                      controller: ctrl,
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return l10n.currPwdReq;
+                        }  else {
+                          return null;
+                        }
+                      },
                     ),
+                    // TextFormField(
+                    //   maxLines: 1,
+                    //   maxLength: 16,
+                    //   controller: ctrl,
+                    //   inputFormatters: [
+                    //     FilteringTextInputFormatter.allow(
+                    //         RegExp(r'^([a-zA-Z0-9.,/-])*')),
+                    //     LengthLimitingTextInputFormatter(1),
+                    //   ],
+                    //   cursorColor: appBtnBlue,
+                    //   minLines: 1,
+                    //   style: theme.textTheme.displaySmall,
+                    //   decoration: InputDecoration(
+                    //     counterText: '',
+                    //     suffixIcon: IconButton(
+                    //       icon: Icon(
+                    //         _visPass!
+                    //             ? Icons.remove_red_eye
+                    //             : Icons.remove_red_eye_outlined,
+                    //         color: _visPass! ? lighten(appText5, 50) : appText5,
+                    //       ),
+                    //       onPressed: () {
+                    //         _visPass = !_visPass!;
+                    //         setState(() {});
+                    //       },
+                    //     ),
+                    //     focusedBorder: const OutlineInputBorder(
+                    //       borderSide: BorderSide(
+                    //         color: appBtnBlue,
+                    //       ),
+                    //     ),
+                    //     border: const OutlineInputBorder(
+                    //       borderSide: BorderSide(
+                    //         color: appText3,
+                    //       ),
+                    //     ),
+                    //     labelStyle: theme.textTheme.displaySmall,
+                    //     fillColor: theme.colorScheme.secondary,
+                    //     hintStyle: theme.textTheme.displaySmall,
+                    //     hintText: l10n.pass,
+                    //   ),
+                    //   // decoration: InputDecoration(
+
+                    //   // ),
+                    //   // decoration: InputDecoration(
+                    //   //   hintText: l10n.pass,
+                    //   // ),
+                    //   obscureText: _visPass!,
+                    // ),
                     SizedBox(height: 24.h),
                     Align(
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
                         onTap: () {
-                          // context.router.push(InputOTPRoute(param: ctrl.text));
-                          dispatchGetOTP();
+                          context.router.push(InputOTPRoute(param: ctrl.text));
+                          // dispatchGetOTP();
                         },
                         child: Text(
                           l10n.submitBtn,

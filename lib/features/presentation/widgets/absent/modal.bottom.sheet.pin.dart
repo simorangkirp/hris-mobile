@@ -46,6 +46,7 @@ Future<void> modalBtnPIN(BuildContext context,
                   height: 42.h,
                   width: 38.w,
                   child: TextFormField(
+                    obscureText: true,
                     controller: ctrl,
                     decoration: InputDecoration(
                       hintText: "*",
@@ -79,7 +80,10 @@ Future<void> modalBtnPIN(BuildContext context,
                       FilteringTextInputFormatter.digitsOnly,
                     ],
                     onChanged: (value) {
-                      if (value.length == 1) {
+                      if (value.isEmpty && index != 0) {
+                        FocusScope.of(context).previousFocus();
+                      }
+                      if (value.length == 1 && index != (listCtrl.length - 1)) {
                         FocusScope.of(context).nextFocus();
                       }
                     },
@@ -90,8 +94,8 @@ Future<void> modalBtnPIN(BuildContext context,
             SizedBox(height: 16.h),
             InkWell(
               onTap: () {
-                 context.router.pop();
-                 onSubmitPin();
+                context.router.pop();
+                onSubmitPin();
               },
               child: Container(
                 decoration: BoxDecoration(

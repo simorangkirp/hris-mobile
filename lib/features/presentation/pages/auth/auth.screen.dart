@@ -40,6 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isBio = false;
   AuthModel authmodel = AuthModel();
 
+  bool _visPass = false;
+
   getAppVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     ver = packageInfo.version;
@@ -125,7 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
             Material(
               elevation: 4,
               borderRadius: BorderRadius.circular(12),
-              shadowColor: lighten(Theme.of(context).colorScheme.onSecondary, 75),
+              shadowColor:
+                  lighten(Theme.of(context).colorScheme.onSecondary, 75),
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.onSecondary,
@@ -234,10 +237,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       visible: !isBio,
                       child: CustomFormTextField(
                         label: 'Password',
-                        obscureText: true,
+                        obscureText: _visPass,
                         maxLine: 1,
                         maxLength: 12,
                         controller: pw,
+                        suffix: IconButton(
+                          icon: Icon(
+                            _visPass
+                                ? Icons.remove_red_eye
+                                : Icons.remove_red_eye_outlined,
+                            color:
+                                _visPass ? lighten(appText5, 50) : appText5,
+                          ),
+                          onPressed: () {
+                            _visPass = !_visPass;
+                            setState(() {});
+                          },
+                        ),
                       ),
                     ),
                     Visibility(visible: !isBio, child: SizedBox(height: 12.h)),

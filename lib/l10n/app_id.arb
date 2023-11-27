@@ -31,6 +31,7 @@
     "profile":"Profil",
     "logout":"Keluar",
 
+    "invPwdVal":"sandi anda salah!",
     "chgAcc":"Ganti akun",
     "chgPwd":"Ganti sandi",
     "currPwd":"Sandi saat ini",
