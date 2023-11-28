@@ -17,6 +17,7 @@ class PasswordScreen extends StatefulWidget {
 
 class _PasswordScreenState extends State<PasswordScreen> {
   TextEditingController ctrl = TextEditingController();
+  final GlobalKey<FormState> pwdFormKey = GlobalKey();
 
   void dispatchGetOTP() {
     BlocProvider.of<PasswordBloc>(context).add(SettingReqOTP(ctrl.text));
@@ -73,131 +74,136 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 ),
               );
             } else {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 12.h),
-                    Text(
-                      l10n.resetPwd,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18.sp,
-                      ),
-                    ),
-                    SizedBox(height: 8.h),
-                    Text(
-                      l10n.rst_pwd_msg,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                      ),
-                    ),
-                    SizedBox(height: 12.h),
-                    Text(
-                      l10n.pass,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(height: 8.h),
-                    CustomFormTextField(
-                      obscureText: _visPass,
-                      suffix: IconButton(
-                        icon: Icon(
-                          _visPass!
-                              ? Icons.remove_red_eye
-                              : Icons.remove_red_eye_outlined,
-                          color: _visPass! ? lighten(appText5, 50) : appText5,
+              return Form(
+                key: pwdFormKey,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 12.h),
+                      Text(
+                        l10n.resetPwd,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18.sp,
                         ),
-                        onPressed: () {
-                          _visPass = _visPass;
-                          setState(() {});
+                      ),
+                      SizedBox(height: 8.h),
+                      Text(
+                        l10n.rst_pwd_msg,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                      SizedBox(height: 12.h),
+                      Text(
+                        l10n.pass,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 8.h),
+                      CustomFormTextField(
+                        obscureText: _visPass,
+                        suffix: IconButton(
+                          icon: Icon(
+                            _visPass!
+                                ? Icons.remove_red_eye
+                                : Icons.remove_red_eye_outlined,
+                            color: _visPass! ? lighten(appText5, 50) : appText5,
+                          ),
+                          onPressed: () {
+                            _visPass = _visPass;
+                            setState(() {});
+                          },
+                        ),
+                        maxLine: 1,
+                        maxLength: 16,
+                        label: l10n.currPwd,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^([a-zA-Z0-9.,/-])*')),
+                          LengthLimitingTextInputFormatter(1),
+                        ],
+                        controller: ctrl,
+                        validator: (val) {
+                          if (val == null || val.isEmpty) {
+                            return l10n.currPwdReq;
+                          } else {
+                            return null;
+                          }
                         },
                       ),
-                      maxLine: 1,
-                      maxLength: 16,
-                      label: l10n.currPwd,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'^([a-zA-Z0-9.,/-])*')),
-                        LengthLimitingTextInputFormatter(1),
-                      ],
-                      controller: ctrl,
-                      validator: (val) {
-                        if (val == null || val.isEmpty) {
-                          return l10n.currPwdReq;
-                        }  else {
-                          return null;
-                        }
-                      },
-                    ),
-                    // TextFormField(
-                    //   maxLines: 1,
-                    //   maxLength: 16,
-                    //   controller: ctrl,
-                    //   inputFormatters: [
-                    //     FilteringTextInputFormatter.allow(
-                    //         RegExp(r'^([a-zA-Z0-9.,/-])*')),
-                    //     LengthLimitingTextInputFormatter(1),
-                    //   ],
-                    //   cursorColor: appBtnBlue,
-                    //   minLines: 1,
-                    //   style: theme.textTheme.displaySmall,
-                    //   decoration: InputDecoration(
-                    //     counterText: '',
-                    //     suffixIcon: IconButton(
-                    //       icon: Icon(
-                    //         _visPass!
-                    //             ? Icons.remove_red_eye
-                    //             : Icons.remove_red_eye_outlined,
-                    //         color: _visPass! ? lighten(appText5, 50) : appText5,
-                    //       ),
-                    //       onPressed: () {
-                    //         _visPass = !_visPass!;
-                    //         setState(() {});
-                    //       },
-                    //     ),
-                    //     focusedBorder: const OutlineInputBorder(
-                    //       borderSide: BorderSide(
-                    //         color: appBtnBlue,
-                    //       ),
-                    //     ),
-                    //     border: const OutlineInputBorder(
-                    //       borderSide: BorderSide(
-                    //         color: appText3,
-                    //       ),
-                    //     ),
-                    //     labelStyle: theme.textTheme.displaySmall,
-                    //     fillColor: theme.colorScheme.secondary,
-                    //     hintStyle: theme.textTheme.displaySmall,
-                    //     hintText: l10n.pass,
-                    //   ),
-                    //   // decoration: InputDecoration(
+                      // TextFormField(
+                      //   maxLines: 1,
+                      //   maxLength: 16,
+                      //   controller: ctrl,
+                      //   inputFormatters: [
+                      //     FilteringTextInputFormatter.allow(
+                      //         RegExp(r'^([a-zA-Z0-9.,/-])*')),
+                      //     LengthLimitingTextInputFormatter(1),
+                      //   ],
+                      //   cursorColor: appBtnBlue,
+                      //   minLines: 1,
+                      //   style: theme.textTheme.displaySmall,
+                      //   decoration: InputDecoration(
+                      //     counterText: '',
+                      //     suffixIcon: IconButton(
+                      //       icon: Icon(
+                      //         _visPass!
+                      //             ? Icons.remove_red_eye
+                      //             : Icons.remove_red_eye_outlined,
+                      //         color: _visPass! ? lighten(appText5, 50) : appText5,
+                      //       ),
+                      //       onPressed: () {
+                      //         _visPass = !_visPass!;
+                      //         setState(() {});
+                      //       },
+                      //     ),
+                      //     focusedBorder: const OutlineInputBorder(
+                      //       borderSide: BorderSide(
+                      //         color: appBtnBlue,
+                      //       ),
+                      //     ),
+                      //     border: const OutlineInputBorder(
+                      //       borderSide: BorderSide(
+                      //         color: appText3,
+                      //       ),
+                      //     ),
+                      //     labelStyle: theme.textTheme.displaySmall,
+                      //     fillColor: theme.colorScheme.secondary,
+                      //     hintStyle: theme.textTheme.displaySmall,
+                      //     hintText: l10n.pass,
+                      //   ),
+                      //   // decoration: InputDecoration(
 
-                    //   // ),
-                    //   // decoration: InputDecoration(
-                    //   //   hintText: l10n.pass,
-                    //   // ),
-                    //   obscureText: _visPass!,
-                    // ),
-                    SizedBox(height: 24.h),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        onTap: () {
-                          context.router.push(InputOTPRoute(param: ctrl.text));
-                          // dispatchGetOTP();
-                        },
-                        child: Text(
-                          l10n.submitBtn,
-                          style: theme.textTheme.titleLarge,
+                      //   // ),
+                      //   // decoration: InputDecoration(
+                      //   //   hintText: l10n.pass,
+                      //   // ),
+                      //   obscureText: _visPass!,
+                      // ),
+                      SizedBox(height: 24.h),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          onTap: () {
+                            if (pwdFormKey.currentState!.validate()) {
+                              dispatchGetOTP();
+                            }
+                            // context.router.push(InputOTPRoute(param: ctrl.text));
+                          },
+                          child: Text(
+                            l10n.submitBtn,
+                            style: theme.textTheme.titleLarge,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             }
