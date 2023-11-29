@@ -65,6 +65,7 @@
     "newPwdReq":"new password required",
     "valPwdReq":"new password don't match!",
     "resetPwd":"Reset password",
+    "minPwdChar":"password must be at least 8 characters!",
     "rst_pwd_msg":"Please insert your account password, we'll send OTP code to your connected number.",
 
     "otpVerif":"OTP Verification",

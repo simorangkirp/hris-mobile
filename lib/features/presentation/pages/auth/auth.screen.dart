@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isBio = false;
   AuthModel authmodel = AuthModel();
 
-  bool _visPass = false;
+  bool _visPass = true;
 
   getAppVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();

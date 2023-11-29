@@ -116,22 +116,23 @@ class _PasswordScreenState extends State<PasswordScreen> {
                             color: _visPass! ? lighten(appText5, 50) : appText5,
                           ),
                           onPressed: () {
-                            _visPass = _visPass;
+                            _visPass = !_visPass!;
                             setState(() {});
                           },
                         ),
                         maxLine: 1,
-                        maxLength: 16,
                         label: l10n.currPwd,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                               RegExp(r'^([a-zA-Z0-9.,/-])*')),
-                          LengthLimitingTextInputFormatter(1),
+                          // LengthLimitingTextInputFormatter(1),
                         ],
                         controller: ctrl,
                         validator: (val) {
                           if (val == null || val.isEmpty) {
                             return l10n.currPwdReq;
+                          } else if (val.length < 9) {
+                            return l10n.minPwdChar;
                           } else {
                             return null;
                           }

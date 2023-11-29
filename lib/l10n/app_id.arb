@@ -41,6 +41,7 @@
     "newPwdReq":"Sandi baru tidak boleh kosong",
     "valPwdReq":"Sandi baru tidak cocok!",
     "resetPwd":"Atur ulang sandi",
+    "minPwdChar":"sandi minimal harus 8 karakter!",
     "rst_pwd_msg":"Mohon masukan sandi akun anda, kami akan mengirim kode OTP ke nomor anda yang terdaftar.",
 
     "otpVerif":"Verifikasi OTP",
