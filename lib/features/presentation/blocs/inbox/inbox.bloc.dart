@@ -11,10 +11,16 @@ class InboxScrnBloc extends Bloc<InboxEvent, InboxState> {
     on<InitInboxScreen>(init);
     on<InboxScrnGetListNotif>(getListNotif);
     on<InboxScrnGetApprvlData>(getApprvData);
+    on<InboxScrnGetInvalidVersion>(getInvalidMsg);
   }
 
   void init(InitInboxScreen event, Emitter<InboxState> emit) async {
     emit(InboxScrnInitiallized());
+  }
+
+  void getInvalidMsg(
+      InboxScrnGetInvalidVersion event, Emitter<InboxState> emit) async {
+    emit(InboxInvalidVersion(event.msg));
   }
 
   void getListNotif(
@@ -32,10 +38,29 @@ class InboxScrnBloc extends Bloc<InboxEvent, InboxState> {
         }
       }
       // if (list.isNotEmpty) {
-        emit(InboxScrnListNotifLoaded(list));
+      emit(InboxScrnListNotifLoaded(list));
       // }
     } else {
-      emit(InboxScrnDataStateErr(dataState.error!));
+      var msg = '';
+      if (dataState.error != null) {
+        if (dataState.error!.response != null) {
+          if (dataState.error!.response!.data != null) {
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              msg = data['messages'];
+              emit(InboxInvalidVersion(msg));
+              return;
+            } else {
+              msg = data['messages'];
+              // log(msg);
+            }
+          }
+        }
+      } else {
+        msg = "The request returned an invalid status code of 400.";
+      }
+      emit(InboxError(msg));
+      // emit(InboxScrnDataStateErr(dataState.error!));
     }
   }
 

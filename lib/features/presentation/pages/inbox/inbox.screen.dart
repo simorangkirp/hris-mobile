@@ -35,6 +35,12 @@ class _InboxScreenState extends State<InboxScreen> {
     );
   }
 
+  // void dispatchInboxInvalidVersion(String msg) {
+  //   BlocProvider.of<InboxScrnBloc>(context).add(
+  //     InboxScrnGetInvalidVersion(msg),
+  //   );
+  // }
+
   void dispatchGetApprvData() {
     BlocProvider.of<InboxScrnBloc>(context).add(
       InboxScrnGetApprvlData(),
@@ -56,6 +62,16 @@ class _InboxScreenState extends State<InboxScreen> {
   FutureOr onGoBack() {
     refreshData();
     setState(() {});
+  }
+
+  Widget loadingInbox(String msg) {
+    return Center(
+      child: Text(
+        msg,
+        style: Theme.of(context).textTheme.headlineSmall,
+        textAlign: TextAlign.center,
+      ),
+    );
   }
 
   @override
@@ -87,6 +103,10 @@ class _InboxScreenState extends State<InboxScreen> {
                   dispatchGetListNotif();
                   setState(() {});
                 }
+                // if (state is ApprovalInvalidVersion) {
+                //   dispatchInboxInvalidVersion(
+                //       state.invalidErrMsg ?? "Invalid Version");
+                // }
               },
             ),
             BlocListener<InboxScrnBloc, InboxState>(
@@ -101,6 +121,10 @@ class _InboxScreenState extends State<InboxScreen> {
                   if (state.listApprv != null) {
                     listApp = state.listApprv;
                   }
+                }
+                if (state is InboxInvalidVersion) {
+                  Future.delayed(const Duration(seconds: 3))
+                      .then((value) => dispatchLogout());
                 }
               },
             ),
@@ -156,8 +180,12 @@ class _InboxScreenState extends State<InboxScreen> {
                     ),
                   ),
                 );
+              } else if (state is InboxInvalidVersion) {
+                return loadingInbox(state.invalidErrMsg ?? "Invalid version");
               } else {
-                return const CircularProgressIndicator();
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
             },
           ),

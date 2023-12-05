@@ -23,7 +23,21 @@ class _PasswordScreenState extends State<PasswordScreen> {
     BlocProvider.of<PasswordBloc>(context).add(SettingReqOTP(ctrl.text));
   }
 
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
   bool? _visPass;
+
+  Widget errVerPassword(String msg) {
+    return Center(
+      child: Text(
+        msg,
+        style: Theme.of(context).textTheme.headlineSmall,
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -56,15 +70,38 @@ class _PasswordScreenState extends State<PasswordScreen> {
           ),
         ),
       ),
-      body: BlocListener<PasswordBloc, PasswordState>(
-        listener: (context, state) {
-          if (state is PasswordError) {
-            scfldMsg(state.msg ?? "Error");
-          }
-          if (state is PasswordOTPResponed) {
-            context.router.push(InputOTPRoute(param: ctrl.text));
-          }
-        },
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<PasswordBloc, PasswordState>(
+            listener: (context, state) {
+              if (state is PasswordError) {
+                scfldMsg(state.msg ?? "Error");
+              }
+              if (state is PasswordOTPResponed) {
+                context.router.push(InputOTPRoute(param: ctrl.text));
+              }
+              if (state is PasswordInvalidVersion) {}
+            },
+          ),
+          BlocListener<AuthBloc, AuthState>(
+            listener: (authContext, state) {
+              // if (state is ShowLogoutDialog &&
+              //     state.pgNm == Constant.dashboardPgNm) {
+              //   onLogOutDialog(
+              //     authContext,
+              //     () => dispatchLogout(),
+              //     () => dispatchCancel(),
+              //   );
+              // }
+              if (state is OnLogOutSuccess) {
+                authContext.router.replaceAll([const SplashRoute()]);
+              }
+              // if (state is AuthCancelSuccess) {
+              //   setState(() {});
+              // }
+            },
+          ),
+        ],
         child: BlocBuilder<PasswordBloc, PasswordState>(
           builder: (context, state) {
             if (state is OTPLoading) {
@@ -73,6 +110,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
                   color: appBtnBlue,
                 ),
               );
+            }
+            if (state is PasswordInvalidVersion) {
+              return errVerPassword(state.invErrMsg ?? "Error");
             } else {
               return Form(
                 key: pwdFormKey,
@@ -131,7 +171,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         validator: (val) {
                           if (val == null || val.isEmpty) {
                             return l10n.currPwdReq;
-                          } else if (val.length < 9) {
+                          } else if (val.length < 8) {
                             return l10n.minPwdChar;
                           } else {
                             return null;

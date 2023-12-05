@@ -43,8 +43,24 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
         .add(PaidLeaveSubmitData(submitmodel));
   }
 
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
   FutureOr onGoBack() {
     refreshData();
+  }
+
+  Widget invalidVersion(String msg) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          msg,
+          style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
   }
 
   void refreshData() {
@@ -419,39 +435,58 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
       );
     }
 
-    return BlocListener<PaidLeaveBloc, PaidLeaveState>(
-      listener: (context, state) {
-        if (state is PaidLeaveCatLoaded) {
-          if (state.cat != null) {
-            for (var e in state.cat!) {
-              listCat.add(e.kelompokizin ?? '-');
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<PaidLeaveBloc, PaidLeaveState>(
+          listener: (context, state) {
+            if (state is PaidLeaveCatLoaded) {
+              if (state.cat != null) {
+                for (var e in state.cat!) {
+                  listCat.add(e.kelompokizin ?? '-');
+                }
+                setState(() {});
+              }
             }
-            setState(() {});
-          }
-        }
-        if (state is PaidLeaveErrCall) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(failSnackBar(
-              message: state.errMsg,
-            ));
-          dispatchGetCategory();
-        }
-        if (state is PaidLeaveSubmitFormSuccess) {
-          Future.delayed(const Duration(seconds: 3)).then((value) {
-            context.router.navigate(const PaidLeaveMainRoute());
-          });
-        }
-        if (state is PaidLeaveCatDetailLoaded) {
-          if (state.catDetail != null) {
-            listCatDetail.clear();
-            for (var el in state.catDetail!) {
-              listCatDetail.add(KeyVal(el.jenisijin ?? "-", el.idjenis ?? "-"));
+            if (state is PaidLeaveErrCall) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(failSnackBar(
+                  message: state.errMsg,
+                ));
+              dispatchGetCategory();
             }
-            setState(() {});
-          }
-        }
-      },
+            if (state is PaidLeaveSubmitFormSuccess) {
+              Future.delayed(const Duration(seconds: 3)).then((value) {
+                context.router.navigate(const PaidLeaveMainRoute());
+              });
+            }
+            if (state is PaidLeaveCatDetailLoaded) {
+              if (state.catDetail != null) {
+                listCatDetail.clear();
+                for (var el in state.catDetail!) {
+                  listCatDetail
+                      .add(KeyVal(el.jenisijin ?? "-", el.idjenis ?? "-"));
+                }
+                setState(() {});
+              }
+            }
+            if (state is PaidLeaveInvalidVersion) {
+              Future.delayed(const Duration(seconds: 3))
+                  .then((value) => dispatchLogout());
+            }
+          },
+        ),
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is OnLogOutSuccess) {
+              context.router.replaceAll([const SplashRoute()]);
+            }
+            if (state is AuthCancelSuccess) {
+              setState(() {});
+            }
+          },
+        ),
+      ],
       child: BlocBuilder<PaidLeaveBloc, PaidLeaveState>(
         builder: (context, state) {
           if (state is PaidLeaveSubmitFormLoading) {
@@ -494,6 +529,8 @@ class _PaidLeaveFormScreenState extends State<PaidLeaveFormScreen> {
                 ),
               ),
             );
+          } else if (state is PaidLeaveInvalidVersion) {
+            return invalidVersion(state.invalidErrMsg ?? "Invalid version");
           } else {
             return buildScreen();
           }

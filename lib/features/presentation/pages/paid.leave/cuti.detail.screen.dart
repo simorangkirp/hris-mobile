@@ -29,6 +29,22 @@ class _PaidLeaveDetailScreenState extends State<PaidLeaveDetailScreen> {
         .add(PaidLeaveGetDataDetail(widget.id ?? ""));
   }
 
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
+  Widget invalidVersion(String msg) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          msg,
+          style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -70,14 +86,32 @@ class _PaidLeaveDetailScreenState extends State<PaidLeaveDetailScreen> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
 
-    return BlocListener<PaidLeaveBloc, PaidLeaveState>(
-      listener: (context, state) {
-        if (state is PaidLeaveDetailLoaded) {
-          data = state.detail;
-          listData = state.detail?.approval;
-        }
-        if (state is PaidLeaveErrCall) {}
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<PaidLeaveBloc, PaidLeaveState>(
+          listener: (context, state) {
+            if (state is PaidLeaveDetailLoaded) {
+              data = state.detail;
+              listData = state.detail?.approval;
+            }
+            if (state is PaidLeaveErrCall) {}
+            if (state is PaidLeaveInvalidVersion) {
+              Future.delayed(const Duration(seconds: 3))
+                  .then((value) => dispatchLogout());
+            }
+          },
+        ),
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is OnLogOutSuccess) {
+              context.router.replaceAll([const SplashRoute()]);
+            }
+            if (state is AuthCancelSuccess) {
+              setState(() {});
+            }
+          },
+        ),
+      ],
       child: BlocBuilder<PaidLeaveBloc, PaidLeaveState>(
         builder: (context, state) {
           if (state is PaidLeaveDetailLoaded) {
@@ -89,6 +123,8 @@ class _PaidLeaveDetailScreenState extends State<PaidLeaveDetailScreen> {
                 child: CircularProgressIndicator(),
               ),
             );
+          } else if (state is PaidLeaveInvalidVersion) {
+            return invalidVersion(state.errMsg ?? "Invalid version");
           } else {
             return const Scaffold(
               body: SizedBox(),

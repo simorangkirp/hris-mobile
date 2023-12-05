@@ -30,7 +30,6 @@ class CustomFormTextField extends StatefulWidget {
   final Color? focusColor;
   final List<TextInputFormatter>? inputFormatters;
 
-
   ///* fill color when idle, if fillColor is [null]
   final Color? idleColor;
   final TextInputAction? inputAction;
@@ -1329,6 +1328,7 @@ class _PortalFormDropdownState extends State<PortalFormDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    Color fillColor = Theme.of(context).colorScheme.secondary;
     ScrollController controller = ScrollController();
     return FormField<String?>(
       initialValue: widget.selectedItem,
@@ -1372,7 +1372,7 @@ class _PortalFormDropdownState extends State<PortalFormDropdown> {
                               offset: Offset(0, 4),
                             ),
                           ],
-                          color: appBgWhite,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                         child: SingleChildScrollView(
                           padding:
@@ -1441,11 +1441,9 @@ class _PortalFormDropdownState extends State<PortalFormDropdown> {
                                         },
                                         title: Text(
                                           e,
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: appBgBlack,
-                                            overflow: TextOverflow.clip,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium,
                                         ),
                                       ),
                                     );
@@ -1472,24 +1470,25 @@ class _PortalFormDropdownState extends State<PortalFormDropdown> {
                         width: widget.triggerWidth ?? ctns.maxWidth,
                         // height: 45,
                         decoration: BoxDecoration(
-                            border: Border.all(
-                              color: (widget.borderColor != null)
-                                  ? widget.borderColor!
-                                  : (widget.enabled == false)
-                                      ? appDisabledTextField
-                                      : (state.hasError)
-                                          ? appWarning
-                                          : appLightGrey,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(widget.borderRadius ?? 8),
-                            color: (widget.enabled == false)
-                                ? appDisabledTextField
-                                : onHovered
-                                    ? appFillField
+                          border: Border.all(
+                            color: (widget.borderColor != null)
+                                ? widget.borderColor!
+                                : (widget.enabled == false)
+                                    ? appDisabledTextField
                                     : (state.hasError)
-                                        ? appValidateField
-                                        : appBgWhite),
+                                        ? appWarning
+                                        : appLightGrey,
+                          ),
+                          borderRadius:
+                              BorderRadius.circular(widget.borderRadius ?? 8),
+                          color: (widget.enabled == false)
+                              ? fillColor
+                              : onHovered
+                                  ? fillColor
+                                  : (state.hasError)
+                                      ? appValidateField
+                                      : fillColor,
+                        ),
                         padding: EdgeInsets.symmetric(
                             vertical: 12.h, horizontal: 10.w),
                         child: Row(
@@ -1503,14 +1502,7 @@ class _PortalFormDropdownState extends State<PortalFormDropdown> {
                             Expanded(
                               child: Text(
                                 label ?? (widget.hintText ?? ""),
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: widget.selectedItem != null
-                                      ? appRichBlack
-                                      : Theme.of(context).hintColor,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ),
                             HeroIcon(
@@ -1632,6 +1624,7 @@ class _PortalFormDropdownKeyValState extends State<PortalFormDropdownKeyVal> {
 
   @override
   Widget build(BuildContext context) {
+    Color fillColor = Theme.of(context).colorScheme.secondary;
     final controller = ScrollController();
     return FormField<KeyVal?>(
       initialValue: widget.selectedItem,
@@ -1675,7 +1668,7 @@ class _PortalFormDropdownKeyValState extends State<PortalFormDropdownKeyVal> {
                               offset: Offset(0, 4),
                             ),
                           ],
-                          color: appBgWhite,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                         child: SingleChildScrollView(
                           padding:
@@ -1744,11 +1737,9 @@ class _PortalFormDropdownKeyValState extends State<PortalFormDropdownKeyVal> {
                                         },
                                         title: Text(
                                           e.label,
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: appBgBlack,
-                                            overflow: TextOverflow.clip,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium,
                                         ),
                                       ),
                                     );
@@ -1782,12 +1773,12 @@ class _PortalFormDropdownKeyValState extends State<PortalFormDropdownKeyVal> {
                             borderRadius:
                                 BorderRadius.circular(widget.borderRadius ?? 8),
                             color: (widget.enabled == false)
-                                ? appDisabledTextField
+                                ? fillColor
                                 : onHovered
-                                    ? appFillField
+                                    ? fillColor
                                     : (state.hasError)
                                         ? appValidateField
-                                        : appBgWhite),
+                                        : fillColor),
                         padding: EdgeInsets.symmetric(
                             vertical: 12.h, horizontal: 10.w),
                         child: Row(
@@ -1801,15 +1792,7 @@ class _PortalFormDropdownKeyValState extends State<PortalFormDropdownKeyVal> {
                             Expanded(
                               child: Text(
                                 label ?? (widget.hintText ?? ""),
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  // fontWeight: FontWeight.bold,
-                                  fontWeight: FontWeight.w500,
-                                  color: widget.selectedItem != null
-                                      ? appRichBlack
-                                      : Theme.of(context).hintColor,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ),
                             HeroIcon(

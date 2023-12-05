@@ -78,7 +78,25 @@ class ProfileScreenBloc extends Bloc<ProfileEvent, ProfileScreenState> {
       }
     }
     if (dataState is DataError) {
-      emit(const ProfileScrErrMsg('Error'));
+      var msg = '';
+      if (dataState.error != null) {
+        if (dataState.error!.response != null) {
+          if (dataState.error!.response!.data != null) {
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              msg = data['messages'];
+              emit(ProfileInvalidVersion(msg));
+              return;
+            } else {
+              msg = data['messages'];
+              log(msg);
+            }
+          }
+        }
+      } else {
+        msg = "The request returned an invalid status code of 400.";
+      }
+      emit(ProfileScrErrMsg(msg));
     }
   }
 

@@ -31,6 +31,22 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
     );
   }
 
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
+  Widget approvalInvalid(String msg) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          msg,
+          style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -66,72 +82,94 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
         centerTitle: true,
         title: Text(widget.type ?? ""),
       ),
-      body: BlocListener<ApprovalScrnBloc, ApprovalState>(
-        listener: (context, state) {
-          if (state is ApprovalListLoaded) {
-            listData = state.listApprv;
-          }
-        },
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<ApprovalScrnBloc, ApprovalState>(
+            listener: (context, state) {
+              if (state is ApprovalListLoaded) {
+                listData = state.listApprv;
+              }
+              if (state is ApprovalInvalidVersion) {
+                Future.delayed(const Duration(seconds: 3))
+                    .then((value) => dispatchLogout());
+              }
+            },
+          ),
+          BlocListener<AuthBloc, AuthState>(
+            listener: (authContext, state) {
+              if (state is OnLogOutSuccess) {
+                authContext.router.replaceAll([const SplashRoute()]);
+              }
+              if (state is AuthCancelSuccess) {
+                setState(() {});
+              }
+            },
+          ),
+        ],
         child: BlocBuilder<ApprovalScrnBloc, ApprovalState>(
           builder: (context, state) {
-            List<ApprovalDetail> dataAct = [];
-            List<ApprovalDetail> dataHist = [];
-            if (listData != null) {
-              for (var e in listData!) {
-                if (e.tipe == "active") {
-                  if (e.detail != null) {
-                    for (var el in e.detail!) {
-                      dataAct.add(el);
+            if (state is ApprovalInvalidVersion) {
+              return approvalInvalid(state.invalidErrMsg ?? "Invalid version");
+            } else {
+              List<ApprovalDetail> dataAct = [];
+              List<ApprovalDetail> dataHist = [];
+              if (listData != null) {
+                for (var e in listData!) {
+                  if (e.tipe == "active") {
+                    if (e.detail != null) {
+                      for (var el in e.detail!) {
+                        dataAct.add(el);
+                      }
                     }
                   }
-                }
-                if (e.tipe == "history") {
-                  if (e.detail != null) {
-                    for (var el in e.detail!) {
-                      dataHist.add(el);
+                  if (e.tipe == "history") {
+                    if (e.detail != null) {
+                      for (var el in e.detail!) {
+                        dataHist.add(el);
+                      }
                     }
                   }
                 }
               }
+              return PageView(
+                scrollDirection: Axis.horizontal,
+                controller: ctrl,
+                children: <Widget>[
+                  activeList(
+                    context,
+                    dataAct,
+                    (val) {
+                      context.router
+                          .push(
+                            ApprovalDetailRoute(
+                              id: val.id,
+                              txn: val.notransaksi,
+                              mode: ConstantMode.edit,
+                              type: widget.type ?? "",
+                            ),
+                          )
+                          .then((value) => onGoBack());
+                    },
+                  ),
+                  historyList(
+                    context,
+                    dataHist,
+                    (val) {
+                      context.router
+                          .push(
+                            ApprovalDetailRoute(
+                              id: val.id,
+                              txn: val.notransaksi,
+                              mode: ConstantMode.view,
+                              type: widget.type ?? "",
+                            ),
+                          )
+                          .then((value) => onGoBack());
+                    },
+                  ),
+                ],
+              );
             }
-            return PageView(
-              scrollDirection: Axis.horizontal,
-              controller: ctrl,
-              children: <Widget>[
-                activeList(
-                  context,
-                  dataAct,
-                  (val) {
-                    context.router
-                        .push(
-                          ApprovalDetailRoute(
-                            id: val.id,
-                            txn: val.notransaksi,
-                            mode: ConstantMode.edit,
-                            type: widget.type ?? "",
-                          ),
-                        )
-                        .then((value) => onGoBack());
-                  },
-                ),
-                historyList(
-                  context,
-                  dataHist,
-                  (val) {
-                    context.router
-                        .push(
-                          ApprovalDetailRoute(
-                            id: val.id,
-                            txn: val.notransaksi,
-                            mode: ConstantMode.view,
-                            type: widget.type ?? "",
-                          ),
-                        )
-                        .then((value) => onGoBack());
-                  },
-                ),
-              ],
-            );
           },
         ),
       ),

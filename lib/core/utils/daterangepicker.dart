@@ -81,6 +81,7 @@ class _CommonDateRangePickerState extends State<CommonDateRangePicker> {
   String? retDt;
   @override
   Widget build(BuildContext context) {
+    Color fillColor = Theme.of(context).colorScheme.secondary;
     final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,11 +146,7 @@ class _CommonDateRangePickerState extends State<CommonDateRangePicker> {
                   textInputAction: widget.inputAction,
                   onFieldSubmitted: widget.onAction,
                   // cursorColor: widget.cursorColor ?? VccFillLoginField,
-                  style: TextStyle(
-                    color: appBgBlack,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium,
                   decoration: InputDecoration(
                     errorStyle: TextStyle(fontSize: 12.sp, color: appWarning),
                     errorText: widget.errorMessage,
@@ -175,9 +172,9 @@ class _CommonDateRangePickerState extends State<CommonDateRangePicker> {
                     ),
                     filled: true,
                     fillColor: valid
-                        ? appValidateField
+                        ? fillColor
                         : (widget.fillColor != null)
-                            ? widget.fillColor
+                            ? fillColor
                             : (!(widget.enabled ?? true))
                                 ? appFieldUnselect
                                 : fillColor,

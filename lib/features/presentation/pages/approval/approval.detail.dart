@@ -47,6 +47,22 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
     );
   }
 
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
+  Widget invalidApprDetail(String msg) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          msg,
+          style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -63,26 +79,44 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final ThemeData theme = Theme.of(context);
-    return BlocListener<ApprovalScrnBloc, ApprovalState>(
-      listener: (context, state) {
-        if (state is ApprovalDataDetailLoaded) {
-          data = state.apprvDetail;
-          if (data?.datadetail != null) {
-            detail = data!.datadetail;
-          }
-          if (data?.listapproval != null) {
-            listData = data!.listapproval;
-          }
-          if (data?.fileupload != null) {
-            listDoc = data!.fileupload;
-          }
-        }
-        if (state is ApprovalResponseSubmited) {
-          Future.delayed(const Duration(seconds: 3)).then((value) {
-            context.router.pop();
-          });
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ApprovalScrnBloc, ApprovalState>(
+          listener: (context, state) {
+            if (state is ApprovalDataDetailLoaded) {
+              data = state.apprvDetail;
+              if (data?.datadetail != null) {
+                detail = data!.datadetail;
+              }
+              if (data?.listapproval != null) {
+                listData = data!.listapproval;
+              }
+              if (data?.fileupload != null) {
+                listDoc = data!.fileupload;
+              }
+            }
+            if (state is ApprovalResponseSubmited) {
+              Future.delayed(const Duration(seconds: 3)).then((value) {
+                context.router.pop();
+              });
+            }
+            if (state is ApprovalInvalidVersion) {
+              Future.delayed(const Duration(seconds: 3))
+                  .then((value) => dispatchLogout());
+            }
+          },
+        ),
+        BlocListener<AuthBloc, AuthState>(
+          listener: (authContext, state) {
+            if (state is OnLogOutSuccess) {
+              authContext.router.replaceAll([const SplashRoute()]);
+            }
+            if (state is AuthCancelSuccess) {
+              setState(() {});
+            }
+          },
+        ),
+      ],
       child: BlocBuilder<ApprovalScrnBloc, ApprovalState>(
         builder: (context, state) {
           if (state is ApprovalDataDetailLoaded) {
@@ -235,6 +269,9 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                 ),
               ),
             );
+          }
+          if (state is ApprovalInvalidVersion) {
+            return invalidApprDetail(state.invalidErrMsg ?? "Invalid version");
           } else {
             return const SizedBox();
           }

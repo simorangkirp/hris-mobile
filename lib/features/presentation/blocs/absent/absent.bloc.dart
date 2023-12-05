@@ -78,8 +78,32 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
       }
       if (list.isNotEmpty) {
         emit(AbsentPeriodLoaded(list));
+        return;
       } else {
         emit(DataStateError(dataState.error!));
+        return;
+      }
+    }
+    if (dataState is DataError) {
+      var msg = '';
+      if (dataState.error != null) {
+        if (dataState.error!.response != null) {
+          if (dataState.error!.response!.data != null) {
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              msg = data['messages'];
+              emit(AbsentInvalidVersion(msg));
+              return;
+            } else {
+              msg = data['messages'];
+              log(msg);
+            }
+          }
+        }
+      } else {
+        msg = "The request returned an invalid status code of 400.";
+        emit(AbsentError(msg));
+        return;
       }
     }
   }
@@ -117,6 +141,7 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
         msg = dataState.data['messages'];
         log(msg);
         emit(UserAbsentSubmitted(msg));
+        return;
       }
     }
     if (dataState is DataError) {
@@ -126,14 +151,21 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
         } else if (dataState.error!.response != null) {
           if (dataState.error!.response!.data != null) {
             var data = dataState.error!.response!.data as Map<String, dynamic>;
-            msg = data['messages']['error'];
-            log(msg);
+            if (data['status'] == 401) {
+              msg = data['messages'];
+              emit(AbsentInvalidVersion(msg));
+              return;
+            } else {
+              msg = data['messages']['error'];
+              log(msg);
+            }
           }
         }
       } else {
         msg = "The request returned an invalid status code of 400.";
       }
       emit(AbsentSubmitAbsentError(msg));
+      return;
     }
   }
 
@@ -147,19 +179,29 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
         var begin = dataState.data['data'] as Map<String, dynamic>;
         var data = UserAssignLocationModel.fromMap(begin);
         emit(UserAssignLocLoaded(data));
+        return;
       }
     }
     if (dataState is DataError) {
       if (dataState.error != null) {
         if (dataState.error!.response != null) {
           if (dataState.error!.response!.data != null) {
-            errMsg = dataState.error!.response!.data['messages'];
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              errMsg = data['messages'];
+              emit(AbsentInvalidVersion(errMsg));
+              return;
+            } else {
+              errMsg = dataState.error!.response!.data['messages'];
+              log(errMsg);
+            }
           }
         }
       } else {
         errMsg = "The request returned an invalid status code of 400.";
       }
       emit(AbsentUserAssignLocError(errMsg));
+      return;
     }
   }
 
@@ -180,19 +222,29 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
       if (dataState.data != null) {
         errMsg = dataState.data['messages'];
         emit(AbsentPINChecked(errMsg));
+        return;
       }
     }
     if (dataState is DataError) {
       if (dataState.error != null) {
         if (dataState.error!.response != null) {
           if (dataState.error!.response!.data != null) {
-            errMsg = dataState.error!.response!.data['messages']['error'];
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              errMsg = data['messages'];
+              emit(AbsentInvalidVersion(errMsg));
+              return;
+            } else {
+              errMsg = dataState.error!.response!.data['messages']['error'];
+              log(errMsg);
+            }
           }
         }
       } else {
         errMsg = "The request returned an invalid status code of 400.";
       }
       emit(AbsentPINChecked(errMsg));
+      return;
     }
   }
 
@@ -208,18 +260,28 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
         }
       }
       emit(AbsentListHolidayLoaded(list));
+      return;
     }
     if (dataState is DataError) {
       if (dataState.error != null) {
         if (dataState.error!.response != null) {
           if (dataState.error!.response!.data != null) {
-            errMsg = dataState.error!.response!.data['messages']['error'];
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              errMsg = data['messages'];
+              emit(AbsentInvalidVersion(errMsg));
+              return;
+            } else {
+              errMsg = dataState.error!.response!.data['messages']['error'];
+              log(errMsg);
+            }
           }
         }
       } else {
         errMsg = "The request returned an invalid status code of 400.";
       }
       emit(AbsentError(errMsg));
+      return;
     }
   }
 }

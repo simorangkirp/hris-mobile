@@ -58,13 +58,22 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
       if (dataState.error != null) {
         if (dataState.error!.response != null) {
           if (dataState.error!.response!.data != null) {
-            errMsg = dataState.error!.response!.data['messages'];
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              errMsg = data['messages'];
+              emit(PaidLeaveInvalidVersion(errMsg));
+              return;
+            } else {
+              errMsg = data['messages'];
+            }
+            // errMsg = dataState.error!.response!.data['messages'];
           }
         }
       } else {
         errMsg = "The request returned an invalid status code of 400.";
       }
       emit(PaidLeaveErrCall(errMsg));
+      return;
     }
   }
 
@@ -82,18 +91,27 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
         }
       }
       emit(PaidLeaveListDataLoaded(list));
+      return;
     }
     if (dataState is DataError) {
       if (dataState.error != null) {
         if (dataState.error!.response != null) {
           if (dataState.error!.response!.data != null) {
-            errMsg = dataState.error!.response!.data['messages'];
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              errMsg = data['messages'];
+              emit(PaidLeaveInvalidVersion(errMsg));
+              return;
+            } else {
+              errMsg = data['messages'];
+            }
           }
         }
       } else {
         errMsg = "The request returned an invalid status code of 400.";
       }
       emit(PaidLeaveErrCall(errMsg));
+      return;
     }
   }
 
@@ -107,19 +125,29 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
         var begin = dataState.data['data'] as Map<String, dynamic>;
         var data = PaidLeaveDataDetail.fromMap(begin);
         emit(PaidLeaveDetailLoaded(data));
+        return;
       }
     }
     if (dataState is DataError) {
       if (dataState.error != null) {
         if (dataState.error!.response != null) {
           if (dataState.error!.response!.data != null) {
-            errMsg = dataState.error!.response!.data['messages'];
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              errMsg = data['messages'];
+              emit(PaidLeaveInvalidVersion(errMsg));
+              return;
+            } else {
+              errMsg = data['messages'];
+            }
+            // errMsg = dataState.error!.response!.data['messages'];
           }
         }
       } else {
         errMsg = "The request returned an invalid status code of 400.";
       }
       emit(PaidLeaveErrCall(errMsg));
+      return;
     }
   }
 
@@ -133,19 +161,29 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
         errMsg = dataState.data['messages'];
         // var data = PaidLeaveDataDetail.fromMap(begin);
         emit(PaidLeaveSubmitFormSuccess(errMsg));
+        return;
       }
     }
     if (dataState is DataError) {
       if (dataState.error != null) {
         if (dataState.error!.response != null) {
           if (dataState.error!.response!.data != null) {
-            errMsg = dataState.error!.response!.data['messages']['error'];
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              errMsg = data['messages'];
+              emit(PaidLeaveInvalidVersion(errMsg));
+              return;
+            } else {
+              errMsg = data['messages'];
+            }
+            // errMsg = dataState.error!.response!.data['messages']['error'];
           }
         }
       } else {
-      errMsg = "The request returned an invalid status code of 400.";
+        errMsg = "The request returned an invalid status code of 400.";
       }
       emit(PaidLeaveErrCall(errMsg));
+      return;
     }
   }
 
@@ -164,19 +202,29 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
           }
         }
         emit(PaidLeaveCatLoaded(list));
+        return;
       }
     }
     if (dataState is DataError) {
       if (dataState.error != null) {
         if (dataState.error!.response != null) {
           if (dataState.error!.response!.data != null) {
-            errMsg = dataState.error!.response!.data['messages'];
+            // errMsg = dataState.error!.response!.data['messages'];
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              errMsg = data['messages'];
+              emit(PaidLeaveInvalidVersion(errMsg));
+              return;
+            } else {
+              errMsg = data['messages'];
+            }
           }
         }
       } else {
         errMsg = "The request returned an invalid status code of 400.";
       }
       emit(PaidLeaveErrCall(errMsg));
+      return;
     }
   }
 
@@ -203,13 +251,22 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
       if (dataState.error != null) {
         if (dataState.error!.response != null) {
           if (dataState.error!.response!.data != null) {
-            errMsg = dataState.error!.response!.data['messages'];
+            // errMsg = dataState.error!.response!.data['messages'];
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              errMsg = data['messages'];
+              emit(PaidLeaveInvalidVersion(errMsg));
+              return;
+            } else {
+              errMsg = data['messages'];
+            }
           }
         }
       } else {
         errMsg = "The request returned an invalid status code of 400.";
       }
       emit(PaidLeaveErrCall(errMsg));
+      return;
     }
   }
 

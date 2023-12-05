@@ -22,6 +22,7 @@ abstract class AbsentState extends Equatable {
   final ProfileModel? profileModel;
   final String? errMsg, msg;
   final List<HolidayModel>? listHoliday;
+  final String? invalidVerMsg;
   // final bool? comment;
   const AbsentState({
     this.error,
@@ -33,6 +34,7 @@ abstract class AbsentState extends Equatable {
     this.assignLoc,
     this.profileModel,
     this.listHoliday,
+    this.invalidVerMsg,
     // this.comment,
   });
 
@@ -116,3 +118,7 @@ class AbsentListHolidayLoaded extends AbsentState {
 class AbsentCommentAdded extends AbsentState {}
 
 class AbsentCommentRemoved extends AbsentState {}
+
+class AbsentInvalidVersion extends AbsentState {
+  const AbsentInvalidVersion(String data) : super(invalidVerMsg: data);
+}

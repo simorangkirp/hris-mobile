@@ -12,7 +12,9 @@ abstract class PaidLeaveState extends Equatable {
   final List<PaidLeaveListData>? listData;
   final ProfileModel? profile;
   final List<PaidLeaveCategory>? cat;
+  final String? invalidErrMsg;
   const PaidLeaveState({
+    this.invalidErrMsg,
     this.error,
     this.catDetail,
     this.plafond,
@@ -69,4 +71,8 @@ class PaidLeaveListDataLoaded extends PaidLeaveState {
 
 class PaidLeaveProfileLoaded extends PaidLeaveState {
   const PaidLeaveProfileLoaded(ProfileModel data) : super(profile: data);
+}
+
+class PaidLeaveInvalidVersion extends PaidLeaveState {
+  const PaidLeaveInvalidVersion(String data) : super(invalidErrMsg: data);
 }

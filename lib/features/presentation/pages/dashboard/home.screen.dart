@@ -43,6 +43,18 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
   }
 
+  Widget loadingAuth(String msg) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          msg,
+          style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -86,8 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(height: 12.h),
                           faturesComponent(context, themeData),
                           Visibility(
-                            visible: _visAppMsg,
-                            child: const Divider()),
+                              visible: _visAppMsg, child: const Divider()),
                           Visibility(
                             visible: _visAppMsg,
                             child: GestureDetector(
@@ -123,13 +134,23 @@ class _HomeScreenState extends State<HomeScreen> {
               appMsg = 0;
               dispatchGetAppMsg();
             }
+            if (state is DashboardInvalidVersion) {
+              // Future.delayed(const Duration(seconds: 2))
+              //     .then((value) => ScaffoldMessenger.of(context)
+              //       ..hideCurrentSnackBar()
+              //       ..showSnackBar(failSnackBar(
+              //         message: state.ivlVerMsg,
+              //       )));
+              Future.delayed(const Duration(seconds: 3))
+                  .then((value) => dispatchLogout());
+            }
             if (state is DashboardListAppMsgLoaded) {
               if (state.listApprv != null && state.listApprv!.isNotEmpty) {
                 for (var el in state.listApprv!) {
                   var num = int.parse(el.jumlah ?? "0");
                   appMsg = appMsg + num;
                 }
-                if(appMsg > 0){
+                if (appMsg > 0) {
                   _visAppMsg = true;
                 }
                 setState(() {});
@@ -161,6 +182,8 @@ class _HomeScreenState extends State<HomeScreen> {
           // return const HomeScreenSkeleton();
           if (state is HomeLoading) {
             return const HomeScreenSkeleton();
+          } else if (state is DashboardInvalidVersion) {
+            return loadingAuth(state.ivlVerMsg ?? "Error");
           } else {
             return buildHome(model, appMsg);
           }

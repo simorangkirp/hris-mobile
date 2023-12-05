@@ -128,12 +128,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
     BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
   }
 
+  Widget loadingProfile(String msg) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          msg,
+          style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
         BlocListener<ProfileScreenBloc, ProfileScreenState>(
           listener: (context, state) {
+            if (state is ProfileInvalidVersion) {
+              Future.delayed(const Duration(seconds: 3))
+                  .then((value) => dispatchLogout());
+            }
             if (state is ProfileInfoLoaded) {
               model = state.profile;
               now = DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
@@ -178,6 +194,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         builder: (context, state) {
           if (state is AbsentDataLoaded) {
             return buildProfileScreen(context, model, absCtr);
+          }
+          if (state is ProfileInvalidVersion) {
+            return loadingProfile(state.ivlVerMsg ?? "Error");
           } else {
             return buildProfileSkeleton();
           }

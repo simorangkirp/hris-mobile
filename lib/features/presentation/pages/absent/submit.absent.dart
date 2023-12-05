@@ -55,6 +55,18 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
     refreshData();
   }
 
+  Widget invalidVersion(String msg) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          msg,
+          style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
   void refreshData() {
     if (widget.photoParam != null) {
       photo = const Base64Decoder().convert(widget.photoParam!.split(',').last);
@@ -82,6 +94,10 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
 
   void dispatchSubmitPIN() {
     BlocProvider.of<AbsentBloc>(context).add(AbsentCheckPin(paramPIN));
+  }
+
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
   }
 
   void dispatchAddComment() {
@@ -581,35 +597,53 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
       );
     }
 
-    return BlocListener<AbsentBloc, AbsentState>(
-      listener: (context, state) {
-        if (state is UserAbsentSubmitted) {
-          Future.delayed(const Duration(seconds: 3)).then((value) {
-            context.router.navigate(const AbsentRoute());
-          });
-        }
-        if (state is AbsentCommentAdded) {
-          isAddDesc = true;
-          setState(() {});
-        }
-        if (state is AbsentCommentRemoved) {
-          isAddDesc = false;
-          desCtrl.text = '';
-          setState(() {});
-        }
-        if (state is AbsentPINChecked) {
-          if (state.msg == Constant.pinValid) {
-            setState(() {
-              isCheck = true;
-            });
-          } else {
-            buildScafMsg(state.msg ?? "error");
-          }
-        }
-        if (state is AbsentSubmitAbsentError) {
-          buildScafMsg(state.errMsg ?? "-");
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AbsentBloc, AbsentState>(
+          listener: (context, state) {
+            if (state is UserAbsentSubmitted) {
+              Future.delayed(const Duration(seconds: 3)).then((value) {
+                context.router.navigate(const AbsentRoute());
+              });
+            }
+            if (state is AbsentCommentAdded) {
+              isAddDesc = true;
+              setState(() {});
+            }
+            if (state is AbsentCommentRemoved) {
+              isAddDesc = false;
+              desCtrl.text = '';
+              setState(() {});
+            }
+            if (state is AbsentPINChecked) {
+              if (state.msg == Constant.pinValid) {
+                setState(() {
+                  isCheck = true;
+                });
+              } else {
+                buildScafMsg(state.msg ?? "error");
+              }
+            }
+            if (state is AbsentSubmitAbsentError) {
+              buildScafMsg(state.errMsg ?? "-");
+            }
+            if (state is AbsentInvalidVersion) {
+              Future.delayed(const Duration(seconds: 3))
+                  .then((value) => dispatchLogout());
+            }
+          },
+        ),
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthCancelSuccess) {
+              setState(() {});
+            }
+            if (state is OnLogOutSuccess) {
+              context.router.replaceAll([const SplashRoute()]);
+            }
+          },
+        ),
+      ],
       child: BlocBuilder<AbsentBloc, AbsentState>(
         builder: (context, state) {
           if (state is UserAbsentSubmitted) {
@@ -652,6 +686,8 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
                 ),
               ),
             );
+          } else if (state is AbsentInvalidVersion) {
+            return invalidVersion(state.invalidVerMsg ?? "Invalid version");
           }
           return Scaffold(
             appBar: AppBar(),

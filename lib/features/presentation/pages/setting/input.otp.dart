@@ -193,7 +193,7 @@ class _InputOTPScreenState extends State<InputOTPScreen> {
                   validator: (val) {
                     if (val == null || val.isEmpty) {
                       return l10n.newPwdReq;
-                    } else if (val.length < 9) {
+                    } else if (val.length < 8) {
                       return l10n.minPwdChar;
                     } else {
                       return null;
@@ -222,7 +222,7 @@ class _InputOTPScreenState extends State<InputOTPScreen> {
                   validator: (val) {
                     if (val == null || val.isEmpty) {
                       return l10n.newPwdReq;
-                    } else if (val.length < 9) {
+                    } else if (val.length < 8) {
                       return l10n.minPwdChar;
                     } else if (newCtrl.text != valCtrl.text) {
                       return l10n.valPwdReq;

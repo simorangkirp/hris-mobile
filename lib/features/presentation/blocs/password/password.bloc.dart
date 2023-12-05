@@ -33,7 +33,14 @@ class PasswordBloc extends Bloc<PasswordEvent, PasswordState> {
       if (dataState.error != null &&
           dataState.error!.response != null &&
           dataState.error!.response!.data != null) {
-        msg = dataState.error!.response!.data['messages']['error'];
+        var data = dataState.error!.response!.data as Map<String, dynamic>;
+        if (data['status'] == 401) {
+          msg = data['messages'];
+          emit(PasswordInvalidVersion(msg));
+          return;
+        } else {
+          msg = dataState.error!.response!.data['messages']['error'];
+        }
       } else {
         msg = 'Error';
       }

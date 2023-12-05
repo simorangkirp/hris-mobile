@@ -37,11 +37,36 @@ class ApprovalScrnBloc extends Bloc<ApprovalEvent, ApprovalState> {
           list.add(ApprovalModel.fromJson(i));
         }
       }
+
       if (list.isNotEmpty) {
         emit(ApprovalListLoaded(list));
+        return;
       } else {
         emit(ApprovalScrnDataErr(dataState.error!));
+        return;
       }
+    }
+    if (dataState is DataError) {
+      var msg = '';
+      if (dataState.error != null) {
+        if (dataState.error!.response != null) {
+          if (dataState.error!.response!.data != null) {
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              msg = data['messages'];
+              emit(ApprovalInvalidVersion(msg));
+              return;
+            } else {
+              msg = data['messages'];
+              // log(msg);
+            }
+          }
+        }
+      } else {
+        msg = "The request returned an invalid status code of 400.";
+      }
+      emit(ApprovalError(msg));
+      return;
     }
   }
 
@@ -53,6 +78,27 @@ class ApprovalScrnBloc extends Bloc<ApprovalEvent, ApprovalState> {
       if (dataState.data != null) {
         emit(ApprovalProfileLoaded(dataState.data));
       }
+    }
+    if (dataState is DataError) {
+      var msg = '';
+      if (dataState.error != null) {
+        if (dataState.error!.response != null) {
+          if (dataState.error!.response!.data != null) {
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              msg = data['messages'];
+              emit(ApprovalInvalidVersion(msg));
+              return;
+            } else {
+              msg = data['messages'];
+              // log(msg);
+            }
+          }
+        }
+      } else {
+        msg = "The request returned an invalid status code of 400.";
+      }
+      emit(ApprovalError(msg));
     }
   }
 
@@ -74,6 +120,25 @@ class ApprovalScrnBloc extends Bloc<ApprovalEvent, ApprovalState> {
       // } else {
       // }
     } else {
+      var msg = '';
+      if (dataState.error != null) {
+        if (dataState.error!.response != null) {
+          if (dataState.error!.response!.data != null) {
+            var data = dataState.error!.response!.data as Map<String, dynamic>;
+            if (data['status'] == 401) {
+              msg = data['messages'];
+              emit(ApprovalInvalidVersion(msg));
+              return;
+            } else {
+              msg = data['messages'];
+              // log(msg);
+            }
+          }
+        }
+      } else {
+        msg = "The request returned an invalid status code of 400.";
+      }
+      // emit(ApprovalError(msg));
       emit(ApprovalScrnDataErr(dataState.error!));
     }
   }

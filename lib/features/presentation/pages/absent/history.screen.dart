@@ -32,6 +32,10 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
     BlocProvider.of<AbsentBloc>(context).add(AbsentHolidayList());
   }
 
+  void dispatchLogout() {
+    BlocProvider.of<AuthBloc>(context).add(OnLogOut());
+  }
+
   List<HolidayModel>? listHoliday;
 
   String sltdDt = '';
@@ -48,6 +52,16 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
     //   });
     // });
     dispatchGetHolidayList();
+  }
+
+  Widget invalidVersion(String msg) {
+    return Center(
+      child: Text(
+        msg,
+        style: Theme.of(context).textTheme.headlineSmall,
+        textAlign: TextAlign.center,
+      ),
+    );
   }
 
   void changeDate(DateTime v) {
@@ -91,24 +105,42 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
           ),
         ),
       ),
-      body: BlocListener<AbsentBloc, AbsentState>(
-        listener: (context, state) {
-          if (state is AbsentLoading) {
-            setState(() {
-              startAnimation = false;
-            });
-          }
-          if (state is AbsentPeriodLoaded) {
-            Future.delayed(const Duration(milliseconds: 350), () {
-              setState(() {
-                startAnimation = true;
-              });
-            });
-          }
-          if (state is AbsentListHolidayLoaded) {
-            listHoliday = state.listHoliday;
-          }
-        },
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<AbsentBloc, AbsentState>(
+            listener: (context, state) {
+              if (state is AbsentLoading) {
+                setState(() {
+                  startAnimation = false;
+                });
+              }
+              if (state is AbsentPeriodLoaded) {
+                Future.delayed(const Duration(milliseconds: 350), () {
+                  setState(() {
+                    startAnimation = true;
+                  });
+                });
+              }
+              if (state is AbsentListHolidayLoaded) {
+                listHoliday = state.listHoliday;
+              }
+              if (state is AbsentInvalidVersion) {
+                Future.delayed(const Duration(seconds: 3))
+                    .then((value) => dispatchLogout());
+              }
+            },
+          ),
+          BlocListener<AuthBloc, AuthState>(
+            listener: (authContext, state) {
+              if (state is OnLogOutSuccess) {
+                authContext.router.replaceAll([const SplashRoute()]);
+              }
+              if (state is AuthCancelSuccess) {
+                setState(() {});
+              }
+            },
+          ),
+        ],
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -251,6 +283,9 @@ class _AbsentHistoryScreenState extends State<AbsentHistoryScreen> {
                                 },
                               )
                             : const SizedBox();
+                      } else if (state is AbsentInvalidVersion) {
+                        return invalidVersion(
+                            state.invalidVerMsg ?? "Invalid version");
                       } else {
                         return const SizedBox();
                       }

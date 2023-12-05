@@ -9,6 +9,7 @@ abstract class ApprovalState extends Equatable {
   final ApprovalDetailEntity? apprvDetail;
   final List<ApprovalEntity>? listApprv;
   final EntityProfile? profile;
+  final String? invalidErrMsg;
   const ApprovalState({
     this.error,
     this.errMsg,
@@ -16,6 +17,7 @@ abstract class ApprovalState extends Equatable {
     this.apprvDetail,
     this.listApprv,
     this.profile,
+    this.invalidErrMsg,
   });
   @override
   List<Object> get props => [
@@ -29,6 +31,10 @@ abstract class ApprovalState extends Equatable {
 
 class ApprovalScrnDataErr extends ApprovalState {
   const ApprovalScrnDataErr(DioException err) : super(error: err);
+}
+
+class ApprovalError extends ApprovalState {
+  const ApprovalError(String data) : super(errMsg: data);
 }
 
 class ApprovalScrnLoading extends ApprovalState {}
@@ -50,4 +56,8 @@ class ApprovalResponseSubmited extends ApprovalState {
 
 class ApprovalProfileLoaded extends ApprovalState {
   const ApprovalProfileLoaded(EntityProfile data) : super(profile: data);
+}
+
+class ApprovalInvalidVersion extends ApprovalState {
+  const ApprovalInvalidVersion(String data) : super(invalidErrMsg: data);
 }

@@ -15,6 +15,7 @@ abstract class ProfileScreenState extends Equatable {
   final ActivePeriodEntity? period;
   final String? errMsg;
   final List<AbsentEntity>? listAbsent;
+  final String? ivlVerMsg;
   const ProfileScreenState({
     this.error,
     this.profile,
@@ -27,6 +28,7 @@ abstract class ProfileScreenState extends Equatable {
     this.eduEntity,
     this.payroll,
     this.address,
+    this.ivlVerMsg,
   });
   @override
   List<Object> get props => [error!, profile!, errMsg!];
@@ -83,4 +85,8 @@ class ProfileScrnGetPayrollLoaded extends ProfileScreenState {
 
 class ProfileScrnGetAddressLoaded extends ProfileScreenState {
   const ProfileScrnGetAddressLoaded(AddressEntity data) : super(address: data);
+}
+
+class ProfileInvalidVersion extends ProfileScreenState {
+  const ProfileInvalidVersion(String data) : super(ivlVerMsg: data);
 }

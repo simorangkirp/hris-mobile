@@ -33,9 +33,15 @@ class HomeReposImpl implements HomeRepository {
     try {
       final httpResp = await _homeAPIServices.profileInfo(id, header);
 
-      if (httpResp.response.statusCode == HttpStatus.ok) {
+      if (httpResp.response.statusCode! >= 200 &&
+          httpResp.response.statusCode! < 400) {
         log('Response Home Data : ${httpResp.data}');
         return DataSuccess(httpResp.data);
+      } else if (httpResp.response.statusCode == 401) {
+        return DataError(DioException(
+          requestOptions: httpResp.response.requestOptions,
+          response: httpResp.response,
+        ));
       } else {
         return DataError(DioException(
           error: httpResp.response.statusMessage,

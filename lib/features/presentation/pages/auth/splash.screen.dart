@@ -71,9 +71,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 if (defaultTargetPlatform == TargetPlatform.android) {
                   // SystemNavigator.pop();
                   displayScfldMsg(context, "you're on a simulator device!");
-                  // Future.delayed(const Duration(seconds: 2))
-                  //     .then((value) => SystemNavigator.pop());
-                  dispatchAuth();
+                  Future.delayed(const Duration(seconds: 2))
+                      .then((value) => SystemNavigator.pop());
+                  // dispatchAuth();
                 }
                 if (defaultTargetPlatform == TargetPlatform.iOS) {
                   displayScfldMsg(context, "you're on a simulator device!");

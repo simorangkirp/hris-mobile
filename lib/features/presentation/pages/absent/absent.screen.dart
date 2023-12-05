@@ -63,6 +63,18 @@ class _AbsentScreenState extends State<AbsentScreen> {
     BlocProvider.of<AuthBloc>(context).add(AuthCancelLogout());
   }
 
+  Widget invalidVersion(String msg) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          msg,
+          style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -98,6 +110,10 @@ class _AbsentScreenState extends State<AbsentScreen> {
                   }
                 }
               }
+            }
+            if (state is AbsentInvalidVersion) {
+              Future.delayed(const Duration(seconds: 3))
+                  .then((value) => dispatchLogout());
             }
           },
         ),
@@ -140,6 +156,8 @@ class _AbsentScreenState extends State<AbsentScreen> {
               //   () => dispatchCancel(),
               // ),
             );
+          } else if (state is AbsentInvalidVersion) {
+            return invalidVersion(state.invalidVerMsg ?? "Invalid version");
           } else {
             return const Scaffold(
               body: SafeArea(

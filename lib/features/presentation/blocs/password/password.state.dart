@@ -7,11 +7,13 @@ abstract class PasswordState extends Equatable {
   final String? msg, pgNm;
   final AuthModel? authModel;
   final bool? isNotPass;
+  final String? invErrMsg;
   const PasswordState({
     this.msg,
     this.pgNm,
     this.authModel,
     this.isNotPass,
+    this.invErrMsg,
   });
   @override
   List<Object> get props => [];
@@ -37,4 +39,8 @@ class PasswordSuccessReset extends PasswordState {
 
 class PasswordError extends PasswordState {
   const PasswordError(String data) : super(msg: data);
+}
+
+class PasswordInvalidVersion extends PasswordState {
+  const PasswordInvalidVersion(String data) : super(invErrMsg: data);
 }

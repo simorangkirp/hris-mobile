@@ -6,12 +6,14 @@ abstract class HomeState extends Equatable {
   final DioException? error;
   final EntityProfile? profile;
   final String? errMsg;
+  final String? ivlVerMsg;
   final List<ApprovalCountEntity>? listApprv;
   const HomeState({
     this.error,
     this.profile,
     this.errMsg,
     this.listApprv,
+    this.ivlVerMsg,
   });
   @override
   List<Object> get props => [error!, profile!, errMsg!];
@@ -36,4 +38,8 @@ class ErrorMessage extends HomeState {
 class DashboardListAppMsgLoaded extends HomeState {
   const DashboardListAppMsgLoaded(List<ApprovalCountEntity> data)
       : super(listApprv: data);
+}
+
+class DashboardInvalidVersion extends HomeState {
+  const DashboardInvalidVersion(String data) : super(ivlVerMsg: data);
 }

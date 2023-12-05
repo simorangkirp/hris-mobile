@@ -47,6 +47,18 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
     BlocProvider.of<PaidLeaveBloc>(context).add(PaidLeaveGetListData(dtParam));
   }
 
+  Widget invalidPaidLeave(String msg) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          msg,
+          style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
   // void dispatchLogout() {
   //   BlocProvider.of<AuthBloc>(context).add(OnLogOut());
   // }
@@ -125,6 +137,10 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
                 listpl = state.listData;
               });
             }
+            if (state is PaidLeaveInvalidVersion) {
+              Future.delayed(const Duration(seconds: 3))
+                  .then((value) => dispatchLogout());
+            }
           },
         ),
         BlocListener<AuthBloc, AuthState>(
@@ -154,6 +170,9 @@ class _PaidLeaveMainScreenState extends State<PaidLeaveMainScreen> {
                 child: CircularProgressIndicator(),
               ),
             );
+          }
+          if (state is PaidLeaveInvalidVersion) {
+            return invalidPaidLeave(state.invalidErrMsg ?? "Invalid version");
           } else {
             return Scaffold(
               appBar: buildCommAppBar(context, profile),
