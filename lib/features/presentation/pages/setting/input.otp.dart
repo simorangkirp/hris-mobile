@@ -164,7 +164,7 @@ class _InputOTPScreenState extends State<InputOTPScreen> {
                       return l10n.currPwdReq;
                     } else if (val != widget.param) {
                       return l10n.invPwdVal;
-                    } else if (val.length < 9) {
+                    } else if (val.length < 8) {
                       return l10n.minPwdChar;
                     } else {
                       return null;
