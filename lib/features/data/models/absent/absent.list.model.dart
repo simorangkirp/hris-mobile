@@ -21,3 +21,17 @@ class AbsentListModel extends AbsentEntity {
     return data;
   }
 }
+
+class ListAbsentParams {
+  String? uid;
+  String? period;
+  ListAbsentParams(this.uid, this.period);
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['uid'] = uid ?? "";
+    data['periode'] = period ?? "";
+    data['onmobile'] = '1';
+    return data;
+  }
+}

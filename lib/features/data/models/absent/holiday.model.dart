@@ -25,3 +25,20 @@ class HolidayModel {
         "potongjam": potongjam,
       };
 }
+
+class HolidayBodyParams {
+  String? kodeorg;
+  String? tahun;
+  String? tipekaryawan;
+  HolidayBodyParams(
+    this.kodeorg,
+    this.tahun,
+    this.tipekaryawan,
+  );
+
+  Map<String, dynamic> toMap() => {
+        "kodeorg": kodeorg,
+        "tahun": tahun,
+        "tipekaryawan": tipekaryawan,
+      };
+}

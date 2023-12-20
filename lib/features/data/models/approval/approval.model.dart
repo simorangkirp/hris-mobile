@@ -1,4 +1,3 @@
-
 import '../../../../lib.dart';
 
 class ApprovalModel extends ApprovalEntity {
@@ -45,4 +44,63 @@ class ApprovalDetailModel extends ApprovalDetailEntity {
             ),
           ),
         );
+}
+
+class ApprovalListParams {
+  String? uid;
+  String? kodejenis;
+  String? onmobile;
+  ApprovalListParams(this.uid, this.kodejenis, this.onmobile);
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['uid'] = uid ?? "";
+    data['kodejenis'] = kodejenis ?? "";
+    data['onmobile'] = '1';
+    return data;
+  }
+}
+
+class ApprovalDataDetailParams {
+  //   @JsonKey(name: 'uid')
+  String? uid;
+//   @JsonKey(name: 'id')
+  String? id;
+//   @JsonKey(name: 'notransaksi')
+  String? txn;
+//   @JsonKey(name: 'onmobile')
+
+  ApprovalDataDetailParams(this.uid, this.id, this.txn);
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['uid'] = uid ?? "";
+    data['id'] = id ?? "";
+    data['notransaksi'] = txn ?? "";
+    data['onmobile'] = '1';
+    return data;
+  }
+}
+
+class ApprvSubmitParams {
+  String? uid;
+  String? id;
+  String? sts;
+  String? desc;
+  String? spc;
+
+  ApprvSubmitParams(
+    this.uid,
+    this.id,
+    this.sts,
+    this.desc,
+    this.spc,
+  );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['uid'] = uid ?? "";
+    data['id'] = id ?? "";
+    data['status'] = sts ?? "";
+    data['keterangan'] = desc ?? "";
+    data['spcparams'] = spc ?? "";
+    return data;
+  }
 }

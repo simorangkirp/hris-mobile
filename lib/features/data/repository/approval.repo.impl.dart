@@ -4,21 +4,13 @@ import 'package:dio/dio.dart';
 import '../../../lib.dart';
 
 class ApprovalRepoImpl implements ApprovalRepository {
-  final ApprovalApiServices _apiServices;
-  ApprovalRepoImpl(this._apiServices);
+  final RemoteApprovalServicesImpl remoteServices;
+  ApprovalRepoImpl(this.remoteServices);
 
   @override
   Future<DataState> getListApproval(type) async {
-    UserAuthDb auth = UserAuthDb();
-    LoginModel? mods;
-    final res = await auth.getUser();
-    if (res != null) {
-      mods = res;
-    }
-    var params = ApprovalListParams(mods?.uid ?? "-", type, '1');
-    var header = 'Bearer ${mods?.accesstoken}';
     try {
-      final httpResp = await _apiServices.listApproval(params, header);
+      final httpResp = await remoteServices.listApproval();
 
       if (httpResp.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResp.data);
@@ -43,11 +35,9 @@ class ApprovalRepoImpl implements ApprovalRepository {
     if (res != null) {
       mods = res;
     }
-    var params =
-        ApprovalDataDetailParams(mods?.uid ?? "-", mod.id, mod.notxn, '1');
-    var header = 'Bearer ${mods?.accesstoken}';
+    var params = ApprovalDataDetailParams(mods?.uid ?? "-", mod.id, mod.notxn);
     try {
-      final httpResp = await _apiServices.approvalDataDetail(params, header);
+      final httpResp = await remoteServices.approvalDataDetail(params);
 
       if (httpResp.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResp.data);
@@ -75,10 +65,8 @@ class ApprovalRepoImpl implements ApprovalRepository {
 
     var params =
         ApprvSubmitParams(mods?.uid ?? "-", data.id, data.sts, data.desc, null);
-    var header = 'Bearer ${mods?.accesstoken}';
     try {
-      final httpResp =
-          await _apiServices.approvalSubmitResponse(params, header);
+      final httpResp = await remoteServices.approvalSubmitResponse(params);
 
       if (httpResp.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResp.data);

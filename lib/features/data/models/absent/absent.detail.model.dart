@@ -105,3 +105,44 @@ class AbsentDetail {
         "namacustomer": namacustomer,
       };
 }
+
+class SubmitAbsentBodyParams {
+  String? uid;
+  String? date;
+  String? period;
+  String? absent;
+  String? inoutmode;
+  String? hr;
+  String? coordinate;
+  String? photo;
+  String? desc;
+  String? source;
+  String? coorphoto;
+  SubmitAbsentBodyParams(
+    this.uid,
+    this.date,
+    this.period,
+    this.absent,
+    this.inoutmode,
+    this.hr,
+    this.coordinate,
+    this.photo,
+    this.desc,
+    this.source,
+    this.coorphoto,
+  );
+
+  Map<String, dynamic> toMap() => {
+        "uid": uid,
+        "periode": period,
+        "tanggal": date,
+        "absensi": absent,
+        "inoutmode": inoutmode,
+        "jam": hr,
+        "coordinate": coordinate,
+        "coorphoto": coorphoto,
+        "photo": photo,
+        "source": "mobile",
+        "keterangan": desc,
+      };
+}

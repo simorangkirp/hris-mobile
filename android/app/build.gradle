@@ -59,6 +59,22 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "OWL ESS"
+    productFlavors{
+        dev{
+            dimension "OWL ESS"
+            // applicationIdSuffix ".dev"
+            resValue "string", "app_name", "OWL ESS Dev"
+            // versionNameSuffix ".dev"
+        }
+        prod{
+            dimension "OWL ESS"
+            // applicationIdSuffix ".prod"
+            resValue "string", "app_name", "OWL ESS Prod"
+            // versionNameSuffix ".prod"
+        }
+    }
 }
 
 flutter {

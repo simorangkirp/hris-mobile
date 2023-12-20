@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../lib.dart';
-import '../../../data/models/language/theme.model.dart';
+import '../../../data/models/settings/theme.model.dart';
 
 const languagePrefsKey = 'languagePrefs';
 const themePrefsKey = 'themePrefs';

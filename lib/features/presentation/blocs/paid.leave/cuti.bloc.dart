@@ -174,7 +174,7 @@ class PaidLeaveBloc extends Bloc<PaidLeaveEvent, PaidLeaveState> {
               emit(PaidLeaveInvalidVersion(errMsg));
               return;
             } else {
-              errMsg = data['messages'];
+              errMsg = data['messages']['error'];
             }
             // errMsg = dataState.error!.response!.data['messages']['error'];
           }

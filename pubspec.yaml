@@ -109,6 +109,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   firebase_core: ^2.20.0
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -122,9 +123,6 @@ dev_dependencies:
   test: ^1.24.2
 
 flutter:
-  generate: true
-  uses-material-design: true
-
   assets:
     - assets/font/
     - assets/image/
@@ -132,6 +130,11 @@ flutter:
     - assets/icons/
     - assets/lotties/
     - assets/lotties/intro/
+    - assets/env/.env.dev
+    - assets/env/.env.prod
+    
+  generate: true
+  uses-material-design: true
 
 fonts:
   - family: Inter

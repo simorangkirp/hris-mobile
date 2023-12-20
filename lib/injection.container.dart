@@ -9,20 +9,19 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<Dio>(Dio());
 
   // Services
-  sl.registerSingleton(LoginAPIServices(sl()));
-  sl.registerSingleton(AbsentAPIServices(sl()));
+  sl.registerSingleton(RemoteLoginScreenServicesImpl(dio: sl()));
+  sl.registerSingleton(RemoteAbsentServicesImpl(dio: sl()));
   sl.registerSingleton(UserAuthDb());
   sl.registerSingleton(ProfileInfoDb());
-  sl.registerSingleton(HomeApiServices(sl()));
-  sl.registerSingleton(ProfileAPIServices(sl()));
-  sl.registerSingleton(NotifAPIServices(sl()));
-  sl.registerSingleton(ApprovalApiServices(sl()));
-  sl.registerSingleton(PaidLeaveAPIService(sl()));
-  sl.registerSingleton(SettingAPIServices(sl()));
+  sl.registerSingleton(RemoteDashboardServicesImpl(dio: sl()));
+  sl.registerSingleton(RemoteProfileServicesImpl(dio: sl()));
+  sl.registerSingleton(RemoteNotifServicesImpl(dio: sl()));
+  sl.registerSingleton(RemoteApprovalServicesImpl(dio: sl()));
+  sl.registerSingleton(RemotePaidLeaveServicesImpl(dio: sl()));
+  sl.registerSingleton(RemoteSettingServicesImpl(dio: sl()));
 
   // Repository
-  sl.registerSingleton<UserAuthRepository>(
-      LoginRepositoryImpl(sl(), '', '', sl()));
+  sl.registerSingleton<UserAuthRepository>(LoginRepositoryImpl(sl(), sl()));
   sl.registerSingleton<AbsentRepository>(AbsentReposImplement(sl()));
   sl.registerSingleton<HomeRepository>(HomeReposImpl(sl()));
   sl.registerSingleton<ProfileRepository>(ProfileRepoImpl(sl()));

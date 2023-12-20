@@ -5,8 +5,8 @@ import 'package:dio/dio.dart';
 import '../../../lib.dart';
 
 class HomeReposImpl implements HomeRepository {
-  final HomeApiServices _homeAPIServices;
-  HomeReposImpl(this._homeAPIServices);
+  final RemoteDashboardServicesImpl remoteServices;
+  HomeReposImpl(this.remoteServices);
   @override
   Future<DataState> getActiveTask() {
     // TODO: implement getActiveTask
@@ -21,17 +21,8 @@ class HomeReposImpl implements HomeRepository {
 
   @override
   Future<DataState> getProfileInfo(String uid) async {
-    UserAuthDb auth = UserAuthDb();
-    var id = uid;
-    LoginModel? mods;
-    final res = await auth.getUser();
-    if (res != null) {
-      mods = res;
-    }
-    var header = 'Bearer ${mods?.accesstoken}';
-
     try {
-      final httpResp = await _homeAPIServices.profileInfo(id, header);
+      final httpResp = await remoteServices.profileInfo();
 
       if (httpResp.response.statusCode! >= 200 &&
           httpResp.response.statusCode! < 400) {
@@ -57,17 +48,8 @@ class HomeReposImpl implements HomeRepository {
 
   @override
   Future<DataState> getListApprvMsg() async {
-    UserAuthDb auth = UserAuthDb();
-    LoginModel? mods;
-    final res = await auth.getUser();
-    if (res != null) {
-      mods = res;
-    }
-    var params = DashboardApproval(mods?.uid ?? "-", '1');
-    var header = 'Bearer ${mods?.accesstoken}';
     try {
-      final httpResp =
-          await _homeAPIServices.dashboardScreenApprovalData(params, header);
+      final httpResp = await remoteServices.dashboardScreenApprovalData();
 
       if (httpResp.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResp.data);

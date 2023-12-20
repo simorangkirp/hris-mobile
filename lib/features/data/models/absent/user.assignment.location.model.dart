@@ -41,3 +41,24 @@ class UserAssignLocationModel {
         "statusrealisasi": statusrealisasi,
       };
 }
+
+class UserAssignLocBodyParams {
+  String? uid;
+  String? date;
+
+  UserAssignLocBodyParams(this.uid, this.date);
+  Map<String, dynamic> toMap() => {
+        "uid": uid,
+        "tanggal": date,
+      };
+}
+
+class PINBodyParams {
+  String? uid;
+  String? pin;
+  PINBodyParams(this.uid, this.pin);
+  Map<String, dynamic> toMap() => {
+        "uid": uid,
+        "pin": pin,
+      };
+}

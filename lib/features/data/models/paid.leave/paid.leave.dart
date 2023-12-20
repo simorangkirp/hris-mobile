@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../lib.dart';
 
-
 class PaidLeaveCatDetail {
   String? idjenis;
   String? jenisijin;
@@ -446,4 +445,95 @@ class PaidLeaveFileUpload {
         "updated_at": updatedAt,
         "updated_by": updatedBy,
       };
+}
+
+class CatDetailBodyParam {
+  String? idkelompok;
+  CatDetailBodyParam(this.idkelompok);
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> data = {};
+    data['idkelompok'] = idkelompok ?? "";
+    return data;
+  }
+}
+
+class PaidLeaveDetailBodyParam {
+  String? uid;
+  String? notransaksi;
+
+  PaidLeaveDetailBodyParam(
+    this.uid,
+    this.notransaksi,
+  );
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['uid'] = uid ?? "";
+    data['notransaksi'] = notransaksi ?? "";
+    data['onmobile'] = '1';
+    return data;
+  }
+}
+
+class SubmitPaidLeaveBodyParams {
+  String? uid;
+  String? tglpengajuan;
+  String? keterangan;
+  String? tgldari;
+  String? tglsampai;
+  String? idjenis;
+  String? jumlahhari;
+  String? tglmulaikerja;
+  String? fileupload;
+
+  SubmitPaidLeaveBodyParams(
+    this.uid,
+    this.tglpengajuan,
+    this.keterangan,
+    this.tgldari,
+    this.tglsampai,
+    this.idjenis,
+    this.jumlahhari,
+    this.tglmulaikerja,
+    this.fileupload,
+  );
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['uid'] = uid ?? "";
+    data['tglpengajuan'] = tglpengajuan ?? "";
+    data['keterangan'] = keterangan ?? "";
+    data['tgldari'] = tgldari ?? "";
+    data['tglsampai'] = tglsampai ?? "";
+    data['idjenis'] = idjenis ?? "";
+    data['jumlahhari'] = jumlahhari ?? "";
+    data['tglmulaikerja'] = tglmulaikerja ?? "";
+    data['fileupload'] = fileupload ?? "";
+    data['typefile'] = "base64";
+    data['onmobile'] = '1';
+    return data;
+  }
+
+  //   @JsonKey(name: 'uid')
+//   String? uid;
+//   @JsonKey(name: 'tglpengajuan')
+//   String? tglpengajuan;
+//   @JsonKey(name: 'keterangan')
+//   String? keterangan;
+//   @JsonKey(name: 'tgldari')
+//   String? tgldari;
+//   @JsonKey(name: 'tglsampai')
+//   String? tglsampai;
+//   @JsonKey(name: 'idjenis')
+//   String? idjenis;
+//   @JsonKey(name: 'jumlahhari')
+//   String? jumlahhari;
+//   @JsonKey(name: 'tglmulaikerja')
+//   String? tglmulaikerja;
+//   @JsonKey(name: 'fileupload')
+//   String? fileupload;
+//   @JsonKey(name: 'typefile')
+//   String? typefile;
+//   @JsonKey(name: 'onmobile')
+//   String? onmobile;
 }

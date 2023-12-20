@@ -74,6 +74,8 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
     }
   }
 
+  final GlobalKey<FormState> absentFormKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -177,420 +179,437 @@ class _SubmitAbsentScreenState extends State<SubmitAbsentScreen> {
           },
           child: SingleChildScrollView(
             controller: ctrl,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16.h),
-                IntrinsicHeight(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              l10n.date,
-                              style: theme.textTheme.displaySmall,
-                            ),
-                            SizedBox(height: 2.h),
-                            Text(
-                              DateFormat('EEE, dd MMM yyyy')
-                                  .format(DateTime.now()),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14.sp,
+            child: Form(
+              key: absentFormKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 16.h),
+                  IntrinsicHeight(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                l10n.date,
+                                style: theme.textTheme.displaySmall,
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 2.w),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              l10n.hour,
-                              style: theme.textTheme.displaySmall,
-                            ),
-                            SizedBox(height: 2.h),
-                            StreamBuilder(
-                              stream:
-                                  Stream.periodic(const Duration(seconds: 1)),
-                              builder: (context, snapshot) {
-                                return Text(
-                                  DateFormat('HH:mm:ss').format(DateTime.now()),
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14.sp,
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 12.h),
-                IntrinsicHeight(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              l10n.assignmentLocation,
-                              style: theme.textTheme.displaySmall,
-                            ),
-                            SizedBox(height: 2.h),
-                            Text(
-                              'OWL HO',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14.sp,
+                              SizedBox(height: 2.h),
+                              Text(
+                                DateFormat('EEE, dd MMM yyyy')
+                                    .format(DateTime.now()),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14.sp,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: !isAddDesc
-                            ? GestureDetector(
-                                onTap: () {
-                                  dispatchAddComment();
+                        SizedBox(width: 2.w),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                l10n.hour,
+                                style: theme.textTheme.displaySmall,
+                              ),
+                              SizedBox(height: 2.h),
+                              StreamBuilder(
+                                stream:
+                                    Stream.periodic(const Duration(seconds: 1)),
+                                builder: (context, snapshot) {
+                                  return Text(
+                                    DateFormat('HH:mm:ss')
+                                        .format(DateTime.now()),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14.sp,
+                                    ),
+                                  );
                                 },
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: appBtnBlue,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 12.h),
+                  IntrinsicHeight(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                l10n.assignmentLocation,
+                                style: theme.textTheme.displaySmall,
+                              ),
+                              SizedBox(height: 2.h),
+                              Text(
+                                'OWL HO',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: !isAddDesc
+                              ? GestureDetector(
+                                  onTap: () {
+                                    dispatchAddComment();
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: appBtnBlue,
+                                        ),
+                                        padding: EdgeInsets.all(4.w),
+                                        child: Icon(
+                                          Icons.add,
+                                          size: 12.w,
+                                          color: appBgWhite,
+                                        ),
                                       ),
-                                      padding: EdgeInsets.all(4.w),
-                                      child: Icon(
-                                        Icons.add,
-                                        size: 12.w,
-                                        color: appBgWhite,
+                                      SizedBox(width: 4.w),
+                                      Text(
+                                        l10n.desc,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14.sp,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Row(
+                                  children: [
+                                    Expanded(
+                                      child: CustomFormTextField(
+                                        label: l10n.desc,
+                                        maxLength: 128,
+                                        controller: desCtrl,
                                       ),
                                     ),
                                     SizedBox(width: 4.w),
-                                    Text(
-                                      l10n.desc,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14.sp,
+                                    GestureDetector(
+                                      onTap: () {
+                                        dispatchRemoveComment();
+                                      },
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: appImperialRed,
+                                        ),
+                                        padding: EdgeInsets.all(4.w),
+                                        child: Icon(
+                                          Icons.close,
+                                          size: 12.w,
+                                          color: appBgWhite,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
-                              )
-                            : Row(
-                                children: [
-                                  Expanded(
-                                    child: CustomFormTextField(
-                                      label: l10n.desc,
-                                      maxLength: 128,
-                                      controller: desCtrl,
-                                    ),
-                                  ),
-                                  SizedBox(width: 4.w),
-                                  GestureDetector(
-                                    onTap: () {
-                                      dispatchRemoveComment();
-                                    },
-                                    child: Container(
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: appImperialRed,
-                                      ),
-                                      padding: EdgeInsets.all(4.w),
-                                      child: Icon(
-                                        Icons.close,
-                                        size: 12.w,
-                                        color: appBgWhite,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: 8.h),
-                Text(
-                  l10n.photo,
-                  style: theme.textTheme.displaySmall,
-                ),
-                SizedBox(height: 8.h),
-                InkWell(
-                  onTap: () {
-                    context.router
-                        .push(
-                          AbsentCameraRoute(
-                              inout: widget.inout, period: widget.period),
-                        )
-                        .then((value) => onGoBack());
-                    // context.router
-                    //     .pushAndPopUntil(
-                    //         AbsentCameraRoute(
-                    //             inout: widget.inout, period: widget.period),
-                    //         predicate: (route) => false,
-                    //         onFailure: (failure) => '/',
-                    //         scopedPopUntil: true)
-                    //     .then((value) => onGoBack());
-                    // Navigator.of(context).pushAndRemoveUntil(
-                    //     MaterialPageRoute(
-                    //         builder: (BuildContext context) =>
-                    //             const AbsentCameraScreen()),
-                    //     (Route<dynamic> route) =>
-                    //         false // Replace this with your root screen's route name (usually '/')
-                    //     );
-                  },
-                  child: photo != null
-                      ? Material(
-                          borderRadius: BorderRadius.circular(12),
-                          elevation: 8,
-                          child: ClipRRect(
+                  SizedBox(height: 8.h),
+                  Text(
+                    l10n.photo,
+                    style: theme.textTheme.displaySmall,
+                  ),
+                  SizedBox(height: 8.h),
+                  InkWell(
+                    onTap: () {
+                      context.router
+                          .push(
+                            AbsentCameraRoute(
+                                inout: widget.inout, period: widget.period),
+                          )
+                          .then((value) => onGoBack());
+                      // context.router
+                      //     .pushAndPopUntil(
+                      //         AbsentCameraRoute(
+                      //             inout: widget.inout, period: widget.period),
+                      //         predicate: (route) => false,
+                      //         onFailure: (failure) => '/',
+                      //         scopedPopUntil: true)
+                      //     .then((value) => onGoBack());
+                      // Navigator.of(context).pushAndRemoveUntil(
+                      //     MaterialPageRoute(
+                      //         builder: (BuildContext context) =>
+                      //             const AbsentCameraScreen()),
+                      //     (Route<dynamic> route) =>
+                      //         false // Replace this with your root screen's route name (usually '/')
+                      //     );
+                    },
+                    child: photo != null
+                        ? Material(
                             borderRadius: BorderRadius.circular(12),
-                            child: SizedBox(
-                              width: double.maxFinite,
-                              height: 0.48.sh,
-                              child: Image.memory(
-                                photo!,
-                                gaplessPlayback: true,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        )
-                      : Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: appDivider.withOpacity(0.4),
-                          ),
-                          width: double.maxFinite,
-                          height: 0.48.sh,
-                          child: Center(
-                            child: SizedBox(
-                              height: 0.2.sh,
-                              width: 0.2.sh,
-                              child: SvgPicture.asset(
-                                ConstIconPath.cameraIcon,
-                                colorFilter: const ColorFilter.mode(
-                                    appBgWhite, BlendMode.srcIn),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                ),
-                SizedBox(height: 18.h),
-                Visibility(
-                  visible: !isCheck,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Material(
-                        elevation: 4,
-                        borderRadius: BorderRadius.circular(12),
-                        child: InkWell(
-                          onTap: () {
-                            modalBtnPIN(
-                              context,
-                              listCtrl,
-                              () => submitPIN(),
-                            );
-                          },
-                          child: Container(
-                            height: 36.h,
-                            width: 36.h,
-                            decoration: BoxDecoration(
+                            elevation: 8,
+                            child: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
-                              color: appBgWhite,
-                              border: Border.all(
-                                color: appBtnBlue.withOpacity(0.6),
-                                width: 2,
+                              child: SizedBox(
+                                width: double.maxFinite,
+                                height: 0.48.sh,
+                                child: Image.memory(
+                                  photo!,
+                                  gaplessPlayback: true,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
+                          )
+                        : Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: appDivider.withOpacity(0.4),
+                            ),
+                            width: double.maxFinite,
+                            height: 0.48.sh,
                             child: Center(
-                              child: SvgPicture.asset(
-                                ConstIconPath.pinIcon,
-                                colorFilter: ColorFilter.mode(
-                                    appBgBlack.withOpacity(0.7),
-                                    BlendMode.srcIn),
+                              child: SizedBox(
+                                height: 0.2.sh,
+                                width: 0.2.sh,
+                                child: SvgPicture.asset(
+                                  ConstIconPath.cameraIcon,
+                                  colorFilter: const ColorFilter.mode(
+                                      appBgWhite, BlendMode.srcIn),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                  ),
+                  SizedBox(height: 18.h),
+                  Visibility(
+                    visible: !isCheck,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Material(
+                          elevation: 4,
+                          borderRadius: BorderRadius.circular(12),
+                          child: InkWell(
+                            onTap: () {
+                              modalBtnPIN(
+                                context,
+                                listCtrl,
+                                () => submitPIN(),
+                              );
+                            },
+                            child: Container(
+                              height: 36.h,
+                              width: 36.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: appBgWhite,
+                                border: Border.all(
+                                  color: appBtnBlue.withOpacity(0.6),
+                                  width: 2,
+                                ),
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  ConstIconPath.pinIcon,
+                                  colorFilter: ColorFilter.mode(
+                                      appBgBlack.withOpacity(0.7),
+                                      BlendMode.srcIn),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Visibility(
+                        Visibility(
+                            visible:
+                                defaultTargetPlatform == TargetPlatform.android,
+                            child: SizedBox(width: 24.w)),
+                        Visibility(
                           visible:
                               defaultTargetPlatform == TargetPlatform.android,
-                          child: SizedBox(width: 24.w)),
-                      Visibility(
-                        visible:
-                            defaultTargetPlatform == TargetPlatform.android,
-                        child: Material(
-                          elevation: 4,
-                          borderRadius: BorderRadius.circular(12),
-                          child: InkWell(
-                            onTap: () async {
-                              final isAuth = await LocalAuthAPI.authenticate();
-                              if (isAuth) {
-                                setState(() {
-                                  isCheck = true;
-                                });
-                              }
-                            },
-                            child: Container(
-                              height: 36.h,
-                              width: 36.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: appBgWhite,
-                                border: Border.all(
-                                  color: appBtnBlue.withOpacity(0.6),
-                                  width: 2,
+                          child: Material(
+                            elevation: 4,
+                            borderRadius: BorderRadius.circular(12),
+                            child: InkWell(
+                              onTap: () async {
+                                final isAuth =
+                                    await LocalAuthAPI.authenticate();
+                                if (isAuth) {
+                                  setState(() {
+                                    isCheck = true;
+                                  });
+                                }
+                              },
+                              child: Container(
+                                height: 36.h,
+                                width: 36.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: appBgWhite,
+                                  border: Border.all(
+                                    color: appBtnBlue.withOpacity(0.6),
+                                    width: 2,
+                                  ),
                                 ),
-                              ),
-                              child: Center(
-                                child: SvgPicture.asset(
-                                  ConstIconPath.fingerPrintIcon,
-                                  colorFilter: ColorFilter.mode(
-                                      appBgBlack.withOpacity(0.7),
-                                      BlendMode.srcIn),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    ConstIconPath.fingerPrintIcon,
+                                    colorFilter: ColorFilter.mode(
+                                        appBgBlack.withOpacity(0.7),
+                                        BlendMode.srcIn),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Visibility(
+                        Visibility(
+                            visible:
+                                defaultTargetPlatform == TargetPlatform.iOS,
+                            child: SizedBox(width: 24.w)),
+                        Visibility(
                           visible: defaultTargetPlatform == TargetPlatform.iOS,
-                          child: SizedBox(width: 24.w)),
-                      Visibility(
-                        visible: defaultTargetPlatform == TargetPlatform.iOS,
-                        child: Material(
-                          elevation: 4,
-                          borderRadius: BorderRadius.circular(12),
-                          child: InkWell(
-                            onTap: () async {
-                              final isAuth = await LocalAuthAPI.authenticate();
-                              if (isAuth) {
-                                setState(() {
-                                  isCheck = true;
-                                });
-                              }
-                            },
-                            child: Container(
-                              height: 36.h,
-                              width: 36.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: appBgWhite,
-                                border: Border.all(
-                                  color: appBtnBlue.withOpacity(0.6),
-                                  width: 2,
+                          child: Material(
+                            elevation: 4,
+                            borderRadius: BorderRadius.circular(12),
+                            child: InkWell(
+                              onTap: () async {
+                                final isAuth =
+                                    await LocalAuthAPI.authenticate();
+                                if (isAuth) {
+                                  setState(() {
+                                    isCheck = true;
+                                  });
+                                }
+                              },
+                              child: Container(
+                                height: 36.h,
+                                width: 36.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: appBgWhite,
+                                  border: Border.all(
+                                    color: appBtnBlue.withOpacity(0.6),
+                                    width: 2,
+                                  ),
                                 ),
-                              ),
-                              child: Center(
-                                child: SvgPicture.asset(
-                                  ConstIconPath.faceIdIcon,
-                                  colorFilter: ColorFilter.mode(
-                                      appBgBlack.withOpacity(0.7),
-                                      BlendMode.srcIn),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    ConstIconPath.faceIdIcon,
+                                    colorFilter: ColorFilter.mode(
+                                        appBgBlack.withOpacity(0.7),
+                                        BlendMode.srcIn),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                // SizedBox(height: 12.h),
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 500),
-                  transitionBuilder: (child, animation) {
-                    return ScaleTransition(scale: animation, child: child);
-                  },
-                  child: Visibility(
-                    key: ValueKey(isCheck),
-                    visible: isCheck,
+                  // SizedBox(height: 12.h),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    transitionBuilder: (child, animation) {
+                      return ScaleTransition(scale: animation, child: child);
+                    },
+                    child: Visibility(
+                      key: ValueKey(isCheck),
+                      visible: isCheck,
+                      child: Container(
+                        width: double.maxFinite,
+                        height: 48.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: appNotifAbsIcn,
+                            width: 2,
+                          ),
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 8.h),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              l10n.scs_auth_msg,
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w700,
+                                color: appNotifAbsIcn,
+                              ),
+                            ),
+                            SvgPicture.asset(
+                              height: 16.h,
+                              ConstIconPath.checkIcon,
+                              colorFilter: const ColorFilter.mode(
+                                  appNotifAbsIcn, BlendMode.srcIn),
+                              fit: BoxFit.fill,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 12.h),
+                  InkWell(
+                    onTap: () {
+                      if (absentFormKey.currentState!.validate()) {
+                        if (photo == null) {
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(failSnackBar(
+                              message: l10n.photo_req,
+                            ));
+                        } else {
+                          if (isCheck) {
+                            determinePosition().then((value) {
+                              if (value) {
+                                dispatchSubmitAbsent();
+                              }
+                            });
+                          }
+                        }
+                      }
+                    },
                     child: Container(
-                      width: double.maxFinite,
-                      height: 48.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: appNotifAbsIcn,
-                          width: 2,
-                        ),
+                        color: isCheck ? appBtnBlue : appDivider,
                       ),
-                      padding: EdgeInsets.symmetric(horizontal: 8.h),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            l10n.scs_auth_msg,
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                              color: appNotifAbsIcn,
-                            ),
+                      width: double.maxFinite,
+                      height: 42.h,
+                      child: Center(
+                        child: Text(
+                          l10n.submitBtn,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16.sp,
+                            color: appBgWhite,
                           ),
-                          SvgPicture.asset(
-                            height: 16.h,
-                            ConstIconPath.checkIcon,
-                            colorFilter: const ColorFilter.mode(
-                                appNotifAbsIcn, BlendMode.srcIn),
-                            fit: BoxFit.fill,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 12.h),
-                InkWell(
-                  onTap: () {
-                    if (isCheck) {
-                      determinePosition().then((value) {
-                        if (value) {
-                          dispatchSubmitAbsent();
-                        }
-                      });
-                    }
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: isCheck ? appBtnBlue : appDivider,
-                    ),
-                    width: double.maxFinite,
-                    height: 42.h,
-                    child: Center(
-                      child: Text(
-                        l10n.submitBtn,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16.sp,
-                          color: appBgWhite,
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 12.h),
-              ],
+                  SizedBox(height: 12.h),
+                ],
+              ),
             ),
           ),
         ),

@@ -14,20 +14,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../lib.dart';
 
 class LoginRepositoryImpl implements UserAuthRepository {
-  final String userNm, pwd;
-  final LoginAPIServices _loginAPIServices;
+  final RemoteLoginScreenServicesImpl remoteServices;
   final UserAuthDb db;
-  LoginRepositoryImpl(this._loginAPIServices, this.userNm, this.pwd, this.db);
+  LoginRepositoryImpl(this.remoteServices, this.db);
   @override
   Future<DataState> loginUser(userNm, pwd) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     var version = packageInfo.version;
-    // var build = packageInfo.buildNumber;
-    // var paramVer = 'v$build($version)';
     var paramVer = version;
-    var params = LoginParam(userNm, pwd, paramVer, '1');
+    var params = RemoteLoginModel(userNm, pwd, paramVer);
     try {
-      final httpResp = await _loginAPIServices.loginUser(params);
+      final httpResp = await remoteServices.login(params);
       if (httpResp.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResp.data);
       } else {
@@ -88,13 +85,10 @@ class LoginRepositoryImpl implements UserAuthRepository {
     } catch (e) {
       throw Exception('Session is Expired');
     }
-    // if (mods != null) {
-    //   mods = res;
-    // }
     var header = 'Bearer ${mods?.accesstoken}';
 
     try {
-      final httpResp = await _loginAPIServices.profileInfo(id, header);
+      final httpResp = await remoteServices.getProfileInfo(id, header);
 
       if (httpResp.response.statusCode == HttpStatus.ok) {
         log('Response Profile Data : ${httpResp.data}');
@@ -126,17 +120,9 @@ class LoginRepositoryImpl implements UserAuthRepository {
 
   @override
   Future<DataState> getAuthActPeriod(String dt, String loc) async {
-    var params = AuthScrnActPeriodParams(dt, loc);
-    UserAuthDb auth = UserAuthDb();
-    LoginModel? mods;
-    final res = await auth.getUser();
-    if (res != null) {
-      mods = res;
-    }
-    var header = 'Bearer ${mods?.accesstoken}';
+    var params = RemoteLoginActPeriodModel(dt, loc);
     try {
-      final httpResp =
-          await _loginAPIServices.profileScrnActPeriod(params, header);
+      final httpResp = await remoteServices.getActPeriod(params);
 
       if (httpResp.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResp.data);
@@ -161,9 +147,7 @@ class LoginRepositoryImpl implements UserAuthRepository {
       if (user.expaccess != null) {
         DateTime date =
             DateFormat("yyyy-MM-dd hh:mm:ss").parse(user.expaccess!);
-        // convertStringToDateFormat(_login.expToken!, "dd-MMM-yyyy HH:mm:ss");
         if ((date.difference(now).inSeconds - 10).isNegative) {
-          // await refreshToken(db);
           return false;
         } else {
           return true;
@@ -172,7 +156,6 @@ class LoginRepositoryImpl implements UserAuthRepository {
         return false;
       }
     } else {
-      // throw UnauthorisedException('Session is Expired');
       return false;
     }
   }

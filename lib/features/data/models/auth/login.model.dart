@@ -20,6 +20,35 @@ class AuthModel {
       };
 }
 
+class RemoteLoginModel {
+  String? username;
+  String? pw;
+  String? version;
+  RemoteLoginModel(this.username, this.pw, this.version);
+
+  Map<String, dynamic> toLogin() {
+    final Map<String, dynamic> data = {};
+    data['namauser'] = username ?? "";
+    data['password'] = pw ?? "";
+    data['version'] = version ?? "";
+    data['onmobile'] = "1";
+    return data;
+  }
+}
+
+class RemoteLoginActPeriodModel {
+  String? loc;
+  String? dt;
+  RemoteLoginActPeriodModel(this.loc, this.dt);
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['tanggal'] = dt ?? "";
+    data['lokasitugas'] = loc ?? "";
+    // data['onmobile'] = "1";
+    return data;
+  }
+}
+
 class LoginModel extends LoginEntity {
   const LoginModel({
     required String userid,
@@ -53,6 +82,7 @@ class LoginModel extends LoginEntity {
     data['activeVersion'] = activeVersion ?? "";
     return data;
   }
+
   // factory LoginModel.fromJson(Map<String, dynamic> map) {
   //   return LoginModel(
   //     userid: map['userid'] ?? "",
