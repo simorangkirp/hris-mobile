@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../lib.dart';
 
 class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
-  final AbsentUsecaseGetActPeriod actPeriod;
+  final AuthGetActPeriodUseCase actPeriod;
   final GetUserCurrentPeriodAbsentList getCurrPeriodAbsnt;
   final GetListCameraClockIn getCameraList;
   final GetUserAssignLocationUseCase userAssignLocUsecase;
@@ -112,10 +115,21 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
       AbsentScrnActPeriod event, Emitter<AbsentState> emit) async {
     // String errMsg = '';
     emit(AbsentLoading());
-    final dataState = await actPeriod.call(NoParams());
+    var dt = DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? jsonBody = prefs.getString('ProfileDetailInfo');
+    ProfileModel? log;
+    if (jsonBody != null) {
+      final map = json.decode(jsonBody) as Map<String, dynamic>;
+      log = ProfileModel.fromJson(map);
+    }
+    final dataState =
+        await actPeriod.call(GetActPeriodParams(dt, log?.lokasitugas ?? "-"));
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
-        emit(AbsentScrnActPeriodLoaded(dataState.data));
+        var begin = dataState.data['data'] as Map<String, dynamic>;
+        var data = ActivePeriodModel.fromJson(begin);
+        emit(AbsentScrnActPeriodLoaded(data));
       }
     }
   }
@@ -192,7 +206,7 @@ class AbsentBloc extends Bloc<AbsentEvent, AbsentState> {
               emit(AbsentInvalidVersion(errMsg));
               return;
             } else {
-              errMsg = dataState.error!.response!.data['messages'];
+              errMsg = dataState.error!.response!.data['message'];
               log(errMsg);
             }
           }

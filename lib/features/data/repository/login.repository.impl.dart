@@ -120,7 +120,7 @@ class LoginRepositoryImpl implements UserAuthRepository {
 
   @override
   Future<DataState> getAuthActPeriod(String dt, String loc) async {
-    var params = RemoteLoginActPeriodModel(dt, loc);
+    var params = RemoteLoginActPeriodModel(loc, dt);
     try {
       final httpResp = await remoteServices.getActPeriod(params);
 

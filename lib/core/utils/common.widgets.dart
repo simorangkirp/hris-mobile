@@ -720,6 +720,10 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
   String title = "";
   late int? selectedMonth;
   ScrollController ctrl = ScrollController();
+  DateTime reset = DateTime(1900, 0, 1);
+  bool yearPick = false;
+
+  DateTime date = DateTime.now();
 
   onSelectedMonth(MonthModel mod) {
     if (!yearPick) {
@@ -743,7 +747,7 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
     if (yearPick) {
       yearPick = !yearPick;
       if (mod.name != null) {
-        title = mod.name!;
+        date= DateTime(int.parse(mod.name!));
       }
       list.clear();
       onGenerateListMonth(reset);
@@ -762,18 +766,22 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
     }
   }
 
-  DateTime reset = DateTime(1900, 0, 1);
-  bool yearPick = false;
-
-  DateTime date = DateTime.now();
-
   onChgDisplay() {
     yearPick = !yearPick;
     showConfirm = false;
     list.clear();
-    for (int i = 0; i <= 12; i++) {
+    // Plus Year
+    for (int j = 1; j < 6; j++) {
+      list.add(MonthModel((date.year + j), (date.year + j).toString(), false));
+    }
+    list.add(MonthModel((date.year), (date.year).toString(), false));
+    // Minus Year
+    for (int i = 1; i < 7; i++) {
       list.add(MonthModel((date.year - i), (date.year - i).toString(), false));
     }
+    list.sort(
+      (a, b) => a.index!.compareTo(b.index!),
+    );
     setState(() {});
   }
 
@@ -824,7 +832,7 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
                     child: GestureDetector(
                       onTap: () => onChgDisplay(),
                       child: Text(
-                        title,
+                        date.year.toString(),
                         style: TextStyle(
                           fontSize: 16.sp,
                         ),
@@ -981,8 +989,10 @@ class _CommonMonthPickerState extends State<CommonMonthPicker> {
                           }
                         }
                         if (selectedMonth != null) {
-                          widget.onConfirm(
-                              DateTime(int.parse(title), selectedMonth!, 1));
+                          widget.onConfirm(DateTime(
+                              int.parse(date.year.toString()),
+                              selectedMonth!,
+                              1));
                         }
                       },
                       child: Text(

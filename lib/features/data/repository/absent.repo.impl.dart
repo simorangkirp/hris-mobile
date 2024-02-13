@@ -134,14 +134,32 @@ class AbsentReposImplement implements AbsentRepository {
   }
 
   @override
-  Future<DataState> getUserActPeriod() async {
-    UserAuthDb auth = UserAuthDb();
-    ActivePeriodModel? mods;
-    final res = await auth.getActPeriod();
-    if (res != null) {
-      mods = res;
+  Future<DataState> getUserActPeriod(String dt, String loc) async {
+    // UserAuthDb auth = UserAuthDb();
+    // ActivePeriodModel? mods;
+    // final res = await auth.getActPeriod();
+    // if (res != null) {
+    //   mods = res;
+    // }
+    // return DataSuccess(mods);
+
+    var params = RemoteLoginActPeriodModel(loc, dt);
+    try {
+      final httpResp = await remoteServices.actPeriod(params);
+
+      if (httpResp.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResp.data);
+      } else {
+        return DataError(DioException(
+          error: httpResp.response.statusMessage,
+          response: httpResp.response,
+          type: DioExceptionType.badResponse,
+          requestOptions: httpResp.response.requestOptions,
+        ));
+      }
+    } on DioException catch (e) {
+      return DataError(e);
     }
-    return DataSuccess(mods);
   }
 
   @override

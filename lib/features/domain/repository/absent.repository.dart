@@ -14,7 +14,7 @@ abstract class AbsentRepository {
   Future<DataState> submitUserAbsent(SubmitUserAbsentParams params);
 
   Future<DataState> getUserAssignLoc();
-  Future<DataState> getUserActPeriod();
+  Future<DataState> getUserActPeriod(String dt, String loc);
   Future<DataState> getUserInfo();
   Future<DataState> getHolidayList();
 

@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:owl_hris/core/resources/data.state.dart';
 import 'package:owl_hris/core/usecases/usecases.dart';
 
+import '../../../lib.dart';
 import '../repository/absent.repository.dart';
 
 //? Get current period usecase
@@ -48,12 +49,12 @@ class AbsentCheckPINUseCase extends UseCase<DataState, String> {
   }
 }
 
-class AbsentUsecaseGetActPeriod extends UseCase<DataState, NoParams> {
+class AbsentUsecaseGetActPeriod extends UseCase<DataState, GetActPeriodParams> {
   final AbsentRepository repos;
   AbsentUsecaseGetActPeriod(this.repos);
   @override
-  Future<DataState> call(NoParams params) async {
-    var res = await repos.getUserActPeriod();
+  Future<DataState> call(GetActPeriodParams params) async {
+    var res = await repos.getUserActPeriod(params.period, params.lokasi);
     return res;
   }
 }

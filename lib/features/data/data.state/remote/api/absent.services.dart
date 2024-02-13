@@ -12,6 +12,7 @@ abstract class RemoteAbsentServices {
   Future<HttpResponse<dynamic>> userAssignLoc();
   Future<HttpResponse<dynamic>> userPINcheck(PINBodyParams? param);
   Future<HttpResponse<dynamic>> holidayList(HolidayBodyParams? param);
+  Future<HttpResponse<dynamic>> actPeriod(RemoteLoginActPeriodModel? param);
 }
 
 class RemoteAbsentServicesImpl extends RemoteAbsentServices with CacheManager {
@@ -66,7 +67,7 @@ class RemoteAbsentServicesImpl extends RemoteAbsentServices with CacheManager {
     )
         .compose(
           dio.options,
-          '${Endpoints.baseURL}/attendance/list',
+          '${Endpoints.urlSDM}/attendance/list',
           queryParameters: queryParameters,
           data: data,
         )
@@ -98,7 +99,7 @@ class RemoteAbsentServicesImpl extends RemoteAbsentServices with CacheManager {
     )
         .compose(
           dio.options,
-          '${Endpoints.baseURL}/attendance/submit',
+          '${Endpoints.urlSDM}/attendance/submit',
           queryParameters: queryParameters,
           data: data,
         )
@@ -135,7 +136,7 @@ class RemoteAbsentServicesImpl extends RemoteAbsentServices with CacheManager {
     )
         .compose(
           dio.options,
-          '${Endpoints.baseURL}/travel/active',
+          '${Endpoints.urlSDM}/travel/active',
           queryParameters: queryParameters,
           data: data,
         )
@@ -167,6 +168,37 @@ class RemoteAbsentServicesImpl extends RemoteAbsentServices with CacheManager {
         .compose(
           dio.options,
           '${Endpoints.urlUSER}/pin/check',
+          queryParameters: queryParameters,
+          data: data,
+        )
+        .copyWith(
+            baseUrl: combineBaseUrls(
+          dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = result.data;
+    final httpResponse = HttpResponse(value, result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse> actPeriod(RemoteLoginActPeriodModel? param) async {
+    var token = await accessToken();
+    const extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final headers = <String, dynamic>{r'Authorization': token};
+    headers.removeWhere((k, v) => v == null);
+    final data = <String, dynamic>{};
+    data.addAll(param?.toJson() ?? <String, dynamic>{});
+    final result = await dio.fetch(setStreamType<HttpResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: headers,
+      extra: extra,
+    )
+        .compose(
+          dio.options,
+          '${Endpoints.urlSDM}/periodpayroll/active',
           queryParameters: queryParameters,
           data: data,
         )
