@@ -6,7 +6,7 @@ import '../../../../../lib.dart';
 import '../network.utils.dart';
 
 abstract class RemoteApprovalServices {
-  Future<HttpResponse<dynamic>> listApproval();
+  Future<HttpResponse<dynamic>> listApproval(jenis);
   Future<HttpResponse<dynamic>> approvalDataDetail(
       ApprovalDataDetailParams? param);
   Future<HttpResponse<dynamic>> approvalSubmitResponse(
@@ -83,11 +83,11 @@ class RemoteApprovalServicesImpl extends RemoteApprovalServices
   }
 
   @override
-  Future<HttpResponse<dynamic>> listApproval() async {
+  Future<HttpResponse<dynamic>> listApproval(jenis) async {
     var token = await accessToken();
     ApprovalListParams? param;
     var id = await userUID();
-    param = ApprovalListParams(id, '-', '1');
+    param = ApprovalListParams(id, jenis, '1');
     const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);

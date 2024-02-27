@@ -10,7 +10,7 @@ class ApprovalRepoImpl implements ApprovalRepository {
   @override
   Future<DataState> getListApproval(type) async {
     try {
-      final httpResp = await remoteServices.listApproval();
+      final httpResp = await remoteServices.listApproval(type);
 
       if (httpResp.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResp.data);

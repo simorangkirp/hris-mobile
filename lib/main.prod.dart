@@ -12,7 +12,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
   final devAppConfig = AppConfig(
-    appName: 'OWL ESS Prod',
+    appName: 'OWL ESS',
     flavor: FlavorType.prod,
   );
   await Firebase.initializeApp(
